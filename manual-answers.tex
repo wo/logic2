@@ -1,13 +1,56 @@
-\documentclass{../wobook2018}
+\documentclass{scrartcl}
 
-%\DeclareFontFamily{OT1}{pzc}{}
-%\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.15] pzcmi7t}{}
-%\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
-%\newcommand{\Fr}[1]{\ensuremath{\mathpzc{#1}}}
-%\newcommand{\Sc}[1]{\ensuremath{\mathpzc{#1}}}
-\renewcommand{\L}{\ensuremath{\mathfrak{L}}\xspace}
-\newcommand{\Cfr}{\ensuremath{\mathfrak{C}}\xspace}
-\newcommand{\Mfr}{\ensuremath{M}\xspace}
+% encoding:
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% fonts and math packages:
+\usepackage{amsthm}
+\usepackage[fleqn, leqno]{amsmath}
+\setlength\mathindent{1.6cm}
+\everydisplay{\displayindent=1cm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+% main font:
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{textcomp}
+
+% for enumerate with roman and alphabetical labels:
+\usepackage{enumerate}
+
+% additional packages:
+\usepackage{fancyvrb,paralist}
+\usepackage{multirow,rotating}
+\usepackage{eqlist}
+\usepackage{mdwlist}
+
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{graphicx} % for including pictures
+\usepackage{tikz}
+
+% nicer tables:
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.1} % more space between table rows
+
+% general layout:
+\usepackage{url,ellipsis}
+\usepackage[final=true,step=1]{microtype}
+\usepackage{ragged2e}
+
+% section heading layout:
+\setkomafont{section}{%
+\renewcommand{\bfdefault}{sb}%
+%\usefont{T1}{qhv}{b}{n}\selectfont
+%\bfseries\Large
+\fontfamily{put}\bfseries\Large%
+\renewcommand{\bfdefault}{bx}%
+}
+\setkomafont{subsection}{%
+\renewcommand{\bfdefault}{sb}%
+\fontfamily{put}\bfseries\large%
+\renewcommand{\bfdefault}{bx}%
+}
 
 % make box and diamond larger, and vdash (too small in newtxmath):
 \usepackage{scalerel}
@@ -52,34 +95,12 @@
 \DeclareMathOperator{\Always}{\mathsf{A}}
 \DeclareMathOperator{\Sometimes}{\mathsf{S}}
 \DeclareMathOperator{\Mostly}{\mathsf{M}}
+
 % better smallcaps:
 \newcommand{\smallcaps}[1]{{\text{\footnotesize \MakeUppercase{#1}}}}
 \newcommand{\stit}{\mathop{\textsf{\smallcaps{stit}}}}
 \newcommand{\OK}{\mathop{\textsf{\smallcaps{OK}}}}
 
-\newcommand{\Ax}[1]{\smallcaps{\text{A#1}}}
-\newcommand{\prov}[1]{\vdash_{\!\scriptscriptstyle{#1}}}
-\newcommand{\notprov}[1]{\scaleobj{1.3}{\not\vdash}_{\!\scriptscriptstyle{#1}}}
-\newcommand{\CM}[1]{M_{\!\scriptscriptstyle{\Ax{#1}}}}
-
-
-% shortcut for displaying named axiom schemas:
-\newcommand{\principle}[2]{\begin{equation}\tag{\textbf{#1}}#2\end{equation}}
-\newenvironment{principles}{\gather}{\endgather}
-\newcommand{\pri}[2]{#2 \tag{\textbf{#1}}}
-
-% custom list format in exercises:
-\usepackage[shortlabels]{enumitem} % \begin{enumerate}[(a)]
-\newenvironment{exlist}{\vspace{-2mm}\begin{enumerate}[(a)]\itemsep-1.5mm}{\end{enumerate}\vspace{-3mm}}
-\newenvironment{sollist}{\begin{enumerate}[(a)]\itemsep-1.5mm}{\end{enumerate}}
-\setlist[itemize]{leftmargin=*}
-\setlist[enumerate]{leftmargin=*}
-
-\setkomafont{subsection}{%
-\renewcommand{\bfdefault}{sb}%
-\fontfamily{put}\bfseries\normalsize%
-\renewcommand{\bfdefault}{bx}%
-}
 
 \begin{document}
 
@@ -160,11 +181,11 @@ truth-functional.
 %   `xsim' package v0.16a (2020/01/16)
 % from source `ml' on 2020/09/26 on line 1381
 % ------------------------------------------------------------------------
-  \begin{sollist}
+  \begin{enumerate}[(a)]
   \item All of them.
   \item \textbf{K}, \textbf{Dual1}, \textbf{Dual2}, \textbf{4},
     \textbf{5}, and \textbf{G}, but not \textbf{T} or \textbf{D}.
-  \end{sollist}
+  \end{enumerate}
 
 
 % \printsolutions[chapter=2]
