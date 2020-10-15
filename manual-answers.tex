@@ -16,6 +16,7 @@
 \usepackage{newtxmath}
 \usepackage{textcomp}
 
+
 % for enumerate with roman and alphabetical labels:
 \usepackage{enumerate}
 
@@ -259,7 +260,7 @@ truth-functional.
       \nnode{25}{3.}{$\neg \Box(p \lor q)$}{w}{(1)}\\
       \nnode{25}{4.}{$\neg(p \lor q)$}{v}{(3)}\\
       \nnode{25}{5.}{$\neg p$}{v}{(4)}\\
-      \nnode{25}{5.}{$\neg q$}{v}{(4)}
+      \nnode{25}{6.}{$\neg q$}{v}{(4)}
     }
 
     Countermodel: $W = \{ w, v \}, V(p,w) = 1, V(p,v)=0, V(q,v)=0$.
@@ -370,7 +371,7 @@ truth-functional.
       &\nnode{15}{12.}{$\neg p$}{u}{(11)}&&\nnodeclosed{9}{13.}{$\neg q$}{u}{(11)}&\\
       &\bnode{15}{14.}{$\neg(p \land q)$}{w}{(3)}&&\\
       &&&\\
-      \nnode{9}{10.}{$\neg p$}{w}{(14)}&&\nnode{9}{10.}{$\neg q$}{w}{(14)}&
+      \nnode{9}{15.}{$\neg p$}{w}{(14)}&&\nnode{9}{16.}{$\neg q$}{w}{(14)}&
     }
 
     Countermodel: $W = \{ w,v,u \}, V(p,w)=0, V(p,v)=1, V(p,u)=0, V(q,v)=0, V(q,u)=1$.
