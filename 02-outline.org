@@ -1,8 +1,0 @@
-#+TITLE: 02 Outline
-
-- read the forcing turnstile as 'makes true'!
-
-- On trees https://www.logicmatters.net/wp-content/uploads/2019/10/TruthTreesPL1.pdf
-
-
-- H101 on an ontological argument: take p as ``God exists''. Let's assume the concept of God implies that if he exists then he does so necessarily. Thus [](p->[]p). Let's also assume <>p. It follows in S5 but not in S4 that p.
