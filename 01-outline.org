@@ -1,0 +1,226 @@
+#+TITLE: 1. Operators: Outline
+
+* Boxes and diamonds
+
+Modal logic is an extension of classical logic that is used to reason about many things.
+
+Extends the language.
+
+Why formal language at all?
+
+We want to make sure reasoning is valid. Example of valid argument (myriapods). Logically valid.
+
+Logical form and meaning in nat lang often unclear. So we invent formal languages.
+
+Back to modal logic: might be raining argument. Instance of a valid form. To formalise, we need 'might' and 'certain'.
+
+So we add <> and []. We can then formalise. We'll also specify rules of reasoning and assign precise meanings to <> and [].
+
+We've entered ML. Historical origin: study of necessity and contingency. Today
+many other subfields. Approximately, ML is logic that involves non-truthfunc
+ops.
+
+Explain: ops and truth-func.
+
+We can't define <> and [] by truth table. Will instead use possible worlds.
+
+* Flavours of modality
+
+In phil & ling, "modal" statements are about what must or may etc.
+
+Examples.
+
+Grammatically diverse. In terms of meaning, we can distinguish at least three flavours. epistemic, deontic, circumstantial. Each corresponds to branch of ML.
+
+Subflavours of circ modality: metaph and absolute.
+
+Many modal sentences can be paraphrased into sentences with "it is necessary" and "it is possible", which are then conventionally formalised with [] and <>.
+
+Example: 'you must leave' => 'it is necessary [given some relevant norms] that you leave' => []p
+
+'the bridge is fragile' => 'it is possible that the bridge breaks' => <>p
+
+Translations can be tricky. "If the lights are on, Bob might be in his office". Paraphrase: "If... possible that...". Suggests l-><>o. This is not bad. But I can think of a scenario in which the translation is true and the original sentence is false: The lights are off; we don't know whether they are, and whether Bob is in his office, but we know that Bob is never in his office when the lights are on. The translation is true because the antecedent is false. But the English sentence is false.
+
+Can you find a better translation? <>(l & o). Sounds very different. But hard to find a scenario in which this is true and the original is false or vv. Is this the correct translation? There's a debate about this, and more generally about what English sentences that combine 'if' and modal operators mean. That's one reason for doing formal logic. It's hard to reason rigorously with sentences for which it is unclear what they mean. When we create logical languages we can simply stipulate what they mean.
+
+[A word of warning: the box and the diamond don't have a fixed meaning. In general, the box expresses some kind of necessity and the diamond some kind of possibility. But there are different "flavours" of these notions. Without further context simply read the box as 'box'.]
+
+A few general hints for translations:
+
+- check models/TCs -- is there a case where the translation is true but the original false or v.v.?
+- Think of something that's entailed by either your translation or the original, and check that it's entailed.
+- Replace the arrow. A good trick is to replace equivalents in a translation. Consider 'if you can't go to the station, you can't take the train'. You might think this means the same as 'it's not possible that you take the train if you don't go to the station', which in turn you might formalise as $\neg\Diamond(\neg g \to t)$. But notice that $\neg g \to t$ is equivalent to $g \lor t$. So this translation is equivalent to $\neg\Diamond(g \lor t)$, and that doesn't look right. You can also replace further to $\Box\neg(g \lor t)$ and to $\Box(\neg g \land \neg t)$. And that's surely not correct.
+- Also, check edge cases: what if nobody can become president, what if everyone can? (The model stuff can only be done later though. Maybe that's nice. "Now we can say more about how to check for a good translation....") Even before we have models, I can advise to translate the formal sentence back into English and check if it intuitively means the same thing: can one be true and the other false?
+- A simple example of why/when A->[]B is wrong: check if []B itself is true in the scenario. If it is false, check if we can infer that A is true in the scenario. If not, A->[]B is not the right translation.
+
+Exercise: (adapted from Lepore 314f.): "Sarah cannot jump over the fence." vs "Sarah must not jump over the fence." If we translate the latter as $\neg \Box p$, it means "it is not the case that ....". We are claiming that "Sarah must jump over the fence" is false. But one can imagine situations in which... Exercise: "Sarah might not jump", "Sarah could not jump".
+
+Exercise: "going to the lectures is necessary but not sufficient for doing well in the exam".
+
+* Duality
+
+Translate: "Bob can't be in his office"
+
+Answer: ~<>p.
+
+What about []~p? Would that have been OK? It seems to be equivalent. In general, for any sentence A, ~[]A seems to be equivalent to <>~A.
+[A brief aside: I am using 'A' as a metalinguistic variable to talk about arbitrary L-sentences. The curly letter 'A' does not occur in the alphabet of L. ~[]A is not a sentence, but a /schema/. Maybe don't need this here?]
+Also ~<>A seems to be equivalent to []~A.
+
+This also holds if A is itself negated, i.e. if it is ~B. So we have ~[]~B is equivalent to <>~~B, for all B. We can relabel the schematic letter. More substantively, we will assume that logically equivalent sentences can always be replaced by one another, even when they occur in the scope of a box or a diamond. Thus we have ~[]~A is equivalent to <>A. So we could have defined the diamond in terms of the box.
+
+Also, ~<>~B is equivalent to []~~B. etc.
+
+(Why can we replace logically equivalent sentences? Because they make the same claim about the world. If I tell you that it is not the case that it is not raining, I'm making the same claim as if I tell you that it is raining, although I'm using other words. Like English or French, or using decimal or binary notation. Now when we say that something is necessary or possible, in some sense, then arguably we mean that a relevant state of affairs is necessary or possible, no matter how it is expressed.)
+
+Since [] and <> are duals, and we can replace logical equivalents anywhere in sentences, we can always replace a modal operator by its dual, insert a negation on both sides, and possibly remove double negations. For example, []~<>p is equivalent to ~<>[]~p.
+
+Here is another useful consequence. Suppose in some application we hold that all instances of the schema []A->A are valid. By duality, this is equivalent to .... all instances of A-><>A being valid. We call A-><>A the dual of []A->A.
+
+Humberstone p.35: The dual form of a schema with -> as its main connective [and no other ->] is the schema in which antecedent and consequent are interchanged and & and v and [] and <> are swapped by one another. Maybe ask in an exercise to prove that this preserves validitiy. (To find the dual of e.g. GL first replace an embedded -> by not or.)
+
+Exercise: A proposition is contingent (triangle standing on a corner) if neither it nor its negation is necessary. Exercise: Can you define the box in terms of the triangle? (Humberstone p.18 says we need to assume that []A entails A.)
+
+* The turnstile (validity/entailment)
+
+Let's be clear about our formal language.
+
+Define formulas.
+
+Sentences of L don't have fixed meaning. Don't need to have one.
+
+Let's make a little clearer what valid ivo form means.
+
+An argument is valid if the conclusion follows from the premises. More informatively: there is no
+conceivable scenario in which the premises are true and the conclusion is false.
+This is a popular and simple answer that proves useful. It captures the idea
+that the premises guarantee the truth of the conclusion.
+
+Note a consequence: Is '1+1=3, so it is raining' valid? If there's no
+conceivable scenario where 1+1=3 then it is valid.... Some have found this
+problematic, they thought there should be some connection between premises and
+conclusion, so they defined other notions of validity. Nothing wrong with that.
+But also nothing wrong with our notion, as long as we keep in mind that it is a
+somewhat technical notion that captures the idea of guaranteeing...
+
+In fact we're interested in a more restricted notion of validity. Compare "some cats are black => some animals are black" and "myriapods". If you formalise both in QL, you'll note that in the first case we can't derive the conclusion from the premises. Only the second is logically valid.
+
+An arg is /lv/ if it is valid in virtue of the meaning of the logical expressions. The cat arg is not. You need to know the meaning of cat.
+
+In terms of scenarios, an arg is lv iff there is no conc scen in which... under any (re-)interpretation of the non-logical expressions.
+
+Think of the cats case. If we re-interpret 'animal' as strawberry, there are scenarios in which....
+
+Validity is closely related to entailment. If an arg is valid the premises entail the conclusion.
+
+Let's introduce an abbreviation: A1...An |= B. This means that there are no conceivable...
+
+We can apply this to a formal language. So we can write pvq, ~p |= q and <>r, [](r->w) |= <>w.
+
+Metalanguage and object language.
+
+Informally, the turnstile says that you can't make everything on the left true and everything on the right false. As a special case, |= A means that A is true in any scenario under any interpretation. The sent is called valid.
+
+* Systems of modal logic
+
+If we want to formalise discourse with a certain modal notion, we will want to clarify which sentences are valid and which conclusions follow from which premises. Consider, for example, an argument from []p to p. Is this valid? That is, should we accept that []p |= p?
+
+The answer depends on what we mean by the box. If the box expresses some kind of circumstantial modality, then []p plausibly entails p. Not so if the box expresses normative necessity.
+
+This is why there isn't just one modal logic, but many. In one logic, we may have []p |= p, in another we won't.
+
+Let's focus on a particular interpretation of the modal operators -- an interpretation that preoccupied the ancient Greeks. Philosophers in ancient Greence were interested in which facts are settled and which can still be altered. Intuition: past is fixed, future is open. Let's write []p for "p is settled" in the sense of p is true and nothing can be done about it. <>p means p could be made true; it's not settled that it is false.
+
+Not entirely precise, but we can tell that e.g. []p |= p. And obviously this generalises to arbitrary sentence letters. And further to schemas. What should we think about []<>p -> <>p? This is plausibly valid too. We've assumed that whatever is settled is the case.
+
+exercise schemas.
+
+There are other validities that aren't instances of this. E.g. the "aggregation"
+principle []A & []B |= [](A&B) looks plausible.
+
+In the end, we want to specify for every possible inference pattern whether it is valid or not. This is tricky because there are (as we will see) infinitely many valid patterns and infinitely many invalid patterns.
+
+There are different to get around this. I'll show you one, the oldest one.
+
+We start with an observation about the turnstile. Compare []p |= p with |= []p->p. In terms of scenarios and interpretation these mean the same thing....
+
+Our task simplifies to: determine for arbitrary sentences whether they are valid. I.e., we want to efficiently characterise a certain set $S_{LS}$ of sentences, a set that represents the logic of what is settled.
+
+Now the idea is this. We single out a few schemas whose instances are in the set. Then we state rules for how to generate other sentences from sentences in $S_{LS}$.
+
+Here are some schemas are plausibly valid on at least one reading of the settledness idea, so they should be in our set.
+
+Dual
+T
+K
+4
+5
+
+Comment on K,4,5.
+
+Now here is a plausible rule. If something follows from a valid sentence by propositional logic, then it is valid.
+
+As a special case, all propositional tautologies therefore count as in $S_{LS}$.
+
+In the approach we are pursuing, it is customary to keep the rules as simple as possible. We can simplify the present rule.
+
+First, we say that all tautologies are in $S_{LS}$.
+
+Taut
+
+Next, we say that if A,A->B are in the set then so is B. This restricts the rules to MP.
+
+We need one more rule. Consider [](pv~p). Plausibly logical truths are settled. More generally, if |= A, then |= []A.
+
+Nec
+
+From PS: (Nec) is to be very sharply distinguished from what would evidently be the quite unacceptable axiom schema A -> []A: obviously, A can be true  without being necessarily true. However, the idea justifying (Nec) is that if A is actually a logical theorem – i.e. is deducible from logical principles
+alone – then it will indeed be necessary (on almost any sensible understanding of ‘necessary’).
+
+I claim that there is a natural understanding of settledness on which these assumptions completely characterise the logic of what is settled.
+
+It is easy to see that the two rules generate infinitely many sentence schemas from any basis of axioms. Indeed (Nec) alone tells us that since (e.g.) all instances of []A->A are in S, so are all instances of []([]A->A), all instances of [][]([]A->A), and so on. 
+
+What we have here is called an axiomatisation of the logic. We have four axioms and two rules. The set of sentences defined by these is called a system of modal logic. This system is famous; called S5 because it was first given as the 5th system in a certain list.
+
+We can define other systems by using different axioms and/or rules. For example, S4 drops the 5 axiom.
+
+exercise: which of the axioms and rules of S5 are plausible for the following
+interpretations of the box: "it is true in virtue of logical form hat", "it is
+certain that", "it is morally required that", "it is true that", "it is false
+that"?
+
+You can use an axiomatisation as a proof method. Example: Show [](p & q) |= []p.
+
+(p&q)->p (PL)
+[]1      (Nec)
+K 
+
+This style is called axiomatic method or Hilbert method.
+
+Better show aggregation?
+
+1. p->(q->(p&q))                  Taut
+2. []p->[](q->(p&q))              1, Nec, K, MP
+3. [](q->(p&q) -> ([]q->[](p&q))  K
+4. []p -> ([]q -> [](p&q))        2, 3, PL
+5. []p & []q -> [](p&q)           4, PL
+   
+* To consider
+
+"I really like developing the ideas of induction and recursion and the
+analogies between the natural numbers and formal languages in this regard. I
+like bringing students to see that we can prove things about the formal
+languages introduced in a basic logic course in this way."
+
+When I say 'show that' in an exercise, I need to make clear what I want. For
+example, I don't want an intuitive argument in which the box is read as
+`necessarily'. And I don't want a tree proof.
+
+In general: clarify what's core material and what isn't.
+
+Introduce/remind 'scope'. The scope of a token of an expression is the
+shortest well-formed sentence in which it occurs. We say the scope of A is
+wider/ than that of B if the scope of A contains that of B. 
+

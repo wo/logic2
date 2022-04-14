@@ -1,0 +1,1152 @@
+\chapter{Epistemic Logic}\label{ch:epistemic}
+
+% ``I know you think you understand what you thought I said but I'm not sure you
+% realize that what you heard is not what I meant.'' -- Alan Greenspan%
+
+\section{Epistemic accessibility}
+
+When we say that something is possible, we often mean that it is compatible with
+our information. This ``epistemic'' flavour of possibility -- along with related
+concepts such as knowledge, belief, information, and communication -- is studied
+in epistemic logic.
+
+Standard epistemic logic relies heavily on the possible-worlds semantics
+introduced in chapters \ref{ch:worlds} and \ref{ch:accessibility}. The guiding
+idea is that information rules out possibilities. Suppose, for example, we are
+investigating a crime. There are three suspects: the gardener, the butler, and
+the cook. A credible eye-witness tells us that the gardener was out of town at
+the time of the crime. This allows us to rule out the previously open
+possibility that the gardener is the culprit. When we gain information, the
+space of open possibilities shrinks.
+
+% This model of attitudes goes back to Hintikka [1962]. The representation as a
+% binary relation is formally interchangeable with the “possibility
+% correspondences” as introduced by Aumann [1976] (see also Aumann [1999]) and
+% used throughout economic theory. For the interchangeability, see, e.g. Fagin
+% et al. [1995].
+
+Let's say that a world is \emph{epistemically accessible} for an agent if it is
+compatible with the agent's knowledge. Recall that a world is a maximally
+specific possibility. For any such possibility, we may ask whether it might be
+the actual world. If your information allows you to give a negative answer then
+the world is not epistemically possible for you -- it is epistemically
+inaccessible. Before we learned that the gardener was out of town, our
+epistemically accessible worlds included worlds at which the gardener committed
+the crime. When we received the eye-witness report, these worlds became
+inaccessible.
+
+\begin{exercise}
+  Which worlds are epistemically accessible for an agent who knows all truths?
+  Which worlds are epistemically accessible for an agent who knows nothing?
+\end{exercise}
+\begin{solution}
+  For an agent who knows all truths only the actual world is epistemically accessible. For an agent who knows nothing all worlds are epistemically accessible.
+\end{solution}
+
+We will interpret the box and the diamond in terms of epistemic accessibility.
+In this context, the box is usually written `$\Kn$', which for once doesn't
+stand for Kripke but for knowledge. I will use `$\Mi$' (`might') for the
+diamond. So $\Kn A$ means that $A$ is true at all epistemically accessible
+worlds, while $\Mi A$ means that $A$ is true at some epistemically accessible
+world. If we want to clarify which agent we have in mind, we can add a
+subscript: $\Mi_{\text{b}} A$ might say that $A$ is epistemically possible for
+Bob.
+
+We often informally read $\Kn$ as `the agent knows'. In at least one respect,
+however, our $\Kn$ operator does not match the knowledge operator of ordinary
+English.
+
+To see why, note that if some propositions are true at a world, then anything
+that logically follows from these propositions is also true at that world. For
+example, if $p\to q$ and $p$ are both true at $w$, then so is $q$ (by definition
+\ref{def:kripkesemantics}). As a consequence, if $p \to q$ and $p$ are true at
+all epistemically accessible worlds (for some agent), then $q$ is also true at
+all these worlds. $\Kn (p\to q)$ and $\Kn p$ together entail $\Kn q$. More
+generally, the $\Kn$ operator is \textbf{closed under logical consequence},
+meaning that if $B$ logically follows from $A_1,\ldots,A_n$, and
+$\Kn A_1, \ldots,\Kn A_n$, then $\Kn B$.
+
+Our ordinary conception of knowledge does not seem to be closed under logical
+consequence. If you know the axioms of a mathematical theory, you don't
+automatically know everything that logically follows from the axioms. Our $\Kn$
+operator might be taken to formalise the concept of \emph{implicit knowledge},
+where an agent implicitly knows a proposition if the proposition follows from
+things the agent knows. An agent's implicit knowledge represents the information
+the agent has about the world. If what you know entails $p$, then the
+information you have settles that $p$, even though you may not realise that it
+does.
+
+% \begin{exercise}
+%   One might think that ordinary knowledge is closed under \emph{obvious
+%   logical consequence}: If we know some propositions, and these propositions
+%   obviously entail another proposition (say, by modus ponens, or by a similar
+%   elementary rule), then we also know that other proposition. Explain why any
+%   operator that is closed under obvious logical consequence is closed under
+%   logical
+%   consequence. % this needs to be made more precise. What if logical consequence is 2nd-order?
+% \end{exercise}
+% \begin{solution}
+%   If some proposition $B$ is logically entailed by $A_{1}, \ldots, A_{n}$, then
+%   there is a derivation of $B$ from $A_{1}, \ldots, A_{n}$ in which each
+%   individual step is obvious.
+% \end{solution}
+
+\begin{exercise}
+  Translate the following sentences into the language of epistemic logic,
+  ignoring my warnings about the mismatch between $\Kn$ and the ordinary concept
+  of knowledge.
+  \begin{exlist}
+  \item Alice knows that it is either raining or snowing.
+  \item Either Alice knows that it is raining or that it is snowing.
+  \item Alice knows whether it is raining.
+  \item You know that you're guilty if you don't know that you're innocent.
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+  \item $\Kn(r \lor s)$\\
+    $r$: It is raining; $s$: It is snowing\\[-2mm]
+  \item $\Kn r \lor \Kn s$\\
+    $r$: It is raining; $s$: It is snowing\\[-2mm]
+  \item $\Kn r \lor \Kn \neg r$\\
+    $r$: It is raining\\[-2mm]
+  \item This sentence is ambiguous. On one reading, it could be translated as $\Mi g\to Kn g$, on the other as $\Kn(\Mi g \to g)$\\
+    $g$: You are guilty
+  \end{sollist}
+\end{solution}
+
+% \begin{exercise}
+%   The ordinary concept of knowledge logically ill-behaved in more than one
+%   respect. Let $\Kn^*$ be an operator that applies to a sentence $A$ iff we
+%   would intuitively say that some fixed agent knows $A$. Assume the agent in
+%   question knows the axioms of ZFC set theory. Define $\Kn^+$ as the logical
+%   closure of $\Kn^*$; that is,
+
+%   \bigskip
+%   $\Kn^+ A \;\Leftrightarrow_{\text{def}}\; \text{$A$ is entailed by sentences $A_1,\ldots,A_n$ such that $\Kn^* A_1,\ldots,\Kn^* A_n$}.$
+%   \smallskip%
+  
+%   Note the similarity between $\Kn^+$ and the mathematical provability operator
+%   from section \ref{sec:provability}.  Indeed, with minimal further assumptions
+%   one can prove that $\Kn^+$ validates the \textbf{GL} schema:
+%   \[
+%     \Kn^+(\Kn^+ A \to A) \to \Kn^+ A
+%   \]
+%   From the definition of $\Kn^+$, we can infer that the following is also valid:
+%   \[
+%     \Kn^*(\Kn^+ A \to A) \to \Kn^+ A.
+%   \]
+%   Explain why this is an intuitively unacceptable principle about
+%   knowledge.
+% \end{exercise}
+% \begin{solution}
+%   One possible answer: There are many propositions that I don't know, and that
+%   don't logically follow from things I know. And for many of these propositions
+%   I \emph{know} that that they don't follow from things I know. (For example, I
+%   know that it doesn't follow from anything I know that Edinburgh is in Italy.)
+%   Let $p$ be some such proposition. Since I know that $\neg \Kn^+ p$ is true, I
+%   can easily figure out that $\Kn^+ p \to p$ is true as well (by the truth-table
+%   for the arrow). So $\Kn^*(\Kn^+p \to p)$. If
+%   $\Kn^*(\Kn^+ A \to A) \to \Kn^+ A$ were valid, it would follow that $p$ does
+%   after all follow from what I know!
+% \end{solution}
+
+% \begin{exercise}
+%   We could add ``impossible'' worlds to avoid closure under logical entailment
+%   (Rantala 1982). Explain why definition \ref{def:possibleworldssemantics}
+%   needs to be changed for impossible worlds $w$.
+% \end{exercise}
+
+% Mention centring?
+
+
+\section{The logic of knowledge}
+
+What is the logic of (implicit) knowledge? Which sentences in the language of
+epistemic logic are valid? Which are logical consequences of which others?
+
+The basic system K is arguably too weak. There are Kripke models in which
+$\Box p$ is true at some world while $p$ is false. But knowledge entails truth.
+If $p$ is genuinely known (or entailed by what is known) then $p$ is true. In
+the logic of knowledge, all instance of the \pr{T}-schema are valid.
+%
+\principle{T}{\Kn A \to A}
+
+We know from section \ref{sec:frames} that the \pr{T}-schema corresponds to
+reflexivity, in the sense that all instances of the schema are valid on a frame
+iff the frame is reflexive. To ensure that all \pr{T} instances are valid, we
+will therefore assume that Kripke models for epistemic logic are always reflexive.
+Every world is accessible from itself.
+
+This makes sense if you remember what accessibility means in epistemic logic. We
+said that a world $v$ is (epistemically) accessible from a world $w$ if $v$ is
+compatible with what the agent knows at $w$. Whatever the agent knows at $w$
+must be true at $w$. So any world in any conceivable scenario must be
+accessible from itself.
+
+% Reflexivity implies seriality, which corresponds to the schema
+% \begin{equation}\tag{\pr{D}}
+%   \Kn A \to \Mi A
+% \end{equation}
+% Intuitively, this means that the information available to an agent is never
+% contradictory. If the information entails $A$ (as $\Kn A$ asserts), then it
+% does not entail $\neg A$ (that is, then $\neg \Kn\neg A$).
+
+Let's look at other properties of the epistemic accessibility relation. Is the
+relation symmetric? If $v$ is compatible with what is known at $w$, is $w$
+compatible with what is known at $v$? I will give two arguments for a negative
+answer.
+
+My first argument assumes that we have non-trivial knowledge about the external
+world. Let's say we know that we have hands. Now consider a possible world in
+which we are brains in a vat, falsely believing that we have hands. In that
+world, we know very little. We don't know that we have hands, nor that we are
+handless brains in a vat. Perhaps we know that we are conscious, and what kinds
+of experiences we have. But since our experiences are the same in the vat world
+and in the actual world (let's assume), the actual world is compatible with what
+little we know in the vat world. So the actual world is accessible from the vat
+world. But the vat world is not accessible from the actual world -- otherwise we
+wouldn't know that we have hands. If the actual world is accessible from the vat
+world and the vat world is inaccessible from the actual world then the
+accessibility relation isn't symmetric.
+
+My second argument starts with a scenario in which someone has misleading
+evidence that some proposition $p$ is false. This is easily conceivable. In that
+scenario, $p$ is true but the agent believes $\neg p$. Often, when we believe
+something, we also believe that we know it. Let's assume that our agent believes
+that they know $\neg p$. Let's also assume that their beliefs are consistent, so
+they don't believe that they \emph{don't} know $\neg p$. Since they don't
+believe this proposition (that they don't know $\neg p$) they don't know it
+either: they don't know that they don't know $\neg p$. So we have a scenario in
+which $p$ is true but $\Kn \neg \Kn \neg p$ false.
+
+Can you see what this has to do with symmetry? In section \ref{sec:frames} I
+mentioned that symmetry corresponds to the schema
+%
+\principle{B}{A \to \Kn \Mi A.}
+%
+This means that all instances of \pr{B} are valid on a frame iff the frame is
+symmetric. If the epistemic accessibility relation were symmetric, then all
+instances of \pr{B} would be valid. But I've just described a scenario in which
+an instance of \pr{B} is false. So the epistemic accessibility relation isn't
+symmetric.
+
+What about transitivity, which corresponds to schema \pr{4}?
+%
+\principle{4}{\Kn A \to \Kn\Kn A}
+%
+In epistemic logic, \pr{4} is known as the \textbf{KK principle}, or
+(misleadingly) as \textbf{positive introspection}. There is an ongoing debate
+over whether the principle should be considered valid. I will review one
+argument for either side.
+
+A well-known argument against the KK principle draws on the idea that knowledge
+requires ``safety'': you know $p$ only if you couldn't easily have been wrong
+about $p$. To motivate this idea, consider a Gettier case. Suppose you are
+looking at the only real barn in a valley which, unbeknownst to you, is full of
+fake barns. Your belief that you're looking at a barn is true, and it seems to
+be justified. But intuitively, it isn't knowledge. You don't know that what
+you're looking at is a real barn. Why not? Advocates of the safety condition
+suggest that you don't have knowledge because you could easily have been wrong.
+You genuinely know $p$ only if there is no ``nearby'' possibility at which $p$
+is false, where ``nearness'' is a matter of similarity in certain respects.
+
+On the safety account, you know \emph{that you know $p$} only if there is no
+nearby world at which you don't know $p$. That is, you know at world $w$ that
+you know $p$ only if you know $p$ at all worlds $v$ that are relevantly similar
+to $w$. And you know $p$ at $v$ only if $p$ is true at all worlds $u$ that are
+relevantly similar to $v$. But similarity isn't transitive: the fact that $u$ is
+similar to $v$ and $v$ is similar to $w$ does not entail that $u$ is similar to
+$w$. So it can happen that $p$ holds at all nearby worlds, but not at all worlds
+that are nearby a nearby world. In that case, you may know $p$ without knowing
+that you know $p$.
+
+Not everyone accepts the safety condition. Other accounts of knowledge vindicate
+the KK principle. For example, some have argued that an agent knows $p$
+(roughly) iff the agent's belief state \emph{indicates} $p$, in the sense that
+%
+\begin{quote}
+\begin{enumerate*}
+\item[(1)] under normal conditions, being in that state implies $p$, and
+\item[(2)] conditions are normal.
+\end{enumerate*}
+\end{quote}
+% 
+We can formalize this concept in modal logic. Let $N$ mean that conditions are
+normal (whatever exactly that means), and let $\Box$ be a non-epistemic operator
+that formalizes `at all worlds'. $\Box(N \to A)$ then means that $A$ is true at
+all world at which conditions are normal. According to the definition I just
+gave, a belief state $s$ indicates $p$ iff
+\begin{equation}\tag{*}
+  \Box(N \to (s\to p)) \land N.
+\end{equation}
+The state $s$ indicates that $s$ indicates $p$ iff
+\begin{equation}\tag{**}
+  \Box(N \to (s \to (\Box(N \to (s \to p)) \land N))) \land N.
+\end{equation}
+A quick tree proof reveals that (*) entails (**). That is, whenever a state
+indicates $p$ then it also indicates that it indicates $p$. On the indication
+account of knowledge, a belief state that constitutes knowledge therefore
+automatically constitutes knowledge of knowledge: the \pr{4} schema is valid.
+
+\begin{exercise}
+  Give an S5 tree proof to show that (*) entails (**). Why can we
+  assume S5 here?
+\end{exercise}
+\begin{solution}
+  You can use
+  \href{https://www.umsu.de/trees/}{umsu.de/trees/} to
+  see the tree proof. We can assume S5 for the box because quantifies
+  unrestrictedly over all worlds (as in chapter \ref{ch:worlds}).
+\end{solution}
+
+The \pr{4}-schema says that people have knowledge of their knowledge. The
+\pr{5}-schema says that people have knowledge of their ignorance: if you don't
+know something, then you know that you don't know it. This hypothesis is
+(misleadingly) known as \textbf{negative introspection}.
+%
+\principle{5}{\Mi A \to \Kn \Mi A.}
+%
+We know that the \pr{5}-schema corresponds to euclidity. This gives us a quick
+argument against the schema. As you showed in exercise \ref{ex:relations},
+reflexivity and euclidity together entail symmetry. The epistemic accessibility
+relation is reflexive. If it were euclidean, it would be symmetric. But I've
+argued that it isn't symmetric. So the logic of knowledge doesn't validate
+\pr{5}.
+
+We can also give a more direct argument against negative introspection. Consider
+again a scenario in which someone has misleading evidence that some proposition
+$p$ is false. Since $p$ is actually true, the agent doesn't know $\neg p$. But
+the agent might not know that they don't know $\neg p$. (On the contrary, they
+might believe that they do know $\neg p$.) In that scenario, $\neg\Kn \neg p$ is
+true but $\Kn \neg \Kn \neg p$ is false.
+
+Here it is important to not be misled by a curiosity of ordinary language. When
+we say that someone doesn't know $p$, this seems to imply that $p$ is true. If I
+told you that my neighbour doesn't know that I have a pet aardvark, you could
+reasonably infer that I have a pet aardvark. You might therefore be tempted to
+regard all instances of the following schema as valid:
+%
+\principle{NT}{\neg \Kn A \to A}
+%
+On reflection, however, \pr{NT} is unacceptable. If $\neg \Kn A$ entails $A$,
+then by contraposition $\neg A$ entails $\Kn A$: everything that is false would
+be known! Indeed, if I \emph{don't} have a pet aardvark then surely my neighbour
+does not know that I have one. We shall therefore not regard the inference from
+$\neg \Kn A$ to $A$ as valid.
+
+\begin{exercise}
+  Can you find a Kripke frame on which \pr{NT} is valid?
+\end{exercise}
+\begin{solution}
+  You can't find such a frame. A logic in which \pr{NT} is valid can't be
+  defined by putting restrictions on the accessibility relation in Kripke
+  models.
+\end{solution}
+
+\begin{exercise}
+  Let's say that an agent is \emph{ignorant of} a proposition if they don't know
+  the proposition and the proposition is true. (In English, saying that someone
+  doesn't know a proposition normally conveys that they are ignorant of the
+  proposition, in this sense.) Show that if the logic of knowledge is at least as
+  strong as K, then ignorance of $A$ entails ignorance of ignorance of $A$.
+    % I(A) = A . -KA.
+    % II(A) = A . -KA . -K(A . -KA).
+\end{exercise}
+\begin{solution}
+  We assume that ignorance of $A$ can be formalized as $A \land \neg \Kn A$. Ignorance of ignorance of $A$ is therefore formalized as $(A \land \neg \Kn A) \land \neg \Kn(A \land \neg \Kn A)$. A tree proof shows that the former K-entails the latter. 
+  % See Fine 2018:
+  % \begin{enumerate}
+  % \item $\vdash_{S4} \neg Ip \to K\neg Ip$
+  % \item $\not\vdash_{S4} Ip \to K Ip$
+  % \item $\vdash_{S4} IIp \to Ip$
+  % \item $\not\vdash_{S4} Ip \to IIp$
+  % \item $\vdash_{S4} IIp \to \neg KIIp$
+  % \item $\vdash_{S4} IIp \leftrightarrow IIIp$
+  % \item $\vdash_{S5} \neg IIp$
+  % \item $\vdash_{S4M} Ip \to IIp$
+  % \end{enumerate}
+  % \end{exercise}
+\end{solution}
+  
+% Rumsfeld suggested there are things of which we don't know that we don't know
+% them. We might say that someone is Rumsfeld ignorant of $p$ iff
+% $\neg K\neg K p$. But that's not quite what Rumsfeld had in mind. For note that
+% if $Kp$ then $\neg K \neg Kp$, because knowledge is factive. But $Kp$ is not a
+% case of Rumsfeld ignorance. (I.e., one reason why we don't know that we don't
+% know $p$ is that we actually know $p$, but that's not the interesting case.) So
+% let's say someone is Rumsfeld ignorant whether $p$ iff
+% $\neg K p \land \neg K \neg Kp$. (Fine says it's $Ip \land \neg K Ip$. Suppose
+% $K\neg p$. Then $\neg K p$ and $K \neg Kp$. So that doesn't look problematic.)
+
+% Notice that this is a Fitchean truth. So we can't know that we're Rumsfeld
+% ignorant. Which is why it's hard to give an \emph{example} of something of which
+% we're Rumsfeld ignorant.
+
+
+% Oddly, when computer scientists reason about knowledge and information, they
+% often assume both positive and negative introspection, along with the \pr{T}
+% schema. Since every transitive, euclidean, and reflexive relation is an
+% equivalence relation, the logic of knowledge then becomes S5. The comparative
+% simplicity of S5 -- think of the simple tree rules from chapter \ref{ch:worlds}
+% -- may be one reason to make the philosophically dubious posit of negative
+% introspection. However, the posit can also be justified by assumptions about the kinds of system we want to model.
+
+% Imagine an artificial agent whose database can store the truth-value for a
+% finite number of propositions $p_1,\ldots,p_n$. The agent receives information
+% through a reliable channel, so that the database is guaranteed to never
+% contain false information. Since the agent knows, say, $p_{1}$ iff their
+% database says that $p_{1}$ is true, the agent can easily find out whether or
+% not they know $p_{1}$ by scanning their own database.
+
+We have looked at six schemas: \pr{T}, \pr{B}, \pr{4}, \pr{5}, and \pr{NT}.
+Philosophers working in epistemic logic generally reject \pr{B}, \pr{5}, and
+\pr{NT}, accept \pr{T}, and are divided over \pr{4}. Theorists in other
+disciplines often assume that the logic of knowledge is S5, which would render
+all instances of \pr{T}, \pr{4}, \pr{B}, and \pr{5} valid. If we drop \pr{B} and
+\pr{5} but keep \pr{T} and \pr{4}, we get S4. If we also drop \pr{4}, we get
+system T.
+
+We might, however, look at further schemas, corresponding to further conditions
+on the accessibility relation. For example, some have argued that we should
+adopt a weakened form of negative introspection. The above counterexample to
+negative introspection -- schema \pr{5} -- involved an agent who doesn't know
+that they don't know a certain proposition because they don't know that the
+proposition is false. This kind of counterexample can't arise if the relevant
+proposition is true. One might therefore suggest that if an agent doesn't know a
+proposition $p$ \emph{and $p$ is true}, then the agent always knows that they
+don't know $p$. This would give us a schema known as 0.4:
+%
+\principle{0.4}{(\neg \Kn A\land A) \to \Kn \neg \Kn A}
+%
+All instances of \pr{0.4} are S5-valid, but not all of them are S4-valid. Adding
+the schema to S4 leads to a system known as S4.4.
+
+% .4 corresponds to xRy & xRz -> (yRz v x=z)
+
+\begin{exercise}
+  Explain why Gettier cases cast doubt on \pr{0.4}.
+\end{exercise}
+\begin{solution}
+  In a Gettier case, the relevant proposition $p$ (say, that you're looking at a
+  barn) is true but unknown. By \pr{0.4}, it would follow that the agent knows
+  that they don't know $p$. But in a typically Gettier case the agent does not
+  know that they don't know $p$.
+\end{solution}
+  
+A more modest extension of S4 adds the schema \pr{G}, which corresponds to
+convergence of the accessibility relation:
+%
+\principle{G}{\Mi\Kn A \to \Kn\Mi A}
+%
+The resulting logic is called S4.2; it is weaker than S4.4 but stronger than S4.
+We will meet an argument in favour of \pr{G} in section \ref{sec:kb}.
+
+% \begin{exercise}
+%   Give an S4 tree proof to show that
+%   $(A \land \neg \Kn A) \to \Kn \neg \Kn A$ and
+% %  $(\neg A \land \neg \Kn \neg A) \to \Kn \neg \Kn \neg A$ (both of which
+%   $(\neg A \land \Mi A) \to \Kn \Mi A$ (both of which
+%   are covered by 0.4) together entail \pr{G}.
+% \end{exercise}
+
+\begin{exercise}
+  Use the tree method to check the following claims. (See the table at the end
+  of chapter \ref{ch:accessibility} for the tree rules that go with B, S4, and
+  S4.2.)
+  \begin{exlist}
+  \item $\models_{T} \Mi\Kn p \to \Kn\Mi p$.
+  \item $\models_{B} \Mi\Kn p \to \Kn\Mi p$.
+  \item $\models_{S4} \Mi\Kn\Mi p \to \Mi p$.
+  \item $\models_{S4} \Mi\Kn p \leftrightarrow \Kn\Kn p$.
+  \item $\models_{S4} \Mi\Kn(p \to \Kn\Mi p)$.
+  \item $\models_{S4.2} (\Mi\Kn p \land \Mi\Kn q) \to \Mi \Kn(p \land q)$.
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  All except (a) and (d) are correct. You can find trees or counterexamples for (a)-(e) on
+  \href{https://www.umsu.de/trees/}{umsu.de/trees/} if
+  you write $\Kn$ as a box and $\Mi$ as a diamond. Here is a tree for (f):
+  \begin{center}
+  \tree{
+   & \nnode{35}{1.}{$\neg((\Mi\Kn p \land \Mi\Kn q) \to \Mi \Kn(p \land q))$}{w}{(Ass.)} & \\
+    & \nnode{35}{2.}{$\Mi\Kn p \land \Mi\Kn q$}{w}{(1)} & \\
+    & \nnode{35}{3.}{$\neg\Mi \Kn(p \land q)$}{w}{(1)} & \\
+    & \nnode{35}{4.}{$\Mi\Kn p$}{w}{(2)} & \\
+    & \nnode{35}{5.}{$\Mi\Kn q$}{w}{(2)} & \\
+    & \nnode{35}{6.}{$wRv$}{}{(4)} & \\
+    & \nnode{35}{7.}{$\Kn p$}{v}{(4)} & \\
+    & \nnode{35}{8.}{$wRu$}{}{(5)} & \\
+    & \nnode{35}{9.}{$\Kn q$}{u}{(5)} & \\
+    & \nnode{35}{10.}{$vRt$}{}{(6,8,Con)} & \\
+    & \nnode{35}{11.}{$uRt$}{}{(6.8,Con)} & \\
+    & \nnode{35}{12.}{$wRt$}{}{(6.10,Tr)} & \\
+    & \nnode{35}{13.}{$\neg\Kn(p \land q)$}{t}{(3,12)} & \\
+    & \nnode{35}{14.}{$tRs$}{}{(13)} & \\
+    & \bnode{35}{15.}{$\neg(p \land q)$}{s}{(13)} & \\
+    &&\\
+    \nnode{35}{16.}{$\neg p$}{s}{(15)} && \nnode{35}{17.}{$\neg q$}{s}{(15)}\\
+    \nnode{35}{18.}{$vRs$}{}{(10.14,Tr)} && \nnode{35}{19.}{$uRs$}{}{(11.14,Tr)}\\
+    \nnodeclosed{35}{20.}{$p$}{s}{(7,18)} && \nnodeclosed{35}{21.}{$q$}{s}{(9,19)}\\
+  }
+  \end{center}
+\end{solution}
+
+
+\section{Multiple Agents}
+\label{sec:multi}
+
+A world that is epistemically accessible for one agent may not be accessible for
+another. If we want to reason about the information available to different
+agents, we need separate $\Kn$ operators and accessibility relations for each
+agent.
+
+We can easily expand the language $\L_M$ to a \textbf{multi-modal language} by
+introducing a whole series of box operators $\Kn_1, \Kn_2, \Kn_3, \ldots$ with
+their duals $\Mi_1, \Mi_2, \Mi_3, \ldots$. This multi-modal language is
+interpreted in multi-modal Kripke models.
+
+\begin{definition}{}{multikripkemodel}
+  A \textbf{multi-modal Kripke model} consists of
+  \vspace{-3mm}
+  \begin{itemize*}
+  \item a non-empty set $W$,
+  \item a set of binary relation $R_1,R_2,R_{3},\ldots$ on $W$, and
+  \item a function $V$ that assigns to each sentence letter a subset of $W$.
+  \end{itemize*}
+\end{definition}
+%
+In our present application, every accessibility relation $R_i$ represents the
+information available to a particular agent. A world $v$ is $R_i$-accessible
+from $w$ iff $v$ is compatible with the information agent $i$ has at world $w$.
+
+The definition of truth at a world in a Kripke model (definition
+\ref{def:kripkesemantics}) is easily extended to multi-modal Kripke models.
+Instead of clauses (g) and (h), we have the following conditions, for each pair
+of a modal operator $\Kn_i$/$\Mi_i$ and the corresponding accessibility
+relation $R_i$:
+
+\bigskip
+\begin{tabular}{lll}
+  & $M,w \models \Kn_i A$ &iff $M,v \models A$ for all $v$ in $W$ such that $wR_iv$.\\
+  & $M,w \models \Mi_i A$ &iff $M,v \models A$ for some $v$ in $W$ such that $wR_iv$.
+\end{tabular}
+\bigskip
+
+As an application of this machinery, let's look at the \emph{Muddy Children}
+puzzle.
+
+\begin{quote}
+  Three (intelligent) children have been playing outside. They can't see or feel
+  if their own face is muddy, but they can see who of the others has mud on
+  their face. Coming inside, mother tells them: `At least one of you has mud on
+  their face'. She then asks, `Do you know if you have mud on your face?''.
+  All three children say that they don't know. Mother asks again, `Do you know
+  if you have mud on your face?'. This time, two children say that they know.
+  How many children have mud on their face? And what happens when the mother
+  asks her question a third time?
+\end{quote}
+
+We begin by drawing a model. I'll call the three children Alice, Bob, and Carol,
+and I'll use $m_a, m_b, m_c$ as sentence letters expressing, respectively, that
+Alice/Bob/Carol is muddy; $c_a, c_b, c_c$ mean that Alice/Bob/Carol is clean.
+Before the mother's first announcement, there are eight relevant possibilities.
+
+\begin{center}
+  \resizebox{ 8.5cm}{!}{%
+  \begin{tikzpicture}[modal, world/.append style={minimum size=1.7cm}]
+    \node[world] (w1) {$c_am_b\newline m_c$};
+    \node[world] (w2) [above right=of w1] {$c_am_bc_c$};
+    \node[world] (w3) [below=3cm of w1] {$c_ac_bm_c$};
+    \node[world] (w4) [above right=of w3] {$c_ac_bc_c$};
+    \draw[<->, rblue] (w1) -- (w2) node[midway,above left]{$c$};
+    \draw[<->, rblue] (w3) -- (w4) node[midway,above left]{$c$};
+    \draw[<->, rgreen] (w1) -- (w3) node[midway,left]{$b$};
+    \draw[<->, rgreen] (w2) -- (w4) node[near end,left]{$b$};
+    \node[world] (w5) [right=3cm of w1]{$m_am_bm_c$};
+    \node[world] (w6) [above right=of w5] {$m_am_bc_c$};
+    \node[world] (w7) [below=3cm of w5] {$m_ac_bm_c$};
+    \node[world] (w8) [above right=of w7] {$m_ac_bc_c$};
+    \draw[<->, rblue] (w5) -- (w6) node[midway,above left]{$c$};
+    \draw[<->, rblue] (w7) -- (w8) node[midway,above left]{$c$};
+    \draw[<->, rgreen] (w5) -- (w7) node[near end,left]{$b$};
+    \draw[<->, rgreen] (w6) -- (w8) node[midway,left]{$b$};
+    \draw[<->, rred] (w1) -- (w5) node[near end,above]{$a$};
+    \draw[<->, rred] (w2) -- (w6) node[midway,above]{$a$};
+    \draw[<->, rred] (w3) -- (w7) node[midway,above]{$a$};
+    \draw[<->, rred] (w4) -- (w8) node[near start,above]{$a$};
+  \end{tikzpicture}
+  }%
+\end{center}
+%
+Since we have three epistemic agents, we have three accessibility relations, one
+for Alice (drawn in red), one for Bob (green), and one for Carol (blue). To
+remove clutter, I have left out the three times eight arrows leading from each
+world to itself, but we should keep in mind that every world is also accessible
+from itself, for each agent.
+
+Don't confuse an arrow in the diagram of a model with an accessibility relation.
+We have three accessiblity relations, but more than three arrows. All the red
+arrows in the picture represent one and the same accessibility relation. The
+accessibility relation for Alice holds between a world and another whenever a
+red arrow leads from the first world to the second.
+
+Notice how the fact that every child can see the others is reflected in the
+diagram. For example, at the top left world ($c_am_bc_c$), Alice sees that Bob
+is muddy and that Carol is clean; the only epistemic possibilities for Alice at
+that world are the two worlds at the top: $c_am_bc_c$ itself and $m_am_bc_c$. In
+general, the only accessible worlds for a given child at a given world $w$ are
+worlds at which the other children's state of muddiness is the same as at $w$.
+
+What changes through the mother's first announcement, `At least one child has
+mud on their face'? The announcement tells \emph{us} that we're not in the
+$c_ac_bc_c$ world. More importantly, it allows \emph{each child} to rule out the
+$c_ac_bc_c$ world (since they all hear and accept the announcement).
+
+\begin{center}
+  \resizebox{ 8.5cm}{!}{%
+  \begin{tikzpicture}[modal, world/.append style={minimum size=1.7cm}]
+    \node[world] (w1) {$c_am_bm_c$};
+    \node[world] (w2) [above right=of w1] {$c_am_bc_c$};
+    \node[world] (w3) [below=3cm of w1] {$c_ac_bm_c$};
+    \node[world] (w4) [above right=of w3, opacity=0.4] {$c_ac_bc_c$};
+    \draw[<->, rblue] (w1) -- (w2) node[midway,above left]{$c$};
+    %\draw[<->, rblue] (w3) -- (w4) node[midway,above left]{$c$};
+    \draw[<->, rgreen] (w1) -- (w3) node[midway,left]{$b$};
+    %\draw[<->, rgreen] (w2) -- (w4) node[near end,left]{$b$};
+    \node[world] (w5) [right=3cm of w1]{$m_am_bm_c$};
+    \node[world] (w6) [above right=of w5] {$m_am_bc_c$};
+    \node[world] (w7) [below=3cm of w5] {$m_ac_bm_c$};
+    \node[world] (w8) [above right=of w7] {$m_ac_bc_c$};
+    \draw[<->, rblue] (w5) -- (w6) node[midway,above left]{$c$};
+    \draw[<->, rblue] (w7) -- (w8) node[midway,above left]{$c$};
+    \draw[<->, rgreen] (w5) -- (w7) node[near end,left]{$b$};
+    \draw[<->, rgreen] (w6) -- (w8) node[midway,left]{$b$};
+    \draw[<->, rred] (w1) -- (w5) node[near end,above]{$a$};
+    \draw[<->, rred] (w2) -- (w6) node[midway,above]{$a$};
+    \draw[<->, rred] (w3) -- (w7) node[midway,above]{$a$};
+    %\draw[<->, rred] (w4) -- (w8) node[near start,above]{$a$};
+  \end{tikzpicture}
+  }%
+\end{center}
+
+Next, the mother asks if anyone knows whether they are muddy. No child says yes.
+So no-one knows whether they are muddy. And everyone now knows that no-one knows
+whether they are muddy. We can go through the above seven possibilities to see
+if at any of them, anyone knows whether they are muddy. At the top left world
+($c_am_bc_c$) Alice doesn't know whether she is muddy, because the $m_am_bc_c$
+world (top right) is $a$-accessible; nor does Carol know whether she is muddy,
+because $c_am_bm_c$ is $c$-accessible. But Bob knows that he is muddy: no other
+world is $b$-accessible. Intuitively, at the $c_am_bc_c$ world, Bob sees two
+clean children (Alice and Carol), and he has just been told that not all
+children are clean. So he can infer that he is muddy. But we know that Bob
+didn't say that he knows whether he is muddy. So we (and all the children) can
+rule out the top left world as an open possibility.
+
+By the same reasoning, every world connected with only two arrows to other
+worlds can be eliminated at this stage.
+
+\begin{center}
+  \resizebox{ 8.5cm}{!}{%
+  \begin{tikzpicture}[modal, world/.append style={minimum size=1.7cm}]
+    \node[world] (w1) {$c_am_bm_c$};
+    \node[world] (w2) [above right=of w1, opacity=0.4] {$c_am_bc_c$};
+    \node[world] (w3) [below=3cm of w1, opacity=0.4] {$c_ac_bm_c$};
+    \node[world] (w4) [above right=of w3, opacity=0.4] {$c_ac_bc_c$};
+    %\draw[<->, rblue] (w1) -- (w2) node[midway,above left]{$c$};
+    %\draw[<->, rblue] (w3) -- (w4) node[midway,above left]{$c$};
+    %\draw[<->, rgreen] (w1) -- (w3) node[midway,left]{$b$};
+    %\draw[<->, rgreen] (w2) -- (w4) node[near end,left]{$b$};
+    \node[world] (w5) [right=3cm of w1]{$m_am_bm_c$};
+    \node[world] (w6) [above right=of w5] {$m_am_bc_c$};
+    \node[world] (w7) [below=3cm of w5] {$m_ac_bm_c$};
+    \node[world] (w8) [above right=of w7, opacity=0.4] {$m_ac_bc_c$};
+    \draw[<->, rblue] (w5) -- (w6) node[midway,above left]{$c$};
+    %\draw[<->, rblue] (w7) -- (w8) node[midway,above left]{$c$};
+    \draw[<->, rgreen] (w5) -- (w7) node[midway,left]{$b$};
+    %\draw[<->, rgreen] (w6) -- (w8) node[midway,left]{$b$};
+    \draw[<->, rred] (w1) -- (w5) node[midway,above]{$a$};
+    %\draw[<->, rred] (w2) -- (w6) node[midway,above]{$a$};
+    %\draw[<->, rred] (w3) -- (w7) node[midway,above]{$a$};
+    %\draw[<->, rred] (w4) -- (w8) node[near start,above]{$a$};
+  \end{tikzpicture}
+  }%
+\end{center}
+
+When the mother asks again if anyone knows whether they are muddy, two children
+say `yes'. So everyone comes to know that two children know whether they are
+muddy. In the middle world of the above model ($m_am_bm_c$), however, no child
+knows whether they are muddy. That world is not actual, and it is no longer
+accessible for anyone. The remaining open possibilities are $c_am_bm_c$,
+$m_ac_bm_c$, and $m_am_bc_c$, each of which is only accessible from itself.
+
+Now we can answer the questions. In the three remaining worlds, every child
+knows who is muddy and who is clean. If the mother asks her question for the
+third time, everyone says yes. Also, exactly two children have mud on their
+face.
+
+\begin{exercise}
+  Albert and Bernard just met Cheryl. `When is your birthday?', Albert asks.
+  Cheryl answers, `I'll give you some clues'. She writes down a list of 10
+  dates:
+  % 
+  \begin{quote}
+    5 May, 6 May, 9 May\\
+    7 June, 8 June\\
+    4 July, 6 July\\
+    4 August, 5 August, 7 August
+  \end{quote}
+  %
+  `My birthday is one of these', she says. Then she announces that she will
+  whisper the month of her birthday in Albert's ear and the day in Bernard's.
+  After the whispering, she asks Albert if he knows her birthday. Albert says,
+  `no, but I know that Bernard doesn't know either'. To which Bernard responds:
+  `Right. I didn't know until now, but now I know'. Albert: `Now I know too!'
+  Draw a multi-modal Kripke model for each stage of the conversation. When is
+  Cheryl's birthday?
+\end{exercise}
+\begin{solution}
+  see
+  \href{https://plato.stanford.edu/entries/dynamic-epistemic/appendix-B-solutions.html}{https://plato.stanford.edu/entries/dynamic-epistemic/appendix-B-solutions.html} (where all the dates are 10 days later than they are in my version).
+\end{solution}
+
+What logic do we have for our multi-modal language? Each pair of a $\Kn_{i}$ and
+$\Mi_{i}$ operator should obey whatever conditions we want to impose on the
+logic of knowledge. Are there also new principles governing the interaction
+between operators for different agents?
+
+We plausibly want all instances of the following to come out valid:
+\[
+  \Kn_1 \Kn_2 A \to \Kn_1 A.
+\]
+If I know that you know that it's raining, then I (implicitly) also know that
+it's raining. Principles like this, containing multiple modal operators that are
+not definable in terms of each other, are called \textbf{interaction
+  principles}.
+
+A common assumption in epistemic logic is that there are no genuinely new
+interaction principles for the knowledge of multiple agents -- no principles
+that don't already follow from the logic of individual knowledge. The above
+principle, for example, is entailed by the assumption that the \pr{T}-schema
+holds for $\Kn_2$. Think of the relevant Kripke models. Suppose, as
+$\Kn_1 \Kn_2 A$ asserts, that $A$ holds at each world that is $R_2$-accessible
+from any $R_1$-accessible world. If the \pr{T}-schema holds for $\Kn_2$, then
+every world is $R_{2}$-accessible from itself. In particular, then, any
+$R_1$-accessible world is $R_2$-accessible from itself. It follows that $A$
+holds at every $R_1$-accessible world. So $\Kn_1 A$ is true.
+
+% Girle says Hintikka has a rule to the effect that $K_aK_b A \to K_a A$.
+% ``Transmissability of Knowledge''. But that seems redundant.
+
+We can use the tree rules to streamline arguments like this. When multiple
+agents are in play, we need to keep track of which world is accessible for which
+agent. When expanding a node of type $\Mi_{i} A\; (w)$, for example, we add a
+node $wR_{i}v$, with subscript $i$, and another node $A\; (v)$.
+
+Here is a tree proof of the schema $\Kn_{1}\Kn_{2} A \to \Kn_{1} A$, assuming
+that $R_{2}$ is reflexive. \bigskip
+  \begin{center}
+  \tree{
+    \nnode{25}{1.}{$\neg(\Kn_1 \Kn_2 A \to \Kn_1 A)$}{w}{(Ass.)}\\
+    \nnode{25}{2.}{$\Kn_1 \Kn_2 A$}{w}{(1)}\\
+    \nnode{25}{3.}{$\neg \Kn_1 A$}{w}{(1)}\\
+    \nnode{25}{4.}{$wR_1 v$}{}{(3)}\\
+    \nnode{25}{5.}{$\neg A$}{v}{(3)}\\
+    \nnode{25}{6.}{$\Kn_{2} A$}{v}{(2,4)}\\
+    \nnode{25}{7.}{$vR_{2}v$}{}{(Refl.)}\\
+    \nnodeclosed{25}{8.}{$A$}{v}{(6,7)}
+  }
+  \end{center}
+
+\begin{exercise}
+  Use the tree method to check which of the following interaction principles are
+  valid if the logic of individual knowledge is S4. If a principle is invalid,
+  give a counterexample.
+  \begin{exlist}
+  \item $\Mi_1 \Kn_2 p \to \Mi_1 p$ 
+  \item $\Mi_1 \Kn_2 p \to \Mi_2\Mi_1 p$
+  \item $\Mi_1 \Kn_2 p \to \Mi_2\Kn_1 p$
+  \item $\Kn_1\Kn_2 p \to \Kn_2\Kn_1 p$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  (a) and (b) are valid, (c) and (d) are invalid. Here is a tree proof for (a).
+  
+  \bigskip
+  \begin{center}
+  \tree{
+    \nnode{25}{1.}{$\neg(\Mi_1 \Kn_2 p \to \Mi_1 p)$}{w}{(Ass.)}\\
+    \nnode{25}{2.}{$\Mi_1 \Kn_2 p$}{w}{(1)}\\
+    \nnode{25}{3.}{$\neg \Mi_1 p$}{w}{(1)}\\
+    \nnode{25}{4.}{$wR_1 v$}{}{(2)}\\
+    \nnode{25}{5.}{$\Kn_2 p$}{v}{(2)}\\
+    \nnode{25}{6.}{$\neg p$}{v}{(3,4)}\\
+    \nnode{25}{7.}{$vR_2 v$}{}{\;\;(Refl.)}\\
+    \nnodeclosed{25}{8.}{$p$}{v}{(5,7)}
+  }
+  \end{center}
+
+  The tree for (c) doesn't close:
+  
+  \bigskip
+  \begin{center}
+  \tree{
+    \nnode{25}{1.}{$\neg(\Mi_1 \Kn_2 p \to \Mi_2\Kn_1 p)$}{w}{(Ass.)}\\
+    \nnode{25}{2.}{$\Mi_1 \Kn_2 p$}{w}{(1)}\\
+    \nnode{25}{3.}{$\neg \Mi_2\Kn_1 p$}{w}{(1)}\\
+    \nnode{25}{4.}{$wR_1 v$}{}{(2)}\\
+    \nnode{25}{5.}{$\Kn_2 p$}{v}{(2)}\\
+    \nnode{25}{6.}{$vR_2v$}{}{\;\;(Refl.)}\\
+    \nnode{25}{7.}{$p$}{v}{(5,6)}\\
+    \nnode{25}{8.}{$wR_2 w$}{}{\;\;(Refl.)}\\
+    \nnode{25}{9.}{$\neg\Kn_1 p$}{w}{(3,8)}\\
+    \nnode{25}{10.}{$wR_1u$}{}{(9)}\\
+    \nnode{25}{11.}{$\neg p$}{u}{(9)}
+  }
+  \end{center}
+  % 
+  We could add a few more applications of Reflexivity, but the tree would remain
+  open. It also gives us a countermodel: let $W$ = $\{ w,v,u \}$; $w$ has
+  1-access to $v$ and $u$; each world has 1- and 2-access to itself;
+  $V(p,v) = 1$ and $V(p,u) = 0$. In this model, at world $w$, $\Mi_1\Kn_2 p$ is
+  true while $\Mi_2\Kn_1 p$ is false.
+
+  Cases (b) and (d) are similar.
+  
+\end{solution}
+
+We can also define new modal operators for groups of agents. A proposition is
+said to be \textbf{mutually known} in a group $G$ if it is known by every member
+of the group. Let $\EKn_G$ be an operator for mutual knowledge. Clearly,
+$\EKn_G A$ can be defined as $\Kn_1 A \land \Kn_2 A \land \ldots \land \Kn_n A$,
+where $\Kn_1, \Kn_2, \ldots, \Kn_n$ are the knowledge operators for the members
+of the group. So we can't say anything new with the help of $\EKn_G$ (at least
+for finite groups). But it can be instructive to see how $\EKn_G$ behaves
+depending on the behaviour of the underlying operators $\Kn_1,\Kn_2,$ etc. For
+example, if each individual knowledge operator validates the \pr{T}-schema, then
+so does $\EKn_G$; but if each $\Kn_i$ validates \pr{4} (positive introspection),
+it does not follow that $\EKn_G$ validates \pr{4}. As a counterexample, consider
+a group of two agents; both know $p$, and both know of themselves that they know
+$p$, but agent 1 does not know that agent 2 knows $p$. Then $\EKn_G p$ but
+$\neg \EKn_G \EKn_G p$.
+
+\begin{exercise}
+  Give an example to show that if each $\Kn_i$ validates \pr{5},
+  it does not follow that $\EKn_G$ validates \pr{5}.
+\end{exercise}
+\begin{solution}
+  The \pr{5}-schema for $\EKn_G$ states that
+  $\neg \EKn_G \neg A \to \EKn_G \neg \EKn_G \neg A$. To show that some instance
+  of this is invalid, we need to find a case where some instance of
+  $\neg \EKn_G \neg A$ is true while $\EKn_G \neg \EKn_G \neg A$ is false. We
+  can take the simplest instance, with $A=p$. Assume the relevant group has two
+  agents, and consider a world $w$ at which $\Kn_1 \neg p$ and
+  $\neg \Kn_2 \neg p$ are true. By the assumption that \pr{5} is valid for
+  $\Kn_i$, $\Kn_2\neg\Kn_2\neg p$ is also true at $w$. But
+  $\Kn_1\neg \Kn_2\neg p$ can be false (at $w$). If it is, then
+  $\neg \EKn_G \neg p$ is true at $w$ while $\EKn_G \neg \EKn_G \neg p$ is
+  false.
+\end{solution}
+
+% \begin{exercise}
+%   Define the accessibility relation $R_G$ for $\EKn_G$ in
+%   terms of the accessibility relations for the members of $G$, so that
+%   \[
+%     M,w \models \EKn_G A \text{ iff } M,w' \models A \text{ for all $w'$ such that } wRw'.
+%   \]
+%   \cmnt{%
+%     Suppose we define $R_E = \bigcup_i R_i$. Let $M,w \models E^*(A)$
+%     iff $M,w \models A$ for all $v$ such that $wR_E v$. Show that
+%     $\models E^*(A) \leftrightarrow E(A)$.
+%   } %
+% \end{exercise}
+
+A more interesting concept that has proved useful in many areas is that of
+common knowledge. A proposition is \textbf{commonly known} in a group if
+everyone knows it, everyone knows that everyone knows it, everyone knows that
+everyone knows that everyone knows it, and so on forever. Let's use $\CKn_{G}$
+as an operator for common knowledge. $\CKn_G$ is not definable in terms of
+$\Kn_1, \ldots,\Kn_n$. Still, we can define it semantically in terms of the
+accessibility relations for the individual agents: $\CKn_{G} A$ is true at a
+world $w$ iff $A$ is true at all worlds that are reachable from $w$ by some
+finite sequence of steps following the agents' accessibility relations.
+
+%  So the accessibility relation is the transitive closure of $R_E$.
+
+It is easy to see that common knowledge validates (all instances of) \pr{4}. It
+validates \pr{T} whenever individual knowledge validates \pr{T}. So the logic of
+common knowledge is at least S4. The complete logic of common knowledge also
+contain some non-trivial interaction principles, which are easiest to state in
+terms of $\EKn_G$:
+%
+\begin{principles}
+  \pri{CK1} \CKn_{G}A \leftrightarrow (A \land \EKn_{G}\CKn_{G} A)\\
+  \pri{CK2} (A \land \CKn_{G}(A \to \EKn_{G} A)) \to \CKn_{G} A
+\end{principles}
+%
+You may want to confirm that these are valid. (They also provide a complete
+axiomatization of common knowledge when added to an axiomatic calculus for
+individual knowledge, but that is much harder to see.)
+
+% \begin{exercise}
+%   Show that if the logic of knowledge is S4, then the logic of common
+%   knowledge is also S4. And if the logic of K is S4.2, the logic of
+%   common knowledge is still S4. (Stalnaker 175, 195f.)
+% \end{exercise}
+
+\section{Knowledge, belief, and other modalities}
+\label{sec:kb}
+
+Issues in the logic of knowledge can sometimes be clarified by looking at the
+connections between knowledge and belief. To formalise these connections, let's
+introduce a new operator $\Bel$ for belief -- or rather, for \emph{implicit
+  belief}, since $\Bel$, like $\Kn$, will be closed under logical
+consequence.
+
+An agent's belief state represents the world as being a certain way. For every
+possible world, we can ask whether it matches what the agent believes. If, for
+example, your only non-trivial belief is that there are seventeen types of
+parrot, then every world in which there are seventeen types of parrot matches
+your beliefs. Every such world is \emph{doxastically accessible} for you. As you
+acquire further beliefs, the space of doxastically accessible worlds becomes
+smaller and smaller.
+
+We interpret $\Bel p$ as saying that $p$ is true at all doxastically accessible
+worlds (for whatever agent we have in mind). Since we won't spend a lot of time
+with this operator, we will simply write its dual as $\neg\Bel\neg$.
+
+The logic of $\Bel$ is different from the logic of $\Kn$, if only because
+beliefs can be false. So we will not regard all instances of 
+%
+\principle{T}{\Bel A \to A}
+%
+as valid. We may, however, accept the weaker schema
+%
+\principle{D}{\Bel A \to \neg \Bel \neg A.}
+%
+This reflects the assumption that a belief state that represents the world as
+being a certain way $A$ can't also represent the world as being the opposite way
+$\neg A$.
+
+In the previous section, I argued that (implicit) knowledge does not validate
+the negative introspection principle \pr{5}, and I reviewed an argument against
+the positive introspection principle \pr{4}. Neither argument carries over to
+belief. Many epistemic logicians accept positive and negative introspection for
+(implicit) belief:
+%
+\begin{principles}
+  \pri{4}{\Bel A \to \Bel \Bel A}\\
+  \pri{5}{\neg \Bel A \to \Bel \neg \Bel A}
+\end{principles}
+
+The logic that results by adding the schemas \pr{D}, \pr{4}, and \pr{5} to the
+axiomatic basis for K is known as KD45.
+
+\begin{exercise}
+  Is a transitive, serial, and euclidean relation always symmetric? If yes,
+  explain why. If no, give a counterexample. What does your result mean for
+  schema \pr{B} in KD45?
+\end{exercise}
+\begin{solution}
+  No, a transitive, serial, and euclidean relation is not always symmetric.
+  Counterexample: wRv, vRv. This means that not all instances of \pr{B} (which
+  corresponds to symmetry) are valid in KD45.
+\end{solution}
+
+\begin{exercise}
+  Show (in any way you like) that $\Bel(\Bel A \to A)$ is valid if the logic of
+  belief is KD45.
+\end{exercise}
+\begin{solution}
+  You can e.g. do a tree proof, using $\Bel$ as the box.
+\end{solution}
+
+If we want to model the connection between knowledge and belief, we need a
+multi-modal language with both the $\Kn$ operator and the $\Bel$ operator.
+Models for this language will have two accessibility relations $R_{e}$ and
+$R_{d}$. The first represents epistemic accessibility and is used for the
+interpretation of $\Kn$, the second represents doxastic accessibility and is
+used to interpret $\Bel$.
+
+The power of combined logics for (implicit) knowledge and belief lies in the
+interaction principles that might link the two concepts. Here is a list of
+popular principles that don't follow from the individual logics of knowledge and
+belief.
+\begin{principles}
+  \pri{KB} \Kn A \to \Bel A\\
+  \pri{PI} \Bel A \to \Kn\Bel A\\
+  \pri{NI} \neg \Bel A \to \Kn\neg \Bel A\\
+  \pri{SB} \Bel A \to \Bel \Kn A
+\end{principles}
+
+\pr{KB} assumes that knowledge implies belief. \pr{PI} and \pr{NI} strengthen
+the introspection principles for belief. They assume that a state of belief or
+disbelief is always known to the agent. \pr{SB} assumes that if an agent
+believes something then they also believe that they know it. This is sometimes
+said to reflect a conception of ``strong belief'', on which belief is
+incompatible with doubt. If you believe $p$ in the sense that you have no doubt
+that $p$, then you plausibly believe that you know $p$.
+
+These interaction principles, together with the \pr{D}-schema for belief, imply
+that an agent believes a proposition just in case they don't know that they
+don't know it:
+%
+\principle{BMK}{\Bel A \leftrightarrow \Mi\Kn A}
+%
+Somewhat surprisingly, then, we could define belief in terms of knowledge.
+
+Here is how we can get from $\Bel A$ to $\Mi\Kn A$.
+%
+\begin{enumerate}[leftmargin=10mm]
+  \itemsep-1mm
+\item Suppose $\Bel A$.
+\item By \pr{SB}, it follows that $\Bel \Kn A$.
+\item By \pr{D}, it follows that $\neg \Bel \neg \Kn A$.
+\item By \pr{KB}, it follows that $\neg \Kn \neg \Kn A$, and so that $\Mi\Kn A$.
+\end{enumerate}
+
+To show that $\Mi\Kn A$ entails $\Bel A$, I'll show that $\neg \Bel A$
+entails $\neg \Mi\Kn A$.
+%
+\begin{enumerate}[leftmargin=10mm]
+  \itemsep-1mm
+\item By \pr{KB}, $\neg \Bel A \to \neg \Kn A$ is a logical truth.
+\item Since logical truths are true at every world, we have $\Kn(\neg \Bel A \to \neg \Kn A)$.
+\item By the \pr{K}-schema, it follows that $\Kn\neg \Bel A \to \Kn \neg \Kn A$.
+\item Now suppose $\neg \Bel A$.
+\item By \pr{NI}, it follows that $\Kn \neg \Bel A$.
+\item By 3 above, it follows that $\Kn \neg \Kn A$, which is equivalent to $\neg \Mi\Kn A$.
+\end{enumerate}
+
+Given the equivalence between $\Bel A$ and $\Mi\Kn A$, the \pr{D}-schema for
+belief
+\[
+  \Bel A \to \neg \Bel\neg A
+\]
+is equivalent to
+\[
+  \Mi \Kn A \to \neg\Mi\Kn \neg A
+\]
+which in turn is equivalent to
+\[
+  \Mi \Kn A \to \Kn\Mi A.
+\]
+This is the \pr{G}-schema for knowledge. So if we accept the above interaction
+principles, and principle \pr{D} for belief, then the logic of knowledge must
+validate \pr{G}.
+
+(In fact, we don't need to assume that the interaction principles and \pr{D}
+hold for our ordinary concept of belief. As long as one can coherently define a
+concept $\Bel$ that validates these principles we can derive the \pr{G}-schema
+for $\Kn$.)
+
+\begin{exercise}
+  Show that the interaction principles entail principles \pr{4} and \pr{5} for
+  belief: $\Bel A \to \Bel\Bel A$ and $\neg\Bel\neg A \to \Bel\neg\Bel\neg A$.
+\end{exercise}
+\begin{solution}
+  Let $A$ be an arbitrary proposition.
+
+  By \pr{PI}, $\Bel A \to \Kn\Bel A$ is valid. By \pr{KB}, so is
+  $\Kn\Bel A \to \Bel\Bel A$. By propositional logic, these entail
+  $\Bel A \to \Bel\Bel A$.
+
+  By \pr{NI}, $\neg \Bel \neg A \to \Kn\neg \Bel \neg A$ is valid. By \pr{KB},
+  so is $\Kn\neg \Bel \neg A \to \Bel\neg \Bel \neg A$. By propositional logic,
+  these entail $\neg \Bel \neg A \to \Bel\neg \Bel \neg A$.
+\end{solution}
+
+\begin{exercise}
+  Suppose the logic of knowledge validates \pr{5}, the logic of belief validates
+  \pr{D}, and we have the interaction principles \pr{KB} and \pr{SB}. Show that
+  knowledge is then equivalent to belief: $KA \leftrightarrow BA$ comes out as
+  valid. (Another reason to think that \pr{5} is not valid in the logic of
+  knowledge.)
+\end{exercise}
+\begin{solution}
+  The left-to-right direction is \pr{KB}. For the right-to-left direction, let
+  $A$ be an arbitrary proposition. By \pr{SB}, $\Bel A \to \Bel\Kn A$ is valid.
+  By \pr{D} for belief, $\Bel \Kn A \to \neg\Bel \neg \Kn A$ is valid. \pr{KB}
+  gives us $\neg \Bel \neg \Kn A \to \neg\Kn\neg\Kn A$. Finally, \pr{5} for
+  knowledge yields $\neg \Kn\neg A \to \Kn A$. The target proposition
+  $\Bel A \to \Kn A$ is a truth-functional consequence of these four
+  propositions.
+  % BA -> BKA (SB)
+  % BKA -> -B-KA (D)
+  % -B-KA -> -K-KA (KB)
+  % -K-KA -> KA (5)
+\end{solution}
+
+% In KD45 R is an equivalence relation ``once removed'': any accessible world sees
+% itself, and there's symmetry among all accessible worlds.
+
+\begin{exercise}
+  There seems to be no natural expression in English for the dual of belief. A
+  common way to express that someone does not believe not $p$ is to say that
+  they believe that it might be that $p$, which has the surface form
+  $\Box\Diamond p$. Can you explain why this might be an adequate way of expressing $\Diamond p$?
+\end{exercise}
+\begin{solution}
+  If the logic of belief is KD45 then $\Box\Diamond p$ is equivalent to
+  $\Diamond p$ (as you can show, for example, with a tree proof).
+\end{solution}
+
+It can also be instructive to combine epistemic with non-epistemic operators.
+Philosophers have often been interested not just in what we \emph{do} know, but
+also in what we \emph{can} know. Various skeptical arguments, for example,
+suggest that we \emph{cannot know} that we have hands. For another example, the
+``verificationist'' movement in the early 20th century assumed that a sentence
+is meaningful only if its truth-value can in principle be settled by
+mathematical proof or empirical investigation. This would imply that a sentence
+is meaningful only if \emph{it is possible to know} that it is true.
+
+We can formalize claims like these in a multi-modal language with a knowledge
+operator $\Kn$ and a diamond $\Diamond$ for the relevant kind of circumstantial
+possibility. The verificationist hypothesis that every truth is in principle
+knowable is then expressed by the following interaction principle:
+%
+\begin{equation}\tag{Knowability}
+  A \to \Diamond \Kn A
+\end{equation}
+
+The principle is refuted by the following argument, due to Alonzo Church.
+
+\begin{enumerate}[leftmargin=10mm]
+  \itemsep-1mm
+  \item Let $p$ be any unknown truth. (Nobody thinks all truths are actually
+        known.)
+  \item So we have $p \land \neg \Kn p$.
+  \item In any logic that extends the minimal system K,
+        $\Kn(p \land \neg \Kn p)$ entails $\Kn p \land \Kn \neg \Kn p$.
+  \item By the \pr{T}-schema for knowledge, $\Kn \neg \Kn p$ entails
+        $\neg \Kn p$.
+  \item So $\Kn(p \land \neg \Kn p)$ entails both $\Kn p$ and $\neg \Kn p$.
+  \item So the hypothesis $\Kn(p \land \neg \Kn p)$ is inconsistent.
+  \item So $\neg \Diamond \Kn(p \land \neg \Kn p)$.
+  \item Lines 2 and 7 together provide a counterexample to the Knowability
+        principle.
+\end{enumerate}
+
+\begin{exercise}
+  Show that if the logic of belief is at least KD4, then there are
+  \emph{unbelievable truths}: truths of which it is impossible that anyone
+  believes them. (You can assume that there are truths which no-one in fact
+  believes.)
+\end{exercise}
+\begin{solution}
+  Suppose $\Bel(p \land \neg \Bel p)$. In any logic that extends K, it follows
+  that $\Bel p$ and $\Bel \neg \Bel p$. By \pr{4}, $\Bel p$ entails
+  $\Bel\Bel p$. Now we have $\Bel \neg \Bel p$ and $\Bel\Bel p$, which violates \pr{D}.
+\end{solution}
+
+
+
+
+
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "ml.tex"
+%%% End:

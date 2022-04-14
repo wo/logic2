@@ -1,0 +1,1498 @@
+\chapter{Semantics for Modal Predicate Logic}\label{ch:qml2}
+
+\section{Constant domain semantics}\label{sec:constantdomainsemantics}
+
+We have met the language $\L_{M\!P}$ of (first-order) modal predicate logic. It
+is time to think about how this language should be interpreted. This will tell
+us which sentences and inferences in the language are valid.
+
+As in modal propositional logic, we will assume that the box and the diamond are
+quantifiers over accessible worlds, where ``accessibility'' is a placeholder
+whose meaning depends on the application. If we want to reason about knowledge,
+a world $v$ might be accessible from a world $w$ iff $v$ is compatible with what
+is known at $w$. If we're interested in metaphysical modality then a world $v$
+might be accessible from a world $w$ iff it is compatible with the nature of
+things at $w$. And so on. On the metaphysical interpretation, we might read
+$\Diamond Fa$ as saying that Aristotle could have been a sailor, assuming that
+$a$ picks out Aristotle and $F$ the property of being a sailor.
+
+Our topic in logic is not whether a particular claim about Aristotle is true. We
+want to know which statements are \emph{logically true} or \emph{valid}, meaning
+that they are true in any conceivable scenario, under any interpretation of the
+non-logical expressions (but holding fixed the meaning of the modal operators).
+Settling which sentences are valid will also settle which are entailed by which
+others.
+
+As always, we use models to represent a scenario together with an interpretation
+of the non-logical vocabulary. A model for $\L_{M\!P}$ will contain just enough
+information about a scenario and an interpretation to determine, for every
+$\L_{M\!P}$-sentence and every world, whether the sentence is true at that
+world.
+
+The non-logical vocabulary of $\L_{M\!P}$ are the names and the predicates (with
+the exception of the identity predicate `='). Let's assume for now that the
+purpose of a name is simply to pick out an individual. Intuitively, a predicate
+picks out a property or relation. In non-modal predicate logic, we could
+represent these properties or relations by their extension -- by the sets of
+individuals (or tuples of individuals) to which they apply. In modal predicate
+logic, however, we typically want to allow for scenarios in which an individual
+has different properties at different worlds. In one world, Aristotle might be a
+sailor, in another he might be a shoemaker. If $F$ expresses the property of
+being a sailor, then the set of individuals to whom $F$ applies will differ from
+world to world. To determine the truth-value of $Fa$ at a world, we need to know
+to which individuals $F$ applies \emph{at that world}. A model's interpretation
+function will therefore assign a set of (tuples of) individuals to each
+predicate \emph{relative to each world}.
+
+Consider a model with two worlds $w$ and $v$. Both worlds, let's assume, are
+accessible from $w$ and neither is accessible from $v$. The model's
+interpretation function tells us that the name $a$ picks out, say, Aristotle. It
+also tells us that the predicate $F$ applies to Aristotle and Boethius at $w$
+and only to Boethius at $v$. We can write this as follows:
+%
+\begin{quote}
+  $V(a) = \text{Aristotle}$\\
+  $V(F,w) = \{ \text{Aristotle, Boethius} \}$\\
+  $V(F,v) = \{ \text{Boethius} \}$
+\end{quote}
+%
+\noindent%
+We don't know what property is expressed by $F$, nor which properties Aristotle
+and Boethius have at $w$ and $v$. Nonetheless, we can figure out that $Fa$ is
+true at $w$, because the predicate $F$ applies to Aristotle at $w$. We can also
+figure out that $Fa$ is false at $v$, and that $\Box Fa$ is false at $w$.
+
+To determine the truth-value of arbitrary $\L_{M\!P}$-sentences, we need some
+more information. As it stands, we can't tell whether (say) $\forall x Fx$ is
+true at $w$. Informally, $\forall x Fx$ says that every individual is $F$. We
+know that Aristotle and Boethius are $F$ at $w$. But we don't know if there are
+other individuals besides Aristotle and Boethius. If yes, then $\forall x Fx$ is
+false at $w$. If no, the sentence is true. We therefore assume that a model for
+$\L_{M\!P}$ also specifies a domain of individuals.
+
+\begin{definition}{}{VDM}
+  A \textbf{constant-domain Kripke model} for $\L_{M\!P}$ is a structure $M$
+  consisting of%
+  \medskip
+  \begin{compactenum}
+    \item a non-empty set $W$ (the ``worlds''),
+    \item an accessibility relation $R$ on $W$,
+    \item a non-empty set $D$ (of ``individuals''), and
+    \item an interpretation function $V$ that assigns%
+    \vspace{-1mm}
+    \begin{itemize}
+      \itemsep-1mm
+      \item to each $\L_{M\!P}$-name a member of $D$, and
+      \item to each $n$-place predicate of $\L_{M\!P}$ and world $w \in W$ a set of
+            $n$-tuples from $D$.
+    \end{itemize}
+  \end{compactenum}
+\end{definition}
+
+Models of this type are called ``constant-domain models'' because the domain of
+individuals is the same for each world. This may seem questionable -- and we are
+soon going to question it -- but it simplifies the semantics. Let’s stick
+with it for the moment.
+
+Having defined a concept of a model, we can lay down the rules that determine
+whether any given $\L_{M\!P}$-sentence is true at a world in a model.
+
+In fact, truth will be defined relative to three parameters: a model, a world,
+and an assignment function. The assignment function plays the same role as in
+non-modal predicate logic. $\forall x \Diamond Fx$, for example, is true at a
+world $w$ in a model iff there is some assignment of an individual to $x$ that
+renders $\Diamond Fx$ true at $w$. We continue to use $[\tau]^{M,g}$ for the
+individual picked out by a term (name or variable) $\tau$ relative to a model
+$M = \t{D,W,R,V}$ and an assignment function $g$:
+\[
+  [\tau]^{M,g} =_\text{def} \begin{cases} \;V(\tau) & \text{ if $\tau$ is a name}\\
+    \;g(\tau) & \text{ if $\tau$ is a variable}.
+  \end{cases}
+\]
+
+\begin{definition}{Constant-domain Kripke semantics}{constantdomainsemantics}
+  If $\Mfr = \t{W,R,D,V}$ is a constant-domain Kripke model, $w$ is a member of
+  $W$, $\phi$ is an $n$-place predicate (for $n\geq 0$),
+  $\tau_1,\tau_{2},\ldots,\tau_{n}$ are terms, $\chi$ is a variable, and $g$ is a
+  variable assignment, then
+  
+  \medskip\hspace{-4mm}
+  \begin{tabular}{lll}
+    (a) & $M,w,g \models \phi \tau_1\ldots \tau_n$ &iff $\t{[\tau_1]^{M,g},\ldots,[\tau_n]^{M,g}} \in V(\phi,w)$.\\
+    (b) & $M,w,g \models \tau_1=\tau_2$ &iff $[\tau_1]^{M,g} = [\tau_2]^{M,g}$.\\
+    (c) & $M,w,g \models \neg A$ &iff $M,w,g \not\models A$.\\
+    (d) & $M,w,g \models A \land B$ &iff $M,w,g \models A$ and $M,w,g \models B$.\\
+    (e) & $M,w,g \models A \lor B$ &iff $M,w,g \models A$ or $M,w,g \models B$.\\
+    (f) & $M,w,g \models A \to B$ &iff $M,w,g \not\models A$ or $M,w,g \models B$.\\
+    (g) & $M,w,g \models A \leftrightarrow B$ &iff $M,w,g \models (A\to B)$ and $M,w,g \models (B\to A)$.\\
+    (h) & $M,w,g \models \forall \chi A$ &iff $M,w,g' \models A$ for all $\chi$-variants $g'$ of $g$.\\
+    (i) & $M,w,g \models \exists \chi A$ &iff $M,w,g' \models A$ for some $\chi$-variant $g'$ of $g$.\\
+    (j) & $M,w,g \models \Box A$ &iff $M,v,g \models A$ for all $v\in W$ such that $wRv$.\\
+    (k) & $M,w,g \models \Diamond A$ &iff $M,v,g \models A$ for some $v\in W$ such that $wRv$.
+  \end{tabular}
+
+\end{definition}
+
+We say that a sentence is \textbf{true at a world $w$ in a model $M$} iff it
+is true at $w$ in $M$ relative to every assignment function $g$ for $M$. 
+
+Let's return to the model from above, and let's add the information that the
+domain of individuals consists of just Aristotle and Boethius. That is, let $M$
+be the following model:
+%
+\begin{quote}
+  $W = \{ w,v \}$\\
+  $R = \{ \t{w,w}, \t{w,v} \}$\\
+  $D = \{ \text{Aristotle, Boethius} \}$\\
+  $V(a) = \text{Aristotle}$\\
+  $V(F,w) = \{ \text{Aristotle, Boethius} \}$\\
+  $V(F,v) = \{ \text{Boethius} \}$
+\end{quote}
+%
+This isn't a complete specification of a model because I haven't assigned a
+meaning to names and predicates other than $a$ and $F$, but we have enough
+information to determine the truth-value of any $\L_{M\!P}$-sentence whose only
+non-logical vocabulary are $a$ and $F$.
+
+We can, for example, verify that $Fa$ is true at $w$ in $M$. We know that
+sentence is true at $w$ in $M$ iff it is true at $w$ in $M$ relative to every
+assignment function $g$. By clause (a) of definition
+\ref{def:constantdomainsemantics}, $Fa$ is true at $w$ in $M$ relative to $g$
+iff $[a]^{M,g}$ is a member of $V(F,w)$. Since $a$ is a name, $[a]^{M,g}$ is
+$V(a)$. And $V(a)$ is Aristotle. So $Fa$ is true at $w$ relative to $g$ iff
+Aristotle is a member of $V(F,w)$. We know that $V(F,w)$ is $\{ \text{Aristotle,
+  Boethius} \}$. Aristotle evidently is a member of $\{ \text{Aristotle,
+  Boethius} \}$. So $Fa$ is true at $w$ in $M$, relative to any assignment $g$.
+
+We can also verify that $\Box Fa$ is false at $w$. By clause (j) of definition
+\ref{def:constantdomainsemantics}, $\Box Fa$ is true at $w$ (in $M$ relative to
+$g$) iff $Fa$ is true (in $M$ relative to $g$) at all worlds accessible from
+$w$. And $Fa$ is false at $v$ because Aristotle is not a member of $\{ \text{Boethius} \}$.
+
+
+% Here is a (partial) picture of a constant domain model, with three worlds and
+% three individuals.
+
+% \begin{center}
+%   \begin{tikzpicture}[modal, world/.append style={minimum size=22mm}, node distance=15mm]
+%     \node[world] (w) [label=above:{$w$}] {};
+%     \draw[gray,looseness=1] (w.south west) -- (w.north east);
+%     \node[gray] at ([xshift=3mm,yshift=-2mm]w.north west){\small $F$};
+%     \node[gray] at ([xshift=-3mm,yshift=2mm]w.south east){\small $\neg F$};
+%     \node at ([yshift=15mm]w.south){\small $a$};
+%     \node at ([yshift=7mm]w.south){\small $b$};
+%     \node at ([yshift=10mm]w.south east){\small $c$};
+%     %
+%     \node[world] (v) [label=above:{$v$}, right=of w] {};
+%     \draw[gray,looseness=1] (v.south west) -- (v.north east);
+%     \node[gray] at ([xshift=3mm,yshift=-2mm]v.north west){\small $F$};
+%     \node[gray] at ([xshift=-3mm,yshift=2mm]v.south east){\small $\neg F$};
+%     \node at ([yshift=15mm]v.south){\small $a$};
+%     \node at ([xshift=2mm,yshift=8mm]v.south west){\small $b$};
+%     \node at ([yshift=6mm]v.south){\small $c$};
+%     %
+%     \node[world] (u) [label=above:{$u$}, right=of v] {};
+%     \draw[gray,looseness=1] (u.south west) -- (u.north east);
+%     \node[gray] at ([xshift=3mm,yshift=-2mm]u.north west){\small $F$};
+%     \node[gray] at ([xshift=-3mm,yshift=2mm]u.south east){\small $\neg F$};
+%     \node at ([yshift=17mm,xshift=3mm]u.south){\small $a$};
+%     \node at ([xshift=-2mm,yshift=12mm]u.south){\small $b$};
+%     \node at ([xshift=-7mm,yshift=8mm]u.south){\small $c$};
+%     \path[->] (w) edge (v);
+%     \path[->] (v) edge (u);
+%   \end{tikzpicture}
+% \end{center}
+% %
+% Each world is inhabited by $a,b$, and $c$. At world $w$, only $a$ is $F$; at
+% $v$, $a$ and $b$ are $F$; at $u$, all three individuals are $F$. So $Fa$ is true
+% at $w$. $Fx$ is true at $w$ relative to an assignment $g$ that maps $x$
+% to $a$. By definition \ref{def:constantdomainsemantics}, this means that
+% $\exists x Fx$ is true at $w$. Along the same lines, we can figure out that
+% $\exists x Fx$ is true at $v$. Since $w$ can see $v$, it follows that
+% $\Diamond \exists x Fx$ is true at $w$. The \emph{de re} sentence
+% $\exists x \Diamond Fx$ is also true at $w$, because $\Diamond Fx$ is true at
+% $w$ relative to an assignment $g$ that maps $g$ to (say) $b$.
+
+\begin{exercise}
+  Which of the following sentences are true at $w$ in $M$? 
+  \begin{exlist}
+  \item $\neg Fa \to Fa$ % true
+  \item $\Box \exists x Fx$ % true
+  \item $\Box \forall x Fx$ % false
+  \item $\exists x \Box Fx$ % true
+  \item $\forall x \Box Fx$ % false
+  \item $\forall x (\Box Fx \to \Box\Box Fx)$ % true
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  (a), (b), (d), and (f) are true; (c) and (e) are false.
+\end{solution}
+
+We define validity as truth at all worlds in all models of a certain kind. A
+sentence is \textbf{CK-valid} iff it is true at all worlds in all
+constant-domain Kripke models. `C' comes from `constant domains'; `K' indicates
+that we have put no constraints on the accessibility relation. We get stronger
+concepts of validity -- stronger logics -- if we require the accessibility
+relation to be reflexive, or transitive, or euclidean, etc.
+
+It is not hard to see that every sentence that is valid in classical predicate
+logic is CK-valid. Similarly, every K-valid sentence is CK-valid. We also get
+some new interaction principles between modal operators and quantifiers. For
+example, consider the following schema, known as the \emph{Barcan Formula},
+after Ruth Barcan Marcus.
+%
+\principle{BF}{\forall x \Box A \to \Box \forall x A}
+
+\begin{observation}{BFinCDM}
+  All instances of \pr{BF} are CK-valid.
+\end{observation}
+\begin{proof}
+  \emph{Proof.} Suppose a sentence $\forall x \Box A$ is true at some world $w$
+  in some constant-domain model $M$ relative to some assignment $g$. By clause
+  (h) of definition \ref{def:constantdomainsemantics}, it follows that $\Box A$
+  is true at $w$ relative to every $x$-variant $g'$ of $g$. By clause (j) of
+  definition \ref{def:constantdomainsemantics}, it follows that $A$ is true at
+  every world $v$ accessibility from $w$ relative to every $x$-variant $g'$ of
+  $g$. By clause (h), this means that $\forall x A$ is true relative to $g$ at
+  every world $v$ accessible from $w$. So by clause (j), $\Box \forall x A$ is
+  true at $w$ relative to $g$.
+
+  We've shown that whenever $\forall x \Box A$ is true at some world $w$ in some
+  model $M$ relative some assignment $g$, then $\Box A \forall x A$ is also true
+  at $w$ in $M$ relative to $g$. By clause (f) of definition
+  \ref{def:constantdomainsemantics}, it follows that
+  $\forall x \Box A \to\Box A \forall x A$ is true at every world in every model
+  relative to every assignment. \qed
+\end{proof}
+
+Instead of working through definition \ref{def:constantdomainsemantics}, we can
+use trees to test if a sentence is CK-valid. The tree rules for CK are all the
+rules for K (from chapter 3) together with all the rules for standard predicate
+logic, with an added world parameter on each node that is held fixed when
+applying a rule from standard predicate logic. (In the predicate logic rules, a
+name counts as `old' if it already occurs on the relevant branch, no matter at which world.)
+
+To get a complete proof system, we need one further identity rule, reflecting
+the fact that the reference of a name does not vary from world to world:
+
+\medskip
+\begin{center}
+  \begin{minipage}[t]{0.3\textwidth} \centering
+
+    Identity Invariance
+    
+    \bigskip
+    \tree{
+      \dotbelownode{15}{}{$\eta_1 = \eta_2$}{\omega}{}\\
+      \\
+      \nnode{15}{}{$\eta_1 = \eta_2$}{\nu}{}\\
+      \Kk[15]{0}{\color{red}$\uparrow$}\\
+      \Kk[15]{0}{\color{red}\small old}
+    }
+  \end{minipage}
+\end{center}
+\bigskip
+
+% Can we prove the Necessity of Identity? Girle p.111 suggests we can't. So does
+% https://softoption.us/content/node/647. But here's a proof (which I can run
+% even on https://softoption.us/content/node/647, where it says the tree won't
+% close):
+%
+% 1. a=b    (w)
+% 2. -[]a=b (w)
+% 3. -[]a=a (w)  (1,2,LL)
+% 4. wRv         (3)
+% 5. -a=a   (v)  (3)
+%
+% Girle says LL is restricted to literals, which is probably enough for
+% predicate logic, but blocks this proof.
+%
+% Without Identity Invariance, we can't prove the Necessity of Distinctness, even with the liberal form of LL, and even if we have the S5 rules:
+%
+% 1. -a=b    (w)
+% 2. -[]-a=b (w)
+% 3. wRv         (2)
+% 4. a=b     (v) (2) 
+% 5. vRw         (3,Symmetry)
+%
+% At this point, we'd like to say that <>-a=b is true at v, because -a=b is true
+% at the accessible w; then the tree could easily be closed. But there's no such
+% rule.
+%
+% If we have a global LL rule that allows substituting corefering names at
+% arbitrary other worlds then we can infer -a=a from lines 4 and 1, so we're
+% done, even without Symmetry. That's equivalent to my version of LL and
+% Identity Invariance. To mimick the axiomatic situation perhaps we should use a
+% version of LL which says that we can substitute only at accessible worlds. Equivalently, we could say that
+
+Here is a tree proof for a simple instance of the Barcan Formula,
+$\forall x \Box Fx \to \Box \forall x Fx$.
+
+\medskip
+\begin{center}
+  \tree{
+    \nnode{30}{1.}{$\neg(\forall x \Box Fx \to \Box\forall x Fx)$}{w}{(Ass.)}\\
+    \nnode{30}{2.}{$\forall x \Box Fx$}{w}{(1)}\\
+    \nnode{30}{3.}{$\neg \Box\forall x Fx$}{w}{(1)}\\
+    \nnode{30}{4.}{$wRv$}{}{(3)}\\
+    \nnode{30}{5.}{$\neg \forall x Fx$}{v}{(3)}\\
+    \nnode{30}{6.}{$\neg Fa$}{v}{(5)}\\
+    \nnode{30}{7.}{$\Box Fa$}{w}{(2)}\\
+    \nnodeclosed{30}{8.}{$Fa$}{v}{(7,4)}\\
+  }
+\end{center}
+\medskip
+
+And here is a proof of $\forall x \forall y(x\!=\!y \to \Box\, x\!=\!y)$, the
+``necessity of identity'':
+%
+\medskip
+\begin{center}
+  \tree{
+    \nnode{30}{1.}{$\neg\forall x\forall y(x\!=\!y \to \Box\, x\!=\!y)$}{w}{(Ass.)}\\
+    \nnode{30}{2.}{$\neg\forall y(a\!=\!y \to \Box \,a\!=\!y)$}{w}{(1)}\\
+    \nnode{30}{3.}{$\neg(a\!=\!b \to \Box \,a\!=\!b)$}{w}{(2)}\\
+    \nnode{30}{4.}{$a=b$}{w}{(3)}\\
+    \nnode{30}{5.}{$\neg \Box \,a\!=\!b$}{w}{(3)}\\
+    \nnode{30}{6.}{$\neg \Box \,b\!=\!b)$}{w}{\qquad(4, 5, LL)}\\
+    \nnode{30}{7.}{$wRv$}{}{(6)}\\
+    \nnode{30}{8.}{$b\not=b$}{v}{(6)}\\
+    \nnodeclosed{30}{9.}{$b=b$}{v}{(SI)}
+  }
+\end{center}
+
+\begin{exercise}\label{ex:CKexamples}
+  Use the tree method to show that the following sentences are
+  CK-valid. 
+  \begin{exlist}
+  \item $ \Box \forall x Fx \to \forall x \Box Fx$
+  \item $ \exists x \Box Fx \to \Box \exists x Fx$
+  \item $ \forall x \Box (Fx \land Gx) \to \Box \forall x Fx$
+  \item $ \Box\Diamond \exists x Fx \to \Box \exists x \Diamond(Fx \lor Gx)$ % Priest p.327
+  \item $\forall x \Box \exists y\, y\!=\!x$
+  \item $ \forall x \forall y(x\!\not=\!y \to \Box x\!\not=\!y)$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  Use \href{https://www.umsu.de/trees/}{umsu.de/trees/}.
+  Note that the website uses slightly different identity rules: instead of the
+  Self-Identity rule, it has a rule for closing any branch that contains a
+  statement of the form $\tau \not= \tau$.
+\end{solution}
+
+\begin{exercise}
+  The following sentences are CK-invalid. Can you describe a countermodel for
+  each? (It may help to construct a tree and inspect its open branches.)
+  \begin{exlist}
+    \item $\Diamond \exists x Fx \to \Diamond\exists x(Fx \land Gx)$
+    \item $\Box \exists x Fx \to \exists x \Box Fx$
+    \item
+    $\forall x \forall y ((\Diamond Fx \land \Diamond \neg Fy) \to x\!\not=\!y)$
+    \item $\forall x \Box (Px \to Qx) \to \forall x (Px \to \Box Qx)$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+    \item $W=\{ w \}$, $wRw$, $D = \{ \text{Alice} \}$,
+    $V(F,w) = \{ \text{Alice} \}$, $V(G,w) = \emptyset$
+    \item $W=\{ w,v \}$, $wRw$ and $wRv$, $D = \{ \text{Alice}, \text{Bob} \}$,
+    $V(F,w) = \{ \text{Alice} \}$, $V(F,v) = \{ \text{Bob} \}$
+    \item $W=\{ w,v \}$, $wRw$ and $wRv$, $D = \{ \text{Alice}, \text{Bob} \}$,
+    $V(F,w) = \{ \text{Alice} \}$, $V(F,v) = \emptyset$
+    \item $W=\{ w,v \}$, $wRw$ and $wRv$, $D = \{ \text{Alice}, \text{Bob} \}$,
+    $V(P,w) = \{ \text{Alice} \}$, $V(P,v) = \emptyset$,
+    $V(Q,w) = \{ \text{Alice} \}$, $V(Q,v) = \emptyset$
+  \end{sollist}
+\end{solution}
+
+There are also axiomatic calculi for CK. We can, for example, combine the axiom
+schemas and rules of classical predicate logic with those of K, and add two new
+schemas: the Barcan Formula \pr{BF} and the ``necessity of distinctness'',
+%
+\principle{ND}{\forall x \forall y(x\!\not=\!y \to \Box x\!\not=\!y).}
+
+% (BF) is provable if we have the B-schema. The proof (due to Prior) is
+% surprisingly difficult.
+% \begin{align*}
+%    (1) \quad & \forall x \Box A \to \Box A &&\text{ by first-order logic}\\
+%    (2) \quad & \Diamond\forall x \Box A \to \Diamond\Box A &&\text{ from (1) by K\ }\\
+%    (3) \quad & \neg A \to \Box\Diamond \neg A &&\text{ (B)\ }\\ 
+%    (4) \quad & \Diamond\Box A \to A &&\text{ from (3)\ }\\ 
+%    (5) \quad & \Diamond\forall x \Box A \to A &&\text{ from (2) and (4)\ }\\ 
+%    (6) \quad & \Diamond\forall x \Box A \to \forall x A &&\text{ from (5) by first-order logic\ }\\
+%    (7) \quad & \Box\Diamond\forall x \Box A \to \Box\forall x A &&\text{ from (6) by K\ }\\  
+%    (8) \quad & \forall x \Box A \to \Box\Diamond\forall x \Box A &&\text{ (B)}\\
+%    (9) \quad & \forall x \Box A \to \Box \forall x A &&\text{ from (7) and (8)}
+% \end{align*}
+
+% Like the Barcan formula, \pr{ND} is provable if we add the axioms or rules for
+% the modal logic B or S5, but it is not provable in the minimal combination of
+% predicate logic with K. Proof in B:
+%
+% 1. <>-(x=y) -> -(x=y)      (NI)
+% 2. []<>-(x=y) -> []-(x=y)  (1,K,M\!P)
+% 3. -(x=y) -> []<>-(x=y)    (B)
+% 4. -(x=y) -> []-(x=y)      (2,3)
+
+% \begin{exercise}\label{ex:nni}
+%   Show that \pr{ND} is CK-valid. 
+% \end{exercise}
+% \begin{solution}
+%   Suppose for reductio that some instance of \pr{ND} is false at
+%   some world $w$ in some constant domain model $M$. Then there is some
+%   assignment $g$ such that $M,w,g \models \neg(x=y)$ and
+%   $M,w,g \not\models \Box\neg(x=y)$. The latter means that
+%   $M,v,g \not\models \neg(x=y)$ for some world $v$. But
+%   $M,w,g \models \neg(x=y)$ holds only if $g(x)\not=g(y)$, and 
+%   $M,v,g \not\models \neg(x=y)$ holds only if $g(x)=g(y)$. Contradiction. 
+% \end{solution}
+
+As I mentioned above, stronger logics can be defined by putting constraints on
+the accessibility relation. We can define a system \textbf{CT} as the set of
+$\L_{M\!P}$-sentences that are valid in the class of constant-domain Kripke
+models with a reflexive accessibility relation. \textbf{CS4} is the set of
+$\L_{M\!P}$-sentences that are valid in the class of constant-domain Kripke
+models with a reflexive and transitive accessibility relation. And so on.
+
+Properties of the accessibility relation still correspond to modal schemas, just
+as in chapter \ref{ch:accessibility}: \pr{T} corresponds to reflexivity, \pr{4}
+to transitivity, \pr{G} to convergence, etc. Recall that a schema
+\emph{corresponds} to a property of the accessibility relation if the schema is
+valid in all and only the frames in which the accessibility relation has that
+property. A \emph{frame} is a model without an interpretation function. In the
+present context, a frame therefore consists of two non-empty sets $W$ and $D$ and a
+relation $R$ on $W$.
+
+We can still use the tree method or the axiomatic method to test for validity in
+logics stronger than CK. To test for CT-validity, for example, we would add the
+Reflexivity rule to the tree rules for CK. To test for CS4-validity, we would
+add the Reflexivity and Transitivity rules. We can get an axiomatic calculus for
+CT by adding the \pr{T}-schema to the calculus for CK; for CS4, we can add
+\pr{T} and \pr{4}. And so on for other systems.
+
+But there are exceptions. Remember S4.2 -- the set of $\L_M$-sentences valid in
+the class of reflexive, transitive, and convergent Kripke models. Reflexivity
+corresponds to \pr{T}, transitivity to \pr{4}, and convergence to \pr{G}. If we
+add these schemas to the axiomatic calculus for system K, we get a sound and
+complete calculus for S4.2. But if we add the schemas to the calculus for CK,
+the resulting calculus is \emph{not} complete for CS4.2. There are
+$\L_{MP}$-sentences that are valid in the class of reflexive, transitive, and
+convergent constant-domain models that can't be derived.
+
+% In particular, we can't prove
+% $\neg(\Diamond(\exists x Ax \land \forall x(Ax \to \Box Bx) \land \Box \neg\forall x Bx) \,\land\, \Diamond\forall x(Ax \lor \Box Bx)\,\land\, \forall x (\Diamond Ax \to \Box (\exists x Ax \to Ax)))$.)
+%
+% Similarly for S4M: QS4M+(BF) cannot prove
+% $\Box \exists x Ax \to \Diamond \exists x \Box Ax$, which is valid in the
+% class of all its frames.
+%
+% For the proofs, see \cite{cresswell95incompleteness}.
+%
+% In either case, the canonicity proof does not carry over to the first-order
+% case because first-order canonicity requires that certain formula sets have
+% not only a maximally consistent extension, but a maximally consistent
+% \emph{and witnessed} extension.
+%
+% Does a problem like this also arise for the tree rules?
+
+% The calculus we get if we add T+4+G is not complete with respect to any class
+% of constant-domain frames.
+
+\section{Quantification and existence}
+
+We have assumed that the domain of individuals is the same for every world. This
+may seem problematic.
+
+Earlier today I was baking bread. Let's call the loaf of bread that I made
+Loafy. Intuitively, Loafy could have failed to exist. I could have decided not
+to bake bread. Even if determinism is true, we can consider worlds at which the
+laws of nature or the origin of the universe are different. In many of these
+worlds, there are no humans, and no loafs of bread. So we should allow for
+worlds at which Loafy doesn't exist.
+
+If we use $b$ as a name for Loafy, we can arguably express Loafy's existence as
+\[
+  \exists x \,x\!=\!b.
+\]
+Why does this express that Loafy exists? Consider a scenario in which Loafy does
+exist. In that scenario, there is some thing $x$ which is identical to Loafy
+(namely, Loafy). Conversely, consider a scenario in which Loafy does not exist.
+In that scenario, there is no thing $x$ which is identical to Loafy. So
+$\exists x\, x\!=\!b$ is true in all and only the scenarios in which Loafy exists.
+
+Now we can sharpen the above worry. Intuitively, it could have been the case
+that Loafy doesn't exist. So $\Diamond \neg \exists x\, x\!=\!b$ is true, on a
+suitable understanding of the diamond. But in constant-domain semantics, that
+sentence is a contradiction: it is false at every world in every model.
+
+A converse problem arises if we think that something could have existed that
+doesn't actually exist. For example, let's assume that there could have been
+unicorns. If we interpret the predicate $U$ as `-- is a unicorn' and the box as
+a suitable kind of circumstantial necessity, $\Box \forall x \neg Ux$ should
+then be false. But let's also assume that no individual in our world could have
+been a unicorn. So $\forall x \Box \neg Ux$ is true. We then have a
+counterexample to the Barcan Formula $\forall x \Box A \to \Box \forall x A$.
+And all instances of the Barcan Formula are valid in constant-domain semantics.
+
+% This problem is a little harder to bring out because there is no direct way to
+% say, in $\L_{M\!P}$, that something could have existed that doesn't actually
+% exist. We could express it if we add an `actually' operator:
+% $\neg \Diamond\exists x \neg \Always \exists y(y=x)$ comes out valid.
+
+\begin{exercise}
+  The \textbf{Converse Barcan Formula} is the schema
+  $\Box \forall x A \to \forall x \Box A$. All instances of the Converse Barcan
+  Formula are CK-valid. Explain why Loafy's possible non-existence seems to
+  provide a counterexample to the Converse Barcan Formula.
+\end{exercise}
+\begin{solution}
+  $\Box \forall x \exists y\, x\!=\!y \to \forall x \Box\exists y\, x\!=\!y$ is an
+  instance of the Converse Barcan Formula. If we read the box as a relevant kind
+  of circumstantial necessity, and Loafy could have failed to exist, then the
+  consequent of this conditional is false. But the antecedent is true.
+\end{solution}
+
+% Here is a (schematic) proof of \pr{CBF} in the combined axiomatic
+% calculus for predicate logic and the modal logic K.
+% \begin{align*}
+%    1. \quad & \forall x A \to A[c/x] &&\text{ (UI)}\\
+%    2. \quad & \Box(\forall x A \to A[c/x]) &&\text{ (from 1 by Nec)}\\
+%    3. \quad & \Box(\forall x A \to A[c/x]) \to (\Box\forall x A \to \Box A[c/x]) &&\text{ (K)}\\
+%    4. \quad & \Box\forall x A \to \Box A[c/x] &&\text{ (from 2 and 3 by M\!P)}\\
+%    5. \quad & \Box \forall x A \to \forall x \Box A &&\text{ (from 4 by UG)}.
+% \end{align*}
+
+\begin{exercise}
+  Consider the following four schemas.
+  \begin{enumerate}[leftmargin=14mm]
+    \itemsep-1mm
+  \item[(1)] $\Diamond \exists x A \to \exists x \Diamond A$
+  \item[(2)] $\Box \exists x A \to \exists x \Box A$
+  \item[(3)] $\exists x \Box A \to \Box \exists x A$
+  \item[(4)] $\exists x \Diamond A \to \Diamond \exists x A$
+  \end{enumerate}
+  \vspace{-3mm}
+  \begin{exlist}
+    \item Are any of (1)--(4) equivalent to the Barcan Formula or the Converse
+    Barcan Formula (given the duality of $\Box$ and $\Diamond$, of $\forall x$
+    and $\exists x$, and the standard truth-tables for propositional
+    connectives)?
+    \item Which of these schemas do you think are intuitively valid on a
+    metaphysical interpretation of the box and the diamond?
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  (1) is equivalent to the Barcan Formula, (4) to the Converse Barcan Formula.
+  (2) is highly implausible. (1) and (4) are often regarded as implausible, for
+  the reasons I discuss in the text. Like the Converse Barcan Formula, the
+  validity of (3) rules out scenarios in which individuals at one world may fail
+  to exist at an accessible world.
+  % (3) isn't equivalent to CBF though: (3) can be valid even without increasing domains, provided that everything at w exists at /some/ accessible world.
+\end{solution}  
+  
+% \begin{exercise}
+%   The \pr{K}-like principle
+%   $\forall x (A \to B) \to (\forall x A \to \forall x B)$ is easily provable
+%   in classical predicate logic. Can you see how the strict version
+%   $\forall x (A \strictif B) \to (\forall x A \strictif \forall x B)$ is
+%   related to the Barcan Formula?
+% \end{exercise}
+
+An obvious response to these problems is to replace constant-domain semantics
+with a semantics in which the domain of individuals can vary from world to
+world. We will explore this option in the following section. First I want to
+mention two other lines of response.
+
+Some philosophers have argued that we should bite the bullet: we are simply
+mistaken when we judge that Loafy could have failed to exist, or that anything
+could have existed that doesn't actually exist. In temporal logic, biting the
+bullet means to accept that anything that has ever existed still exists today,
+and that anything that exists today has always existed and is always going to
+exist. In epistemic logic, biting the bullet means to accept that nobody can be
+unsure or ignorant about which individuals exists: if something exists, nobody
+can fail to know that it exists, nor can anyone believe that an individual
+exists that doesn't really exist.
+
+% It seems odd to say that if I'm unsure whether there are dragons then I'm
+% actually sure the relevant objects exist, just not whether they are dragons.
+
+A different response is to break the link between quantification and
+existence. $\exists x$ is traditionally called an ``existential'' quantifier,
+and pronounced `there is an $x$' or `there exists an $x$'. But $\L_{M\!P}$ is a
+made-up language. We can make its symbols mean whatever we want. We can give a
+different interpretation of $\exists x$ on which `Loafy exists' can't be
+translated as $\exists x\, x\!=\!b$.
+
+One alternative to the standard interpretation of quantifiers is associated with
+the Austrian philosopher Alexius Meinong. Meinong observed that when we describe
+beliefs, plans, hopes, or fears, we often seem to refer to non-existent objects.
+We might say that someone is afraid of \emph{a ghost}, or that they are
+searching for \emph{a golden mountain} -- even though there are no ghosts or
+golden mountains. According to Meinong, people who are searching for a golden
+mountain are really searching for \emph{something}. That something is a golden
+mountain. But it is not an existent golden mountain. Meinong concluded that
+besides existent mountains, there are also non-existent mountains.
+
+Quantifiers that range over both existent and non-existent individuals are
+called \emph{Meinongian}. If the $\L_{M\!P}$-quantifiers are Meinongian, then
+clearly $\exists x\, x\!=\!b$ does not translate `Loafy exists'.
+
+Meinong's postulation of non-existent individuals is widely rejected as
+incoherent. It certainly raises some difficult questions. Suppose you are
+searching for a golden mountain. You probably don't have any firm views about
+the mountain's height. You are not looking for a mountain that is exactly 2000
+meters tall, nor are you looking for a mountain that is exactly 2100 meters
+tall. On the Meinongian account, there is a genuine mountain that you
+are looking for. It is a mountain that is not 2000 meters tall, not 2100 meters
+tall, and doesn't have any other particular height either. But how could there
+be a mountain without any particular height? Besides, it also doesn't seem right
+to say that you are looking for a peculiar ``mountain'' that doesn't have any
+height and doesn't exist. Intuitively, you are looking for an \emph{existent}
+mountain that \emph{does} have a height.
+
+% Even if we accept Meinongian quantification as coherent, it is not clear whether
+% it fully avoids the problem of constant domains. For example, couldn't I be
+% unsure about how many things there are, even in the Meinongian, extended sense
+% of `there are'? To model my uncertainty in terms of accessible worlds, the
+% domain of the Meinongian quantifier would have to vary from world to world.
+
+% One motivation for this move is that in natural language, we can apparently
+% quantify over non-existent objects: We seem to have names for them, like
+% `Pegasus', and we can quantify over them, as when I say that there's a strange
+% house I often see in my dreams, made of chocolate. The question is whether we
+% want to say such things in our formal language, and if so, how we want to say
+% them. The purpose of our language is to avoid confusion and aid clear
+% reasoning. And for that purpose, many think it advisable to not quantify over
+% things that don't exist.
+
+% Consider that house in my dream. If someone made an inventory of all houses,
+% should that house really be included? If someone says that \emph{there are no}
+% houses made of chocolate, are they wrong? What other properties does that house
+% have? When was it built? Does someone live in it? My dreams don't give an
+% answer. It is hard to believe that there is a fact of the matter. So should we
+% accept that there are houses that are neither inhabited nor uninhabited?
+
+% Also, as Lycan 1994, p.5 points out, if `the city 100 km South of Edinburgh
+% and 100 km North of London' refers, doesn't it follow that Edinburgh is 200 km
+% North of London?
+
+% Another obvious problem that arises if we allow for non-existent objects is
+% that we must now explain both the quantifier $\exists$ and the predicate
+% ``existing'', in a way that doesn't trivialize the issue. (For example, it
+% won't do to say that `existing' means being concrete.) Lewis has an answer:
+% ``existing'' means `being located in our world (and at the present)'.
+
+% Barcan Marcus proposed that Meinongian quantification is substitutional. That
+% looks plausible for `there are things that don't exist'.
+
+A more straightforward alternative to the standard interpretation of quantifiers
+is the \emph{possibilist} interpretation. Here we assume that $\forall x$ and
+$\exists x$ range not only over things that exist at the world at which the
+quantifiers are interpreted, but over everything that exists at any possible
+world. On this interpretation, too, $\exists x\, x\!=\!b$ no longer states that Loafy
+exists. It merely states that Loafy could have existed, in an unrestricted sense
+of `could'. Constant-domain semantics then only assumes that the set of
+individuals that exist at some world or other does not vary from world to world.
+
+% Now, it seems rather odd to say that something at $w$ is red at $w$ and in a
+% box at $w$ even though no existing object is red at $w$ and even though the
+% box is empty at $w$. So most predicates are existence-entailing. The things
+% that don't exist aren't red or in a box. They are possibly red and possibly in
+% a box.
+
+% I must not conflate the view that actuality contains non-concrete individuals
+% that are dragons in other worlds with the view that quantifiers directly range
+% over non-actual individuals. Rini and Cresswell say that `there could have
+% been a unicorn' means that there is a world $w'$ at which something $u$ is a
+% unicorn; ``If \emph{unicorn} is a natural kind term then presumably nothing
+% actual \emph{could} be a unicorn, and so $u$ is a non-actual possible.''
+% (p.72)
+
+One  downside of the possibilist interpretation is that it goes against the
+``internalist'' spirit of modal logic. As we saw in section \ref{sec:fragment},
+one of the key features of modal logic is that it looks at the structure of
+worlds from the inside, from the perspective of a particular world, with only
+the modal operators providing (incomplete) access to other worlds.  Possibilist
+quantifiers would provide unrestricted access to the inhabitants of other
+worlds.
+
+Let's set aside these alternatives and see how constant-domain semantics could
+be changed to allow for variable domains.
+
+\section{Variable-domain semantics}\label{sec:variabledomains}
+
+In variable-domain models, every world $w$ is associated with its own individual
+domain $D_w$. Loafy the bread may be a member of $D_w$ but not of $D_v$.
+Quantifiers range over the individuals in the local domain of the world at which
+they are interpreted: $\exists x Fx$ is true at $w$ iff $Fx$ is true (at $w$) of
+some individual in $D_w$.
+
+Here is our revised definition of an $\L_{M\!P}$-model.
+
+\begin{definition}{}{variabledomainmodel}
+  A \textbf{variable-domain Kripke model} for $\L_{M\!P}$ is a structure $M$
+  consisting of%
+  \medskip
+  \begin{compactenum}
+  \item a non-empty set $W$ (the ``worlds''),
+  \item an accessibility relation $R$ on $W$,
+  \item for each world $w$, a non-empty set $D_w$ (of ``individuals''), and
+  \item an interpretation function $V$ that assigns
+    \vspace{-1mm}
+    \begin{itemize}
+      \itemsep-1mm
+      \item to each name a member of some domain $D_w$, and
+      \item to each $n$-place predicate and world $w$ a set of $n$-tuples from
+            $D_w$.
+    \end{itemize}
+  \end{compactenum}
+\end{definition}
+
+To complete the semantics, we need to explain how $\L_{M\!P}$-sentences are
+interpreted relative to any given world in a variable-domain model. This raises
+a problem.
+
+Since Loafy could have failed to exist, we want to have models in which
+$\Diamond \neg \exists x\, {x\!=\!b}$ is true at some world $w$. It follows that
+$\neg \exists x\, x\!=\!b$ is true at some world $v$ accessible from $w$.
+Intuitively, $v$ is a world at which Loafy doesn't exist. The problem is that we
+need to explain how a sentence that contains a name (here, $b$) should be
+interpreted at a world (here, $v$) where the thing that's picked out by the name
+doesn't exist.
+
+In the case of $\neg \exists x\, x\!=\!b$, the sentence should come out true.
+Other cases are less clear. What about $b=b$? Is Loafy identical to Loafy at
+$v$, where Loafy doesn't exist? What about $Fb$, $\neg Fb$, or
+$Fb \lor \neg Fb$? Is Loafy delicious at $v$? Is Loafy not delicious at $v$? Is
+Loafy either delicious or not delicious at $v$?
+
+These questions are discussed not just in modal logic, but also in a branch of
+non-modal logic called \textbf{free logic}. Free logic differs from classical
+predicate logic by dropping the assumption that every name has a referent. The
+assumption is, after all, not true for names in natural language.
+
+Consider the story of `Vulcan'. Astronomers of the 19th century found that
+Mercury's path around the Sun conforms to Newton's laws only if there is
+another, smaller planet between Mercury and the Sun. With the help of Newton's
+laws, they calculated the size and position of that planet, and called it
+Vulcan. But Vulcan was never discovered. Eventually, Mercury's path was
+explained by Einstein's theory of relativity, without assuming any new planets.
+The name `Vulcan' turned out to be \emph{empty}: it doesn't refer to anything.
+
+% Before applying classical logic one would have to determine which names refer
+% and which don't, which often requires substantial empirical information. Free
+% logic avoids these problems. It can be applied even if the emptiness of names
+% is unknown, and it can capture valid inference with empty names.
+
+How should we formalize reasoning with empty names? The orthodox answer is that
+we shouldn't: the function of a name is to pick out an individual; if there is
+no individual to be picked out, we shouldn't use a name. Proponents of free
+logic disagree. They hold that we can perfectly well reason with empty names. We
+then need to answer the same questions that I posed above: if $b$ is an empty
+name, how should we interpret $b=b$, $Fb$, $\neg Fb$, and $Fb \lor \neg Fb$?
+
+Within free logic, there are broadly three approaches.
+
+The first is Meinongian. It assumes that apparently empty names are not really
+empty after all; they merely pick out a non-existent individual. Statements with
+such names are then interpreted as usual: $Fb$ may be true or false, depending
+on whether the (non-existent) individual picked out by $b$ has the property
+expressed by $F$.
+
+Non-Meinongian versions of free logic usually assume that \emph{atomic}
+sentences with empty names are never true: if $b$ is empty, then $Fb$ can't be
+true. The idea is that predicates express properties, and if something doesn't
+exist then it doesn't have any properties. For example, it is not true that
+Vulcan is a planet -- as you can see from the fact that Vulcan would not occur
+on a list of all planets. Nor is it true that Vulcan orbits the sun, or that
+Vulcan has any particular mass.
+
+% To be sure, Vulcan was \emph{believed} to be a planet and to orbit the Sun.
+% But one could argue that this should be formalized as something like
+% $\Bel(Pa \land Oas)$, not $Fa$.
+
+What shall we say about $\neg Fb$ then, if $b$ is an empty name? In some
+versions of free logic, the standard semantic rules for complex sentences are
+applied: since $Fb$ is not true, $\neg Fb$ is true, and so is $Fb \lor \neg Fb$.
+Other versions of free logic assume that if $b$ doesn't refer then neither $Fb$
+nor $\neg Fb$ is true. Since a sentence is called false iff its negation is
+true, this means that $Fb$ and $\neg Fb$ are neither true nor false. We get a
+three-valued semantics that can be spelled out in different ways, with different
+verdicts on sentences like $Fb \lor \neg Fb$.
+
+Each version of free logic can be used to give a semantics for modal predicate
+logic with variable domains. I am going to use the two-valued non-Meinongian
+approach, mainly because it is the simplest. We will assume that at worlds where
+Loafy doesn't exist, every atomic sentence involving a name for Loafy is false:
+$b=b$ is false, $Fb$ is also false, but $\neg Fb$ and $Fb \lor \neg Fb$ are
+true.
+
+% (see \cite{lambert03philosophical} or \cite{nolt07free} for a more in-depth
+% overview of all this) and e.g. \cite[para 2.3]{sainsbury05reference} for a
+% defense of my choice.
+
+\begin{definition}{Variable-domain Kripke semantics}{variabledomainsemantics}
+  If $\Mfr = \t{W,R,D,V}$ is a variable-domain Kripke model, $w$ is a member of
+  $W$, $\phi$ is an $n$-place predicate (for $n\geq 0$), $\tau_1,\ldots,\tau_n$
+  are terms, $\chi$ is a variable, and $g$ is a variable assignment, then
+  
+  % Note that [\tau]^{M,g} is never empty. We've assumed that names have a
+  % referent.
+  
+  \medskip\hspace{-4mm}
+  \begin{tabular}{lll}
+    (a) & $M,w,g \models \phi \tau_1\ldots \tau_n$ &iff $\t{[\tau_1]^{M,g},\ldots,[\tau_n]^{M,g}} \in V(\phi,w)$.\\
+    (b) & $M,w,g \models \tau_1=\tau_2$ &iff $[\tau_1]^{M,g} = [\tau_2]^{M,g}$ and $[\tau_1]^{M,g} \in D_w$.\\
+    (c) & $M,w,g \models \neg A$ &iff $M,w,g \not\models A$.\\
+    (d) & $M,w,g \models A \land B$ &iff $M,w,g \models A$ and $M,w,g \models B$.\\
+    (e) & $M,w,g \models A \lor B$ &iff $M,w,g \models A$ or $M,w,g \models B$.\\
+    (f) & $M,w,g \models A \to B$ &iff $M,w,g \not\models A$ or $M,w,g \models B$.\\
+    (g) & $M,w,g \models A \leftrightarrow B$ &iff $M,w,g \models (A\to B)$ and $M,w,g \models (B\to A)$.\\
+    (h) & $M,w,g \models \forall \chi A$ &iff $M,w,g' \models A$ for all $\chi$-variants $g'$ of $g$ for\\[-1mm]
+        && which $g'(\chi)\in D_w$.\\
+    (i) & $M,w,g \models \exists \chi A$ &iff $M,w,g' \models A$ for some $\chi$-variant $g'$ of $g$ for\\[-1mm]
+        && which $g'(\chi)\in D_w$.\\
+    (j) & $M,w,g \models \Box A$ &iff $M,v,g \models A$ for all $v\in W$ such that $wRv$.\\
+    (k) & $M,w,g \models \Diamond A$ &iff $M,v,g \models A$ for some $v\in W$ such that $wRv$.
+  \end{tabular}
+\end{definition}
+
+As in constant-domain semantics, we say that a sentence $A$ is \textbf{true at a
+  world $w$} in a model $M$ iff $M,w,g \models A$ for all assignments $g$. A
+sentence is \textbf{VK-valid} (`V' for `variable-domain') iff it is true at all
+worlds in all variable-domain models.
+
+The system VK is weaker than classical predicate logic. Not everything
+that is valid in classical predicate logic is CK-valid. For example, both $b=b$
+and $\exists x\, x\!=\!b$ are valid in classical predicate logic, but they are
+not true at every world in every variable-domain model. If $V(b)$ is not a
+member of $D_w$, then $b=b$ and $\exists x \, x\!=\!b$ are false at $w$.
+
+On the other hand, you can check that $\forall x\, x\!=\!x$ is VK-valid. So we
+don't just have to revise the rules for identity. We also need to revise the
+rule of ``universal instantiation'': from the fact that a universal
+generalisation like $\forall x\, x\!=\!x$ is true (at a world, or at all worlds),
+we can't infer that all its instances are true: $b=b$ may be false. For another
+example, consider a world $w$ where everything is made of chocolate. Let $F$
+express the property of being made of chocolate. $\forall x Fx$ is true at $w$.
+But we can't infer that Loafy the bread is made of chocolate ($Fb$) at $w$, for
+Loafy may not exist at $w$.
+
+In the type of free logic we have adopted, the rule of universal instantiation
+requires another premise: from $\forall x A$ we can infer $A[b/x]$ only if we
+also know that $b$ exists -- which can be expressed as $\exists x \, x\!=\!b$, or
+even simpler as $b\!=\!b$, given our assumption that atomic sentences with empty
+names are always false.
+
+Here are the revised tree rules for VK. I only give the quantifier rules for
+$\forall \chi A$ and $\exists \chi A$. You can find the rules for
+$\neg \forall \chi A$ and $\neg\exists \chi A$ by converting these into
+$\exists \chi \neg A$ and $\forall \chi \neg A$, respectively.
+
+\bigskip
+
+\begin{minipage}{0.6\textwidth} \centering
+\tree[2]{
+  & \dotbelowbnode{12}{}{$\forall \chi A$}{\omega}{} &\\
+  && \\
+  && \\
+  \nnode{10}{}{$\eta\!\not=\!\eta$}{\omega}{} && \nnode{12}{}{$A[\eta/\chi]$}{\omega}{}\\
+  \Kk[3]{0}{\color{red}$\uparrow$} &&\\
+  \Kk[3]{0}{\color{red}\small old} &&
+}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}\centering
+\tree{
+  \dotbelownode{12}{}{$\exists \chi A$}{\omega}{}\\
+  \\
+  \nnode{12}{}{$\eta=\eta$}{\omega}{}\\
+  \nnode{12}{}{$A[\eta/\chi]$}{\omega}{}\\
+  \Kk[-1]{0}{\color{red}$\uparrow$}\\
+  \Kk[0]{0}{\color{red}\small new}
+}
+\end{minipage}
+
+% \begin{minipage}{0.24\textwidth}\centering
+% \tree{
+%   \dotbelownode{12}{}{$\neg\forall \chi A$}{\omega}{}\\
+%   \\
+%   \nnode{12}{}{$\eta=\eta$}{\omega}{}\\
+%   \nnode{12}{}{$\neg A[\eta/\chi]$}{\omega}{}\\
+%   \Kk[-1]{0}{\color{red}$\uparrow$}\\
+%   \Kk[0]{0}{\color{red}\small new}
+% }
+% \end{minipage}
+% \begin{minipage}{0.24\textwidth} \centering
+% \tree[2]{
+%   & \dotbelowbnode{12}{}{$\neg\exists \chi A$}{\omega}{} &\\
+%   && \\
+%   && \\
+%   \nnode{15}{}{$\eta\!\not=\!\eta$}{\omega}{} && \nnode{15}{}{$\neg A[\eta/\chi]$}{\omega}{}\\
+%   \Kk[4]{0}{\color{red}$\uparrow$} &&\\
+%   \Kk[4]{0}{\color{red}\small old or first} &&
+% }
+% \end{minipage}
+
+
+\bigskip
+
+We keep the rule for Leibniz's Law. But we replace the Self-Identity and Identity Invariance rules by the following three rules.
+
+\bigskip
+
+\begin{minipage}{0.32\textwidth}\centering
+    Existence
+    
+    \tree{
+      \dotbelowbarenode{}\\
+      \\
+      \nnode{10}{}{$\eta=\eta$}{\omega}{}\\
+      \Kk[0]{0}{\color{red}$\uparrow$\hspace{6mm}}\\
+      \Kk[0]{0}{\color{red}\small new\hspace{6mm}}
+    }
+\end{minipage}
+\begin{minipage}{0.32\textwidth}\centering
+    Identity Invariance
+    
+    \bigskip
+    \tree{
+      \nnode{15}{}{$\eta_1 = \eta_2$}{\omega}{}\\
+      \dotbelownode{15}{}{$\eta_1 = \eta_1$}{\nu}{}\\
+      \\
+      \nnode{15}{}{$\eta_1 = \eta_2$}{\nu}{}
+    }
+\end{minipage}
+\begin{minipage}{0.32\textwidth}\centering
+\tree{
+  \dotbelownode{16}{}{$\Phi\eta_1\ldots\eta_n$}{\omega}{}\\
+  \\
+  \nnode{16}{}{$\eta_1=\eta_1$}{\omega}{}\\
+  \nnode{16}{}{$\eta_2=\eta_2$}{\omega}{}\\
+  \nnode{16}{}{$\vdots$}{}{}\\
+  \nnode{16}{}{$\eta_n=\eta_n$}{\omega}{}
+}
+\end{minipage}
+
+% Shouldn't I turn Identity Invariance into a branching rule, like FUI?
+
+\bigskip
+
+The Existence rule reflects our assumption that the domain of individuals is
+never empty. The last rule is a rule for expanding atomic nodes. From the
+assumption that $Fb$ is true at a world, for example, the rule allows us to
+infer that $b$ exists at that world, which can be expressed as $b\!=\!b$. We
+then don't need a separate rule of Self-Identity.
+
+% These rules are adapted from Priest, pp. 331, 337, and 353. The main
+% differences are these:
+%
+% (1) in NFL, we can use a=a instead of Ea. This makes Priest's Self-Identity
+% rule trivial.
+%
+% (2) Priest allows all inner domains to be empty, I require them all to be
+% non-empty. This makes a difference. From $\forall x Fx$, I can infer that $Fx$
+% is true of something. Priest's rules don't allow that. I assume this can be
+% fixed by adding a new rule that allows us to introduce a new name and say that
+% it exists. This is the new Self-Identity rule. When expanding universal
+% quantifiers, one then never needs to introduce a new (first) name.
+
+\begin{exercise}
+  Use the tree method to show that the following sentences are VK-valid.
+  \begin{exlist}
+  \item $\exists x \Box Fx \to \Box \exists x Fx$
+  \item $\Box\forall x(Fx \to Gx) \to (\Box\forall x Fx \to \Box \forall x Gx)$ % Priest p.332
+  \item $\Box \exists x \, x\!=\!x$
+  \item $\Diamond Fa \to \Diamond \exists x Fx$
+  \item $a\!=\!b \to \Box(a\!=\!a \to a\!=\!b)$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+    \item \tree[4]{%
+        & \nnode{22}{1.}{$\exists x \Box Fx \to \Box \exists x Fx$}{w}{(Ass.)} & \\
+        & \nnode{22}{2.}{$\exists x \Box Fx$}{w}{(1)} & \\
+        & \nnode{22}{3.}{$\neg \Box \exists x Fx$}{w}{(1)} & \\
+        & \nnode{22}{4.}{$\Box Fa$}{w}{(2)} & \\
+        & \nnode{22}{5.}{$wRv$}{}{(3)} & \\
+        & \nnode{22}{6.}{$\neg \exists x Fx$}{v}{(3)} & \\
+        & \nnode{22}{7.}{$Fa$}{v}{(4,5)} & \\
+        & \bnode{22}{8.}{$a\!=\!a$}{v}{(7)} & \\
+        && \\
+        \nnodeclosed{12}{9.}{$a\!\not=\!a$}{v}{(6)} &&  \nnodeclosed{12}{9.}{$\neg Fa$}{v}{(6)}\\
+    }
+    \medskip
+
+    \item DIY. The tree has four branches. I can't typeset it.
+    \medskip
+    
+    \item \tree[4]{%
+        & \nnode{25}{1.}{$\neg\Box \exists x\, x\!=\!x$}{w}{(Ass.)} &\\
+        & \nnode{25}{2.}{$wRv$}{}{(1)} &\\
+        & \nnode{25}{3.}{$\neg \exists x\, x\!=\!x$}{v}{(1)} &\\
+        & \bnode{25}{4.}{$a\!=\!a$}{v}{(Ex.)} &\\
+        && \\
+        \nnodeclosed{12}{9.}{$a\!\not=\!a$}{v}{(3)} &&  \nnodeclosed{12}{9.}{$a\!\not=\!a$}{v}{(3)}\\
+    }
+    \medskip
+
+    \item \tree[4]{%
+        & \nnode{25}{1.}{$\neg(\Diamond Fa \to \Diamond \exists x Fx)$}{w}{(Ass.)} &\\
+        & \nnode{25}{2.}{$\Diamond Fa$}{w}{(1)} &\\
+        & \nnode{25}{3.}{$\neg \Diamond \exists x\, Fx$}{w}{(1)} &\\
+        & \nnode{25}{4.}{$wRv$}{}{(2)} &\\
+        & \nnode{25}{5.}{$Fa$}{v}{(2)} &\\
+        & \nnode{25}{6.}{$a\!=\!a$}{v}{(5)} &\\
+        & \bnode{25}{7.}{$\neg \exists x\, Fx$}{v}{(3,4)} &\\
+        && \\
+        \nnodeclosed{12}{9.}{$a\!\not=\!a$}{v}{(3)} &&  \nnodeclosed{12}{10.}{$\neg Fa$}{v}{(3)}\\
+    }
+    \medskip
+
+    \item \tree[4]{%
+        & \nnode{38}{1.}{$\neg(a\!=\!b \to \Box(a\!=\!a \to a\!=\!b))$}{w}{(Ass.)} &\\
+        & \nnode{38}{2.}{$a\!=\!b$}{w}{(1)} &\\
+        & \nnode{38}{3.}{$\neg\Box(a\!=\!a \to a\!=\!b)$}{w}{(1)} &\\
+        & \nnode{38}{4.}{$wRv$}{}{(3)} &\\
+        & \nnode{38}{5.}{$\neg(a\!=\!a \to a\!=\!b)$}{v}{(3)} &\\
+        & \nnode{38}{6.}{$a\!=\!a$}{v}{(5)} &\\
+        & \nnode{38}{7.}{$\neg a\!=\!b$}{v}{(5)} &\\
+        & \nnodeclosed{38}{8.}{$a\!=\!b$}{v}{(2,6)} &\\
+    }
+    \medskip
+  \end{sollist}
+\end{solution}
+
+% What about the axiomatic approach?
+%
+% The \pr{UI} principle $\forall x A \to A[a/x]$ has become invalid. It is
+% replaced by a weaker principle of ``free universal instantiation'', \pr{FUI}:
+% 
+% \principle{FUI}{\forall \chi A \to (\eta\!=\!\eta \to A[\eta/\chi])}
+% 
+% What is a complete axiomatisation?
+%
+% For soundness and completeness of typical systems on variable domains see HC
+% 294--302. The completeness technique for constant domain QML generally fails
+% because we don't have the BF which allows us to construct maximally consistent
+% and witnessed sets.
+
+It is easy to check that the Barcan Formula
+$\forall x \Box A \to \Box \forall x A$ and its converse
+$\Box \forall x A \to \forall x \Box A$ are invalid in variable-domain
+semantics. (By this I mean that not all their instances are valid.) In fact, we
+can now prove that the Barcan formula corresponds to the assumption that
+whatever exists at an accessible world also exists at the original world, while
+its converse corresponds to the assumption that whatever exists at a world also
+exists at all accessible worlds.
+
+\begin{observation}{barcancorr}
+  \vspace{-1mm}
+  \begin{enumerate}[leftmargin=10mm]
+    \itemsep0mm
+  \item[(i)] \pr{CBF} is valid on a variable-domain frame iff the frame has
+    \emph{increasing domains}, meaning that whenever $wRv$, then
+    $D_w \subseteq D_v$.
+    
+  \item[(ii)] \pr{BF} is valid on a variable-domain frame iff the frame has
+    \emph{decreasing domains}, meaning that whenever $wRv$ then
+    $D_v \subseteq D_w$.
+  \end{enumerate}
+  \vspace{-2mm}
+\end{observation}
+%
+\begin{proof}
+  \emph{Proof of (i).} Suppose some variable-domain frame $F$ does not have
+  increasing domains. Then $F$ has a world $w$ whose domain $D_w$ contains an
+  individual $d$ that does not exist at some $w$-accessible world $v$. Let $V$
+  be an interpretation function on $F$ so that $V(F,w) = D_w$ and
+  $V(F,v) = D_v$. In the model composed of $F$ and $V$, $\Box \forall x Fx$ is
+  true at $w$, but $\forall x \Box Fx$ is false, since $d$ is not in $V(F,v)$.
+  So \pr{CBF} is not true at all worlds in all models based on $F$.
+
+  In the other direction, suppose \pr{CBF} is not valid on a frame $F$. This
+  means that there is a world $w$ in some model $M$ based on $F$ at which some
+  instance of $\Box \forall x A$ is true while $\forall x \Box A$ is false. If
+  $\forall x \Box A$ is false at $w$, then there is some $w$-accessible world
+  $v$ at which $A$ is false of some individual $d$ in $D_w$. But since
+  $\Box \forall x A$ is true at $w$, $A$ is true of all members of $D_v$. So $d$
+  is not in $D_v$. And so $F$ does not have increasing domains.
+
+  The proof of (ii) is similar.\qed
+  
+\end{proof}
+
+% In modal propositional logic, we saw that many interesting modal schemas
+% corresponded to properties of the accessibility relation. In variable-domain
+% semantics, interaction principles like \pr{BF} and \pr{CBF} correspond
+% to frame conditions that link the accessibility relation with the domain of
+% individuals.
+
+% It is also easy to prove that (CBF) is valid in a VD frame iff (NE) is valid
+% there. For (BF), the equivalent principle stating the necessity of
+% non-existence cannot easily put in a single formula. But one can put it in
+% terms of a schema: $\neg E!x \to \Box \neg E!x$, or contrapositively,
+% $\Diamond E!x \to E!x$.
+
+% In models with identity, the same can be proved for $\forall x \Box
+% \exists y (y=x)$ in place of (CBF) and $\Diamond \exists x (x=y) \to
+% \exists x (x=y)$ in place of (BF). This can be useful because unlike
+% (BF) and (CBF) these are single formulas rather than schemas (see
+% \cite[181f.]{fitting98first}).
+
+% We've remarked that (CBF) is provable if we merge the axiomatic approach to
+% first-order logic with K. $\Box (\forall x A \to A[c/x])$ is derivable from UI
+% and Nec. If we want to hold on to classical rules, the most conservative
+% variable domain systems are therefore the \emph{increasing domain systems}
+% studied in \citey[ch.10]{hughes68introduction} (and \citey[15]{hughes96new} or
+% e.g. \cite[44ff.]{gabbay76investigations}). (CBF) is valid in these systems,
+% but not (BF). Recall that proving the Barcan Formula,
+% $\forall x\Box A \to \Box\forall x A$, requires the Brouwerian axiom (B). So
+% if we are willing to give up (B), we might consider relaxing the requirement
+% of fixed domains. An \emph{expanding domain model} is a variable-domain model
+% with the Increasing Domains requirement.
+
+% \begin{exercise}
+%   Suppose we interpret the domain of a constant domain model to
+%   include all possible individuals (that is, everything that exists
+%   relative to some possible world). It is then useful to introduce an
+%   existence predicate $E$ that applies to an individual at a world
+%   only if the individual exists at that world.
+%   \begin{exlist}
+%   \item Can you define an expression that functions like $E$ xxx
+%   \item Show that it's free...?
+%   \end{exlist}
+% \end{exercise}
+
+\begin{exercise}
+  Definition \ref{def:variabledomainmodel} requires that every name in every
+  model picks out a possible individual. In that sense, the definition does not
+  allow for genuinely empty names. How could we change definitions
+  \ref{def:variabledomainmodel} and \ref{def:variabledomainsemantics} if we
+  wanted to allow for names that don't pick out anything?
+\end{exercise}
+\begin{solution}
+  In the definition of a model, we could allow the interpretation function to be
+  undefined for some names. We might also allow the sets $D_{w}$ to be empty. In
+  the truth definition \ref{def:variabledomainsemantics}, we only need to
+  clarify that $M,w,g \not\models A$ for every atomic sentence $A$ that contains a
+  term $\tau$ for which $[\tau]^{M,g}$ is undefined.
+\end{solution}
+
+\section{Trans-world identity}\label{sec:twi}
+
+In section \ref{sec:identity} I mentioned an apparent problem with Leibniz' Law.
+The Law allows us to reason from $\Box Fa$ and $a\!=\!b$ to $\Box Fb$. On some
+interpretations of the box, however, the inference looks problematic. In the
+Superman stories, Lois Lane knows that Superman can fly, and Superman is
+identical to Clark Kent. Can we infer that Lois knows that Clark Kent can fly?
+
+If we can, we would have to conclude that Lois Lane has inconsistent beliefs,
+since she also believes that Clark Kent \emph{cannot} fly. She would believe
+that Clark Kent can't fly, but also that he can fly. Intuitively, however,
+Lois's beliefs are perfectly consistent. What she lacks is information, not
+logical acumen. Her belief worlds are not worlds at which someone can both fly
+and not fly. Rather, they are worlds at which one person plays the Superman role
+and a different person plays the Clark Kent role.
+
+Consider also the case of Julius. When we introduce the name `Julius' for
+whoever invented the zip, we can be sure that Julius invented the zip. But it
+would be absurd to think that we have found out who invented the zip merely by
+making a linguistic stipulation. If before introducing the name `Julius', we
+were unsure whether the zip was invented by Benjamin Franklin or Whitcomb L.\
+Judson, the introduction of the new name does nothing to remove our ignorance.
+There are still epistemically accessible worlds at which the zip was invented by
+Franklin and others at which it was invented by Judson. Knowing that Julius
+invented the zip is not the same thing as knowing that Judson invented the zip,
+even if in fact Julius = Judson.
+
+Similar problems have been argued to arise in the logic of metaphysical
+modality. Imagine a clay statue, standing on a shelf. Let's call it
+Goliath. Since Goliath is made of clay, there is also a piece of clay on the
+shelf, at the exact same spot as the statue. Let's call that piece of clay
+Lumpl. How is Lumpl related to Goliath? We might want to say that they are one
+and the same thing: Lumpl = Goliath. After all, there is only \emph{one}
+statue-shaped object on the shelf, not two. But we might also want to say that
+Lumpl could have had the shape of a bowl, while Goliath could not: if the clay
+had been formed into a bowl rather than a statue, then Lumpl would have been a
+bowl, but Goliath, the statue, would not have existed. Goliath is necessarily
+not a bowl, but Lumpl is not necessarily not a bowl. We have $\Box \neg Bg$ but
+not $\Box \neg Bl$, even though $l\!=\!g$.
+
+\begin{exercise}
+  Explain why the three examples I just presented also cast doubt on the
+  ``necessity of identity'', $\forall x\forall y(x\!=\!y \to \Box\, x\!=\!y)$.
+\end{exercise}
+\begin{solution}
+  In the Superman case, Clark Kent and Superman are the same person, but Lois
+  Lane doesn't know that they are. So we appear to have $s\!=\!c$ but not
+  $\Box\, s\!=\!c$. Similarly, in the Julius case, Julius and Whitcomb L.\ Judson
+  are the same person, but one may well not know that they are. In the Goliath
+  case, we have Lumpl = Goliath without it being metaphysically necessary that
+  Lumpl = Goliath, as there are worlds in which Lumpl is a bowl and Goliath is
+  not.
+\end{solution}
+
+Semantically, Leibniz' Law corresponds to the assumption that names are
+\textbf{directly referential}, meaning that the only contribution a name makes
+to the truth-value of a sentence is its referent. If names are directly
+referential, and two names have the same referent, then it makes no difference
+which of them we use: replacing one by the other never affects the truth-value
+of a sentence.
+
+So far, we have assumed direct reference in both constant-domain and
+variable-domain semantics. On either account, names are interpreted as simply
+picking out an individual. It is a matter of debate whether names in ordinary
+language are directly referential. Some hold that Lois Lane really has
+inconsistent beliefs. Others hold that Lois neither believes that Superman can
+fly nor that Clark Kent cannot fly, because the objects of belief or knowledge
+are never adequately represented by statements involving ordinary names. (This
+also gets around the Julius problem.) With respect to Lumpl and Goliath, some
+simply deny that Lumpl is identical to Goliath.
+
+We will not descend into these debates. Instead, let's explore how we could
+change our semantics for $\L_{M\!P}$ to block the relevant applications of
+Leibniz' Law. There are several ways to achieve this. We will only look at one.
+
+The approach we will explore drops the assumption that names are rigid. A name
+is \textbf{rigid} if it picks out the same individual relative to any possible
+world. Earlier, we assumed that no matter at which world the sentence $Fa$ is
+interpreted, the name $a$ always picks out the same individual, $V(a)$. A name
+like `Julius', however, seems to be non-rigid. It picks out different
+individuals relative to different (epistemically) possible worlds. When we
+consider a world where Benjamin Franklin invented the zip, we use `Julius' to
+pick out Benjamin Franklin. When we consider a world where Whitcomb L.\ Judson
+invented the zip, the name picks out Whitcomb L.\ Judson.
+
+Let's assume, then, that a model's interpretation function assigns an individual
+to each name \emph{relative to each world}. This is equivalent to assuming that
+each name is interpreted as expressing a \emph{function from worlds to
+  individuals}, telling us which individual the name picks out relative to any
+given world. Functions from worlds to individuals are known as
+\textbf{individual concepts}, which is why the present approach is often called
+\textbf{individual concept semantics}.
+
+To motivate this label, return to Lois Lane. When Lois is thinking about
+Superman, she is thinking about the audacious hero whose superhuman powers she
+has witnessed on several occasions. When she is thinking about Clark Kent, she
+is thinking about her shy and awkward colleague. Lois has distinct ``concepts''
+for Superman and Clark Kent, one associated with the Superman role, the other
+with the Clark Kent role. The two concepts actually pick out the same person
+because one and the same person plays both the Superman role and the Clark Kent
+role. We can model each of these roles as a function from worlds to individuals.
+The Superman role is represented by a function that maps every world to whoever
+plays the Superman role at that world. The Clark Kent role is represented by a
+function that maps every world to whoever plays the Clark Kent role at that
+world. For the world of the Superman stories, both functions return the same
+individual. For Lois Lane's belief worlds, they return different individuals.
+
+\begin{exercise}
+  What individual concepts might be associated with the names `Lumpl' and
+  `Goliath'?
+\end{exercise}
+\begin{solution}
+  `Lumpl' might express a concept that maps every world $w$ to a certain piece
+  of clay at $w$, where that piece is perhaps individuated by its matter or
+  origin. The piece's shape doesn't matter. `Goliath' might instead express a concept that maps every world $w$ to a certain statue at $w$, where the statue is perhaps individuated by its shape and origin.
+\end{solution}
+
+We can easily convert our earlier constant-domain and variable-domain semantics
+into an individual concept semantics. We first need change the definition of a
+model, so that $V$ assigns individual concepts to names. In variable-domain
+semantics, we might stipulate that an individual concept never maps a world to
+an individual that doesn't exist at the world. We might also want to allow for
+``partial concepts'': individual concepts that don't return any value for
+certain worlds.
+
+It is advisable to give a parallel treatment for names and variables. So we'll
+also assume that an assignment function $g$ interprets each variable as
+expressing an individual concept. In the truth definition, we replace
+$[\tau]^{M,g}$, by $[\tau]^{M,w,g}$, which is defined as the referent of $\tau$
+in $M$ \emph{at $w$}, relative to $g$. (That is, if $\tau$ is a name, then
+$[\tau]^{M,w,g} = V(\tau)(w)$; if $\tau$ is a variable, then
+$[\tau]^{M,w,g} = g(\tau)(w)$.) Finally, we adjust the definition of an
+$x$-variant so that $g'$ is an $x$-variant of $g$ iff $g'$ differs from $g$ at
+most in the individual concept it assigns to $x$.
+
+The resulting logic of individual concepts has some unexpected features. For
+example, all instances of the following schema become valid:
+\[
+  \Box \exists x A \to \exists x \Box A
+\]
+To see why, consider the instance $\Box \exists x Fx \to \exists x \Box Fx$.
+Suppose the antecedent is true at some world in some model. This means that at
+every accessible world $v$, there is at least one individual that is $F$. In
+this case, there are functions that map every accessible world to some
+individual that is $F$. Let $g'(x)$ be some such function. Relative to $g'$,
+$\Box Fx$ is true at $w$. So $\exists x \Box Fx$ is true at $w$.
+
+This is widely regarded as problematic. It would suggest that the two readings
+of `something necessarily exists' are actually equivalent: it is necessary that
+something or other exists just in case there is something that necessarily
+exists.
+
+% Also conceptually unsatisfactory that names effectively pick out trans-world
+% individuals; ``intensional objects''. Note that when we're interpreting
+% predicates, variables contribute regular "extensional" objects, members of the
+% domain: g(x)(w) = I(w) = o. But quantifiers range over intensional objects.
+% That seems odd. If we allow for intensional predicates (as one might think we
+% should), we have gained nothing.
+
+Another problematic feature of individual concept semantics is that the
+resulting logic has no sound and complete proof procedure. There are no tree
+rules, or natural deduction rules, or axioms and inference rules that would
+allow proving all and only the sentences that are true at all worlds in all
+models of individual concept semantics (no matter if we assume constant or
+variable domains). It's not just that no-one has yet found a suitable proof
+method. One can prove that no such method exists.
+
+Both of these problems can be avoided by putting further constraints on models.
+We have assumed that any function from worlds to individuals is a candidate
+interpretation for a name or a variable. Relative to a given assignment
+function, a variable may pick out Donald Trump in one world, the Eiffel tower in
+another, a fried egg in a third, and so on. Ordinary concepts are not that
+gerrymandered. We might therefore identify a certain subset of all individual
+concepts as ``eligible'' for being expressed by names or variables. If this is
+done sensibly, $\Box \exists x A \to \exists x \Box A$ becomes invalid, and
+complete proof methods become available.
+
+\begin{exercise}
+  The following line of thought may be attributed to Descartes. ``I am certain
+  that I exist, but not that my body exists. [After all, it could turn out that
+  I am a disembodied soul.] Therefore: I am not my body.'' Translate the
+  argument into $\L_{M\!P}$. Is it CK-valid? Is it VK-valid? Do you find it
+  convincing?
+\end{exercise}
+\begin{solution}
+  The premises are $\Box \exists x\, x\!=\!i$ and
+  $\neg\Box \exists x\, x\!=\!b$. The conclusion is $i\!\not=\!b$. The argument
+  is CK-valid and VK-valid. (It is not valid in individual concept semantics.)
+\end{solution}
+
+\begin{exercise}
+  The following sentence sounds contradictory.
+  \begin{quote}
+    Some ticket will win, but I don't know if it will win.
+  \end{quote}
+  Translate the sentence into $\L_{M\!P}$. Explain why its apparent
+  contradictoriness poses a problem for accounts on which variables are treated
+  as directly referential.
+\end{exercise}
+\begin{solution}
+  Translation: $\exists x (Tx \land Wx \land \neg K Wx \land \neg K \neg Wx)$,
+  where $T$ translates `-- is a ticket' and `-- will win'.
+
+  If variables are directly referential, then this sentence is true in any
+  scenario in which I don't know which ticket will win.
+\end{solution}
+
+\begin{exercise}
+  In individual concept semantics, both the necessity of identity and the
+  necessity of distinctness are invalid. How could we change the semantics to
+  make the necessity of identity valid, but not the necessity of distinctness?
+  (Assume constant domains.)
+\end{exercise}
+\begin{solution}
+  To render $\forall x \forall y (x\!=\!y \to \Box x\!=\!y)$ valid, we can
+  restrict the eligible individual concepts in a model as follows. For any
+  individual concepts $f$ and $g$ and worlds $w$ and $v$, if $wRv$ and
+  $f(w)=g(w)$ then $f(v)=g(w)$. (We do not stipulate that if $wRv$ and
+  $f(v)=g(v)$ then $f(w)=g(w)$, which would render the necessity of distinctness
+  valid.)
+\end{solution}
+
+\iffalse
+
+An alternative to individual concept semantics is \textbf{counterpart
+  semantics}. Here the guiding idea is that when a name occurs in the scope of a
+modal operator, then at the relevant accessible worlds it picks out whichever
+individual resembles its actual referent in certain respects. Consider Lois
+Lane's belief worlds -- the worlds in which things are as Lois believes they
+are. In these worlds, Lois has a shy colleague called `Clark Kent' who can't
+fly; there is also a superhero called `Superman' who can fly; the two are
+different people. The shy colleague in Lois's belief worlds resembles the actual
+Clark Kent (by which I mean the Clark Kent of the Superman stories) in certain
+respects, which is why he is picked out by the name `Clark Kent' when that name
+is interpreted relative to Lois's belief worlds. The superhero in Lois's belief
+worlds resembles the actual Clark Kent in other respects, respects that are
+associated with the name `Superman'. The difference between the two names is
+that they invoke different criteria for trans-world resemblance.
+
+% If we think of the object on the shelf as Lumpl, and we consider a world where a
+% copper hat has been added, we judge that Lumpl is only the clay part of the
+% resulting statue; if we think of the same object on the shelf as Goliath, we
+% judge that it includes the copper hat in the counterfactual scenario. In
+% counterpart semantics, different ways of tracking objects across worlds are
+% represented by different \emph{counterpart relations}. The object on the shelf
+% at our world stands in different counterpart relations to different objects at
+% the world where the copper hat has been added.
+
+If an individual at some world $v$ sufficiently resembles an individual at $w$
+in relevant respects, then the first individual is called a \textbf{counterpart}
+of the second (relative to $v$ and $w$, and relative to the given resemblance
+criteria). The shy colleague in each of Lois Lane's belief worlds is a
+counterpart of Clark Kent relative to some resemblance criteria; the superhero
+in her belief worlds is a counterpart of Clark Kent relative to other criteria.
+
+In counterpart semantics, we now assume that names are associated with an
+individual, but also with a counterpart relation which determines how the name
+should be interpreted when modal operators shift the point of evaluation to
+other worlds. $\Box Fa$ is true at a world $w$ iff at every accessible world
+$v$, every individual that stands in the $a$-relevant counterpart relation to
+$a$ at $w$ is $F$.
+
+Counterpart relations play a similar role as individual concept, but they are
+more liberal. For example, we can allow for cases in which an individual has
+multiple counterparts at an accessible world, relative to the same counterpart
+relation. Suppose Bob lives next door to Alice, and has sometimes met her on the
+stairwell. For some reason, Bob believes that Alice's flat is inhabited by
+identical twins, so when he sees Alice, he thinks he sees one of the
+twins. Alice has two counterparts in Bob's belief worlds, but the two
+counterparts don't correspond to different roles or different similarity
+standards.
+
+Counterpart relations also needn't be transitive: a counterpart of a counterpart
+of an individual need not itself be a counterpart of the individual. This might
+help with the following puzzle about metaphysical modality.
+
+Intuitively, my bicycle could have been composed of somewhat different parts. If
+you exchange the lights or the seatposts on a bike, you aren't destroying the
+old bike and creating a new one. So my bike could have had different lights, or
+a different seatpost. On the other hand, arguably my bike could not have been
+composed of \emph{entirely} different parts. A bike composed of entirely
+different parts would be a different bike. Now let $b$ denote my actual bike;
+let $F_1$ be a predicate that gives a detailed description of my bike as it
+actually is. Let $F_2$ give a detailed description of a bike that is just like
+mine except for the seatpost. We want to say that my bike could have fit that
+description. So $\Diamond F_2b$ should be true. But as we make more and more
+changes to $F_1$, we reach a point -- say $F_{32}$ -- where the description could
+no longer have applied to my bike. So $\Diamond F_{32}b$ is false. But now
+consider what would have been the case if $F_{31}b$ had been true. In that case,
+it seems that $F_{32}b$ could have been true. After all, an $F_{32}$ bike differs
+from an $F_{31}$ bike only by a single part. It would be strange if the bike in a
+world where $F_{31}b$ is true could not possibly have had any different parts. So
+while $\Diamond F_{32}b$ is false at the actual world, it seems to be true at any
+world where $F_{31}b$ is true. Since $\Diamond F_{31}b$ is true at the
+actual world, it follows that $\Diamond\Diamond F_{32}b$ is true as well. So we
+have $\Diamond\Diamond F_{32}b$ but not $\Diamond F_{32}b$.
+
+This is puzzling, because metaphysical possibility is often assumed to be an
+absolute kind of possibility, with a universal accessibility relation. One would
+then expect the logic of metaphysical possibility to be S5. Yet in S5,
+$\Diamond\Diamond A$ entails $\Diamond A$.
+
+In counterpart semantics, modal schemas like
+$\Diamond \Diamond A \to \Diamond A$ correspond not just to properties of the
+accessibility relation but to combined properties of the accessibility relation
+and the counterpart relations. So one can explain what's going on in the puzzle
+of the bike without giving up the assumption that the accessibility relation for
+metaphysical modality is universal. $\Diamond \Diamond A \to \Diamond A$ is
+invalid because a counterpart of a counterpart of my bike need not be a
+counterpart of my bike.
+
+\fi
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "ml.tex"
+%%% End:

@@ -1,0 +1,1540 @@
+\chapter{Models and Proofs}\label{ch:proofs}
+
+\section{Soundness and completeness}
+
+You may find that this chapter is harder and more abstract than the previous
+chapters. Feel free to skip or skim it if you're mostly interested in
+philosophical applications.
+
+We have introduced several kinds of validity: S5-validity, K-validity,
+T-validity, and so on. All of these are defined in terms of models. K-validity
+means truth at all worlds in all Kripke models. T-validity means truth at all
+worlds in all reflexive Kripke models. S5-validity means truth at all worlds in
+all universal Kripke models (equivalently, at all worlds in all ``basic''
+models). And so on.
+
+If you want to show that a sentence is, say, K-valid, you could directly work
+through the clauses of definition \ref{def:kripkesemantics}, showing that there
+is no world in any Kripke model in which the sentence is false. The tree method
+regiments and simplifies this process. If you construct a tree for your sentence
+in accordance with the K-rules and all branches close, then the sentence is
+K-valid. If some branch remains open, the sentence isn't K-valid.
+
+Or so I claimed. But these claims aren't obvious. The tree rule for the diamond,
+for example, appears to assume that if $\Diamond A$ is true at a world then $A$
+is true at some accessible world \emph{that does not yet occur on the branch}.
+Couldn't $\Diamond A$ be true because $A$ is true at an accessible ``old'' world
+instead? Also, why do we expand $\Diamond A$ nodes only once? Couldn't $A$ be
+true at multiple accessible worlds?
+
+In the next two sections, we are going to lay any such worries to rest. We are
+going to prove that (1) if all branches on a K-tree close then the target
+sentence is K-valid; conversely, (2) if some branch on a fully developed K-tree
+remains open, then the target sentence is not K-valid. (1) establishes the
+\emph{soundness} of the tree rules for K, (2) establishes their
+\emph{completeness}.
+
+When you use the tree method, you don't have to think of what you are doing as
+exploring Kripke models. I could have introduced the method as a purely
+syntactic game. You start the game by writing down the negation of the target
+sentence, followed by `(w)' (and possibly `1.' to the left and `(Ass.)' to the
+right, although in this chapter we will mostly ignore these book-keeping
+annotations.) Then you repeatedly apply the tree rules until either all branches
+are closed or no rule can be applied any more. At no point in the game do you
+need to think about what any of the symbols you are writing might mean.
+
+Soundness and completeness link this syntactic game with the ``model-theoretic''
+concept of validity. Soundness says that if the game leads to a closed tree (a
+tree in which all branches are closed) then the target sentence is true at all
+worlds in all models. Completeness says that if the game doesn't lead to a
+closed tree then the target sentence is not true at all worlds in all models.
+This is called completeness because it implies that every valid sentence can be
+shown to be valid with the tree method.
+
+In general, a proof method is called \textbf{sound} if everything that is
+provable with the method is valid. A method is \textbf{complete} if everything
+that is valid is provable. Strictly speaking, we should say that a method is
+sound or complete \emph{for a given concept of validity}. The tree rules for K
+are sound and complete for \emph{K-validity}, but not for T-validity or
+S5-validity.
+
+The tree method is not the only method for showing that a sentence is K-valid
+(or T-valid, or S5-valid). Instead of constructing a K-tree, you could construct
+an axiomatic proof, trying to derive the target sentence from some instances of
+\pr{Dual} and \pr{K} by \pr{Nec} and \pr{CPL}. This, too, can be done as a
+purely syntactic exercise, without attending to the meaning of the relevant
+sentences. In section \ref{sec:scaxiomatic}, we will show that the axiomatic
+calculus for K is indeed sound and complete for K-validity: all and only the
+K-valid sentences can be derived from \pr{Dual} and \pr{K} by \pr{Nec} and
+\pr{CPL}. The `all' part is completeness, the `only' part soundness. Having
+shown soundness and completeness for both the tree method and the axiomatic
+method, we will have shown that the two methods are equivalent. Anything that
+can be shown with one method can also be shown with the other.
+
+There are other styles of proof besides the axiomatic and the tree format. Two
+famous styles that we won't cover are ``natural deduction'' methods and
+``sequence calculi''. Logicians are liberal about what qualifies as a proof
+method. The only non-negotiable condition is that there must be a mechanical way
+of checking whether something (usually, some configuration of symbols) is or is
+not a proof of a given target sentence.
+
+\begin{exercise}\label{ex:proofmethods}
+  What do you think of the following proposals for new proof methods?
+  \begin{exlist}
+    \item In \emph{method A}, every $\L_{M}$-sentence is a proof of itself: To
+    prove an $\L_{M}$-sentence with this method, you simply write down the
+    sentence.
+    \item In \emph{method B}, every $\L_{M}$-sentence that is an instance of
+    $\Box(A \lor \neg A)$ is a proof of itself. Nothing else is a proof in
+    method B.
+    \item In \emph{method C}, a proof of a sentence $A$ is a list of
+    $\L_{M}$-sentences ending in $A$ all elements of which occur in some
+    textbook on modal logic.
+  \end{exlist}
+  Which of these qualify as genuine proof methods by the criterion I have
+  described?
+\end{exercise}
+\begin{solution}
+  Methods A and B are genuine proof methods. Method C is not because there is no
+  simple mechanical check of whether an arbitrary sentence occurs in some logic
+  textbook.
+\end{solution}
+
+\begin{exercise}\label{ex:sillyproofmethod}
+  Which, if any, of the methods from the previous exercise are sound for
+  K-validity? Which, if any, are complete?
+\end{exercise}
+\begin{solution}
+  Method A is complete, but not sound. Everything that's K-valid is provable
+  with the method, but so is everything that's not K-valid.
+  
+  Method B is sound, but not complete. Since every instance of
+  $\Box (A \lor \neg A)$ is K-valid, everything that is provable with method B
+  is K-valid. But many K-valid sentences (e.g., $p \to p$) aren't provable with
+  method B.
+
+  Method C is neither sound nor complete. It is not sound because many K-invalid
+  sentences figure in modal logic textbooks. It is not complete because there
+  are infinitely many K-valid sentences almost all of which don't occur in any
+  textbooks.
+\end{solution}
+
+% A set of sentences (system) is sometimes called complete iff there
+% is a sound and complete proof method for it.
+
+\section{Soundness for trees}%
+\label{sec:soundnesstrees}
+
+We are going to show that the tree method for K is sound -- that every sentence
+that can be proved with the method is K-valid. A proof in the tree method is a
+tree in which all branches are closed. So this is what we have to show:
+%
+\begin{quote}
+  Whenever all branches on a K-tree close then the target sentence is K-valid.
+\end{quote}
+%
+By a \emph{K-tree} I mean a tree that conforms to the K-rules from the previous
+chapter.
+
+I'll first explain the proof idea, then I'll fill in the details. We will assume
+that there is a K-tree for some target sentence $A$ on which all branches close.
+We need to show that $A$ is K-valid. To this end, we suppose for reductio that
+$A$ is \emph{not} K-valid. By definition \ref{def:kvalid}, a sentence is K-valid
+iff it is true at all worlds in all Kripke models. Our supposition that $A$ is
+not K-valid therefore means that $A$ is false at some world in some Kripke
+model. Let's call that world `$w$' and the model `$M$'. Note that the closed
+tree begins with
+
+\begin{center}
+  \tree{%
+    \nnode{12}{1.}{$\neg A$}{w}{}%
+  }
+\end{center}
+
+\noindent%
+If we take the world variable `$w$' on the tree to pick out world $w$ in $M$,
+then node 1 is a correct statement about $M$, insofar as $\neg A$ is indeed true
+at $w$ in $M$. Now we can show the following:
+
+\begin{quote}
+    \emph{If all nodes on some branch of a tree are correct statements about
+      $M$, and the branch is extended by the K-rules, then all nodes on at least
+      one of the resulting branches are still correct statements about $M$.}
+\end{quote}
+%
+Since our closed tree is constructed from node 1 by applying the K-rules, it
+follows that all nodes on some branch of the tree are correct statements about
+$M$. But every branch of a closed tree contains a pair of contradictory
+statements, which can't both be correct statements about $M$. This completes the
+reductio.
+
+Let's fill in the details. We first define precisely what it means for the
+nodes on a tree branch to be correct statements about a model.
+
+\begin{definition}{}{correctstatement}
+  A tree node is an \textbf{correct statement about} a Kripke model
+  $M = \t{M,R,V}$ \textbf{under} a function $f$ that maps world variables to
+  members of $W$ iff either the node has the form $\omega R \upsilon$ and
+  $f(\omega)Rf(\upsilon)$, or the node has the form $A\; (\omega)$ and $A$ is
+  true at $f(\omega)$ in $M$.
+
+  A tree branch \textbf{correctly describes} a model $M$ iff there is a function
+  $f$ under which all nodes on the branch are correct statements about $M$.
+\end{definition}
+
+% I don't like these labels, but can't think of better once.
+
+We now prove the italicised statement above:
+
+\begin{theorem}{Soundness Lemma}{soundnesslemma}
+  If some branch $\beta$ on a tree correctly describes a Kripke model $M$, and
+  the branch is extended by applying a K-rule, then at least one of the
+  resulting branches correctly describes $M$.
+\end{theorem}
+
+\begin{proof}
+  \emph{Proof:} We have to go through all the K-rules. In each case we assume
+  that the rule is applied to some node(s) on a branch $\beta$ that correctly
+  describes $M$, so that there is a function $f$ under which all nodes on
+  the branch are correct statements about $M$. We show that once the rule has
+  been applied, at least one of the resulting branches still correctly describes
+  $M$.
+  
+  \medskip
+  \begin{itemize}
+  \itemsep1mm
+  
+    \item Suppose $\beta$ contains a node of the form $A \land B \;(\omega)$ and
+          the branch is extended by two new nodes $A \;(\omega)$ and
+          $B \;(\omega)$. Since $A \land B \; (\omega)$ is a correct statement
+          about $M$ under $f$, we have $M,f(\omega) \models A \land B$. By
+          clause (c) of definition \ref{def:kripkesemantics}, it follows that
+          $M,f(\omega) \models A$ and $M,f(\omega) \models B$. So the extended
+          branch still correctly describes $M$.
+
+    \item Suppose $\beta$ contains a node of the form $A \lor B \;(\omega)$ and
+          the branch is split into two, with $A \;(\omega)$ appended to one end
+          and $B \;(\omega)$ to the other. Since the expanded node is a correct
+          statement about $M$ under $f$, we have $M,f(\omega) \models A \lor B$.
+          By clause (d) of definition \ref{def:kripkesemantics}, it follows that
+          either $M,f(\omega) \models A$ or $M,f(\omega) \models B$. So at least
+          one of the resulting branches also correctly describes $M$.
+          
+  \end{itemize}
+  %
+  The proof for the other non-modal rules is similar. Let's look at the rules
+  for the modal operators.
+
+  \begin{itemize}
+    \itemsep1mm
+    
+    \item Suppose $\beta$ contains nodes of the form $\Box A \;(\omega)$ and
+          $\omega R \upsilon$, and the branch is extended by adding
+          $A \;(\upsilon)$. Since $\Box A \;(\omega)$ and $\omega R \upsilon$
+          are correct statement about $M$ under $f$, we have
+          $M,f(\omega) \models \Box A$ and $f(\omega)Rf(\upsilon)$. By clause
+          (g) of definition \ref{def:kripkesemantics}, it follows that
+          $M,f(\upsilon) \models A$. So the extended branch correctly describes
+          $M$.
+
+    \item Suppose $\beta$ contains a node of the form $\Diamond A \;(\omega)$
+          and the branch is extended by adding nodes $\omega R \upsilon$ and
+          $A \;(\upsilon)$, where $\upsilon$ is new on the branch. Since
+          $\Diamond A \;(\omega)$ is a correct statement about $M$ under $f$, we
+          have $M,f(\omega) \models \Diamond A$. By clause (h) of definition
+          \ref{def:kripkesemantics}, it follows that $M,v \models A$ for some
+          $v$ in $W$ such that $f(\omega)Rv$. Let $f'$ be the same as $f$ except
+          that $f'(\upsilon) = v$. The newly added nodes are correct statements
+          about $M$ under $f'$. Since $\upsilon$ is new on the branch, all
+          earlier nodes on the branch are also correct statements about $M$
+          under $f'$. So the expanded branch correctly describes $M$.
+
+          % Note that f(w) may equal f(v). A reflexive model can be correctly
+          % described by a tree branch that contains no "reflexive" statements
+          % of the form wRw. As far as soundness is concerned, the rule for <>A
+          % doesn't assume that A is true at a "new world". The rule merely
+          % assumes that A is true at some world, for which we introduce a new
+          % name. That the world is genuinely new is only assumed when we
+          % read off countermodels.
+           
+  \end{itemize}
+  %
+  The cases for $\neg \Box$ and $\neg \Diamond$ are similar to the previous two
+  cases. \qed
+
+\end{proof}
+
+\medskip
+
+With the help of this lemma, we can prove that the method of K-trees is sound.
+
+\begin{theorem}{Theorem: Soundness of K-trees}{soundness-tree-K}
+  If a K-tree for a target sentence closes, then the target sentence is K-valid.
+\end{theorem}
+
+\begin{proof}
+  \emph{Proof:} Suppose for reductio that some K-tree for some target sentence
+  $A$ closes even though $A$ is not K-valid. Then $\neg A$ is true at some world
+  $w$ in some Kripke model $M$. The first node on the tree, $\neg A \; (w)$, is
+  a correct statement about $M$ under the function that maps the world variable
+  `$w$' to $w$. Since the tree is created from the first node by applying the
+  K-rules, the Soundness Lemma implies that some branch $\beta$ on the tree
+  correctly describes $M$: all nodes on the tree are correct statements about
+  $M$ under some function $f$. But the tree is closed. So $\beta$ contains
+  contradictory nodes of the form
+  \begin{center}
+    \tree{%
+      \nnode{12}{n.}{$B$}{\upsilon}{}\\
+      \nnode{12}{m.}{$\neg B$}{\upsilon}{}
+    }
+  \end{center}
+  If both of these are correct statements about $M$ under $f$, then
+  $M,f(\upsilon) \models B$ and also $M,f(\upsilon) \models \neg B$. This is
+  impossible by definition \ref{def:kripkesemantics}. \qed
+\end{proof}
+
+\begin{exercise}
+  Spell out the cases for $A \to B$ and $\neg\Diamond A$ in the proof of the
+  Soundness Lemma.
+\end{exercise}
+\begin{solution}
+  For $A\to B$: Suppose $\beta$ contains a node of the form $A \to B \;(\omega)$
+  and the branch is split into two, with $\neg A \;(\omega)$ appended to one end
+  and $B \;(\omega)$ to the other. Since the expanded node is a correct
+  statement about $M$ under $f$, we have $M,f(\omega) \models A \to B$. By
+  clause (e) of definition \ref{def:kripkesemantics}, it follows that either
+  $M,f(\omega) \not\models A$ or $M,f(\omega) \models B$. By clause (b), this
+  means that either $M,f(\omega) \models \neg A$ or $M,f(\omega) \models B$. So
+  at least one of the resulting branches also correctly describes $M$.
+
+  For $\neg\Diamond A$: Suppose $\beta$ contains nodes of the form
+  $\neg\Diamond A \;(\omega)$ and $\omega R \upsilon$, and the branch is
+  extended by adding $\neg A \;(\upsilon)$. Since $\neg\Diamond A \;(\omega)$
+  and $\omega R \upsilon$ are correct statement about $M$ under $f$, we have
+  $M,f(\omega) \models \neg\Diamond A$ and $f(\omega)Rf(\upsilon)$. By clause
+  (b) of definition \ref{def:kripkesemantics},
+  $M,f(\omega) \models \neg\Diamond A$ implies
+  $M,f(\omega) \not\models \Diamond A$. By clause (h), it follows that
+  $M,f(\upsilon) \models \neg A$. So the extended branch correctly describes
+  $M$.
+\end{solution}
+
+\begin{exercise}
+  The K-tree for (target sentence) $\Box p$ has a single open branch. Does this
+  branch correctly describe the Kripke model in which there is just one world
+  $w$, $w$ has access to itself, and all sentence letters are false at $w$?
+\end{exercise}
+\begin{solution}
+  Yes. The function $f$ can map both `$w$' and `$v$' to $w$.
+\end{solution}
+
+The soundness proof for K-trees is easily adapted to other types of trees. The
+tree rules for system T, for example, are all the K-rules plus the Reflexivity
+rule, which allows adding $\omega R \omega$ for every world $\omega$ on the
+branch. Suppose we want to show that everything that is provable with the
+T-rules is T-valid -- true at every world in every reflexive Kripke model. All
+the clauses in the Soundness Lemma still hold if we assume that the model $M$ is
+reflexive. We only need to add a further clause for the Reflexivity rule, to
+confirm that if a branch correctly describes a reflexive model $M$, and the
+branch is extended by adding $\omega R \omega$, then the resulting branch also
+correctly describes $M$. This is evidently the case.
+
+\begin{exercise}
+  How would we need to adjust the soundness proof to show that the tree rules
+  for K4 are sound with respect to K4-validity?
+\end{exercise}
+\begin{solution}
+  A sentence is K4-valid iff it is true at all worlds in all transitive Kripke
+  models. We only need to check that the Transitivity rule is sound, in the
+  sense that if a branch correctly describes a transitive model $M$, and the
+  branch is extended by the Transitivity rule, then the resulting branch also
+  correctly describes $M$. (The Transitivity rule allows adding a node
+  $\omega R \upsilon$ to a branch that already contains nodes $\omega R \nu$ and
+  $\nu R \upsilon$. If these nodes correctly describe a transitive model then so does $\omega R \upsilon$.)
+\end{solution}
+
+\section{Completeness for trees}%
+\label{sec:completenesstrees}
+
+Let's show that the tree rules for K are complete -- that whenever a sentence is
+K-valid then there is a closed K-tree for that sentence. In fact, we will show
+something stronger:
+\begin{quote}
+  If a sentence is K-valid, then every fully developed K-tree for the sentence is closed.
+\end{quote}
+By a \emph{fully developed} tree, I mean a tree on which every node on any open
+branch that can be expanded has been expanded. (A fully developed tree may be
+infinite, but it won't be infinite if it is closed.)
+
+We will prove the displayed sentence by proving its contraposition:
+\begin{quote}
+  If a fully developed K-tree for a sentence does not close, then the sentence is
+  not K-valid.
+\end{quote}
+Assume, then, that some fully developed K-tree for some target sentence has at
+least one open branch. We want to show that the target sentence is false at some
+world in some Kripke model.
+
+We already know how to read off a countermodel from an open branch. All we need
+to do is show that this method for generating countermodels really works. Let's
+first define the method more precisely.
+
+\begin{definition}{}{inducedmodel}
+  The model \textbf{induced by} a tree branch is the Kripke model $(W,R,V)$
+  where
+  \begin{itemize}[leftmargin=12mm]
+    \itemsep-1mm
+    \item[(a)] $W$ is the set of world variables on the branch,
+    \item[(b)] $\omega R \upsilon$ holds in the model iff a node
+          $\omega R \upsilon$ occurs on the branch,
+    \item[(c)] for any sentence letter $P$, $V(P)$ is the set of world variables
+          $\omega$ for which a node $P \; (\omega)$ occurs on the branch.
+  \end{itemize}
+\end{definition}
+
+Next we show that all nodes on any open branch on a fully developed tree are
+correct statements about the Kripke model induced by the branch.
+
+\begin{theorem}{Completeness Lemma}{completenesslemma}
+  Let $\beta$ be an open branch on a fully developed K-tree, and let
+  $M = \t{W,R,V}$ be the model induced by $\beta$. Then $M,\omega \models A$ for
+  all sentences $A$ and world variables $\omega$ for which $A\; (\omega)$ is on
+  $\beta$.
+\end{theorem}
+
+\begin{proof}
+  We have to show that whenever $A\; (\omega)$ occurs on $\beta$ then
+  $M,\omega \models A$. The proof is by induction on the length of $A$. We first
+  show that the claim holds for sentence letters and negated sentence letters.
+  Then we show that \emph{if} the claim holds for all sentences shorter than $A$
+  (this is our induction hypothesis), \emph{then} it also holds for $A$ itself.
+  
+  \begin{itemize}
+    
+    \item If $A$ is a sentence letter then the claim is true by clause (c) of
+          definition \ref{def:inducedmodel} and clause (a) of definition
+          \ref{def:kripkesemantics}.
+
+    \item If $A$ is the negation of a sentence letter $B$, then $B\; (\omega)$
+          does not occur on $\beta$, otherwise $\beta$ would be closed. By
+          clause (c) of definition \ref{def:inducedmodel}, it follows that
+          $\omega$ is not in $V(B)$, and so $M, \omega \models A$ by clauses (a)
+          and (b) of definition \ref{def:kripkesemantics}.
+          
+    \item If $A$ is a doubly negated sentence $\neg\neg B$, then $\beta$
+          contains a node $B \;(\omega)$, because the tree is fully developed.
+          By induction hypothesis, $M,\omega \models B$. By clause (b) of
+          definition \ref{def:kripkesemantics}, it follows that
+          $M,\omega \models A$.
+    
+    \item If $A$ is a conjunction $B\land C$, then $\beta$ contains nodes
+          $B \;(\omega)$ and $C \;(\omega)$. By induction hypothesis,
+          $M,\omega \models B$ and $M,\omega \models C$. By clause (c) of
+          definition \ref{def:kripkesemantics}, it follows that
+          $M,\omega \models A$.
+
+    \item If $A$ is a negated conjunction $\neg(B\land C)$, then $\beta$ contains
+          either $\neg B \;(\omega)$ or $\neg C \;(\omega)$. By induction
+          hypothesis, $M,\omega \models \neg B$ or $M,\omega \models \neg C$.
+          Either way, clauses (b) and (c) of definition
+          \ref{def:kripkesemantics} imply that $M,\omega \models A$.
+    
+          % \item If $A$ is a disjunction $B\lor C$, then branch also contains
+          % either $B \;(\omega)$ or $C \;(\omega)$, because the tree is fully
+          % developed. By induction hypothesis, $M,\omega \models B$ or
+          % $M,\omega \models C$. So $M,\omega \models B\lor C$.
+    
+  \end{itemize} 
+  
+  I will skip the cases where $A$ is a disjunction, a conditional, a
+  biconditional, or a negated disjunction, conditional, or biconditional. The
+  proofs are similar to one (or both) of the previous two cases.
+
+  \begin{itemize}
+    
+    \item If $A$ is a box sentence $\Box B$, then $\beta$ contains a node
+          $B \;(\upsilon)$ for each world variable $\upsilon$ for which
+          $\omega R \upsilon$ is on $\beta$ (because the tree is fully
+          developed). By induction hypothesis, $M, \upsilon \models B$, for each
+          such $\upsilon$. By definition \ref{def:inducedmodel}, it follows that
+          $M,\upsilon \models B$ for all worlds $\upsilon$ such that
+          $\omega R \upsilon$. By clause (g) of definition
+          \ref{def:kripkesemantics}, it follows that $M, \omega \models \Box B$.
+    
+    \item If $A$ is a diamond sentence $\Diamond B$, then there is a world
+          variable $\upsilon$ for which $\omega R \upsilon$ and $B \;(\upsilon)$
+          are on $\beta$. By induction hypothesis, $M, \upsilon \models B$. And
+          by definition \ref{def:inducedmodel}, $\omega R\upsilon$. By clause
+          (h) of definition \ref{def:kripkesemantics}, it follows that
+          $M, \omega \models \Diamond B$.
+
+  \end{itemize}
+
+  For the case where $A$ has the form $\neg \Box B$ or $\neg \Diamond B$, the
+  proof is similar to one of the previous two cases. \qed
+  
+\end{proof}
+\medskip
+
+To establish completeness, we need to verify one more point: that one can always
+construct a fully developed tree for any invalid target sentence. Let's call a
+K-tree \emph{regular} if it is constructed by (i) first applying all rules for
+the truth-functional connectives until no more of them can be applied (without
+adding only nodes to a branch that are already on the branch), then (ii)
+applying the rules for $\Diamond$ and $\neg \Box$ until no more of them can be
+applied, then (iii) applying the rules for $\Box$ and $\neg \Diamond$ until no
+more of them can be applied, then starting over with (i), and so on.
+
+\begin{observation}{regulartrees}
+  Every regular open K-tree is fully developed.
+\end{observation}
+\begin{proof}
+  \emph{Proof:} When constructing a regular tree, every iteration of (i), (ii),
+  and (iii) only allows expanding finitely many nodes. So every node on every
+  open branch that can be expanded is eventually expanded by some iteration of
+  (i), (ii), and (iii). \qed
+\end{proof}
+
+Now we have all the ingredients to prove completeness.
+
+\begin{theorem}{Theorem: Completeness of K-trees}{completeness-tree-k}
+  If a sentence is K-valid, then there is a closed K-tree for that sentence.
+\end{theorem}
+
+\begin{proof}
+  \emph{Proof:} Let $A$ be any K-valid sentence, and suppose for reductio that
+  there is no closed K-tree for $A$. In particular, then, every regular K-tree
+  for $A$ remains open. Take any such tree. By observation
+  \ref{obs:regulartrees}, the tree is fully expanded. Choose any open branch on
+  the tree. By the Completeness Lemma, $A$ is false at $w$ in the model induced
+  by that branch. So $A$ is not true at all worlds in all Kripke models.
+  Contradiction. \qed
+\end{proof}
+
+\begin{exercise}
+  Fill in the cases for $B \to C$ and $\neg \Diamond B$ in the proof of the
+  Completeness Lemma.
+\end{exercise}
+\begin{solution}
+  For $B\to C$: If $A$ is a conditional $B\to C$, then $\beta$ contains either
+  $\neg B \;(\omega)$ or $C \;(\omega)$. By induction hypothesis,
+  $M,\omega \models \neg B$ or $M,\omega \models \neg C$. Either way, clauses
+  (b) and (e) of definition \ref{def:kripkesemantics} imply that
+  $M,\omega \models A$.
+
+  For $\neg\Diamond B$: If $A$ is a negated diamond sentence $\neg\Diamond B$,
+  then $\beta$ contains a node $\neg B \;(\upsilon)$ for each world variable
+  $\upsilon$ for which $\omega R \upsilon$ is on $\beta$ (because the tree is
+  fully developed). By induction hypothesis, $M, \upsilon \models \neg B$, for
+  each such $\upsilon$. By definition \ref{def:inducedmodel}, it follows that
+  $M,\upsilon \models \neg B$ for all worlds $\upsilon$ such that
+  $\omega R \upsilon$. By clauses (b) and (g) of definition
+  \ref{def:kripkesemantics}, it follows that $M, \omega \models A$.
+\end{solution}
+
+Like the soundness proof, the completeness proof for K is easily adapted to
+other logics. To show that the T-rules are complete with respect to T-validity,
+for example, we merely need check that the model induced by any open branch on a
+fully developed T-tree is reflexive. It must be, because an open branch on a
+fully developed T-tree contains $\omega R \omega$ for each world variable
+$\omega$ on the branch.
+
+% Strictly speaking, we also need to adjust the definition of regular trees.
+
+\begin{exercise}
+  What do we need to check to show that the K4-rules are complete with respect
+  to K4-validity?
+\end{exercise}
+\begin{solution}
+  We need to check that the model induced by an open branch on a fully developed
+  K4-tree is transitive. (Suppose the model contains worlds $w$, $v$, $u$ for
+  which $wRv$ and $vRu$. Then the Transitivity rule has been applied to the
+  corresponding nodes on the branch, generating a node $wRu$. By definition
+  \ref{def:inducedmodel}, $wRu$ holds in the induced model.)
+\end{solution}
+
+\begin{exercise}\label{ex:acyclical}
+  A Kripke model is \emph{acyclical} if you can never return to the same world
+  by following the accessibility relation. Show that if a sentence is true at
+  some world in some Kripke model, then it is also true at some world in some
+  acyclical Kripke model.
+
+  (Hint: If $A$ is true at some world in some Kripke model then $\neg A$ is
+  K-invalid. By the soundness theorem, there is a fully developed K-tree for
+  $\neg A$ with an open branch. Now consider the model induced by this branch.)
+\end{exercise}
+\begin{solution}
+  Suppose $A$ is true at some world in some Kripke model. Then $\neg A$ is
+  K-invalid. Take any regular K-tree for $\neg A$. By observation
+  \ref{obs:regulartrees}, that tree is fully developed. By the soundness theorem
+  for K-trees, the tree has an open branch. Let $M$ be the model induced by some
+  such branch $\beta$. Then $M$ is acyclical. This is because the only rules
+  that allow adding a node $\omega R \upsilon$ to a branch of a K-tree are the
+  rules for expanding $\Diamond A$ and $\neg\Box A$ nodes. In both cases, the
+  rule requires that the relevant world variable $\upsilon$ is new on the
+  branch. (Call this the \emph{novelty requirement}. Now suppose the
+  accessibility relation in $M$ has a cycle $\omega_{1} R \omega_{2}$,
+  $\omega_{2} R \omega_{3}$, \ldots, $\omega_{n-1} R \omega_{n}$,
+  $\omega_{n} R \omega_{1}$. Each of these facts about $R$ must correspond to a
+  node on $\beta$. Of these nodes, the one that was added last (to $\beta$)
+  violates the novelty requirement. So $M$ is acyclical.
+
+  By the Completeness Lemma, the target sentence $\neg\neg A$ is true at world
+  $w$ in $M$. So $A$ is true at $w$ in $M$. So $A$ is true at some world in some acyclical model.
+\end{solution}
+
+% This explains why it's OK to always introduce a new world when expanding <>A.
+% Technically, we only introduce a new world /name/, and the completeness lemma
+% exploits this technicality. But when we read off countermodels, we assume that
+% different world names denote different worlds. If -- somehow -- there could be
+% sentences C that are only true in cyclical models, our method might still be
+% sound: we could not prove ~C. All ~C trees would remain open. But the models
+% induced by these open branches would not be countermodels to C. The open
+% branches might still "accurately describe" a countermodel, under a function
+% that maps different world names to the same world. And then the method might
+% even be complete.
+
+% Why is it OK to only ever expand <>A once? What if the only countermodels to
+% the target sentence have /two/ witnesses of a diamond sentence? If a tree
+% closes with only one witness then we've already reached a contradiction
+% assuming there is at least one witness. No point expanding <>A again. If a
+% tree remains open, completeness says that we have a countermodel with one
+% witness. This would fail if -- somehow -- there could be sentences that are
+% true only in models with multiple witnesses. That is, the model induced by an
+% open branch wouldn't be a countermodel.
+
+% \begin{exercise}
+%   When constructing a tree proof, one often has a choice of which rules to
+%   apply in which order. Show that the choice doesn't matter, in the following
+%   sense: If there is a K-tree for the target sentence in which all branches
+%   close, then there is no fully developed K-tree for the target sentence in
+%   which some branch remains open. xxx Well, if you develop []<>p & (q & ~q),
+%   and you keep expanding []<>p without every dealing with (q & ~q) then the
+%   tree never closes. so the choice /does/ matter.
+% \end{exercise}
+% \begin{solution}
+%   We have to show that if there some K-tree for a given target sentence closes,
+%   then there is no fully developed K-tree for the sentence that remains open.
+%   So assume some K-tree for the target sentence closes. By the Completeness
+%   Theorem, the target sentence is K-valid. If there were a fully developed but
+%   open K-tree for the same target sentence, then by the Completeness Lemma the
+%   negation of that sentence would be true at world $w$ in the model induced by
+%   some open branch on that tree. This contradicts the fact that the target
+%   sentence is K-valid.
+% \end{solution}
+
+\begin{exercise}
+  The S5 tree rules from chapter \ref{ch:worlds} are sound and complete for
+  S5-validity: all and only the S5-valid sentences can be proven. Are the rules
+  sound for \emph{K-validity}? Are they complete for K-validity?
+\end{exercise}
+\begin{solution}
+  The S5 rules are not sound with respect to K-validity. For example,
+  $\Box p \to p$ is provable with the S5 rules, but it isn't K-valid. The rules
+  are, however, complete with respect to K-validity. This follows from the
+  completeness of the S5 rules and the fact that every K-valid sentence is
+  S5-valid (observation \ref{obs:kins5}).
+\end{solution}
+
+\iffalse
+\section{Strong completeness and compactness}%
+\label{sec:compactness}
+
+% Greg Restall: trees are upside-down cut-free sequent calculus, rephrased for
+% easy teaching. That’s it. If you rephrase them just a *tiny* bit (to make them
+% +/- signed trees, instead of littering every second rule with negation) then
+% you have an easy and direct proof of the subformula theorem: that any valid
+% argument has a purely analytic proof—a proof using only subformulas of the
+% premises and the conclusion. To show that for classical predicate logic in
+% natural deduction by normalisation? No fun at all!
+
+We have shown that every K-valid sentence is provable with the tree rules for K.
+This kind of completeness -- linking validity with provability -- is sometimes
+called \emph{weak} completeness. Strong completeness is concerned not with
+validity, but with entailment: A proof method is \textbf{strongly complete} with
+respect to a logic if, whenever a sentence is entailed (in the logic) by some
+sentences $\Gamma$, then there is a proof (in the method) showing that the
+sentence is entailed by $\Gamma$.
+
+You will remember from observation \ref{obs:semantic-deduction-theorem} in
+chapter 1 that claims about entailment can be converted into claims about
+validity. $A$ entails $B$ iff $A \to B$ is valid; $A_{1}$ and $A_{2}$ together
+entail $B$ iff $A_{1} \to (A_{2} \to B)$ is valid; and so on. We can therefore
+show that, say, $A_{1}$ and $A_{2}$ entail $B$ by constructing a closed tree for
+$A_{1} \to (A_{2} \to B)$. After two applications of the rule for negated
+conditionals, this tree has three unexpanded nodes, corresponding to the
+original premises and the negated conclusion: $A_{1}\; (w)$, $A_{2}\; (w)$, and
+$\neg B\; (w)$. In general, to show that some premises $\Gamma$ and entail a
+conclusion $B$, we can save a few steps by directly starting the tree with one
+node $A_{i}\; (w)$ for each premise $A_{i}$ in $\Gamma$, and another node
+$\neg B\; (w)$ for the negated conclusion. Together with observation
+\ref{obs:semantic-deduction-theorem}, the soundness and completeness results
+from the previous section immediately entail the following.
+
+\begin{observation}{sckentailment}
+  Some sentences $A_{1},\ldots,A_{n}$ K-entail a sentence $B$ iff there is a
+  closed K-tree with starting nodes $A_{1}\; (w)$, \ldots, $A_{n}\; (w)$,
+  $\neg B\; (w)$.
+\end{observation}
+
+But this isn't enough for strong completeness. It only shows that if a
+conclusion is entailed by \emph{a finite collection} of premises, then the
+entailment can be verified by the tree method. One may, however, reasonably ask
+whether a sentence is entailed by some infinite collection of sentences. If
+$\Gamma$ is infinite then the claim that $\Gamma$ entails $B$ can't be converted
+into a claim about validity, because $L_{M}$-sentences are finite. Nor can we
+start a tree with separate nodes for each premise followed by a node for the
+negated conclusion: With infinitely many premises we would never get to the
+negated conclusion, nor would we ever get to a stage where any of these nodes is
+expanded.
+
+Here is how we can nonetheless use the tree method do deal with infinitely many
+premises. Instead of starting with all the premises
+$A_{1}, A_{2}, A_{3}, \ldots$ at once, we proceed in stages. In the first stage,
+we try to derive the conclusion $B$ from only the first premise $A_{1}$. If
+that fails, or if the tree is getting too large, we move on to the second stage,
+where we try to derive $B$ from the first two premises, $A_{1}$ and $A_{2}$,
+allowing for somewhat larger trees. And so on. Even though we consider only
+finitely many premises at each stage, every premise will eventually be
+considered, unless the tree already closes without taking it into account.
+
+Let me describe the method in a little more detail. Suppose we want to prove
+that $B$ is K-entailed by infinitely many sentences
+$A_{1}, A_{2}, A_{3},\ldots$. In the first stage, we develop a K-tree whose
+starting assumptions are $A_{1}\; (w)$ and $\neg B\; (w)$. We don't develop that
+tree fully, because this could take forever. Instead, we develop the tree by (i)
+applying all rules for the truth-functional connectives until no more of them
+can be applied (without repetition), then (ii) applying the rules for $\Diamond$
+and $\neg \Box$ until no more of them can be applied, and finally (iii) applying
+the rules for $\Box$ and $\neg \Diamond$ until no more of them can be applied.
+If at that point the tree is closed, we're done: The proof is complete. If not,
+we move on to stage 2. Here we construct another tree with starting assumptions
+$A_{1}\; (w)$, $A_{2}\; (w)$ and $\neg B\; (w)$. To develop this tree, we first
+repeat everything we did on the first tree, expanding $A_{1}\; (w)$ and
+$\neg B\; (w)$. Then we go through another iteration of (i)--(iii). If the tree
+is still open, we move on to stage 3, where we add $A_{3}\; (w)$ to the starting
+assumptions, copy over all nodes from stage 2 and go through another iteration
+of (i)--(iii). And so on.
+
+This method is sound. For suppose at some stage $n$ the method yields a closed
+tree. This tree is an ordinary K-tree with starting assumptions $A_{1}\; (w)$,
+\ldots, $A_{n}\; (w)$, and $\neg B\; (w)$. By observation
+\ref{obs:sckentailment}, it follows that $A_{1},\ldots,A_{n}$ K-entail $B$. And
+then all of $A_{1},A_{2},A_{3},\ldots$ K-entail $B$.
+
+More interestingly, the described method is complete. For suppose it never
+yields a closed tree. At each stage, the tree has an open branch. Note that any
+open branch at a stage after the first extends an open branch from the previous
+stage. So there is a sequence of branches $b_{1}, b_{2}, b_{3}, \ldots$, one
+from each stage, such that $b_{2}$ extends $b_{1}$, $b_{3}$ extends $b_{2}$, and
+so on. Pick any such sequence. We may regard the set of nodes that occur
+somewhere in the sequence as a single infinite branch. This infinite branch
+contains a node $A_{i}\; (w)$ for every premise, as well as $\neg B\; (w)$. Just
+as an ordinary open branch induces a Kripke model (as per definition
+\ref{def:inducedmodel}), so does the infinite branch. And because every node on
+the branch that can be expanded has been expanded, the Completeness Lemma goes
+through just as in the previous section, showing that all nodes on the branch
+are correct statements about the induced model. So there is a world in some
+Kripke model at which all of $A_{1},A_{2},A_{3},\ldots$ are true and $B$ is
+false.
+
+\begin{theorem}{Theorem: Strong completeness of K-trees}{strongcompleteness}
+  If a sentence $B$ is K-entailed by some sentences $\Gamma$ then there is a
+  closed K-tree starting with $A_{1}\; (w)$, \ldots, $A_{n}\; (w)$ and
+  $\neg B\; (w)$, where all of $A_{1},\ldots,A_{n}$ are in $\Gamma$.
+\end{theorem}
+\begin{proof}
+  \emph{Proof:} Consider a sequence of K-trees, the first beginning with
+  $A_{1}\; (w)$ and $\neg B\; (w)$, the second with $A_{1}\; (w)$,
+  $A_{2}\; (w)$, and $\neg B\; (w)$, and so on -- each extending the previous
+  one by an added premise from $\Gamma$ and one iteration of (i)--(iii). As
+  we've just seen, if no tree in this sequence closes, then $B$ is not K-entailed
+  by $\Gamma$. \qed
+\end{proof}
+%
+Our proof easily carries over to other systems of modal logic. The only part
+that needs adapting is the specification of (i)--(iii), where we must add the
+extra tree rules in some way that ensures that all nodes are eventually
+expanded.
+
+Strong completeness has a noteworthy corollary:
+%
+\begin{theorem}{Theorem: Compactness of K}{compactness}
+  If a sentence $B$ is K-entailed by some sentences $\Gamma$ then $B$ is
+  K-entailed by a finite subset of $\Gamma$.
+\end{theorem}
+\begin{proof}
+  \emph{Proof:} By strong completeness, if some sentences $\Gamma$ K-entail $B$,
+  then there is a closed K-tree starting with $A_{1}\; (w)$, \ldots,
+  $A_{n}\; (w)$ and $\neg B\; (w)$, where $A_{1},\ldots,A_{n}$ are finitely many
+  sentences from $\Gamma$. By observation \ref{obs:sckentailment}, it follows
+  that $B$ is entailed by $A_{1},\ldots,A_{n}$. \qed
+\end{proof}
+
+In general, a logic $S$ is called \textbf{compact} if any sentence that is
+$S$-entailed by infinitely many sentences is also $S$-entailed by a
+finite subset of these sentences.
+
+Compactness is surprising. It is easy to think of cases in which a conclusion is
+entailed by infinitely many premises, but not by any finite subset of these
+premises. For example, suppose I like the number 0, I like the number 1, I like
+the number 2, and so on, for all natural numbers 0,1,2,3,\ldots. Together, these
+assumptions entail that I like all natural numbers. But no finite subset of the
+assumptions entails that I like all natural numbers.
+
+\begin{exercise}
+  A set of sentences $\Gamma$ is called \emph{K-satisfiable} if there is a world
+  in some Kripke model at which all members of $\Gamma$ are true. Show that an
+  infinite set of sentences $\Gamma$ is K-satisfiable iff every finite subset of
+  $\Gamma$ is K-satisfiable.
+\end{exercise}
+\begin{solution}
+  Let $\Gamma$ is an infinite set of $\L_{M}$-sentences. If $\Gamma$ is
+  K-satisfiable then obviously every finite subset of $\Gamma$ is satisfiable as
+  well. For the converse direction, assume $\Gamma$ is not K-satisfiable: There
+  is no world in any Kripke model at which all members of $\Gamma$ are true.
+  Then there is no world in any Kripke model at which all members of $\Gamma$
+  are true while $p \land \neg p$ is false. So $\Gamma \models p\land \neg p$.
+  By the compactness theorem, it follows that there is a finite subset
+  $\Gamma^{-}$ for which $\Gamma^{-} \models p \land \neg p$. If
+  $\Gamma^{-} \models p \land \neg p$ then there is no world in any Kripke model
+  at which all members of $\Gamma^{-}$ are true while $p \land \neg p$ is false.
+  Since $p\land \neg p$ is false at every world in every Kripke model, it
+  follows that there is no world in any Kripke model at which all members of
+  $\Gamma^{-}$ are true. This shows that if $\Gamma$ is not K-satisfiable then
+  there is a finite subset ($\Gamma^{-}$) of $\Gamma$ that is not K-satisfiable.
+  Conversely, if every finite subset of $\Gamma$ is K-satisfiable then $\Gamma$
+  is K-satisfiable.
+\end{solution}
+
+\fi 
+
+\section{Soundness and completeness for axiomatic calculi}
+\label{sec:scaxiomatic}
+
+We are now going to show that the axiomatic calculus for system K is sound and
+complete for K-validity. Here a proof is a list of sentences each of
+which is either an instance of \pr{Dual} or \pr{K} or can be derived from
+earlier sentences on the list by application of \pr{CPL} or \pr{Nec}. Expressed
+as a construction rule, \pr{Nec} says that whenever a list contains a sentence
+$A$ then one may append $\Box A$. \pr{CPL} says that one may append any
+truth-functional consequence of sentences that are already on the list. (This is
+an acceptable rule because there is a simple mechanical test -- the truth-table
+method -- for checking whether a sentence is a truth-functional consequence of
+finitely many other sentences.)
+
+Soundness is easy. We want to show that everything that is derivable from some
+instances of \pr{Dual} and \pr{K} by applications of \pr{CPL} and \pr{Nec} is
+K-valid. We show this by showing that (1) every instance of \pr{Dual} and \pr{K}
+is K-valid, and (2) every sentence that is derived from K-valid sentences by
+\pr{CPL} or \pr{Nec} is itself K-valid.
+
+\begin{theorem}{Theorem: Soundness of the axiomatic calculus for K}{soundnessK}
+  Any sentence that is provable in the axiomatic calculus for K is K-valid.
+\end{theorem}
+
+\begin{proof}
+  \emph{Proof:} We first show that every instance of \pr{Dual} and \pr{K} is
+  K-valid.
+  \begin{enumerate}[leftmargin=7mm]
+  \itemsep0mm
+  
+    \item \pr{Dual} is the schema $\neg\Diamond A \leftrightarrow \Box\neg A$.
+          By clauses (b), (g), and (h) of definition \ref{def:kripkesemantics},
+          a sentence $\neg\Diamond A$ is true at a world $w$ in a Kripke model
+          $M$ iff $\Box\neg A$ is true at $w$ in $M$. It follows by clauses (f)
+          and (e) that all instances of \pr{Dual} are true at all worlds in all
+          Kripke models.
+          
+    \item \pr{K} is the schema $\Box(A \to B) \to (\Box A \to \Box B)$. By
+          clause (e) of definition \ref{def:kripkesemantics}, a sentence
+          $\Box(A\to B) \to (\Box A \to \Box B)$ is false at a world $w$ in a
+          Kripke model $M$ only if $\Box(A \to B)$ and $\Box A$ are both true at
+          $w$ while $B$ is false. By clause (g) of definition
+          \ref{def:kripkesemantics}, $\Box B$ is false at $w$ only if $B$ is
+          false at some world $v$ accessible from $w$. But if $\Box(A \to B)$
+          and $\Box A$ are both true at $w$, then $A\to B$ and $A$ are true at
+          every world accessible from $w$, again by clause (g). And there can be
+          no world at which $A\to B$ and $A$ are true while $B$ is false, by
+          clause (e) of definition \ref{def:kripkesemantics}.
+  \end{enumerate}
+  %
+  Next we show that \pr{CPL} and \pr{Nec} preserve K-validity.
+  %
+  \begin{enumerate}[leftmargin=9mm]
+    
+    \item By definition \ref{def:kripkesemantics}, the truth-functional
+          operators have their standard truth-table meaning at every world in
+          every Kripke model. It follows that all truth-functional consequences
+          of sentences that are true at a world are themselves true at that
+          world. In particular, if some sentences are true at every world in
+          every Kripke model, then any truth-functional consequence of these
+          sentences is also true at every world every Kripke model.
+
+    \item Let $w$ be an arbitrary world in an arbitrary Kripke model. If $A$ is
+          true at every world in every Kripke model, then $A$ is true at every
+          world accessible from $w$, in which case $\Box A$ is true at $w$ by
+          clause (g) of definition \ref{def:kripkesemantics}. So if $A$ is K-valid, then $\Box A$ is also K-valid. \qed
+          
+  \end{enumerate}
+\end{proof}
+
+The soundness proof for K is easily extended to other modal systems. Since all
+instances of \pr{Dual} and \pr{K} are true at all worlds in all Kripke models,
+they are also true at all worlds in any more restricted class of Kripke models.
+The arguments for \pr{CPL} and \pr{Nec} also go through if we replace `every
+Kripke model' by `every Kripke model of such-and-such type'. So if we want to
+show that, say, the axiomatic calculus for T is sound with respect to the
+concept of T-validity -- that is, if we want to show that anything that is
+derivable from \pr{Dual}, \pr{K}, and \pr{T} by \pr{CPL} and \pr{Nec} is true at
+all worlds in all reflexive Kripke models -- all that is left to do is to show
+that every instance of the \pr{T}-schema is true at all worlds in all reflexive
+Kripke model. (We've already shown this: see observation \ref{obs:treflexive}.)
+
+% In general, if $\Gamma$ is any set of sentences that are valid in a given
+% class C of frames, anything that's provable from $K+\Gamma$ is valid in that
+% class. (HC.39)
+
+\begin{exercise}
+  Outline the soundness proof for the axiomatic calculus for S4, whose axiom
+  schemas are \pr{Dual}, \pr{K}, \pr{T}, and \pr{4}.
+\end{exercise}
+\begin{solution}
+  We need to show that everything that's derivable in the axiomatic calculus for
+  S4 is true at every world in every transitive and reflexive Kripke model. From
+  the soundness proof for K, we know that all instances of \pr{Dual} and \pr{K}
+  are true at every world in every Kripke model. From observation
+  \ref{obs:treflexive}, we know that all instances of \pr{T} are true at every
+  world in every reflexive Kripke model. From observation \ref{obs:4trans}, we
+  know that all instances of \pr{4} are true at every world in every transitive
+  Kripke model. So all axioms in the S4-calculus are valid in the class of
+  transitive and reflexive Kripke frames. Since \pr{CPL} and \pr{Nec} preserve
+  validity in any class of Kripke frames, it follows that everything that's
+  derivable in the S4-calculus is valid in the class of transitive and reflexive
+  frames.
+\end{solution}
+
+Let's turn to completeness. We are going to show that every K-valid sentence is
+derivable from some instances of \pr{Dual} and \pr{K} by \pr{CPL} and \pr{Nec}.
+% You might want to grab a cup of tea before you continue.
+As in section \ref{sec:completenesstrees}, we argue by contraposition. We will
+show that any sentence that cannot be derived from \pr{Dual} and \pr{K} by
+\pr{CPL} and \pr{Nec} is not K-valid. To show that a sentence is not K-valid, we
+will give a countermodel -- a Kripke model in which the sentence is false at
+some world. In fact, we will give the \emph{same} countermodel for every
+sentence that isn't derivable in the calculus. You might think we need different
+countermodels for different sentences, but it turns out that there is a
+particular model in which every K-invalid sentence is false at some world. This
+model is called the \emph{canonical model} for K.
+
+In order to define the canonical model, let's introduce some shorthand
+terminology. We'll say that an $\L_M$-sentence is \emph{K-provable} if it can be
+proved in the axiomatic calculus for K. A set of $\L_M$-sentences is
+\emph{K-inconsistent} if it contains a finite number of sentences
+$A_1,\ldots,A_n$ such that $\neg (A_1 \land \ldots \land A_n)$ is K-provable. A
+set is \emph{K-consistent} if it is not K-inconsistent.
+
+(For example, the set $\{ \Box(p \land q), q \to p, \neg \Box q \}$ is
+K-inconsistent, because it contains two sentences, $\Box(p \land q)$ and
+$\neg \Box q$ whose conjunction is refutable in K, in the sense that the
+negation $\neg(\Box(p \land q) \land \neg \Box q)$ of their conjunction is
+derivable from some instances of \pr{Dual} and \pr{K} by \pr{CPL} and \pr{Nec}.)
+
+A set of $\L_M$-sentences is called \emph{maximal} if it contains either $A$ or
+$\neg A$ for every $\L_M$-sentence $A$. A set is \emph{maximal K-consistent} if
+it is both maximal and K-consistent.
+
+% Exercise (HC 114): Show that if $\Gamma$ is maximal consistent, then for any
+% sentences $A,B$, (i) $A\in \Gamma$ iff $\neg A \not\in \Gamma$, (ii)
+% $A \lor B \in \Gamma$ iff either $A \in \Gamma$ or $B \in \Gamma$, (iii) $A \land B$ ...
+
+\begin{exercise}
+  Which, if any, of these sets are K-consistent? (a) $\{ p \}$, (b)
+  $\{ \neg p \}$, (c) the set of all sentence letters, (d) the set of all
+  $\L_{M}$-sentences.
+\end{exercise}
+\begin{solution}
+  (a), (b), and (c) are K-consistent, (d) is not.
+\end{solution}
+
+% The universe of the canonical model is always uncountable since there are
+% uncountably many (2^\omega) sets of negated/unnegated sentence letters.
+
+Now here's the canonical model for K.
+
+\begin{definition}{}{cmk}
+  %\leavevmode\vspace{-2em}
+  
+  The \textbf{canonical model} $M_K$ for K is the Kripke model $\t{W,R,V}$, where%
+  \vspace{-2mm}
+  \begin{itemize}[leftmargin=7mm]
+    \itemsep-1mm
+    \item $W$ is the set of all maximal K-consistent sets of $\L_M$-sentences,
+    \item $wRv$ iff $v$ contains every sentence $A$ for which $w$ contains
+          $\Box A$,
+    \item for every sentence letter $P$, $V(P)$ is the set of all members of $W$
+          that contain $P$.
+  \end{itemize}
+\end{definition}
+
+% Exercise: show that for any consistent normal modal logic, the canonical
+% accessibility relation R is such that wRv iff for all B\in v we have <>B\in w.
+
+So the ``worlds'' in the canonical model are sets of $\L_M$-sentences. The
+interpretation function makes a sentence letter true at a world iff the letter
+is a member of the world. As we are going to see, this generalizes to arbitrary
+sentences:
+\begin{enumerate}[leftmargin=10mm]
+  \item[(1)] A world $w$ in $M_K$ contains all and only the sentences that are
+        true at $w$ in $M_K$.
+\end{enumerate}
+We will also prove the following:
+\begin{enumerate}[leftmargin=10mm]
+  \item[(2)] If some sentence cannot be proved in the axiomatic calculus for K,
+        then its negation is a member of some world in $M_K$.
+\end{enumerate}
+
+Together, these two lemmas will establish completeness for the axiomatic
+calculus. Fact (2) tells us that if a sentence $A$ isn't K-provable, then
+$\neg A$ is a member of some world $w$ in the canonical model $M_K$. By fact
+(1), we can infer that $\neg A$ is true at $w$ in $M_K$, which means that $A$ is
+false at $w$ in $M_K$. So any sentence that isn't K-provable isn't K-valid.
+
+We are going to prove (2) first. We'll need the following observation. 
+
+\begin{observation}{extensionconsistency}
+  If a set $\Gamma$ is K-consistent, then for any sentence $A$, either
+  $\Gamma \cup \{ A \}$ or $\Gamma \cup \{ \neg A \}$ is K-consistent.
+\end{observation}
+%
+\noindent
+($\Gamma \cup \{ A \}$, called the \emph{union} of $\Gamma$ and $\{ A \}$, is
+the smallest set that contains all members of $\Gamma$ as well as $A$.)
+%
+\begin{proof}
+  \emph{Proof}: Let $\Gamma$ be any K-consistent set and $A$ any sentence.
+  Suppose for reductio that $\Gamma \cup \{ A \}$ and
+  $\Gamma \cup \{ \neg A \}$ are both K-inconsistent.
+
+  That $\Gamma \cup \{ A \}$ is K-inconsistent means there are sentences
+  $A_1,\ldots,A_n$ in $\Gamma \cup \{ A \}$ such that
+  $\neg (A_1\land\ldots\land A_n)$ is K-provable. Since $\Gamma$ itself is
+  K-consistent, one of the sentences $A_1,\ldots,A_n$ must be $A$. Let $B$ be
+  the conjunction of the other sentences in $A_1,\ldots,A_n$, all of which are
+  in $\Gamma$. So $\neg(B \land A)$ is K-provable.
+
+  That $\Gamma \cup \{ \neg A \}$ is K-inconsistent means that there are sentences $A_1,\ldots,A_n$ in $\Gamma \cup \{ \neg A \}$ such that $\neg (A_1\land\ldots\land A_n)$ is K-provable. As before, one of these sentences must be $\neg A$. Let $C$ be the conjunction of the others, all of which are in $\Gamma$. So $\neg(C \land \neg A)$ is K-provable.
+
+  If $\neg(B \land A)$ and $\neg(C \land \neg A)$ are both K-provable, then so
+  is $\neg(B \land C)$, because it is a truth-functional consequence of
+  $\neg(B \land A)$ and $\neg(C \land \neg A)$. But $B \land C$ is a conjunction
+  of sentences from $\Gamma$. So $\Gamma$ itself is K-inconsistent, contradicting our assumption. \qed
+\end{proof}
+
+Now we can prove fact (2).
+
+\begin{theorem}{Lindenbaum's Lemma}{extensibility}
+  Every K-consistent set is a subset of some maximal K-consistent set.
+\end{theorem}
+%
+\begin{proof}
+  \emph{Proof}: Let $S_0$ be some K-consistent set of sentences. Let
+  $A_1,A_2,\ldots$ be a list of all $\L_M$-sentences in some arbitrary
+  order. For every number $i\geq 0$, define
+  \begin{gather*}
+    S_{i+1} = \begin{cases} S_i \cup \{ A_i \} & \text{if $S_i \cup \{ A_i \}$ is K-consistent}\\
+      S_i \cup \{ \neg A_i \} & \text{otherwise}.
+    \end{cases}
+  \end{gather*}
+%
+  This gives us an infinite list of sets $S_0,S_1,S_2,\ldots$. Each set in the
+  list is K-consistent: $S_0$ is K-consistent by assumption. And if some set
+  $S_i$ in the list is K-consistent, then either $S_i \cup \{ A_i \}$ is
+  K-consistent, in which case $S_{i+1} = S_i \cup \{ A_i \}$ is K-consistent, or
+  $S_i \cup \{ A_i \}$ is not K-consistent, in which case $S_{i+1}$ is
+  $S_i \cup \{ \neg A_i \}$, which is K-consistent by observation
+  \ref{obs:extensionconsistency}. So if any set in the list is consistent, then
+  the next set in the list is also consistent. It follows that
+  $S_0,S_1,S_2,\ldots$ are all K-consistent.
+
+  Now let $S$ be the set of sentences that occur in at least one of the sets
+  $S_{0},S_1, S_2,S_3\ldots$. (That is, let $S$ be the union of
+  $S_{0},S_1,S_2,S_3,\ldots$.) Evidently, $S_0$ a subset of $S$. And $S$ is
+  maximal. Moreover, $S$ is K-consistent. For if $S$ were not K-consistent, then
+  it would contain some sentences $B_1,\ldots,B_n$ such that
+  $\neg (B_1\land \ldots\land B_n)$ is K-provable. All of these sentences would
+  have to occur somewhere on the list $A_1,A_2,\ldots$. Let $A_j$ be a sentence
+  from $A_1,A_2,\ldots$ that occurs after all the $B_1,\ldots,B_n$. If
+  $B_1,\ldots,B_n$ are in $S$, they would have to be in $S_j$ already, so $S_j$
+  would be K-inconsistent. But we've seen that all of $S_0,S_1,S_2,\ldots$ are
+  K-consistent. \qed
+\end{proof}
+
+Notice that the proof of Lindenbaum's Lemma does not turn on any assumptions
+about the axiomatic calculus for K except that \pr{CPL} is one of its rules. The
+lemma holds for every calculus with \pr{CPL} as a (possibly derived) rule.
+
+To prove fact (1), we need another observation, which relies on the presence of
+\pr{K} and \pr{Nec}, besides \pr{CPL}.
+
+\begin{observation}{hcp117}
+  If $\Gamma$ is a maximal K-consistent set of sentences that does not
+  contain $\Box A$, and $\Gamma^{-}$ is the set of all sentences $B$ for which
+  $\Box B$ is in $\Gamma$, then $\Gamma^{-} \cup \{ \neg A \}$ is
+  K-consistent.
+\end{observation}
+\begin{proof}
+  \emph{Proof:} We show that if $\Gamma^{-} \cup \{ \neg A \}$ is not
+  K-consistent, then neither is $\Gamma$. If $\Gamma^- \cup \{ \neg A \}$ is not
+  K-consistent, then there are sentences $B_1,\ldots,B_n$ in $\Gamma^{-}$ such
+  that $\neg(B_1\land\ldots\land B_n \land \neg A)$ is K-provable. And then
+  $(B_1\land\ldots\land B_n) \to A$ is K-provable, because it is a
+  truth-functional consequence of $\neg(B_1\land\ldots\land B_n \land \neg A)$.
+  By repeated application of \pr{Nec}, \pr{K}, and \pr{CPL}, one can derive
+  $(\Box B_1\land\ldots\land \Box B_n) \to \Box A$ from
+  $(B_1\land\ldots\land B_n) \to A$. Another application of \pr{CPL} yields
+  $\neg (\Box B_1\land\ldots\land \Box B_n \land \neg\Box A)$. So
+  $\{\Box B_1,\ldots,\Box B_n, \neg \Box A\}$ is K-inconsistent. But
+  $\Box B_1,\ldots,\Box B_n$ are in $\Gamma^{-}$. And since $\Box A$ is not in
+  $\Gamma$ and $\Gamma$ is maximal, $\neg \Box A$ is in $\Gamma$. So
+  $\{\Box B_1,\ldots,\Box B_n, \neg \Box A\}$ is a subset of $\Gamma$. And so
+  $\Gamma$ is K-inconsistent. \qed
+\end{proof}
+
+Here, then, is fact (1):
+
+\begin{theorem}{Canonical Model Lemma}{lemma:cml}
+  For any world $w$ in $M_K$ and any sentence $A$, $A$ is in $w$ iff
+  $M_K,w \models A$.
+\end{theorem}
+
+\begin{proof}
+  \emph{Proof:} The proof is by induction on complexity of $A$. We first show
+  that the claim ($A$ is in $w$ iff $M_{K},w\models A$) holds for sentence
+  letters. Then we show that if the claim holds for the immediate parts of a
+  complex sentence (this is our \emph{induction hypothesis}, then the claim also
+  holds for the sentence itself.%
+  \vspace{-1mm}
+  \begin{itemize}
+    \itemsep0mm
+    \item Suppose $A$ is a sentence letter. By definition \ref{def:cmk},
+          $w\in V(A)$ iff $A\in w$. So by clause (a) of definition
+          \ref{def:kripkesemantics}, $M_K,w \models A$ iff $A \in w$. (`$\in$'
+          means `is a member of the set'.)
+  
+    \item Suppose $A$ is a negation $\neg B$. By clause (b) of definition
+          \ref{def:kripkesemantics}, $M_K,w \models \neg B$ iff
+          $M_K,w \not\models B$. By induction hypothesis, $M_K,w\not\models B$
+          iff $B \not\in w$. Since $w$ is maximal K-consistent, $B \not\in w$
+          iff $\neg B \in w$. So $M_K,w \models \neg B$ iff $\neg B \in w$.
+          % I haven't actually shown that maximal K-consistency implies $B
+          % \not\in w iff \neg B \in w$.
+        
+    \item Suppose $A$ is a conjunction $B\land C$. By clause (c) of definition
+          \ref{def:kripkesemantics}, $M_K,w \models B\land C$ iff
+          $M_K,w \models B$ and $M_K,w \models C$. By induction hypothesis,
+          $M_K,w \models B$ iff $B\in w$, and $M_K,w \models C$ iff $C\in w$.
+          Since $w$ is maximal K-consistent, $B$ and $C$ are in $w$ iff
+          $B\land C$ is in $w$.
+          % I haven't actually shown this.
+          So $M_K,w \models B \land C$ iff $B \land C \in w$.
+  \end{itemize}
+  %
+  The cases for the other truth-functional connectives are similar.
+  \begin{itemize}
+    \itemsep0mm
+    \item Suppose $A$ is a box sentence $\Box B$, and that $\Box B \in w$. By
+          definition \ref{def:cmk}, it follows that $B\in v$ for all $v$ with
+          $wRv$. By induction hypothesis, this means that $M_K,v \models B$ for
+          all $v$ with $wRv$. And then $M_K,w \models \Box B$, by clause (g) of
+          definition \ref{def:kripkesemantics}.
+
+          For the converse direction, suppose $\Box B \not\in w$. Let $\Gamma^-$
+          be the set of all sentences $C$ for which $\Box C \in w$. By
+          observation \ref{obs:hcp117}, $\Gamma^- \cup \{ \neg B \}$ is
+          K-consistent. By definition \ref{def:cmk} and Lindenbaum's Lemma, it
+          follows that there is some $v\in W$ such that $wRv$ and
+          $\neg B \in v$. Since $v$ is K-consistent, $B \not\in v$. By induction
+          hypothesis, it follows that $M_K,v \not\models B$. And so
+          $M_K,w \not\models \Box B$, by clause (g) of definition
+          \ref{def:kripkesemantics}.
+          
+    \item Suppose $A$ is a diamond sentence $\Diamond B$, and that
+          $\Diamond B \in w$. By \pr{Dual} and \pr{CPL}, any set that contains
+          both $\Diamond B$ and $\Box \neg B$ is K-inconsistent. So
+          $\Box \neg B \not\in w$. By observation \ref{obs:hcp117} and
+          Lindenbaum's Lemma (as in the previous case), it follows that there is
+          some $v\in W$ such that $wRv$ and $B \in v$. By induction hypothesis,
+          $M,v\models B$. So $M_{K},w\models \Diamond B$, by clause (h) of
+          definition \ref{def:kripkesemantics}.
+
+          For the converse direction, suppose $\Diamond B \not\in w$. Then
+          $\Box \neg B \in w$, by \pr{Dual}, \pr{CPL}, and the fact that $w$ is
+          maximal K-consistent. By definition \ref{def:cmk}, it follows that
+          $\neg B\in v$ for all $v$ with $wRv$. Since all such $v$ are maximal
+          K-consistent, none of them contain $B$. By induction hypothesis, $B$
+          is not true at any of them. By clause (h) of definition
+          \ref{def:kripkesemantics}, it follows that
+          $M_{K}, w \not\models \Diamond B$. \qed
+  \end{itemize}
+\end{proof}
+
+The completeness of the axiomatic calculus for K follows immediately from the
+previous two lemmas, as foreshadowed above:
+
+\begin{theorem}{Theorem: Completeness of the axiomatic calculus for K}{completenessK}
+  If $A$ is K-valid, then $A$ is provable in the axiomatic calculus for K.
+\end{theorem}
+%
+\begin{proof}
+  \emph{Proof}: We show that if a sentence is not K-provable then it is not
+  K-valid. Suppose $A$ is not K-provable. Then $\{ \neg A \}$ is K-consistent.
+  It follows by Lindenbaum's Lemma that $\{ \neg A \}$ is included in some
+  maximal K-consistent set $S$. By definition \ref{def:cmk}, that set is a world
+  in $M_K$. Since $\neg A$ is in $S$, it follows from the Canonical Model Lemma
+  that $M_K,S \models \neg A$. So $M_K,S \not\models A$. So $A$ is not true at
+  all worlds in all Kripke models. \qed
+\end{proof}
+
+Done!
+
+% We have shown that the axiomatic proof system for K is rightly
+% called a proof system \emph{for K} because the sentences that are
+% provable in this system are precisely the sentences that are K-valid.
+
+Once again, the proof is easily adjusted to many axiomatic calculi for logics
+stronger than K. All we have assumed about the K-calculus is that it contains
+\pr{Dual}, \pr{K}, \pr{Nec}, and \pr{CPL}. So if we're interested in, say,
+whether the axiomatic calculus for T is complete, we can simply replace
+`K-consistent' by `T-consistent' throughout the proof, and almost everything
+goes through as before. We only have to add a small step at the end.
+
+% Did we also need the assumption that the calculus is consistent? Perhaps not.
+% If the calculus is inconsistent and contains CPL then everything we said
+% should hold vacuously.
+
+By adapting the argument for K, we can show that if a sentence $A$ is not
+T-provable then $A$ is false at some world in the canonical model for T. This
+shows that $A$ is not K-valid. But we want to show that $A$ is not T-valid --
+meaning that $A$ is not true at all worlds in all reflexive Kripke models. To
+complete the proof, we need to show that the canonical model $M_{T}$ for T is
+reflexive.
+
+This isn't hard. Given how accessibility in canonical models is defined, a world
+$w$ in a canonical model is accessible from itself iff whenever $\Box A \in w$
+then $A \in w$. Since the worlds in $M_T$ are maximal T-consistent sets of
+sentences, and every such set contains every instance of the \pr{T} schema
+$\Box A \to A$, there is no world in $M_T$ that contains $\Box A$ but not $A$.
+So every world in $M_T$ has access to itself.
+
+In general, to show that a calculus that extends the K-calculus by further axiom
+schemas is complete, we only need to show that the canonical model for the
+calculus satisfies the frame conditions that correspond to the added axiom
+schemas. This is usually the case. But not always. Sometimes, an axiomatic
+calculus is sound and complete with respect to some class of Kripke models, but
+the canonical model of the calculus is not a member of that class. (An example is
+the calculus for the system GL, which I will describe at the very end of this
+chapter.) Completeness must then be established by some other means.
+
+% The present technique for proving completeness does not always work. In the next
+% section, we will meet an axiomatic calculus \Ax{GL} that is
+% characterised by a certain class of frames, but its canonical model doesn't
+% belong to that class.  Worse, the axioms of \Ax{GL} are not valid on the frame
+% of its canonical model. So the above technique can't be used to prove
+% completeness. Other (normal) calculi are not even characterised by any class of
+% frames. An example is the calculus \Ax{KH}, which results from \Ax{K} by adding
+% the axiom schema
+% %
+% \principle{H}{\Box(\Box A \leftrightarrow A) \to \Box A}
+
+\begin{exercise}
+  Outline the completeness proof for the axiomatic calculus for S5.
+\end{exercise}
+\begin{solution}
+  We have to show that all S5-valid sentences are provable in the axiomatic
+  calculus for S5, which extends the calculus for T by the axiom schemas
+  $\Box A \to \Box\Box A$ and $\Diamond A \to \Box\Diamond A$. (The second
+  schema alone would be sufficient, as I mentioned in chapter 1, but it doesn't
+  hurt to have the first.) The argument is by contraposition: We suppose that
+  some sentence is not S5-provable and show that it is not S5-valid.
+
+  Suppose $A$ is not S5-provable. Then $\{ \neg A \}$ is S5-consistent. It
+  follows by Lindenbaum's Lemma that $\{ \neg A \}$ is included in some maximal
+  S5-consistent set $\Gamma$. By definition of canonical models, this set is a
+  world in the canonical model $M_{S5}$ for S5. Since $\neg A$ is in $\Gamma$,
+  it follows from the Canonical Model Lemma that $M_{S5},\Gamma \models \neg A$.
+  So $M_{S5},S \not\models A$.
+
+  It remains to show that the accessibility relation in $M_{S5}$ is reflexive,
+  transitive, and symmetric (for every such relation is an equivalence relation,
+  and a sentence is S5-validity iff it is valid in the class of Kripke models
+  whose accessibility relation is an equivalence relation).
+
+  By definition, a world $v$ in a canonical model is accessible from $w$ iff
+  whenever $\Box A \in w$ then $A \in v$. Since the worlds in $M_{S5}$ are
+  maximal S5-consistent sets of sentences, and every such set contains every
+  instance of the \pr{T}-schema $\Box A \to A$, there is no world in $M_{S5}$
+  that contains $\Box A$ but not $A$. So every world in $M_{S5}$ has access to
+  itself.
+
+  For transitivity, suppose for some worlds $w,v,u$ in $M_{S5}$ we have $wRv$
+  and $vRu$. We need to show that $wRu$. Given how $R$ is defined in $M_{S5}$,
+  we have to show that $u$ contains all sentences $A$ for which $w$ contains
+  $\Box A$. So let $A$ be an arbitrary sentence for which $w$ contains $\Box
+  A$. Since every world in $M_{S5}$ contains every instance of
+  $\Box A \to \Box\Box A$, we know that $w$ also contains $\Box\Box A$. From
+  $wRv$, we can infer that $v$ contains $\Box A$. And from $vRu$, we can infer
+  that $u$ contains $A$. 
+
+  For symmetry, suppose for some worlds $w,v$ in $M_{S5}$ we have $wRv$ and not
+  $vRw$. Given how $R$ is defined, this means that there is some sentence $A$
+  for which $\Box A$ is in $v$ but $\neg A$ is in $w$. Since $w$ contains the
+  T-provable sentence $\neg A \to \Diamond \neg A$ and the \pr{5}-instance
+  $\Diamond \neg A \to \Box \Diamond \neg A$, it also contains
+  $\Box \Diamond \neg A$. So $v$ contains $\Diamond \neg A$. This contradicts
+  the assumption that $v$ is S5-consistent, given that $v$ contains $\Box A$. 
+\end{solution}
+
+% in ch.2 I say we will prove here that S5 is the logic of "basic" models. Do we?
+
+% We can show that S5 is complete wrt the simple semantics as per Humberstone
+% 72: if A is not in S5 then by completeness for equivalence frames there is a
+% world in an equivalence model where A is false. Take the submodel generated by
+% that world...
+
+% Exercise (H65): show that if all instances of T are provable in a consistent
+% normal logic, then the canonical acc rel is reflexive. (Similarly for
+% transitive with 4 and serial with D)
+
+\begin{exercise}
+  The set of all $\L_{M}$-sentences is a system of modal logic. Let's call this
+  system $X$ (for ``explosion''). (a) Describe a sound and complete proof method
+  for $X$. (b) Explain why $X$ does not have a canonical model.
+\end{exercise}
+\begin{solution}
+  (a) Method A from exercise \ref{ex:proofmethods} is sound and complete for
+  $X$. (b) No set of $\L_{M}$-sentences is $X$-consistent, but every Kripke model
+  must have at least one world.
+\end{solution}
+
+% \begin{exercise}
+%   Suppose we add the (``McKinsey'') schema $\Box\Diamond A \to \Diamond \Box A$
+%   to the axiomatic calculus for S5. Explain why we can then prove all instances
+%   of the (``Triv'') schema $\Box A \leftrightarrow A$.
+%    % 1. A -> <>A (T, PL)
+%    % 2. <>A -> []<>A (p5)
+%    % 3. []<>A -> <>[]A (M)
+%    % 4. A -> <>[]A (1,2,3)
+%    % 5. <>[]A -> []A (p5, PL)
+%    % 6. A -> []A (1,5)
+% \end{exercise}
+% \begin{solution}
+%   \begin{alignat*}{2}
+%     1.\quad& A \to \Diamond A &\quad& \text{(\pr{T}, Prop.\ Logic)}\\
+%     2.\quad& \Diamond A \to \Box \Diamond A &\quad& \text{(\pr{5})}\\
+%     3.\quad& \Box\Diamond A \to \Diamond\Box A &\quad& \text{(\pr{M})}\\
+%     4.\quad& \Diamond\Box A \to \Box A &\quad& \text{(\pr{5}, Prop.\ Logic)}\\
+%     5.\quad& A \to \Box A &\quad& \text{(1, 2, 3, 4, Prop.\ Logic)}
+%   \end{alignat*}
+% \end{solution}
+
+
+\section{Loose ends}\label{sec:looseends}
+
+You will remember from observation \ref{obs:semantic-deduction-theorem} in
+chapter 1 that claims about entailment can be converted into claims about
+validity. $A$ entails $B$ iff $A \to B$ is valid; $A_{1}$ and $A_{2}$ together
+entail $B$ iff $A_{1} \to (A_{2} \to B)$ -- equivalently,
+$(A_{1}\land A_{2}) \to B$ -- is valid; and so on. But what if there are
+infinitely many premises $A_{1},A_{2},A_{3},\ldots$? Sentences of $\L_{M}$ are
+always finite, so we can't convert the claim that $A_{1},A_{2},A_{3},\ldots$
+entail $B$ into a claim that some $\L_{M}$-sentence is valid.
+
+We also can't use the tree method or the axiomatic method to directly show that
+a conclusion follows from infinitely many premises. A proof in either method is
+a finite object that can only invoke finitely many sentences.
+
+As it turns out, this is not a serious limitation. In many logics -- including
+classical propositional and predicate logic and all the modal logics we have so
+far encountered -- a sentence is entailed by infinitely many premises only if it
+is entailed by a finite subset of these premises. Logics with this property are
+called \textbf{compact}.
+
+To show that K is compact, let's say that a sentence $B$ is \emph{K-derivable}
+from a (possibly infinite) set of sentences $\Gamma$ if there are finitely many
+members $A_{1},\ldots,A_{n}$ of $\Gamma$ for which
+$(A_1 \land \ldots \land A_n) \to B$ is provable in the axiomatic calculus for
+K. Now we first show that whenever $\Gamma \models_{K} B$ then $B$ is
+K-derivable from $\Gamma$. This is called \emph{strong completeness} because it
+is stronger than the (``weak'') kind of completeness that we have established in
+the previous section.
+
+\begin{theorem}{Theorem: Strong completeness of the axiomatic calculus for K}{strongcompletenessK}
+  Whenever $\Gamma \models_{K} B$ then $B$ is K-derivable from $\Gamma$.
+\end{theorem}
+\begin{proof}
+  \emph{Proof}: Suppose $B$ is not K-derivable from $\Gamma$. Then there are no
+  $A_1, \ldots, A_n$ in $\Gamma$ such that $(A_1 \land \ldots \land A_n) \to B$
+  is K-provable. This means that $\Gamma \cup \{ \neg B \}$ is K-consistent. By
+  Lindenbaum's Lemma, it follows that $\Gamma \cup \{ \neg B \}$ is included in
+  some maximal K-consistent set and thereby in some world in the canonical model
+  $M_{K}$ for K. (Lindenbaum's lemma says that every K-consistent set of
+  $\L_{M}$-sentences, even if it is infinite, is included in a maximal
+  K-consistent set.) By the Canonical Model Lemma, $M_{K}, w \models_K A$ for
+  all $A$ in $\Gamma$, and $M_{K}, w \not\models_K B$. Thus
+  $\Gamma \not\models_K B$. \qed
+\end{proof}
+
+\begin{theorem}{Theorem: Compactness of K}{compactnessK}
+  If a sentence $B$ is K-entailed by some sentences $\Gamma$, then $B$ is
+  K-entailed by a finite subset of $\Gamma$.
+\end{theorem}
+\begin{proof}
+  \emph{Proof:} Suppose $\Gamma \models_{K} B$. By strong completeness, it
+  follows that there are finitely many sentences $A_{1},\ldots,A_{n}$ in
+  $\Gamma$ for which $(A_{1}\land\ldots\land A_{n}) \to B$ is K-provable. By the
+  soundness of the K-calculus, $(A_{1}\land\ldots\land A_{n}) \to B$ is valid.
+  So $A_{1},\ldots,A_{n} \models_{K} B$, by observation
+  \ref{obs:semantic-deduction-theorem}. \qed
+\end{proof}
+
+Compactness is surprising. It is easy to think of cases in which a conclusion is
+entailed by infinitely many premises, but not by any finite subset of these
+premises. For example, suppose I like the number 0, I like the number 1, I like
+the number 2, and so on, for all natural numbers 0,1,2,3,\ldots. Together, these
+assumptions entail that I like all natural numbers. But no finite subset of the
+assumptions has this consequence. 
+
+\begin{exercise}
+  A set of sentences $\Gamma$ is called \emph{K-satisfiable} if there is a world
+  in some Kripke model at which all members of $\Gamma$ are true. Show that an
+  infinite set of sentences $\Gamma$ is K-satisfiable iff every finite subset of
+  $\Gamma$ is K-satisfiable.
+\end{exercise}
+\begin{solution}
+  Let $\Gamma$ is an infinite set of $\L_{M}$-sentences. If $\Gamma$ is
+  K-satisfiable then obviously every finite subset of $\Gamma$ is satisfiable as
+  well. For the converse direction, assume $\Gamma$ is not K-satisfiable: There
+  is no world in any Kripke model at which all members of $\Gamma$ are true.
+  Then there is no world in any Kripke model at which all members of $\Gamma$
+  are true while $p \land \neg p$ is false. So $\Gamma \models p\land \neg p$.
+  By the compactness theorem, it follows that there is a finite subset
+  $\Gamma^{-}$ for which $\Gamma^{-} \models p \land \neg p$. If
+  $\Gamma^{-} \models p \land \neg p$ then there is no world in any Kripke model
+  at which all members of $\Gamma^{-}$ are true while $p \land \neg p$ is false.
+  Since $p\land \neg p$ is false at every world in every Kripke model, it
+  follows that there is no world in any Kripke model at which all members of
+  $\Gamma^{-}$ are true. This shows that if $\Gamma$ is not K-satisfiable then
+  there is a finite subset ($\Gamma^{-}$) of $\Gamma$ that is not K-satisfiable.
+  Conversely, if every finite subset of $\Gamma$ is K-satisfiable then $\Gamma$
+  is K-satisfiable.
+\end{solution}
+
+Our proofs of soundness, completeness, compactness, etc.\ were informal. We have
+not translated the relevant claims into a formal language, nor have we used a
+formal proof method such a tree method or an axiomatic method. In principle,
+however, that could be done. All our proofs could be formalized in an axiomatic
+calculus for predicate logic with a few additional axioms about sets. A
+well-known calculus of that kind is ZFC (named after Ernst Zermelo, Abraham
+Fraenkel, and the Axiom of Choice). ZFC is strong enough to prove not just
+soundness and completeness in modal logic, but practically everything that can
+be proved in any branch of maths.
+
+An interesting feature of ZFC is that it can not only prove facts about what's
+provable in simpler axiomatic calculi; it can also prove facts about what's
+provable in ZFC itself. For example, one can prove in ZFC that one can prove in
+ZFC that 2+2=4.
+
+This gives us  an interesting application of modal logic. Let's read the box as
+`it is mathematically provable that', which we understand as provability in ZFC.
+One can easily show (in ZFC) that this operator has all the properties of the
+box in the basic logic K. For example, all instances of the \pr{K}-schema are
+provable in ZFC. (The language of ZFC doesn't have a box symbol. But one can
+encode the \pr{K}-schema into a schema of ZFC, given the present reading of the
+box, and all instances of that schema are ZFC-provable.)
+
+So the logic of mathematical provability is at least as strong as K. In fact, it
+is stronger. One can prove in ZFC that whenever a sentence is ZFC-provable then
+it is ZFC-provable that the sentence is ZFC-provable. This gives us the
+\pr{4}-schema $\Box A \to \Box\Box A$.
+
+You might expect that we also have the \pr{T}-schema $\Box A \to A$ or the
+\pr{D}-schema $\Box A \to \Diamond A$. The latter says that if something is
+provable then it's negation isn't provable (since $\Diamond A$ means
+$\neg\Box\neg A$). And surely ZFC can't prove both a sentence and its negation.
+That would make ZFC inconsistent. I say `surely', but can we prove (in ZFC) that
+ZFC is consistent? The answer is no. More precisely, one can prove that if one
+can prove that ZFC is consistent then ZFC is \emph{in}consistent. This bizarre
+fact is a consequence of \emph{G\"odel's second incompleteness theorem},
+established by Kurt G\"odel in 1931. It is reflected by the following schema
+(named after G\"odel and Martin L\"ob), all whose instances are provable in ZFC:
+%
+\principle{GL}{\Box(\Box A \to A) \to \Box A}
+%
+The system GL, which is axiomatized by \pr{K}, \pr{GL}, \pr{Nec}, and \pr{CPL},
+completely captures what ZFC can prove about provability in ZFC. (Schema \pr{4}
+isn't needed as a separate axiom schema because it can be derived.)%
+% To show []p->[][]p you need the GL instance with A = □p∧p
+
+\begin{exercise}
+  Suppose ZFC can prove its own consistency, so that there is a proof of
+  $\neg \Box (p \land \neg p)$. Explain how this proof could be extended to a
+  proof of $\Box (p \land \neg p)$, showing that ZFC is inconsistent. You need
+  each of \pr{GL}, \pr{Nec}, and \pr{CPL}.
+\end{exercise}
+\begin{solution}
+  Suppose there is a proof of $\neg\Box (p \land \neg p)$. By \pr{CPL}, we can
+  infer $\Box (p \land \neg p) \to (p \land \neg p)$, because $A \to B$ is a
+  truth-functional consequence of $\neg A$. By \pr{Nec}, we get
+  $\Box (\Box (p \land \neg p) \to (p \land \neg p))$. By \pr{GL} and
+  \emph{modus ponens} (an instance of \pr{CPL}), we can derive
+  $\Box (p \land \neg p)$.
+\end{solution}
+
+% \begin{exercise}
+%   Let $p$ be the statement that 2+2=5. Properly encoded into the language of
+%   ZFC, one can prove in ZFC that $p$ is false. And this fact itself is provable
+%   in ZFC: One can prove in ZFC that $\Box\neg p$. Explain (informally) why it
+%   follows that $\neg\Box p$ is not provable in ZFC, assuming that ZFC is
+%   consistent and drawing on the fact that the logic of ZFC-provability is
+%   axiomatized by \pr{K}, \pr{GL}, \pr{Nec}, and \pr{CPL}.
+% \end{exercise}
+% \begin{solution}
+%   Suppose $\neg\Box p$ is ZFC-provable. By \pr{CPL}, any proof of $\neg\Box p$
+%   could be extended to a proof of $\Box p \to p$, because $\Box p \to p$ is a
+%   truth-functional consequence of $\neg p$. By \pr{Nec}, we would get
+%   $\Box(\Box p \to p)$. By \pr{GL} and Modus Ponens (an instance of \pr{CPL}),
+%   we would get $\Box p$. So if $\neg\Box p$ is ZFC-provable, then $\Box p$ is
+%   ZFC-provable. And if both $\Box p$ and $\neg \Box p$ are ZFC-provable, then
+%   ZFC is inconsistent.
+% \end{solution}
+
+% Surprisingly, Kripke models play an important role in the study of mathematical
+% provability: the standard technique for proving that all instance of \pr{GL}
+% are provable in ZFC draws on the fact that GL is sound and complete with respect
+% to the class of finite, transitive, and irreflexive Kripke models.
+% (As
+% I said earlier, the completeness proof is non-trivial, because the canonical
+% model of \Ax{GL} has infinitely many worlds and therefore does not itself belong
+% to the relevant model class.)
+%
+% why irreflexive? can't we drop that? no; if we do so, we allow for
+% infinite chains.
+%
+% This is surprising because intuitively, mathematical truths are true at all
+% possible worlds, so it is hard to see how mathematical provability could be
+% usefully analysed in terms of truth at accessible worlds.
+
+% [Boolos p.xx (yes, xx in the introduction) says that this is the
+% decisive scientific justification for modal logic and Kripke
+% models.]
+
+% So we should not think of logical necessity as provability. Otherwise
+% the logic of logical necessity certainly isn't S5. Whatever logical
+% possibility means, it can't be defined in terms of provability.
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "ml.tex"
+%%% End:

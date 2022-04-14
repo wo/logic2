@@ -1,0 +1,1403 @@
+\chapter{Deontic Logic}\label{ch:deontic}
+
+\section{Permission and obligation}
+
+Deontic logic studies formal properties of obligation, permission, prohibition,
+and related normative concepts. The box in deontic logic is usually written
+`$\Ob$' (for `obligation' or `ought'), the diamond `$\Pe$' (for `permission').
+If we read $q$ as stating that you cook dinner, we might use $\Ob q$ to express
+that you are obligated to cook dinner.
+
+We assume that obligation and permission are duals. You are not obligated to
+cook dinner iff you are permitted to not cook dinner; you are not permitted to
+cook dinner iff you are obligated to not cook dinner.
+
+There are many kinds of norms: legal norms, moral norms, prudential norms,
+social norms, and so on. There may also be overarching norms that combine some
+or all of the others. Deontic logic is applicable to norms of all kinds. We do
+not have to settle whether $\Ob$ expresses legal obligation or moral obligation
+or some other kind of obligation. It is important, however, that we don't
+equivocate. If the law requires $q$ and morality $\neg q$, we should not
+formalize this as $\Ob q \land \Ob \neg q$. It would be better to use a
+multi-modal language with different operators for legal and moral obligation.
+
+% Humberstone 245 discusses the idea of using multi-relational frames in which
+% the different relations correspond to different sources of norms or values.
+% One may then read OA as true iff /some/ norm says that A is ideal. In this
+% semantics, O(A) and O(B) do not entail O(A & B). Compare Lewis on
+% compartmentalised beliefs.
+
+Obligations and permissions often vary from agent to agent. If it is your turn
+to cook dinner then you are obligated to cook dinner, but I am not. To capture
+this agent-relativity, we could add agent subscripts to the operators, as we did
+in epistemic logic. We could then express our different obligations as
+$\Ob_1 q \land \neg \Ob_2 q$. But what does the sentence letter $q$ stand for?
+When I say that you are obligated to cook dinner, the object of the obligation
+appears to be a type of act: cooking dinner. In the language of modal
+propositional logic, $\Ob$ and $\Pe$ are sentence operators. Unless we want to
+say that verb phrases in English (like `cook dinner') should be translated into
+sentences of $\L_M$ -- which is possible, but non-standard -- we have to
+transform the acts that appear to be the true objects of obligation and
+permission into propositions.
+
+Consider sentence (1), which is arguably equivalent to (2).
+\begin{itemize}[leftmargin=10mm]
+\itemsep-1mm
+\item[(1)] You ought to cook dinner.
+\item[(2)] You ought to see to it that you cook dinner.
+\end{itemize}
+In (2), the operator `you ought to see to it that' attaches to a sentence, `you
+cook dinner'. So we can translate (1) via (2) as $\Ob_1 q$, where $q$ translates
+`you cook dinner', and $\Ob_1$ corresponds to `you ought to see to it that'.
+
+The subject (you) is mentioned twice in (2). A common assumption in deontic
+logic is that we can drop the agent subscripts from deontic operators, since the
+embedded proposition will tell us upon whom the obligation or permission falls.
+Informally, the idea is that (2) is equivalent to (3), with an impersonal
+`ought'.
+\begin{itemize}[leftmargin=10mm]
+\itemsep1mm
+\item[(3)] It ought to be the case that you cook dinner.
+\end{itemize}
+
+The impersonal `ought' also figures in statements like (4).
+\begin{itemize}[leftmargin=10mm]
+\itemsep1mm
+\item[(4)] Nobody ought to die of hunger.
+\end{itemize}
+When I say (4), I don't mean that nobody is obligated to die of hunger. Nor do I
+mean that everybody is obligated to not die of hunger. Rather, I mean that a
+certain state of affairs -- that nobody dies of hunger -- ought to be the case.
+By itself, this does not impose any obligations on anyone.
+
+% The reducibility of personal to impersonal ought was suggested by Meinong and
+% Chisholm, see Handbook of Modal Logic p 1204.
+
+On closer inspection, the equivalence between agent-relative `ought' statements
+like (2) and impersonal `ought' statements like (3) is questionable. Suppose Amy
+has promised to play with Betty. Then Amy is obligated to play with Betty. But
+Betty is not thereby obligated to play with Amy. Betty may even have promised
+not to play with Amy. It is hard to express these facts in terms of impersonal
+oughts. If we say that it ought to be the case that Amy plays with Betty, we're
+missing the fact that the obligation falls on Amy, not on Betty (who might be
+under a contrary obligation). So perhaps it would be better to keep the agent
+subscripts after all.
+
+It can also be useful to make the `see to it that' component in statements like
+(2) explicit. That Amy ought to play with Betty could then be translated as
+$\Ob_a \stit p$, where $\stit$ formalizes `sees to it that'. This allows us to
+distinguish between the following three claims.
+
+\bigskip
+\begin{tabular}{ll}
+  $\Ob_a \stit \neg p$ & Amy ought to see to it that she doesn't play with Betty.\\
+  $\Ob_a \neg \stit p$ & Amy ought to not see to it that she plays with Betty.\\
+  $\neg \Ob_a \stit p$ & It is not the case that Amy ought to see to it that she plays with\\[-0.5mm]
+                       & Betty.
+\end{tabular}
+\bigskip
+
+% Others have suggested that an adequate deontic logic should include special
+% terms for actions in addition to terms for propositions. We could then write
+% $\Ob_a \alpha$, where $\alpha$ stands for the (possible) action of Amy playing
+% with Betty. This leads to the field of \emph{dynamic deontic logic}. Here,
+% action terms are themselves treated as modal operators, associated with their
+% own accessibility relation: a world $w'$ is accessible from $w$ through action
+% $\alpha$ if performing $\alpha$ in $w$ could bring about $w$. Thus if $p$ is
+% the proposition that Betty is happy, one could use $[\alpha]p$ to express that
+% Amy's dancing with Betty would definitely lead to Betty being happy, while
+% $\langle \alpha \rangle p$ would expresses that the action $\alpha$
+% \emph{could} lead to $p$.
+
+% Hilpinen says stit accounts are more sophisticated versions of these.
+
+The $\stit$ operator has proved useful to represent different concepts of rights
+and duties. In what follows, we will nonetheless stick to the simplest (and
+oldest) approach, without a $\stit$ operator and without agent subscripts. This
+approach is sufficient for many applications, but its limitations should be kept
+in mind.
+
+% \begin{exercise}
+%   Let $\mathsf{F}A$ mean that $A$ is forbidden. Can you define
+%   $\mathsf{F}$ in terms of $\Ob$ or $\Pe$ (or both)?
+% \end{exercise}
+% \begin{solution}
+%   For example: $\Ob \neg$, or $\neg \Pe$.
+% \end{solution}
+
+\begin{exercise}\label{ex:translate-sdl}
+  Translate the following sentences into the standard language of deontic logic (without $\stit$ or agent subscripts).
+  \begin{exlist}
+  \item You must not go into the garden.
+  \item You may not go into the garden.
+  \item Jones ought to help his neighbours.
+  \item If Jones is going to help his neighbours, then he ought to tell them
+    he's coming.
+  \item If Jones isn't going to help his neighbours, then he ought to not tell
+    them he's coming.
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+    \item $\Ob \neg p$; \quad $p$: You go into the garden.
+    \item $\Ob \neg p$; \quad $p$: You go into the garden.
+    \item $\Ob p$; \quad $p$: Jones helps his neighbours.
+    \item $\Ob (p \to q)$; \quad $p$: Jones helps his
+    neighbours, $q$: Jones tells his neighbours that he's coming.
+    \item You might try $\Ob (\neg p \to \neg q)$ or $\neg p \to \Ob \neg q$ \quad $p$: Jones helps his neighbours, $q$: Jones tells his neighbours that he's coming.
+  \end{sollist}
+  See section \ref{sec:oblig-circ}, especially exercise \ref{ex:chisholmsparadox},
+  for why neither translation of (e) is fully satisfactory.
+\end{solution}
+
+
+\section{Standard deontic logic}
+
+Think of a possible world as a history of events. For any such history, and any
+system of norms, we can ask whether the history conforms to the norms. Let's
+call a world \emph{acceptable} relative to some norms if everything that happens
+at the world conforms to the norms. That is, a world is acceptable if it
+contains no violation of any relevant norm.
+
+By definition, whatever happens at an acceptable world is permitted, in the
+sense that it does not violate any (relevant) norms. The converse is plausible
+as well: whenever something is permitted then it is the case at some acceptable
+world. For example, if it is permitted that Amy plays with Betty, then there
+should be a complete history of events in which Amy plays with Betty and no
+norms are violated. If there were no such history, then Amy's playing with Betty
+would logically entail the violation of some norms; but if an act entails the
+violation of some norms, then it is hard to see how the act could be permitted
+relative to these norms.
+
+So we have the following connection between permission and acceptable worlds,
+which amounts to a possible-worlds analysis of permission:
+\begin{quote}
+  $A$ is permitted (relative to some norms) iff $A$ is the case at
+  some possible world that is acceptable (relative to these norms).
+\end{quote}
+%
+Given the duality of permission and obligation, we also get a possible-worlds
+analysis of obligation:
+%
+\begin{quote}
+  $A$ is obligatory (relative to some norms) iff $A$ is the case at
+  all worlds that are acceptable (relative to these norms).
+\end{quote}
+
+In logic, we are not interested in who is in fact obligated to do what, but in
+whether a given deontic statement is logically valid, or whether it logically
+follows from other statements.
+
+Validity means truth in every conceivable scenario under every interpretation of
+the non-logical vocabulary. A scenario for deontic logic has to specify the
+relevant norms. This can be done by specifying which worlds are acceptable
+relative to which other worlds.
+
+We can represent a scenario of this type together with an interpretation of the
+sentence letters by a Kripke model. A world $v$ in the model is accessible from
+a world $w$ if $v$ is acceptable relative to the norms at $w$ -- equivalently,
+if everything that ought to be the case at $w$ is the case at $v$. Worlds that
+are accessible from $w$ in this sense are called \textbf{ideal} relative to $w$.
+
+Our possible-worlds analysis of obligation and permission is reflected in
+definition \ref{def:kripkesemantics}, which settles under what conditions a
+sentence is true at a world in a model. Writing the box as `$\Ob$' and the
+diamond as $\Pe$', clause (g) of the definition states that $\Ob A$ is true at a
+world $w$ in a model $M$ iff $A$ is true at all worlds of $M$ that are ideal
+relative to $w$. Clause (h) states that $\Pe A$ is true at $w$ in $M$ iff $A$ is
+true at some world that is ideal relative to $w$.
+
+A sentence is valid iff it is true at every world in every suitable model. If we
+count all Kripke models as suitable, the logic of obligation and permission will
+be the minimal normal modal logic K. We can get stronger logics by imposing
+constraints on the accessibility relation. Let's have a look at a few options.
+
+We might stipulate that the deontic accessibility relation is reflexive, so that
+every world can see itself. This would make all instances of the \pr{T}-schema
+valid:
+%
+\principle{T}{\Ob A \to A}
+%
+In deontic logic, the \pr{T}-schema is highly implausible. The fact that
+something ought to be the case does not entail that it is the case. Semantically
+speaking, many worlds are not ideal relative to themselves. We will not assume
+reflexivity.
+
+We might, however, impose the weaker condition of seriality -- that each world
+can see some world. This would validate principle \pr{D}:
+%
+\principle{D}{\Ob A \to \Pe A}
+%
+Intuitively, \pr{D} says that the norms are consistent: if you're obligated to
+do $A$, then you can't also be obligated to do not-$A$. (Remember that $\Pe A$
+is equivalent to $\neg \Ob \neg A$.) Semantically, \pr{D} corresponds to the
+assumption that there is always at least one world at which all the norms are
+satisfied.
+
+Without seriality, we have to allow for worlds from which no world is
+accessible. At such a world, all sentences of the form $\Ob A$ are true, and all
+sentences of the form $\Pe A$ are false. Everything is obligatory, but nothing
+is allowed. That makes little sense. If we use Kripke semantics for deontic
+logic, we should rule out inconsistent norms and accept \pr{D} as valid.
+
+Here it may be important to distinguish \emph{prima facie} obligations from
+\emph{actual}, or \emph{all-things-considered} obligations. If you've promised
+to cook dinner, you are under a \emph{prima facie} obligation to cook dinner.
+But the obligation can be overridden by intervening circumstances or contrary
+obligations. If your child has an accident and needs urgent medical care, the
+right thing to do may well be to not cook dinner and instead bring your child to
+the hospital. In a sense, you are under conflicting obligations: you ought to
+cook dinner, and you ought to look after your child (and not cook dinner). There
+is no world at which you meet both of these obligations. But that is not a
+counterexample to \pr{D}, if we understand $\Ob$ as all-things-considered
+obligation. You are \emph{prima facie} obligated to cook dinner, but all things
+considered, you should not cook dinner.
+
+Let's return to the non-reflexivity of the deontic accessibility relation. Many
+things that are not the case nonetheless ought to be the case. Some have argued
+that this is only true in non-ideal worlds. In an ideal world, everything that
+ought to be the case is the case. By this line of thought, if a world $v$ is
+accessible from some world $w$ -- meaning that $v$ is ideal relative to $w$ --
+then $v$ should be accessible from itself. This condition is sometimes called
+``shift reflexivity'' and corresponds to the following schema \pr{U} (for
+``utopia'')
+%
+\principle{U}{\Ob(\Ob A \to A)}
+%
+In words: it ought to be the case that whatever ought to be the case is the
+case.
+
+The \pr{U} principle is entailed by an alternative way of formalizing obligation
+and permission that goes back to Leibniz. Let `$\OK$' be a propositional
+constant whose intended meaning is that all norms are satisfied, no obligations
+violated. Suppose we add this expression to $\L_M$, and we interpret the box of
+$\L_M$ as a suitable kind of circumstantial necessity. Arguably, $\Ob A$ is then
+definable as $\Box (\OK \to A)$: it ought to be that $A$ iff, necessarily, $A$
+is the case whenever all obligations are met. It is not hard to show that if the
+\pr{T}-schema is valid for the circumstantial box, and $\Ob A$ is defined as
+$\Box(\OK \to A)$, then the \pr{U}-schema is valid for $\Ob$.
+
+% Kanger uses 'Q' instead of '$\OK$'. Note that the same approach could be used
+% in other contexts, e.g. having 'Q' specify that the laws of nature are
+% satisfied, or someone's beliefs. See Humberston 257.
+
+% Humberstone 259 shows that if the box satisfies T and we have <>Q, then the
+% Q-logic is precisely KDU.
+
+\begin{exercise}
+  \beginwithlist
+  \begin{exlist}
+    \item Translate the \pr{U}-schema into the Leibnizian language just
+    proposed.
+  \item Give a tree proof for the translated \pr{U}-schema, using the T-rules
+    for the box. 
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  (a): $\Box(\OK \to (\Box(\OK \to A) \to A))$. (b): use 
+  \href{https://www.umsu.de/trees/}{umsu.de/trees/}.
+\end{solution}
+
+% \begin{exercise}
+%   Show that if $\Box$ satisfies \pr{4}, then so does $\Ob$.
+% \end{exercise}
+
+\begin{exercise}
+  How could we define $\Pe$ in terms of $\Box$ and $\OK$, so that $\Pe$ is the
+  dual of $\Ob$? 
+\end{exercise}
+\begin{solution}
+  $\Pe A$ could be defined as $\neg\Box(\OK \to \neg A)$, or more simply (and
+  equivalently) as $\Diamond (\OK \land A)$.
+\end{solution}
+
+
+
+% A weakening of $U$ is 4C or density:
+% \[
+%   \Ob\Ob A \to \Ob A.
+% \]
+% This means that every deontic alternative is a deontic alternative to some
+% deontic alternative.
+
+Turning to more familiar schemas and frame conditions, what shall we say about
+transitivity and euclidity, and the corresponding schemas \pr{4} and \pr{5}?
+%
+\begin{principles}
+\pri{4}{\Ob A \to \Ob\Ob A}\\
+\pri{5}{\Pe A \to \Ob\Pe A}
+\end{principles}
+%
+If something ought to be the case, ought it to be the case that it ought to be
+the case? If something is permitted, is it obligatory that it is permitted?
+Iterations of deontic operators sound strange in ordinary language. But they
+have a well-defined meaning in our Kripke semantics. The validity of \pr{4}
+would mean that whenever something is obligatory at a world, then it is also
+obligatory at all ideal alternatives to that world. \pr{5} would mean that if
+something is permissible at a world, then it's also permissible at all ideal
+alternatives to that world. On the background of \pr{D}, these two assumptions
+together imply that for each world there is a class of ideal worlds all of which
+are ideal relative to one another.
+
+To get a clearer grip on whether that is plausible, we need to clarify how
+obligations and permissions can vary from world to world.
+
+One obvious sense in which norms can vary across worlds is that people subscribe
+to different norms at different worlds. At our world, UK traffic law requires
+driving on the left and most people think it is morally wrong to torture
+animals for fun. At other worlds, the laws and attitudes are different.
+
+Let $v$ be a world at which the traffic laws require driving on the right, and
+at which everyone thinks it is fine to torture animals. Suppose Norman at $v$ is
+torturing kittens, while driving on the right (in the UK). Is Norman doing
+something that's morally wrong? Is he doing something that violates the traffic
+laws? The answer depends on whether we evaluate Norman's acts relative to our
+norms -- the norms at our world -- or relative to the norms at Norman's world.
+Both perspectives are intelligible. They lead to different deontic logics.
+
+On an \textbf{absolutist} conception, the norms do not vary from world to world.
+Whichever world we look at, we always assess it relative to the same set of
+norms. On this conception, it is natural to assume that the very same worlds are
+ideal relative to any world: a world will be accessible from any world just in
+case it contains no violation of the (fixed) norms. The resulting logic of
+obligation and permission is KD45.
+
+% Strictly speaking, I am here also assuming that not all worlds are ideal, and
+% that there is more than one ideal world.
+
+\begin{exercise}
+  Explain why the deontic accessibility relation is transitive and euclidean if the same worlds are ideal relative to any world.
+\end{exercise}
+\begin{solution}
+  Transitivity (if $wRv$ and $vRu$ then $wRu$) and euclidity (if $wRv$ and $wRu$
+  then $vRu$) both state that if $v$ is ideal and $u$ is ideal then $u$ is
+  ideal.
+\end{solution}
+\begin{exercise}
+  Show that euclidity implies shift reflexivity.
+  % This is needed later in applying the euclidity rule for trees.
+\end{exercise}
+\begin{solution}
+  $R$ is euclidean if $\forall x \forall y \forall z((xRy \land xRz) \to yRz)$.
+  Suppose $wRv$. Instantiating the universal formula with $w$ for $x$ and with
+  $v$ for $y$ and $z$, we have $(wRv \land wRv) \to vRv$. So $vRv$.
+\end{solution}
+
+% when I draw a diagram for euclidity I shouldn't use a symmetrical arrow from v
+% to u: if I draw the reverse arrow, I should also draw the loop at v and u.
+% Maybe that's a good point to highlight in the text, by way of explaining that
+% the variables don't need to pick out distinct worlds.
+
+On a \textbf{relativist} conception of norms, we evaluate the events at other
+worlds relative to the norms at these worlds. Transitivity and euclidity now
+become implausible, as does shift reflexivity. To see why, add another world $u$
+to the Norman scenario. The laws at $u$ say that one must drive on the right but
+everyone nonetheless drives on the left. Nothing that happens at $u$, we may
+assume, violates the traffic laws of our world. So $u$ is deontically accessible
+from the actual world. But if we evaluate the events at $u$ relative to the laws
+at $u$, then much of what happens at $u$ violates the norms, so $u$ is not
+deontically accessible from itself. Shift reflexivity fails.
+
+\begin{exercise}
+  Explain why deontic accessibility is neither transitive nor euclidean, on
+  the relativist conception.
+\end{exercise}
+\begin{solution}
+  Consider the example from the text, where $w$ is the actual world (in the UK)
+  and $u$ is a $w$-accessible world at which everyone drives on the left
+  although the law says that one must drive on the right. A typical world
+  accessible from $u$ will be a world at which people drive on the right. This
+  world will not be accessible from $w$. So we have a counterexample to
+  transitivity. We also have a counterexample to euclidity because we have $wRu$
+  and $wRu$ but not $uRu$. (Euclidity entails shift reflexivity.)
+\end{solution}
+
+The relativist conception is more common in deontic logic. So-called
+\textbf{standard deontic logic} assumes only that the accessibility relation is
+serial, making the system D the complete logic of obligation and permission.
+
+The proposed logics of absolutism and relativism only disagree about sentences
+in which a deontic operator occurs in the scope of another deontic operator. Any
+sentence that does not contain an $\Ob$ or $\Pe$ operator embedded under another
+$\Ob$ or $\Pe$ operator is D-valid iff it is KD45-valid.
+
+% Proof: Clearly everything that's D-valid is KD45-valid, so we need to show
+% that if a degree-1 sentence A is KD45-valid, then A is also D-valid. By
+% contraposition, suppose A is not D-valid, meaning that there is a world w in a
+% serial model M at which A is false. We construct a world w' in a
+% serial+euclidean+transitive model M' at which A is false. The worlds of M' are
+% w and every world that can be seen from w in M. Every world that can be seen
+% from w can see every other such world in M'. The interpretation function in M'
+% is like that in M, restricted to the relevant worlds. Trivially, all degree-0
+% sentences have the same truth-values at all worlds in M' as they have in M.
+% For degree-1 sentences A, we show by induction on complexity that M,w |= A iff
+% M',w |= A. Case (1): A is atomic. Trivial. Case (2): A is -B. Trivial by i.h.
+% Case (3): A is BvC. Trivial by i.h. Case (4): A is []B. Then B is degree-0. We
+% know that B has the same truth-value at any w-accessible world in M and M'. So
+% B is true at all w-accessible worlds in M iff it is true at all w-accessible
+% worlds in M'. So []B is true at w in M iff []B is true at w in M'. QED.
+
+\begin{exercise}
+  Use the tree method to check which of the following sentences are D-valid and
+  which are KD45-valid.
+  \begin{exlist}
+    % \item $\Ob p \to \Ob (p \lor q)$
+    \item $\Pe (p \lor q) \to (\Pe p \land \Pe q)$
+    % \item $(\Ob p \land \Ob q) \to \Ob(p \land q)$
+    % \item $\Pe p \to \Pe(p \lor q)$
+    \item $\Ob\Pe p \to \Pe p$
+    % \item $\neg (\Ob p \land \Ob \neg p)$
+    \item $\neg\Pe(p \lor q) \to (\Pe \neg p \lor \Pe\neg q)$
+    \item $\Ob\Pe p \lor \Pe\Ob p$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  Use
+  \href{https://www.umsu.de/trees/}{https://www.umsu.de/trees/}.
+  (Write $\Ob$ as a box and $\Pe$ as a diamond. For D, make the accessibility
+  relation serial; for KD45, make it serial, transitive, and euclidean.)
+\end{solution}
+
+\begin{exercise}
+  Consider a world in which there are no sentient beings, and nothing else that
+  could introduce norms or laws. Since there are no norms at this world, one
+  might hold that nothing is obligatory relative to the world's norms, and
+  nothing is permitted. Explain why this casts doubt on the validity of
+  \pr{Dual1} and \pr{Dual2} in the logic of relativist obligation and
+  permission.
+\end{exercise}
+\begin{solution}
+  \pr{Dual1} says that $\neg \Diamond A$ is equivalent to $\Box \neg A$. If
+  nothing is permitted then $\neg \Diamond A$ is true for all $A$. But if
+  nothing is forbidden then $\Box \neg A$ is false for all $A$.
+
+  \pr{Dual2} says that $\neg \Box A$ is equivalent to $\Diamond \neg A$. If
+  nothing is forbidden then $\neg \Box A$ is true for all $A$. But if
+  nothing is permitted then $\Diamond \neg A$ is false for all $A$.
+\end{solution}
+
+\begin{exercise}\label{ex:amybettycarla}
+  Amy ought to have either promised to help Betty or to help Carla. She hasn't
+  made either promise. If she had promised to help Betty, she would be obligated
+  to help Betty. If she had promised to help Carla, she would be obligated to
+  help Carla. So it ought to be the case that Amy is either obligated to help
+  Betty or obligated to help Carla. In fact, since Amy made neither promise, she
+  is neither obligated to help Betty nor to help Carla. Explain why this casts
+  doubt on the assumption that deontic accessibility is euclidean.
+\end{exercise}
+\begin{solution}
+  In the described situation, it ought to be the case that Amy is either
+  obligated to help Betty or obligated to help Carla, but Amy is neither
+  obligated to help Betty nor to help Carla. So if $p$ translates `Amy helps
+  Betty' and $q$ `Amy helps Carla', we seem to have $\Ob(\Ob p \lor \Ob q)$ and
+  $\neg \Ob p$ and $\neg \Ob q$. But these assumptions are inconsistent in K5.
+  You can draw a K5-tree (using the K-rules and the Euclidity rule) starting
+  with $\Ob(\Ob p \lor \Ob q)$ and $\neg \Ob p$ and $\neg \Ob q$ on which all
+  branches close. This shows that there is no world in any euclidean model at
+  which the three assumptions are true.
+  % The deeper point here is that obligations often depend on the circumstances
+  % -- for example on what Amy has promised to do. Even if we hold fixed the
+  % underlying norms ("keep your promises"), we shouldn't hold fixed the
+  % specific obligations and permissions that arise from these norms together
+  % with the circumstances. See section \sec{sec:oblig-circ} for more on this
+  % theme. (This is a bank robber paradox type case. If we don't hold fixed what
+  % was promised then having promised to p does not entail Op:
+  % not-promise-and-not-p worlds are OK.)
+\end{solution}
+
+% \begin{exercise}
+%   The \pr{C4}-schema $\Ob\Ob A \to \Ob A$ is entailed by the \pr{U}-schema
+%   $\Ob(\Ob A \to A)$ in the sense that whenever an instance of \pr{U} is true at
+%   a world in a model then so is the corresponding instance of \pr{C4}. What about the other direction? Does the \pr{C4}-schema entail the \pr{U}-schema? 
+%   \begin{exlist}
+%   \item if all instances of \pr{U} are valid on a frame, then so are all instances of \pr{C4};
+%   \item it is not the case that if all instances of \pr{C4} are valid on a frame,
+%     then so are all instances of \pr{U}.
+%     % Need to give a counterexample frame where C4 is valid but not U.
+%     % U invalid means not shift reflexive. But still dense. That's
+%     % hard. Obvious example: W = Reals, R = <. Then wherever we can
+%     % get in one step we can get in two steps (C4), but we don't have
+%     % shift reflexivity. Does a tree help?
+%   \end{exlist}
+% \end{exercise}
+% \begin{solution}
+%   \begin{sollist}
+%     \item I argue by contraposition. Suppose some sentence $\Ob\Ob A \to \Ob A$
+%     is invalid on a frame. This means that at some world $w$ in some model $M$
+%     based on the frame, $\Ob\Ob A$ is true while $\Ob A$ is false. It follows
+%     that there is a world accessible from $w$ at which $A$ is false and $\Ob A$
+%     true. So $\Ob A \to A$ is false at $v$. So $\Ob (\Ob A \to A)$ is false at
+%     $w$. (You could also give a tree proof with the K-rules showing that \pr{U}
+%     entails \pr{C4}.)
+    
+%     \item It is not enough to give a model in which some instance of \pr{C4} is
+%     true at some world while the corresponding instance of \pr{U} is false. For
+%     a counterexample, you need to give a \emph{frame} on which every instance of
+%     \pr{C4} is valid but not every instance of \pr{U}. Here is one such frame:
+%     $W = \{w,v\}$, $wRw$, $wRv$, and $vRw$.
+%   \end{sollist}
+% \end{solution}
+
+\section{Norms and circumstances}\label{sec:oblig-circ}
+
+The possible-worlds analysis from the previous section assumes that something
+ought to be the case iff it is the case at all ideal worlds, where no norms are
+violated. Many ordinary statements about oughts and obligations do not fit this
+analysis.
+
+Suppose you are walking past a drowning baby. You ought to save the baby. But
+are you saving the baby at every world at which no norms are violated? Clearly
+not. There are worlds at which the baby never fell into the pond, and others at
+which you are overseas and have no means to rescue the baby. These worlds need
+not involve any violations of norms.
+
+Whether something ought to be the case depends not just on the norms but also on
+the circumstances. Under circumstances in which you have the opportunity of
+saving a drowning baby, you ought to save it. Under other circumstances you do
+not.
+
+% The point also applies to impersonal oughts. In worlds where an increase of
+% greenhouse gases threatens to destabilise the climate, greenhouses gases ought
+% to be reduced; in worlds where greenhouse gases never increased, there is no
+% imperative for reduction.
+
+We can account for the dependence of obligations on circumstances by changing
+our interpretation of the accessibility relation. Previously, we assumed that a
+world $v$ is accessible from $w$ iff all the norms at $w$ are respected at $v$.
+On the new interpretation, we also require that the relevant circumstances at
+$w$ are preserved at $v$. If $w$ is a world at which you come across a drowning
+baby then any accessible world will also be a world at which you come across a
+drowning baby.
+
+As a first stab, we might redefine deontic accessibility as follows:
+
+\begin{quote}
+  A world $v$ is deontically accessible from a world $w$ iff (a) the relevant
+  circumstances at $w$ also obtain at $v$, and (b) no norms from $w$ are
+  violated at $v$.
+\end{quote}
+%
+I use `relevant circumstances' as a placeholder for the circumstances we hold
+fixed when we consider what ought to be the case. Often we hold fixed everything
+that is \emph{settled} in the sense we studied in section \ref{sec:systems} --
+everything that can no longer be changed. If the baby has fallen into the pond
+at $w$, then there is nothing anyone can do to undo the falling; the falling is
+a ``relevant circumstance'' that takes place at every world accessible from $w$.
+
+% Humberstone 238 mentions that an example due to Aqvist reveals that the
+% circumstances that are held fixed can't be defined temporally. This point is
+% also made in von Fintel & Heim: "this fence should be white".
+
+% The worlds of deontic logic are plausibly centred (or world-time pairs) since
+% the truth-value of Op at w depends on what is still open at w.
+
+% There's also the issue of actualism. We may or may not hold fixed that Prof
+% Procrastinate won't write the review. Or suppose you ought to go to work, but
+% don't. If you had gone, you'd have walked past a drowning baby, and you'd have
+% been obligated to save it. It seems that at all accessible worlds, you rescue
+% the baby. But it's odd to say that you should save the baby. Why? Are we
+% holding fixed that you're not going to work? Then you're not even obligated to
+% go to work. Apparently what we hold fixed depends on the prejacent.
+
+Clause (b) in the above definition assumes that no norms are violated at any
+accessible world. But if accessibility is restricted by circumstances, then this
+is implausible, as the relevant circumstances will often involve violations of
+norms.
+
+The problem is brought ought by Arthur Prior's ``Samaritan Paradox''.  Suppose
+someone has been injured in a robbery, and Jones has the opportunity to help. We
+want to say that Jones ought to help the victim. On the possible-worlds analysis
+of `ought', this means that Jones helps the victim at all worlds accessible from
+the actual world. It follows that the robbery took place at all these
+worlds. (In a world without a robbery, there is no victim to help.)  But then
+all the accessible worlds contain a violation of norms. In a truly ideal world,
+nobody would have been robbed and injured.
+
+In the Samaritan Paradox, the robbery is settled; it has happened at all worlds
+that are compatible with the ``relevant circumstances''. None of these worlds is
+ideal. Worlds at which Jones doesn't help the victim are even \emph{worse}, in
+terms of norm violations, than worlds at which he helps the victim. Both kinds
+of worlds are bad, because the victim got robbed. But our norms don't just
+divide the possible worlds into good and bad; they allow for finer distinctions
+between bad worlds and even worse worlds. Jones ought to help the victim because
+that's what he does in the \emph{best} worlds among those he can bring about,
+even though none of these worlds are ideal.
+
+% So we need a "better-than" ordering over the worlds, where a world is "better"
+% if the agent comes closer to satisfying her obligations. Naively, this might
+% be a matter of counting obligation violations, but we may want to classify two
+% shopliftings as better than one murder.
+
+% Lewis 1973:98f. discusses whether, in a relativist approach, one needs to
+% account for "abnormal" worlds that induce no betterness order, for example
+% because they have no god. If there are no spheres around such a world at all,
+% nothing is obligatory and everything is permissible. He suggests that one
+% might want W to be the trivial unique sphere, so that tautologies are
+% obligatory. /Normality/ means no abnormal worlds. Relatedly, he wonders
+% whether each world v is in the order induced by any given world w. (He calls
+% this /universality/.) /Absoluteness/ is the idea that betterness is not
+% world-relative.
+%
+% If we interpret the counterfactual in terms of betterness, we get conditional
+% obligation; the might counterfactual is conditional permission. [100]
+%
+% Lewis mentions [102] that several treatments of conditional obligation are
+% problematic because they validate inferences from 'if A ought C' to 'if A and
+% B ought C' or conversely. He suggests that there are Sobel-type
+% counterexamples where 'ought C' alternates with further conjuncts in the
+% antecedent: `given that Jesse robbed the bank, he ought to confess, but given
+% in addition that his confession would send his mother to an early grave, he
+% ought not to; etc.' [Note that like Sobel's sequence, these are hard
+% to reverse!]
+%
+% Lewis also mentions in a footnote [102] the circumstance-relativity of
+% ordinary oughts: There is a natural way to construe 'It ought to be that psi'
+% so that it does become true when Jesse robs the bank. It can be taken as
+% tacitly conditional, meaning something like 'Given those actual circumstances
+% that now cannot be helped, it ought to be that psi '. But this tacitly
+% conditional and time-dependent construal is not the appropriate one when 'It
+% ought to be that psi' is used as a reading for the unconditional obligation
+% operator of standard tenseless deontic logic.
+
+So here is a second pass at the revised definition of deontic accessibility.
+
+\begin{quote}
+  A world $v$ is deontically accessible from a world $w$ iff (a) the relevant
+  circumstances at $w$ are also the case at $v$, and (b) $v$ is one of the best
+  worlds, by the norms at $w$, among worlds at which the relevant circumstances
+  from $w$ are held fixed.
+\end{quote}
+
+The revised accessibility relation combines circumstantial and purely deontic
+conditions. It can be useful to separate these two components. To this end,
+let's first add a circumstantial accessibility relation to our models. In
+addition, a model needs to specify which worlds are better than others, relative
+to the norms at any given world (which may be the norms at every world, on an
+absolutist approach).
+
+Let `$u \prec_w v$' mean that world $u$ is better than world $v$ relative to the
+norms at $w$. (The symbol `$\prec$' hints at the idea that $u$ contains
+\emph{fewer} violations of norms than $v$.) We assume that for any world $w$,
+the relation $\prec_w$ is transitive. We also assume that it is asymmetric,
+meaning that if $u \prec_w v$ then it is not the case that $v \prec_w u$.
+Asymmetric and transitive relations are known as \textbf{strict partial orders}.
+
+\begin{definition}{}{orderingmodel}
+  A \textbf{deontic ordering model} consists of
+  \vspace{-3mm}
+  \begin{itemize*}
+    \item a non-empty set $W$ (the worlds),
+    \item a binary relation $R$ on $W$ (the circumstantial accessibility
+    relation),
+    \item for each world $w\in W$, a strict partial order $\prec_w$ on $W$ (the
+    world-relative ranking of worlds as better or worse), and
+    \item a function $V$ that assigns to each sentence letter of $\L_M$ a subset
+    of $W$.
+  \end{itemize*}
+\end{definition}
+
+Now we need to say under what conditions a sentence of the form $\Ob A$ is true
+at a world in an ordering model. Informally, $\Ob A$ should be true at $w$ iff
+$A$ is true at the best worlds among those that are circumstantially accessible.
+Let's introduce one more piece of notation. For any set of worlds $S$ and any
+partial order $\prec$, let $\emph{Min}^{\prec}(S)$ be the set of $\prec$-minimal
+members of $S$:
+\[
+  \emph{Min}^{\prec}(S) =_\text{def} \{ v: v \in S \land \neg\exists u(u \in S \land u \prec v) \}.
+\]
+An expression of the form `$\{ x: \ldots x \ldots \}$' denotes the set of all
+things $x$ that satisfy the condition $\ldots x \ldots$. So $Min^{<}(S)$ is the
+set of all things $v$ that are members of $S$ and for which there are no members
+$u$ of $S$ for which $u \prec v$.
+
+Here, then, are the truth-conditions for $\Ob A$ and $\Pe A$ in deontic ordering
+models:
+\begin{align*}
+  M,w \models \Ob A &\text{ \;iff\; $M,v \models A$ for all $v \in \emph{Min}^{\prec_w}(\{ u: wRu\})$}\\
+  M,w \models \Pe A &\text{ \;iff\; $M,v \models A$ for some $v \in \emph{Min}^{\prec_w}(\{ u: wRu\})$}
+\end{align*}
+This is just a formal way of saying that $\Ob A$ is true at $w$ iff $A$ is true
+at the best worlds (by the norms at $w$) among the worlds that are circumstantially accessible at $w$.
+
+If we want the \pr{D}-schema to be valid, we have to assume that there is always
+at least one best world among the circumstantially accessible worlds, so that
+$\emph{Min}^{\prec_w}(\{ u: wRu\})$ is never empty. Let's make this assumption.
+
+We could now study how the logic of obligation and permission depends on formal
+properties of the circumstantial accessibility relation $R$ and the deontic
+orderings $\prec_w$. In section \ref{sec:systems}, I argued that the logic of
+historical necessity (of what is settled and open) is S5. This suggests that in
+normal contexts, $R$ is an equivalence relation. If we adopt an absolutist
+approach, on which the orderings $\prec_{w}$ are the same for every world $w$, we
+then still get KD45. If we allow the orderings to vary from world to world, we
+still get D, unless we impose further restrictions on the orderings.
+
+% Why? If R is an equivalence relation then we can ignore the restriction to
+% R-accessible worlds: A is true at w in M iff A is true at w in M*, where W* =
+% [w]_R and R* is the universal relation. So []A is true at w iff A is true at
+% all the w-best worlds. On the absolutist conception, the w-best worlds are
+% best relative to every world. So []A is true at w iff A is true at all worlds
+% within some fixed set. This yields KD45. On the relativist conception, the
+% w-best worlds may be different from the v-best worlds. Every world has a set
+% of best worlds, and the box quantifies over that set. This is just as before.
+
+\begin{exercise}
+  Suppose fatalism is true and the only world that is open (circumstantially
+  accessible) relative to any world $w$ is $w$ itself. Can you describe the
+  resulting deontic logic (on either an absolutist or a relativist approach)?
+\end{exercise}
+\begin{solution}
+  Since we assume that there is always at least one best world among the
+  accessible worlds, and the accessible worlds comprise just one world, it
+  follows that $\Box A$ is true at $w$ iff $A$ is true at $w$. The logic we get
+  is the ``Triv'' logic that is axiomatized by adding the \pr{Triv}-schema
+  $\Box A \leftrightarrow A$ to the standard axioms and rules for K. This logic
+  is stronger than S5: all S5-valid sentences are Triv-valid. (We also have,
+  among other things, all instances of $\Box A \leftrightarrow \Diamond A$.) The
+  choice between absolutism and relativism makes no difference.
+\end{solution}
+
+% \begin{exercise}
+%   Can you describe a deontic ordering model for the scenario from exercise
+%   \ref{ex:amybettycarla}? 
+% \end{exercise}
+% \begin{solution}
+%   One possible answer: Let $w$ be the world in which the story takes place. At
+%   $w$, Amy doesn't make any promises and isn't helping anyone. Let $v$ be a
+%   world at which Amy promises to help Betty and keeps her promise. Let $u$ be a
+%   world at which Amy promises to help Carla and keeps her promise. $v$ and $u$
+%   are better than $w$, and neither is better than the other. $v$ and $u$ are
+%   circumstantially accessible from $w$, but not from each other: we can easily
+%   make promises, but if we've made a promise we can't easily dispose of the
+%   commitment.
+
+  % This is tricky. Strictly, v and u are open only if the promising at these
+  % worlds takes place in the future. Then u is accessible from v: at a world
+  % where Amy is about to promise to help Betty she can still promise to help
+  % Carla. Likewise, v is accessible from u. Both v and u contain zero norm
+  % violations. So we can't explain why Ob is true at v. Indeed, in some sense
+  % it isn't true that Amy ought (right now) to be obligated to help either
+  % Betty or Carla, if it's OK for her to make the promise in the future. (If
+  % she will make the promise to help Carla, she /will/ be obligated to help
+  % Carla, but she isn't already under that obligation.)
+  %
+  % Does the puzzle arise more clearly if we assume that Amy ought to have made
+  % the promise yesterday? The problem is that if Amy has promised yesterday to help Betty, and we leave open what promise she made (if any) then it isn't true that at the best worlds she helps Betty: she might instead have promised to help Carla and do that. 
+% \end{solution}
+
+% \begin{exercise}
+%   It is safe to assume that the relevant circumstances at $w$ are the
+%   case at $w$ itself. What does this imply about the ``absolutist''
+%   logic of obligation and permission on the revised definition of
+%   deontic accessibility, where we hold fixed the norms of the actual
+%   world?
+% \end{exercise}
+
+Ordering models can also help when we want to formalize statements containing
+modal operators and if-clauses, like (1)--(3).
+
+\begin{itemize}[leftmargin=10mm]
+\itemsep-1mm
+\item[(1)] If you smoke then you must smoke outside.
+\item[(2)] If you miss the deadline for tax returns then you must pay a fine.
+\item[(3)] If you have promised to call your parents then you must call them.
+\end{itemize}
+%
+With the resources of $\L_M$, we seem to face a choice between (W) and (N) for each of these sentences.
+\begin{itemize}[leftmargin=10mm]
+\itemsep-1mm
+\item[(W)] $\Ob(p \to q)$
+\item[(N)] $p \to \Ob q$
+\end{itemize}
+In (W), the operator $\Ob$ is said to have \textbf{wide scope} because it
+applies to the entire conditional $p \to q$. In (N), the operator has
+\textbf{narrow scope} because it only applies to the consequent $q$.
+
+On reflection, neither translation is satisfactory. Starting with (N), note that
+$p \to \Ob q$ and $\neg \Ob q$ together entail $\neg p$. But from (1), together
+with the assumption that you are not required to smoke ($\neg \Ob q$), we surely
+can't infer that you do not in fact smoke.
+
+% Also, consider (3*) "If you have promised to call your parents then you must
+% kill the Prime Minister". If this is translated as (N) then anyone who is
+% unsure about $p$ can't be sure that (3*) is false, for $p \to \Ob k$ is true
+% whenever $p$ is false.
+%
+% Note also that (N) is true whenever $\Ob q$ is true. So the narrow-scope
+% approach implies that whenever you ought to do something, then you have a
+% conditional obligation to do it under any condition whatsoever. But
+% intuitively, the fact that you ought to cook dinner does not imply that if
+% your child needs urgent medical care then you ought to cook dinner.
+
+(W) is not much better. For one, in our Kripke-style semantics, $\Ob(p \to q)$
+is entailed by $\Ob(\neg p)$. But it is easy to imagine a scenario in which you
+must not smoke, or you must submit your tax return before the deadline, and yet
+(1) and (2) are false.
+
+% Suppose you should not have promised to call your parents: $\Ob \neg p$. On
+% the wide-scope approach, we could infer that if you promised to call your
+% parents, then you must kill the Prime Minister.
+
+Another problem with both (N) and (W) is that they would license a problematic
+form of ``strengthening the antecedent''. For example, they both suggest that
+(3)  entails (4).
+\begin{itemize}[leftmargin=10mm]
+\itemsep-1mm
+\item[(4)] If you have promised to call your parents and you know that someone
+  has attached a bomb to your parents' phone that will go off if you call, then
+  you must call them.
+\end{itemize}
+
+\begin{exercise}
+  Give a tree proof with the K-rules to show that $p \to \Ob r$ entails
+  $(p \land q) \to \Ob r$, and that $\Ob (p \to r)$ entails
+  $\Ob((p \land q) \to r)$.
+\end{exercise}
+\begin{solution}
+  Use \href{https://www.umsu.de/trees/}{umsu.de/trees/}.
+\end{solution}
+
+Let's think about what is expressed by statements like (1)--(4). Intuitively,
+when we ask what must be done if $p$ is the case, we are limiting our attention
+to situations in which $p$ is the case, and consider which of \emph{these}
+situations best conform to the relevant norms. It is irrelevant whether $p$ is
+in fact the case or whether it ought to be the case. (1) says -- roughly -- that
+among worlds where you smoke, the ``best'' worlds are worlds where you smoke
+outside. Worlds where you smoke inside are worse than worlds where you smoke
+outside. Similarly for (2). A world at which you miss the deadline for tax
+returns and pay the fine contains only one violation of the tax rules. Worlds at
+which you miss the deadline and don't pay the fine contain two. The ``best''
+worlds among those at which you miss the deadline are worlds at which you pay
+the fine. Likewise for (3). Among worlds at which you have promised to call your
+parents, the ``best'' are worlds at which you keep the promise and call them.
+
+The if-clause in sentences like (1)--(3) therefore seems to \emph{restrict} the
+worlds over which the modal operator quantifies. Whereas `ought $q$' alone says
+that $q$ is true at the best of the open worlds, `if $p$ then ought $q$' says
+that $q$ is true at the best of the open worlds \emph{at which $p$ is true}.
+
+There is no way to express these truth-conditions with the resources of $\L_M$.
+But we can introduce a new, binary operator for \textbf{conditional obligation}.
+The operator is often written `$\Ob(\cdot/\cdot)$', with a slash separating the
+two argument places. Intuitively, $\Ob(B/A)$ means that $B$ ought to be the
+case if $A$ is the case.
+
+% The precise semantics of $\Ob(\cdot/\cdot)$ is a matter of debate; I will
+% sketch one attractive approach, drawing on ideas from Bengt Hansson and
+% Angelika Kratzer.
+
+% Hansson 1981:143 suggests something like Kratzer's account, according to
+% Hilpinen 170. In the best worlds among those where -h, we have -t. Express this
+% by O(-t/-h). We now assume that for any consistent proposition p there is a
+% nonempty set of optimal p-worlds, generalising D.
+
+% Chellas 276 suggests that O(/) can be defined as $A \Rightarrow O(B)$, for a
+% Lewis-Stalnaker-selection-type conditional $\Rightarrow$. Others suggest to use
+% defeasible conditionals.
+
+% Neighbourhood semantics doesn't help much. In CTD situations, we get conflicting
+% obligations. But we want to know more about how the obligations relate.
+
+The formal truth-conditions for $\Ob(B/A)$ are much like those for $\Ob B$, except
+that we add the assumption $A$ to the circumstances that are held fixed:
+
+\bigskip
+
+\quad$M,w \models \Ob (B/A) \text{ iff $M,v \models B$ for all
+  $v \in \emph{Min}^{\prec_w}(\{ u: wRu \text{ and } M,u\models A \})$}$.
+
+\bigskip\noindent%
+%
+Here, $\{ u: wRu \text{ and } M,u\models A \}$ is the set of worlds $u$ that are
+circumstantially accessible from $w$ and at which $A$ is true.
+$\emph{Min}^{\prec_{w}}(\{ u: wRu \text{ and } M,u\models A \})$ is the set that
+comprises the best of these worlds. So $\Ob(B/A)$ is true at $w$ iff $B$ is true
+at all of the best $A$-worlds that are accessible at $w$.
+
+% Hilpinen: Suppose p entails r, and p is true at some of the r-optimal worlds.
+% I.e., some of the best r-worlds are (more strongly) p-worlds. Then the best
+% p-worlds are the r-optimal worlds where p is true. I.e., optimality is subject
+% to the condition:
+
+% If $[[p]] \subseteq [[r]]$ and $[[p]] \cap Opt(r,w)$ is non-empty, then
+% $Opt(p,w) = [[p]] \cap Opt(r,w)$.
+
+% It looks like this is entailed by my ordering semantics.
+
+% Syntactically, this means that $\Ob p$ and $\Ob (q/p)$ entail $\Ob(q)$. I.e., we
+% have ``deontic detachment''. But we don't have ``factual detachment'': $p$ and
+% $\Ob(q/p)$ does not entail $\Ob q$.
+%
+\begin{exercise}
+  ``Deontic detachment'' is the inference from $\Ob A $ and $\Ob(B/A)$ to
+  $\Ob B$. ``Factual detachment'' is the inference from $A$ and $\Ob(B/A)$ to
+  $\Ob B$. Which of these are valid on the present semantics?
+\end{exercise}
+\begin{solution}
+  Deontic detachment is valid. Suppose $A$ is true at the best of the
+  (circumstantially) accessible worlds, and $B$ is true at the best of the
+  accessible worlds at which $A$ is true. Then $B$ is true at the best of the
+  accessible worlds.
+
+  Factual detachment is invalid. A counterexample is the ``gentle murder
+  puzzle''. Suppose John is determined to kill his grandmother. \emph{If he will
+    go ahead and kill her, he ought to do so gently}. Can we conclude that John
+  ought to gently kill his grandmother? Arguably not. He shouldn't kill her at
+  all! We have $k$ and $\Ob(g/k)$, but not $\Ob(g)$. Formally, $g$ is true at
+  the best of the accessible $k$-worlds, but since all the $k$-worlds are quite
+  bad, $g$ is not true at the best of the accessible worlds.
+\end{solution}
+
+% \begin{exercise}
+%   Shelly in standing in front of a burning building. Trapped inside
+%   are two small babies. Shelly could enter the building and rescue
+%   them, but at the cost of suffering crippling and probably fatal
+%   burns. Consider the following three possibilities:
+%   \begin{enumerate*}
+%   \item[(A)] Shelly stays out and rescues neither baby.
+%   \item[(B)] Shelly enters the building and rescues only one of the
+%     babies, although he could easily and without any further costs
+%     have rescued both.
+%   \item[(C)] Shelly enters the building and rescues both the babies.
+%   \end{enumerate*}
+%   Intuitively, (A) and (C) are permissible but (B) is not.
+% \end{exercise}
+
+\begin{exercise}\label{ex:chisholmsparadox}
+  In exercise \ref{ex:translate-sdl}, you were asked to translate the following
+  statements.
+  \begin{exlist}
+    \item[(c)] Jones ought to help his neighbours.
+    \item[(d)] If Jones is going to help his neighbours, then he ought to tell them
+    he's coming.
+    \item[(e)] If Jones isn't going to help his neighbours, then he ought to not  tell them he's coming.
+  \end{exlist}
+  \medskip\noindent%
+  Let's add a fourth statement:
+  \begin{exlist}
+    \item[(f)] Jones is not going to help his neighbours.
+  \end{exlist}
+  \medskip\noindent%
+  These four statements are intuitively consistent and independent: There are
+  conceivable scenarios in which all four are true, and none of them is entailed
+  by the others. Explain why your translations in exercise
+  \ref{ex:translate-sdl} violate either consistency or independence. (This puzzle is due to Roderick Chisholm.)
+\end{exercise}
+\begin{solution}
+  (c) can obviously be translated as $\Ob p$, (f) as $\neg p$.
+  
+  If (d) is translated as $p \to \Ob q$ then it is entailed by (f). We would
+  violate independence. (More directly: the translation can't be right because
+  it is easy to think of a scenario in which (f) is true but (d) false.) Assume
+  then that (d) is translated as $\Ob(p \to q)$.
+  % This is equivalent to $\Ob(q/p)$ in the presence of $\Ob(p)$ or even $\Pe(p)$. We only need the conditional operator to talk about what should be the case under non-ideal conditions.
+
+  If (e) is similarly translated as $\Ob(\neg p \to \neg q)$ then it is entailed
+  by (c). We would violate independence. (More directly: it is easy to think of
+  a scenario in which (c) is true but (e) false.) If (e) is translated as
+  $\neg p \to \Ob \neg q$ then (a)--(c) are logically inconsistent. To show
+  this, you can, for example, start a D-tree with the four assumptions $\Ob p$,
+  $\neg p$, $\Ob(p \to q)$, and $\neg p \to \Ob \neg q$, all at the same world
+  $w$. The tree will close.
+\end{solution}
+
+% \begin{exercise}
+%   What if we analyse (d) and (e) in terms of a necessity modal $\Box$ in
+%   addition to the deontic modal $\Ob$? $\Box(p \to Oq)$ where box is some
+%   other kind of necessity? Still monotonic.
+% \end{exercise}
+
+\begin{exercise}
+  The dual of conditional obligation is conditional permission. Spell out
+  truth-conditions for $\Pe(B/A)$ that parallel the truth-conditions I have
+  given for $\Ob(B/A)$, so that $\Pe(B/A)$ is equivalent to
+  $\neg \Ob(\neg B/A)$.
+  
+  % Explain why `if you have a disability, you can park in front of the
+  % entrance' is not adequately translated as either $d \to \Pe(p)$ or
+  % $\Pe(d \to p)$.
+
+  % Need better example? Maybe there is none?!
+
+  % Here we don't need to assume SDL to see that the wide-scope transaction is
+  % wrong. Intuitively, what's permitted is the conjunction of having a
+  % disability and parking at the entrance, not the disjunction of having no
+  % disability and parking at the entrance.
+\end{exercise}
+\begin{solution}
+  Simply replace `all' in the semantics for $\Ob(B/A)$ with `some'.
+\end{solution}
+
+% An argument against the p->P(q) analysis, from Rescher:
+% 1. P(q/p) is equivalent to -O(-q/p).
+% 2. p->P(q) entails (p&r)->P(q) [even if -> is strict].
+% 3. By the analysis, -O(-q/p) would entail -O(-q/p&r). 
+% 4. So O(-q/p&r) would entail O(-q/p), which is absurd.
+
+% Also, strengthening the "antecedent" seems problematic. As Rescher mentions,
+% if we allow P(p/q) to entail P(p/q&r), then "before we can assert that an
+% action is permitted in some particular circumstance, we must specify this
+% circumstance in such a way as to exclude all imaginable countervailing
+% conditions". -- The Kratzer account suggests that you're permitted to p if q
+% provided that there's one specific way of doing p that's allowed if q.
+% Intuitively, many ways are allowed. Tthis is Lewis's "problem about
+% permission" aka the paradox of free choice.
+
+% There is also `if ... better'. Dreier discusses a case like BRTD: ``if there
+% is war, it's better to disarm''; ``if there is peace, it's better to disarm'';
+% but it doesn't follow that it's better to disarm.
+
+% Such cases provide a powerful argument against wide-scoping. How is a
+% wide-scope analysis even supposed to go? The only plausible candidate is:
+% 'Better(if w than d, if w than -d)'. But that surely gets the TCs wrong.
+
+% Similarly for quasi-cardinal modals like `it would be great that', or `it is
+% highly praiseworthy that'.
+
+% TODO: spell out this argument. Can we prove triviality? Can we refute the
+% defeasible wide-scopers?
+
+% How should `if ... better' be analysed? Roughly, among the antecedent worlds,
+% the A worlds are better than the B worlds. But not every A world is better
+% than every B world. We need to take the weighted average.
+
+  
+\section{Further challenges}
+
+Many apparent problems for standard deontic logic arise from the dependence of
+obligations on circumstances. We can avoid these problems by using deontic
+ordering models and formalizing conditional obligation statements with the
+binary $\Ob(\cdot/\cdot)$ operator. There are, however, other problems and
+``paradoxes'' for which this move doesn't help. I will mention three.
+
+First, we already saw that standard deontic logic does not allow for conflicting
+obligations. Suppose you have promised your family to be home for dinner and
+your friends to join them at the pub. You are under conflicting \emph{prima
+  facie} obligations. It is not clear that one of them overrides the other.
+Legal systems can also contain contradictory rules, without any higher-level
+rules for how to resolve such contradictions.
+
+We can, of course, drop principle \pr{D}. But even in the minimal logic K,
+$\Ob p$ and $\Ob \neg p$ entail $\Ob A$, for any sentence $A$. Intuitively,
+however, the fact that you have given incompatible promises does not entail that
+you are obligated to, say, kill the Prime Minister.
+
+% Chellas argues that we should at least be able to distinguish
+% $\neg (O(A) \land O(\neg A))$ from $\neg \Box \bot$, which are equivalent in
+% K. He suggests we should look for a weaker logic in which obligation is still
+% closed under consequence (because we have the rule
+% $\vdash A \to B \therefore \vdash \Box A \to \Box B$) and there are no
+% impossible obligations -- $\neg \Box \bot$ -- but in which we don't have
+% $\Box \top$, so that there can be worlds without obligations, and we don't
+% have $(\Box A \land \Box B) \to \Box (A \land B)$, giving up a unique standard
+% of obligation (the ideal worlds) and allowing for deontic dilemmas. But then a
+% weaker semantics must be given.
+
+% Chellas's logic retains $\Box A \to \Box (A \lor B)$. This may seem
+% problematic.
+
+Another family of problems arises from the fact that in any logic defined in
+terms of Kripke models, $\Ob$ is closed under logical consequence, meaning that
+if $\Ob A$ is true and $A$ entails $B$, then $\Ob B$ is true. Since logical
+truths are logically entailed by everything, it follows that all logical truths
+come out as obligatory. (This is easy to see semantically. A logical truth is
+true at all worlds; so it is true at all deontically accessible worlds.) But ought it to be the case that it either rains or doesn't rain?
+
+In response, one might argue that the relevant statements sound wrong not
+because they are false, but because their utterance would violate a pragmatic
+norm of cooperative communication. A basic norm of pragmatics is that utterances
+should make a helpful contribution to the relevant conversation. In a normal
+conversational context, it would be pointless to say that something ought (or
+ought not) to be the case if it is logically guaranteed to be the case anyway.
+An utterance of `it ought to be that $p$' is pragmatically appropriate only if
+$p$ could be false. This might explain why it sounds wrong to say that it ought
+to either rain or not rain.
+
+Note also that by duality, $\neg\Ob(p \lor \neg p)$ entails
+$\Pe \neg(p \lor \neg p)$. If we deny that it ought to either rain or not rain,
+and we accept the duality of obligation and permission, we have to say that it
+is permissible that it neither rains nor doesn't rain. That sounds even worse.
+
+The problem of closure under entailment has special bite when obligation
+statements are restricted by circumstances. Return to the Samaritan
+puzzle. Suppose the victim is bleeding, and Jones ought to stop the blood
+flow. It is logically impossible to stop a blood flow if no blood is flowing. In
+all the deontic logics we have so far considered, the claim that Jones ought to
+stop the victim's blood flow therefore entails that the victim ought to be
+bleeding. But wouldn't it be better if the victim weren't bleeding?
+
+Here, too, one might appeal to a pragmatic explanation. When we say that Jones
+ought to stop the blood flow, we take for granted that the victim is bleeding.
+We are interested in what should be done \emph{given} the state in which Jones
+found the victim. Worlds where the victim isn't injured are set aside; they are
+not circumstantially accessible. But circumstantial accessibility can shift with
+conversational context. The claim that the victim ought to be bleeding is
+pointless if we hold fixed the victim's state of injury. So when we evaluate
+\emph{this} claim, we naturally assume that the relevant circumstantial
+accessibility relation does not hold fixed the injuries. Intuitively, we are no
+longer considering what should be done given the state in which Jones found the
+victim, but whether that state itself should have obtained. Worlds in which
+the state doesn't obtain become circumstantially accessible.
+
+% Similarly: $OK_ap$ entails $Op$ by factivity of K. If Gladys ought
+% to know that there's a fire then there ought to be a fire. (Aqvist 1967)
+
+% And similarly for conditional obligations: $\Ob(p/p)$ is valid.
+
+A third family of problems arises from disjunctive statements of permission and
+obligation. Consider (1).
+\begin{itemize}[leftmargin=10mm]
+\itemsep-1mm
+\item[(1)] You ought to either mail the letter or burn it.
+\end{itemize}
+Intuitively, (1) suggests that both mailing the letter and burning it are
+permitted. In standard deontic logic, however, $\Ob(A \lor B)$ does not entail
+$\Pe A \land \Pe B$. (This puzzle was first noticed by Alf Ross and is known as
+``Ross's Paradox''.)
+
+A similar puzzle arises for permissions. (This one is known as the ``Paradox of
+Free Choice''.)
+\begin{itemize}[leftmargin=10mm]
+\itemsep-1mm
+\item[(2)] You may have beer or wine.
+\end{itemize}
+Intuitively, (2) implies that beer and wine are both permitted. But in standard
+deontic logic, $\Pe(A \lor B)$ does not entail $\Pe A \land \Pe B$.
+
+We could add the missing principles.
+%
+\begin{principles}
+  \pri{R}{\Ob(A \lor B) \to (\Pe A \land \Pe B)}\\
+  \pri{FC}{\Pe(A \lor B) \to (\Pe A \land \Pe B)}
+\end{principles}
+%
+But both of these have unacceptable consequences when added to the minimal modal
+logic K. With the help of \pr{R}, we could show that $\Ob A$ entails $\Pe B$:
+$\Ob A$ entails $\Ob (A \lor B)$, which by \pr{R} entails $\Pe B$. But clearly
+`you ought to mail the letter' does not entail `you may burn the letter'.
+Similarly for \pr{FC}. In K, $\Pe A$ entails $\Pe(A \lor B)$; by \pr{FC},
+$\Pe(A \lor B)$ entails $\Pe B$. But `you may have beer' does not entail `you
+may have wine'.
+
+% \pr{R} is not valid in any class of Kripke frames. But \pr{FC} is valid e.g.
+% in frames with only dead ends, where every diamond sentence is false.
+
+% There are also independent reasons to doubt the validity of \pr{R} and
+% \pr{FC}. For example, suppose you are \emph{not} permitted to have beer or
+% wine. Intuitively, this means that you are not permitted to have beer and you
+% are not permitted to have wine. So the following principle also looks
+% plausible.
+% %
+% \principle{FC$'$}{\neg \Pe(A \lor B) \to (\neg \Pe A \land \neg \Pe B)} 
+% %
+% But \pr{FC} and \pr{FC$'$} can't both be valid. Otherwise we could show that
+% if anything is forbidden, then everything whatsoever is forbidden:
+% %
+% \begin{alignat*}{2}
+%   1.\quad& \text{Suppose  $\neg \Pe A$.} &\quad& \\ 
+%   2.\quad& \text{Then $\neg(\Pe A \land \Pe B)$.} &\quad& \text{(By propositional logic)}\\
+%   3.\quad& \text{Then $\neg\Pe (A \lor B)$.}  &\quad& \text{(By \pr{FC} and modus tollens)}\\
+%   4.\quad& \text{Then $\neg\Pe A \land \neg \Pe B$.}  &\quad& \text{(By \pr{FC$'$})}\\
+%   5.\quad& \text{So $\neg\Pe B$.}  &\quad& \text{(By propositional logic)}
+% \end{alignat*}
+
+\begin{exercise}
+  Analogous puzzles to those raised by Ross's Paradox and the Paradox of Free
+  Choice arise for epistemic `must' and `might'. Can you give examples?
+\end{exercise}
+\begin{solution}
+  Ross's Paradox: `Alice must be in the office or in the library'
+  seems to imply that Alice might be in the office and that she might
+  be in the library.
+
+  The Paradox of Free Choice: `Alice might be in the office or in the
+  library' seems to imply that Alice might be in the office and that
+  she might be in the library.
+\end{solution}
+
+
+\section{Neighbourhood semantics}\label{sec:neighbourhood}
+
+In reaction to apparent problems for standard deontic logic, some have argued
+that we should not interpret obligation and permission in terms of
+quantification over possible worlds. If we give up this core tenet of Kripke
+semantics, we can define ``non-normal'' logics weaker than K. (A \textbf{normal}
+modal logic is a modal logic that can be defined in terms of classes of Kripke
+frames.)
+
+% In C.I.\ Lewis's 1932 list of modal logics, S4 and S5 were normal, but S1--S3
+% were non-normal.
+
+A popular alternative to Kripke semantic is \textbf{neighbourhood semantics},
+also known as Scott-Montague semantics, after its inventors Dana Scott and
+Richard Montague.
+
+Models in neighbourhood semantics still involve possible worlds. Validity is
+still defined as truth at all worlds in all (suitable) models. But the box and
+the diamond are no longer interpreted as quantifiers over accessible
+worlds. Instead, we simply assume that at every world, some propositions are
+``necessary'' and others are not.  $\Box A$ is true at a world if $A$ expresses
+one of the necessary propositions at that world.
+
+Formally, the accessibility relation in Kripke models is replaced by a
+\textbf{neighbourhood function} $N$ that associates each world in a model with
+the propositions that are necessary relative to $w$. Propositions are identified
+with sets of possible worlds. Thus $N(w)$ is a set of sets of worlds. Each set
+of world in $N(w)$ is necessary at $w$.
+
+% We could equivalently think of N as a relation relating each world to the
+% propositions in its neighbourhood.
+
+\begin{definition}{}{neighbourhoodmodel}
+  A \textbf{neighbourhood model} consists of
+  \vspace{-3mm}
+  \begin{itemize*}
+  \item a non-empty set $W$,
+  \item a function $N$ that assigns to each member of $W$ a set of subsets of
+  $W$, and
+  \item a function $V$ that assigns to each sentence letter of $\L_M$
+    a subset of $W$.
+  \end{itemize*}
+\end{definition}
+
+The interpretation of non-modal sentences at neighbourhood models works just as
+in Kripke semantics (definition \ref{def:kripkesemantics}). To state the
+semantics for modal sentences, let $[A]^M$ be the set of worlds in model $M$ at
+which $A$ is true. This is our proxy for the proposition expressed by $A$. Then:
+%
+\begin{align*}
+  M,w \models \Box A &\text{ \;iff\; $[A]^M$ is in $N(w)$}.\\
+  M,w \models \Diamond A &\text{ \;iff\; $[\neg A]^M$ is not in $N(w)$.}
+\end{align*}
+%
+Intuitively, the clause for the box says that $\Box A$ is true at $w$ iff the
+proposition expressed by $A$ is one of those that are necessary at $w$. The
+clause for the diamond ensures that the box and the diamond are duals.
+
+In neighbourhood semantics, the modal operators are not closed under logical
+consequence. The neighbourhood function $N$ can easily make $p$ necessary at a
+world without making $p\lor q$ necessary, even thought $p$ entails $p \lor q$.
+If we interpret $\Ob$ and $\Pe$ as the box and the diamond in neighbourhood
+semantics, we can therefore say that Jones ought to tend to the victim's
+injuries even thought it is not the case that someone ought to be injured.
+
+% \begin{exercise}
+%   What formal condition on the neighbourhood function would ensure that $\Box$
+%   is closed under logical consequence?
+% \end{exercise}
+% \begin{solution}
+%   Whenever $X \in N(w)$ then all sets that have $X$ as a subset are in
+%   $N(w)$.
+% \end{solution}
+
+We can also allow for conflicting obligations. If the laws at $w$ require both
+$p$ and $\neg p$, we simply have $[p]^M \in N(w)$ and $[\neg p]^M \in N(w)$. It
+longer follows that any proposition whatsoever is obligatory.
+
+We may further hope to escape the problems from section \ref{sec:oblig-circ}
+that led us to introduce a primitive conditional obligation operator. I argued
+that the wide-scope translation $\Ob(A \to B)$ of conditional obligation
+sentences is problematic because $\Ob(A \to B)$ is entailed by $\Ob(\neg A)$. In
+neighbourhood semantics, this entailment fails. 
+
+Bare neighbourhood semantics determines a very weak logic called \textbf{E}. It
+is axiomatized by \pr{Dual}, \pr{CPL}, and a rule (called ``RN'') that allows
+inferring $\Box A \leftrightarrow \Box B$ from $A \leftrightarrow B$. We can get
+stronger logics, with more validities, by imposing conditions on the
+neighbourhood function $N$.
+
+For example, suppose we want to maintain that if something is logically
+guaranteed to be true, then it can't be forbidden. Equivalently, any logically
+necessary truth should be permitted. By the neighbourhood semantics for $\Pe$,
+$A$ is permitted at a world $w$ in a model $M$ iff $[\neg A]^M$ is not in
+$N(w)$. If $A$ is a logical truth, then $A$ is true at all worlds; in that case,
+$\neg A$ is true at no worlds, and $[\neg A]^M$ is the empty set. If we want
+logical truths to be permissible, we therefore have to stipulate that $N(w)$
+never contains the empty set.
+
+In Kripke semantics, the assumption that logically necessary truths are
+permitted is equivalent to the assumption that (every instance of) the
+\pr{D}-schema $\Ob A \to \Pe A$ is valid. Both assumptions correspond to
+seriality of the accessibility relation. In neighbourhood semantics, we can
+distinguish between the two assumptions. While the permissibility of logical
+truths requires that $N(w)$ doesn't contain the empty set, the validity of
+$\Ob A \to \Pe A$ requires that $N(w)$ doesn't contains contradictory
+propositions $[A]^M$ and $[\neg A]^M$.
+
+If we assume that the neighbourhood function is closed under intersection, in
+the sense that whenever two sets $X$ and $Y$ are in $N(w)$ then so is their
+intersection $X\cap Y$, then $(\Box A \land \Box B) \to \Box (A \land B)$
+becomes valid. If we also require the converse, that whenever $X\cap Y \in N(w)$
+then $X \in N(w)$ and $Y\in N(w)$, and in addition that $W \in N(w)$, we get
+back the minimal normal logic K.
+
+% Humberstone 160: [](A & B) -> []A requries that whenever X in N(w) and Y is a
+% superset of X then Y is in N(w).
+
+\begin{exercise}
+  Can you find a condition on the neighbourhood function that renders the
+  \pr{T}-schema valid?
+\end{exercise}
+\begin{solution}
+  For every world $w$, every member of $N(w)$ contains $w$.
+\end{solution}
+
+For some purposes, even the minimal logic of neighbourhood semantics is too
+strong. Return to the intuitive ``Free Choice'' principle from the previous
+section:
+%
+\principle{FC}{\Pe(A \lor B) \to (\Pe A \land \Pe B)}
+%
+We have seen that this principle is untenable in Kripke semantics. It is
+still untenable in neighbourhood semantics.
+
+To see why, note first that whenever two sentences $A$ and $B$ are logically
+equivalent, then in neighbourhood semantics $\Pe A$ and $\Pe B$ are also
+equivalent. The reason is that the modal operators in neighbourhood semantics
+operate on the set of worlds at which the embedded sentence is true. If $A$ and
+$B$ are logically equivalent, then in any model $M$, the set $[A]^M$ is the same
+set as $[B]^M$, and so $[A]^M$ is in $N(w)$ iff $[B]^M$ is in $N(w)$. Likewise,
+$[\neg A]^M$ is in $N(w)$ iff $[\neg B]^M$ is in $N(w)$. (That's why the RN rule preserves validity.)
+
+Now any sentence $A$ is logically equivalent to
+$(A \land B) \lor (A \land \neg B)$, for any $B$. In the logic E, $\Pe A$
+therefore entails $\Pe ((A \land B) \lor (A \land \neg B))$. By \pr{FC},
+$\Pe ((A \land B) \lor (A \land \neg B))$ entails $\Pe (A \land B)$. We could
+still reason from `you may have a cookie' to `you may have a cookie and burn
+down the house'.
+
+\begin{exercise}
+  Rational beliefs come in degrees, which are often assumed to satisfy the
+  formal rules of probability. Suppose we say that someone believes $A$ iff
+  their degree of belief in $A$ is above a certain threshold -- say, 0.9.
+  Explain why one can't give a Kripke semantics for this concept of belief.
+  (Although one can give a neighbourhood semantics.) \emph{Hint}: One rule of
+  probability says that if $p$ and $q$ are independent propositions, then the
+  probability of their conjunction $p \land q$ is the product of their
+  individual probabilities.
+\end{exercise}
+\begin{solution}
+  In Kripke semantics, $\Box p$ and $\Box q$ together entail $\Box(p \land
+  q)$. But if the probability of $p$ is above the threshold and the probability
+  of $q$ is above the threshold, it does not follow that the probability of
+  $p\land q$ is above the threshold. For example, we could have Pr$(p)=0.95$,
+  Pr$(q)=0.94$, and Pr$(p \land q) = 0.95 \times 0.94 = 0.893$.
+\end{solution}
+
+\begin{exercise}
+  Some have argued that the logic of ability is weaker than K, on the grounds
+  that there are cases in which an agent is able to make $p \lor q$ true, but
+  not able to make $p$ true and not able to make $q$ true -- which would provide a counterexample to the K-valid schema $\Diamond(A \lor B) \to (\Diamond A \lor \Diamond B)$. Can you describe a case of this type?
+\end{exercise}
+\begin{solution}
+  A bad dart player may have the ability to hit the dart board but lack the
+  ability to hit the left half of the board and also the ability to hit the
+  right half of the board.  
+\end{solution}
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "ml.tex"
+%%% End:

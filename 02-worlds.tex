@@ -1,0 +1,1354 @@
+\chapter{Possible Worlds}\label{ch:worlds}
+
+\section{The possible-worlds analysis of possibility and necessity}
+
+An important breakthrough in the history of modal logic was the development of
+``possible-worlds semantics'' in the 1940s-60s.
+%
+% The discovery was made by a number of authors, including Carnap 1946, 1947,
+% Kanger 1957, Hintikka 1957, 1961, Bayart 1958, 1959, Montague 1960, Kripke
+% 1959, 1963a, 1963b.
+%
+The central idea of possible-worlds semantics is to analyze modal notions in
+terms of truth at possible worlds. In its simplest form, the analysis goes like
+this:
+%
+\begin{quote}
+  A proposition is possible iff it is true at some possible world.\\
+  A proposition is necessary iff it is true at all possible worlds.
+\end{quote}
+
+In philosophy jargon, a \textbf{possible world} is a maximally specific
+possibility. An example of a possible world is the \textbf{actual world} -- the
+totality of everything that is the case. In the actual world, light travels
+faster than sound and the Conservatives won the 2019 UK election. In other
+possible worlds, sound travels faster than light. In yet others, Labour won the
+election.
+
+The possible-worlds analysis translates modal statements into quantificational
+statements about possible worlds. You may feel uneasy about this. Talking about
+worlds other than the actual world may strike you as fanciful and unscientific.
+Besides, you may wonder if anything is really gained by the translation, since
+we now face the question of what sorts of worlds should be classified as
+``possible''.
+
+Remember that there are different flavours of modality. A proposition might be
+epistemically possible, historically possible, metaphysically possible, and so
+on. If we want to analyse all these kinds of possibility in terms of possible
+worlds, we need different flavours of worlds. There must be epistemically
+possible worlds, historically possible worlds, metaphysically possible worlds,
+etc. And if we ask how these types of worlds are defined it looks like we have
+to turn back to relevant features of the actual world. The ultimate reason why
+you can't go from Auckland to Sydney by train is surely that there is no
+suitable train line here in our world, not that you don't make the journey in
+some non-actual worlds.
+
+These objections cast doubt on the possible-worlds analysis as a piece of
+reductive metaphysics. But the metaphysics of modality is not our topic. When we
+use the possible-world analysis, we don't assume that the translation in terms
+of possible worlds reveals the metaphysical grounds of the original modal
+statements. We merely assume that the original statements can be paraphrased in
+the fanciful language of possible worlds.
+
+% The reductivist use of possible-worlds semantics is often associated with
+% Lewis 1986, who does indeed give a non-modal analysis of `possible world'.
+
+% If we take seriously the idea that a possible world is a complete way things
+% might have been, then the hypothesis that something might have been the case
+% iff it is the case at some possible world does not amount to much more than
+% the hypothesis that any incomplete way things might have been (like, me having
+% coffee with breakfast) can be extended to a complete way things might have
+% been: If $p$ might have been the case, then there is a way the entire world
+% might have been that would have included $p$.
+
+% In practice, we don't even take the completeness of possible worlds all that
+% seriously. We will often work with toy worlds that merely settle all questions
+% in which we're currently interested, leaving lots of other questions open.
+
+% When we go beyond modality in the application of modal logic, the ``possible
+% worlds'' will look even less like genuine worlds. In temporal logic, the role of
+% worlds is played by times; in the logic of relativistic spacetime, it is played
+% by spacetime point, and in so-called dynamic logics by states of a computer
+% program.
+
+For a first glimpse of why this might be useful, consider the following
+hypothesis.
+%
+\begin{equation*}
+  \Box\Diamond\Box p \models \Box p
+\end{equation*}
+% 
+Is this true? If something is necessarily possibly necessary, does it follow
+that it is necessary? Hard to say. We know that $A$ logically entails $B$ iff
+there is no conceivable scenario in which $A$ is true and $B$ false, under any
+interpretation of the non-logical expressions. The problem is that it is not
+obvious what a scenario would have to look like for $\Box \Diamond \Box p$ to be
+true, under a given interpretation of $p$.
+
+The possible-worlds analysis can help clear things up. By the possible-worlds
+analysis, $\Box \Diamond \Box p$ says that $\Diamond \Box p$ is true at every
+possible world. Since we want to know in which scenarios $\Box \Diamond\Box p$
+is true, we will assume that every scenario contains a whole range of possible
+worlds. The hypothesis that $\Box \Diamond \Box p$ is true in a scenario now
+reduces to the hypothesis that $\Diamond \Box p$ is true at every world in the
+scenario. $\Diamond\Box p$ says that $\Box p$ is true at some world. So if
+$\Diamond\Box p$ is true at every world in a scenario then $\Box p$ is true at
+some world in the scenario. And if $\Box p$ is true at some world in a scenario
+then $p$ is true at every world in the scenario. This is just what $\Box p$
+says. So whenever $\Box \Diamond\Box p$ is true in a scenario (under some
+interpretation of $p$), then $\Box p$ is true in that scenario (under that
+interpretation). That is, $\Box\Diamond\Box p$ entails $\Box p$.
+
+\begin{exercise}
+  Explain, in the same informal manner, why $\Diamond p$ does not entail
+  $\Box p$, assuming the possible-worlds analysis of the box and the diamond.
+\end{exercise}
+\begin{solution}
+  Consider a scenario in which (say) it is raining at some worlds and not
+  raining at others. Let $p$ express that it is raining. In this scenario, under
+  this interpretation, $\Diamond p$ is true, because $p$ is true at some world.
+  But $\Box p$ is false, because $p$ is not true at all worlds. So there are conceivable scenarios and interpretations that render $\Diamond p$ true and $\Box p$ false.
+\end{solution}
+
+% \begin{exercise}
+%   By the possible-worlds analysis, every modal statement about
+%   necessity and possibility can be translated into a non-modal
+%   statement that quantifies over possible worlds. The translation also
+%   works backwards: many statements that quantify over possible worlds
+%   can be translated into modal statements with boxes and diamonds. But
+%   not all. Can you find a statement that quantifies over possible
+%   worlds but cannot be translated into the language of boxes and
+%   diamonds?
+% \end{exercise}
+
+\section{Models}
+\label{sec:basicmodels}
+
+In section \ref{sec:turnstile}, I defined validity and entailment in terms of
+scenarios and interpretations. A sentence is valid, I said, iff it is true in
+every conceivable scenario under every interpretation of the non-logical
+expressions. This is a little vague. What, exactly, is a conceivable scenario,
+and what counts as a relevant interpretation? Also, scenarios and
+interpretations are unwieldy objects. It is difficult to give a full description
+of a scenario and an interpretation. Fortunately, most of the details are
+irrelevant if all we care about is which $\L_{M}$-sentences are true and which
+are false in a scenario under a particular interpretation. This observation will
+lead us to a more precise definition of validity and entailment.
+
+Suppose I tell you the following about a scenario $S$ and an interpretation $I$
+of the sentence letters.
+
+\begin{quote}
+  There are three worlds in $S$, $w_{1}, w_{2}$, and $w_{3}$. Under the
+  interpretation $I$, the sentence $p$ expresses a proposition that is true at
+  $w_{1}$, false at $w_{2}$, and true at $w_{3}$. All other sentence letters
+  express propositions that are false at all three worlds.
+\end{quote}
+
+This tells you almost nothing about what the scenario looks like. You don't know
+if $w_{1}$ is a world at which it is currently raining, or who won which
+elections at $w_{2}$. You also don't know what the sentence letters mean under
+my interpretation. Does $p$ mean that it is raining? That Labour won the
+2019 election? I haven't told you. Yet the sparse information I have given is
+enough to determine the truth-value of every $\L_{M}$ sentence at every world.
+
+\begin{exercise}
+  Which of the following sentences are true at $w_{1}$ in my scenario $S$ under
+  my interpretation $I$?
+  \begin{exlist}
+  \item $\neg p$ % false
+  \item $\neg p \to \Box p$ % true
+  \item $\Box p$ % false
+  \item $\Diamond\Box p$ % false
+  \item $\Diamond \Diamond p \lor \Diamond \Box p$ % false
+  \item $\Box (\Box p \to p)$ % true
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  (b), (e), and (f) are true at $w_{1}$, the others false.
+\end{solution}
+
+A joint representation of a scenario and an interpretation (of non-logical
+expressions) that contains just enough information to determine the truth-value
+of every sentence is called a \textbf{model}. Just as a model airplane often
+leaves out important aspects of a real airplane -- the motor, the seats, etc. --
+models in logic leave out many important aspects of the scenarios and
+interpretations they represent.
+
+Adopting the simple possible-worlds analysis of the box and the diamond, we can
+define a model for $\L_{M}$ as consisting of two parts. First, there is a set of
+things we call ``worlds''. They don't need to be genuine worlds. They can be
+arbitrary (usually not further specified) objects whose job is to represent
+genuine worlds. Second, there is an ``interpretation function'' that tells us
+for each sentence letter at which of the worlds it is true.
+
+\begin{definition}{}{basicmodel}
+  A \textbf{basic model} of $\L_M$ is a pair $\t{W,V}$ of%
+  \vspace{-3mm}
+  \begin{itemize*}
+  \item a non-empty set $W$, and
+  \item a function $V$ that assigns to each sentence letter of $\L_M$
+  a subset of $W$.
+  \end{itemize*}
+\end{definition}
+\noindent
+In the next chapter, we will replace this definition by a slightly more
+complicated definition. That's why I've called models of the present kind
+`basic'.
+
+If you are not familiar with elementary concepts of set theory: A \emph{set} is
+a collection of objects, called the \emph{members} or \emph{elements} of the
+set. Sets can be defined by listing their members enclosed in curly braces:
+`$\{ a, b, c \}$'. The \emph{empty set}, with no members, is denoted by
+`$\emptyset$'. A \emph{subset} of a set $X$ is a set all whose members are
+members of $X$. A \emph{function} is a mapping -- a kind of abstract machine
+that takes objects of a certain kind as input and outputs objects of a possibly
+different kind.
+
+The interpretation function $V$ in a model maps each sentence letter to the set
+of worlds at which the sentence is true. For example, if $W$ contains three
+worlds $w_{1}, w_{2}$, and $w_{3}$, and $V(p) = \{ w_{1}, w_{3} \}$ -- meaning
+that $V$ maps $p$ to the set $\{ w_{1}, w_{3} \}$ --, then $p$ is true at
+$w_{1}$ and $w_{3}$ but not at $w_{2}$.
+
+Notice that an interpretation function only specifies at which worlds the
+\emph{sentence letters} are true. $V$ is defined for $p$, $q$, and $r$, but not
+for $p \to q$ or $\Box p$ or $\Diamond \Box q$. This is the key idea behind the
+possible-worlds analysis. Once we know at which worlds each sentence letter is
+true, we have all we need to determine the truth-value of every sentence at
+every world.
+
+To formally define how the truth-value of complex sentences is determined, I
+will use (meta-linguistic) statements of the form
+\[
+  M,w \models A
+\]
+%
+as shorthand for
+%
+\[
+  \text{$A$ is true at world $w$ in model $M$}.
+\]
+I use `$M,w \not\models A$' for the negation of `$M,w \models A$'.
+
+Yes, it's the same turnstile that we use for entailment and validity. This
+should cause no confusion because it is usually clear if the things to the left
+of the turnstile are $\L_M$-sentences or meta-linguistic expressions for a model
+and a world. (In its present use, the turnstile is often pronounced `makes true'
+or `satisfies'.)
+
+The relation $\models$ between a model, a world and an $\L_M$-sentence is
+defined as follows.
+
+\begin{definition}{Basic Possible-Worlds Semantics}{basicsemantics}
+  If $M = \t{W,V}$ is a basic model, $w$ is a member of $W$, $P$ is
+  any sentence letter, and $A,B$ are any $\L_M$-sentences, then
+
+  \medskip
+  \begin{tabular}{lll}
+    (a) & $M,w \models P$ &iff $w$ is in $V(P)$.\\
+    (b) & $M,w \models \neg A$ &iff $M,w \not\models A$.\\
+    (c) & $M,w \models A \land B$ &iff $M,w \models A$ and $M,w \models B$.\\
+    (d) & $M,w \models A \lor B$ &iff $M,w \models A$ or $M,w \models B$.\\
+    (e) & $M,w \models A \to B$ &iff $M,w \not\models A$ or $M,w \models B$.\\
+    (f) & $M,w \models A \leftrightarrow B$ &iff $M,w \models A\to B$ and $M,w \models B\to A$.\\
+    (g) & $M,w \models \Box A$ &iff $M,v \models A$ for all $v$ in $W$.\\
+    (h) & $M,w \models \Diamond A$ &iff $M,v \models A$ for some $v$ in $W$.
+  \end{tabular}
+\end{definition}
+
+Let's go through the clauses in this definition.
+
+Clause (a) says that a sentence letter is true at a world in a model iff the
+world is an element of the set of worlds which the model's interpretation
+function assigns to the sentence letter. This is just what I explained above.
+
+Clause (b) says that the negation $\neg A$ of an $\L_M$-sentence $A$ is true at
+a world in a model iff $A$ is not true at that world in that model. In other
+words, the truth-table for negation applies locally at every world: at any
+world, $\neg A$ is true iff $A$ is not true.
+Clauses (c)--(f) similarly tell us that the truth-tables for the other
+truth-functional connectives apply locally at each world.
+
+Clauses (g) and (h) spell out the possible-worlds analysis of the box and the
+diamond. According to (g), a sentence $\Box A$ is true at a world in a model iff
+$A$ is true at all worlds in the model. According to (h), $\Diamond A$ is true
+at a world in a model iff $A$ is true at some world in the same model.
+
+The whole definition is called a \emph{semantics} because a semantics for a
+language is an account of what the expressions in the language mean, and
+definition \ref{def:basicsemantics} can be seen as giving the meaning of the
+logical expressions in $\L_M$. (The non-logical expressions in $\L_{M}$ don't
+have a fixed meaning.)
+
+Since every $\L_M$-sentence is built up from sentence letters with the operators
+covered in definition \ref{def:basicsemantics}, the definition settles the
+truth-value of every sentence at every world in every model.
+
+Consider, for example, the following model $M$:
+%
+\begin{gather*}
+  W = \{ w_{1},w_{2} \}\\
+  V(p) = \{ w_{1},w_{2} \}\\
+  V(q) = \{ w_{1} \}\\
+  V(P) = \emptyset \text{ for all other sentence letters $P$ }
+\end{gather*}
+This model contains only two worlds, $w_{1}$ and $w_{2}$. The interpretation
+function $V$ indicates that $p$ is true at both worlds, $q$ is true at $w_{1}$,
+and all other sentence letters are true nowhere. With the help of definition
+\ref{def:basicsemantics}, we can figure out at which of the two worlds, say,
+$\Box\Diamond(\Box q \to \Diamond\Box p)$ is true. We start with the smallest
+parts of the sentence.
+
+\begin{enumerate*}
+  \item $p$ is true at $w_{1}$ and $w_{2}$ (by clause (a) of definition
+  \ref{def:basicsemantics}).
+  \item $q$ is true at $w_{1}$ and not true at $w_{2}$ (by clause (a) of definition
+  \ref{def:basicsemantics}).
+  \item $\Box p$ is true at $w_{1}$ and $w_{2}$ (by 1 and clause (g) of definition
+  \ref{def:basicsemantics}).
+  \item $\Box q$ is true at no world (by 2 and clause (g) of definition
+  \ref{def:basicsemantics}).
+  \item $\Diamond\Box p$ is true at $w_{1}$ and $w_{2}$ (by 3 and clause (h) of
+  definition \ref{def:basicsemantics}).
+  \item $(\Box q \to \Diamond\Box p)$ is true at $w_{1}$ and $w_{2}$ (by 4, 5,
+  and clause (e) of definition \ref{def:basicsemantics}).
+  \item $\Diamond(\Box q \to \Diamond\Box p)$ is true at $w_{1}$ and $w_{2}$ (by
+  6 and clause (h) of definition \ref{def:basicsemantics}).
+  \item $\Box\Diamond(\Box q \to \Diamond\Box q)$ is true at $w_{1}$ and $w_{2}$ (by 7
+  and clause (g) of definition \ref{def:basicsemantics}).
+\end{enumerate*}
+
+\begin{exercise}
+  At which worlds in the model just described is
+  $\Diamond p \to (q \lor \Diamond\Box p)$ true?
+\end{exercise}
+\begin{solution}
+  $\Diamond p \to (q \lor \Diamond\Box p)$ is true at both worlds.
+\end{solution}
+
+% I should perhaps clarify that models and worlds often represent the same kind
+% of things: conceivable scenarios. But they represent different parts of them.
+% E.g., a world represents only non-modal aspects of a scenario, whereas a model
+% also represents what's accessible.
+
+% In the early days of possible-worlds semantics, philosophers thought that a
+% possible world is more or less the same thing as a conceivable scenario, and
+% they often identified the space of possible worlds with the class of all
+% models of predicate logic. However, it has proved useful to treat the space of
+% possible worlds as a non-logical matter, so that different models may involve
+% different possible worlds, just as different models of predicate logic may
+% involve different sets of individuals.
+
+\section{Basic entailment and validity}%
+\label{sec:redefining}
+
+Using the concept of a model, we can sharpen the hand-wavy definitions of
+entailment and validity from section \ref{sec:turnstile}.
+
+Imagine a list of all conceivable scenarios and all possible interpretation of
+the sentence letters. By definition \ref{def:valid-informal}, a sentence is
+valid iff it is true in all of these scenarios under each of these
+interpretations. Every combination of a scenario $S$ and an interpretation $I$
+is represented by a model. The model contains enough information to figure out
+whether any given sentence is true or false in $S$ under $I$. Assuming that,
+conversely, every model represents some combination of a scenario and an
+interpretation, it follows that a sentence is valid iff it is true in every
+model. In the same way, some sentences $\Gamma$ entail a sentence $A$ iff $A$ is
+true in every model in which all members of $\Gamma$ are true.
+
+That's the idea. There is, however, a small problem. Take a model with two
+worlds, $W = \{ w_{1}, w_{2} \}$, and assume that $V(p) = \{ w_{1} \}$. Is $p$
+true in this model? We can't say. Definition \ref{def:basicsemantics} only
+specifies under what conditions a sentence is true \emph{at a world in a model}.
+We have not defined what it means for a sentence to be true in a model. So we
+can hardly say that a sentence is valid iff it is true in all models.
+
+There are two ways to fix this. The conceptually cleaner response is to change
+the definition of a model. Intuitively, the worlds in a scenario are not all on
+a par. Think of a scenario in which it is raining although it might have been
+snowing. This scenario has worlds at which it is raining and others at which it
+is snowing. One of these worlds -- a rain world -- is special: it represents the
+actual world in the scenario. `It is raining' is true in the scenario because it
+is raining in the actual world of the scenario. Following this line of thought,
+we could define a model to consist of \emph{three} elements: a set of worlds
+$W$, an interpretation function $V$, and a ``designated element of $W$'' that
+indicates which world in $W$ represents the actual world of the scenario. We
+could then say that a sentence is \emph{true in a model} iff it is true at the
+actual world of the model. Models of this type -- with a designated element of
+$W$ -- are called \emph{pointed models}.
+
+We will adopt the more popular second response. Here we change the definition of
+entailment and validity. Instead of saying that a sentence is valid iff it is
+true in every model, we say that a sentence is valid iff it is true \emph{at
+  every world in every model}. Similarly, we say that some sentences $\Gamma$
+entail a sentence $A$ iff $A$ is true at every world in every model at which all
+members of $\Gamma$ are true.
+
+The two responses amount to the same thing. Since every world in every basic
+(un-pointed) model could be chosen as the designated world in a corresponding
+pointed model, a sentence is true at all worlds in all basic models just in case
+it is true in all pointed models. The response we adopt has the minor advantage
+of keeping models slightly simpler, and logicians want their models to be as
+simple as possible.
+
+\begin{definition}{}{valid}
+  A sentence $A$ is \textbf{valid} (for short: $\models A$) iff
+  it is true at every world in every basic model.
+\end{definition}
+%
+\begin{definition}{}{basicconsequence}
+  Some sentences $\Gamma$ \textbf{(logically) entail} a sentence $A$ (for short:
+  $\Gamma \models A$) iff there is no world in any basic model at which all sentences in $\Gamma$ are true while $A$ is false.
+\end{definition}
+
+\begin{exercise}
+  Call a sentence true \emph{throughout} a model iff it is true at every world
+  in the model. What do you think of the following definition?
+  `$\Gamma \models A$ iff there is no model throughout which all sentences in 
+  $\Gamma$ are true and throughout which $A$ is false.' Is this equivalent to
+  definition \ref{def:basicconsequence}? (Hint: consider the hypothesis that
+  $p \models \Box p$.)
+\end{exercise}
+\begin{solution}
+  % The corresponding notion of validity is equivalent to ours, so the question
+  % is whether Observation 1.1 holds. |= A->B says that there are no worlds in
+  % any model at which A,~B are true. A |= B allows for such worlds, as long as
+  % any model in which A is true at /all/ worlds is also a model in which B is
+  % true at all worlds. 
+  The two definitions are not equivalent, as can be seen from the fact that the
+  definition proposed in the exercise would render $p \models \Box p$ true.
+  Whenever $p$ is true at every world in a model then (by definition
+  \ref{def:basicsemantics}) $\Box p$ is also true at every world in the model.
+  Definition \ref{def:basicconsequence} renders $p \models \Box p$ false, since
+  there are models in which $p$ is true at some worlds and not at others.
+\end{solution}
+
+Above I mentioned an assumption implicit in our new definitions: that every
+model represents a pair of a conceivable scenario and interpretation. This isn't
+obvious. For example, if our topic is metaphysical possibility and necessity, it
+may be hard to conceive of a scenario with exactly two possible worlds. Is it
+really conceivable that there are only two ways a world might have been,
+compatible with the nature of things? We could stipulate that a model, at least
+for this application, must contain at least (say) a million worlds, or
+infinitely many. It turns out, however, that this would make no difference to
+the logic. The very same sentences are valid whether we impose the restriction
+or not. So we'll allow for models with very few worlds. Such models are often
+useful as toy models to illustrate facts about entailment and validity.
+
+\section{Explorations in S5}%
+\label{sec:basiclogic}
+
+By definition \ref{def:valid}, a sentence is valid iff it is true at all worlds
+in all (basic) models. Definition \ref{def:basicmodel} explains what a (basic)
+model is; definition \ref{def:basicsemantics} specifies the truth-value of any
+sentence at any world in any model. Together, these definitions settle which
+sentences are valid.
+
+Take, for instance, $\Box p \to p$. This turns out to be valid. To see why, let
+$w$ be an arbitrary world in an arbitrary model $M$. Either $p$ is true at $w$
+or not. If $p$ is true at $w$, then by clause (e) of definition
+\ref{def:basicsemantics}, $\Box p \to p$ is also true at $w$. If $p$ is not true
+at $w$, then by clause (g) of definition \ref{def:basicsemantics}, $\Box p$ is
+not true at $w$ in $M$ either, and then $\Box p \to p$ is true at $w$ by clause
+(e). Either way, $\Box p \to p$ is true at $w$. Since $w$ and $M$ were chosen
+arbitrarily, this shows that every instance of $\Box p \to p$ is true at every
+world in every model.
+
+(In the last section of the previous chapter, I mentioned that for some
+applications of modal logic, we don't want $\Box p \to p$ to be valid. In the
+next chapter, we will see how this can be achieved by a slight tweak to the
+definitions of the present chapter.)
+
+How about, say, $\Box p \to \Box \Box p$? If something is necessary, is it
+necessarily necessary? Our semantics says yes. Let $w$ be an arbitrary world in
+an arbitrary model. If $\Box p$ is false at $w$, then $\Box p \to \Box\Box p$ is
+true at $w$, by clause (e) of definition \ref{def:basicsemantics}. Suppose then
+that $\Box p$ is true at $w$. In that case, $p$ is true at all worlds, by clause
+(g) of definition \ref{def:basicsemantics}. And then $\Box p$ is true at all
+worlds, again by clause (g). And so $\Box\Box p$ is also true at all worlds, by
+clause (g). So whenever $\Box p$ is true at a world in a model, then so is
+$\Box\Box p$. By clause (e) of definition \ref{def:basicsemantics}, it follows
+that $\Box p \to \Box\Box p$ is true at every world in every model.
+
+\begin{exercise}
+  Show that $\Box p \to \Diamond p$ is valid. 
+\end{exercise}
+\begin{solution}
+  By definition \ref{def:valid}, a sentence is valid iff it is true at every
+  world in every model. Suppose for reductio that $\Box p \to \Diamond p$ is
+  false at some world $w$ in some model. By definition \ref{def:basicsemantics},
+  $\Box p$ is then true at $w$ and $\Diamond p$ false. But if $\Diamond p$ is
+  false at $w$ then (by definition \ref{def:basicsemantics}) $p$ is false at
+  every world in the model. And then $\Box p$ isn't true at $w$ (by definition
+  \ref{def:basicsemantics}). Contradiction.
+\end{solution}
+
+There is a shorter way to show that $\Box p \to \Box\Box p$ is valid. Definition
+\ref{def:basicsemantics} entails that if a sentence starts with a modal
+operator, then its truth-value never varies from world to world. For example, if
+$\Diamond p$ is true at some world $w$ in some model, then $\Diamond p$ is true
+at all worlds in the model. It follows that if a sentence starts with a modal
+operator, then its truth-value doesn't change if you stack further modal
+operators in front. If $\Diamond p$ is true at a worlds in a model, then so
+are $\Box\Diamond p$ and $\Diamond \Diamond p$.
+
+This means that any sentence that begins with a sequence of modal operators is
+equivalent to the same sentence with all but the last operator removed.
+$\Diamond\Box\Box\Diamond\Diamond p$ is equivalent to $\Diamond p$. $\Box\Box p$
+is equivalent to $\Box p$. Since replacing logically equivalent sentences inside
+a larger sentence never affects the larger sentence's truth-value at any world,
+$\Box\Box p \to \Box p$ is equivalent to $\Box p \to \Box p$. And this is
+obviously valid.
+
+Do not conflate the concepts of necessity and validity. Necessity means truth at
+all worlds (or so we currently assume). Validity means truth at all worlds
+\emph{in all models}. Whether an $\L_M$ sentence is necessary generally varies
+from model to model. In a model whose interpretation function makes $p$ true at
+all worlds, $p$ is necessary insofar as $\Box p$ is true at all worlds. In a
+model whose interpretation function makes $p$ false at some world, $\Box p$ is
+false at all worlds. Validity, by contrast, is not relative to a model. The
+sentence $p$ is definitely not valid. The sentence $\Box p \to p$ is.
+
+\begin{exercise}
+  Show that if a sentence $A$ is valid, then so is $\Box A$.
+\end{exercise}
+\begin{solution}
+  Suppose $A$ is valid -- true at all worlds in all models (definition
+  \ref{def:valid}). It follows that in any given model, $A$ is true at every
+  world. By definition \ref{def:basicsemantics}, it follows that $\Box A$ is
+  true at every world in any model.
+\end{solution}
+
+Here is an example of an invalid sentence:
+\[
+  \Box(p \lor q) \to (\Box p \lor \Box q)
+\]
+How could we show that this is invalid? By definition \ref{def:valid}, a
+sentence is valid iff it is true at all worlds in all models. So we have to find
+some model in which there is some world at which the sentence is false. Such a
+model is called a \textbf{countermodel} for the sentence. The following model is
+a countermodel for the sentence above, as you should verify with the help of
+definition \ref{def:basicsemantics}.
+%
+\begin{gather*}
+  W = \{ w,v \}\\
+  V(p) = \{ w \}\\
+  V(q) = \{ v \}
+\end{gather*}
+%
+I haven't explained at which worlds sentence letters other than $p$ and $q$ are
+true, because it doesn't matter.
+
+% In general, to specify a countermodel for a sentence $A$, you have to specify
+% two things: a set $W$ of worlds, and an interpretation function $V$ that assigns
+% a subset of $W$ to all the sentence letters in $A$.
+
+\begin{exercise}
+  Show that $p \to \Box p$ is invalid (and thus $p \not\models \Box p$), by
+  giving a countermodel. Explain why this doesn't contradict the previous
+  exercise.
+\end{exercise}
+\begin{solution}
+  $p\to \Box p$ is false at world $w$ in the model(s) given by
+  $W = \{ w, v \}, V(p) = \{ w \}$.
+
+  This shows that the \emph{truth} of $p$ (at a world in a model) does not
+  entail the truth of $\Box p$ (at the world in the model), even though the
+  \emph{validity} of $p$ entails the validity of $\Box p$, as per the previous
+  exercise.
+\end{solution}
+
+% \begin{exercise}
+%   The sentences that are true at a world $w$ in a model $M$ contain
+%   information not just about $w$ but also about other worlds in
+%   $M$. For example, if $\Box p$ is true at $w$, we know that $w$ is
+%   true at all worlds, and if $\neg p$ and $\Diamond p$ are both true
+%   at $w$, we know that $p$ is true at some other world. Question: do
+%   the sentences true at $w$ completely determine the model $M$? If
+%   not, give an example of two worlds $w_1$ and $w_2$ in two models
+%   $M1$, $M2$ that verify the same sentences even though the models are
+%   not isomorphic.
+% \end{exercise}
+
+\begin{exercise}
+  Show that for any sentences $A$, $B$, if $\models A \to B$, then also
+  $\models \Box A \to \Box B$.
+\end{exercise}
+\begin{solution}
+  Assume $\models A \to B$. Then there is no world in any model at which $A$ is
+  true and $B$ is false. So if $A$ is true at every world in a model, then $B$
+  is also true at every world in the model. It follows that $\Box A \to \Box B$
+  is true at every world in every model.
+\end{solution}
+
+Earlier in this section, I showed that $\Box p \to p$ and
+$\Box p \to \Box\Box p$ are valid. The arguments I gave easily generalise to
+other sentences in place of $p$. All instances of $\Box A \to A$ and
+$\Box A \to \Box\Box A$ are valid.
+
+You may remember these schemas from section \ref{sec:systems}. There I defined
+the system S5 by stipulating that it contains all instances of the following
+schemas:
+%
+\begin{principles}
+  \pri{Dual}{\neg\Diamond A \leftrightarrow \Box\neg A}\\
+  \pri{T}{\Box A \to A}\\
+  \pri{K}{\Box(A\to B) \to (\Box A \to \Box B)}\\
+  \pri{4}{\Box A \to \Box \Box A}\\
+  \pri{5}{\Diamond A \to \Box \Diamond A}
+\end{principles}
+%
+All instances of these schemas are valid by the definitions of the present
+chapter.
+
+% \begin{exercise}
+%   Show that all instances of the \textbf{D}-schema $\Box A \to \Diamond A$ are
+%   valid by the definitions from sections \ref{sec:basicmodels} and
+%   \ref{sec:redefining}.
+% \end{exercise}
+% \begin{solution}
+%   By definition \ref{def:valid}, a sentence is valid iff it is true at every
+%   world in every model. Suppose for reductio that some instance of
+%   $\Box A \to \Diamond A$ is false at some world $w$ in some model. By
+%   definition \ref{def:basicsemantics}, $\Box A$ is then true at $w$ and
+%   $\Diamond A$ false. But if $\Diamond A$ is false at $w$ then (by definition
+%   \ref{def:basicsemantics}) $A$ is false at every world in the model, including
+%   $w$. And then $\Box A$ isn't true at $w$ (by definition
+%   \ref{def:basicsemantics}). Contradiction.
+% \end{solution}
+
+% Exercise: $\Box(A \lor B) \leftrightarrow (\Box A \lor \Box B)$ is
+% invalid, but one direction is valid; which one. Dito for the
+% dual. [MLOM 18]
+
+I also specified two rules for S5. The first says that any truth-functional
+consequence of any sentences in S5 is itself in S5. The second says that
+whenever a sentence $A$ is in S5, then so is $\Box A$. As we will show chapter
+\ref{ch:proofs}, these rules preserve validity (as defined in the previous
+section). Indeed, you will learn how to show that the sentences that come out as
+valid by our present definitions are precisely the sentences in S5.
+
+You may pause a moment to ponder how this could be done. In the meantime, let's
+prove a simpler fact to which I have appealed above (as well as on page
+\pageref{claim:replacement} in the previous chapter): that replacing logically
+equivalent sentences inside a larger sentence never affects the larger
+sentence's truth-value at any world.
+
+\begin{observation}{replacement-theorem}
+  If $A$ is an $\L_{M}$-sentence and $A'$ results from $A$ by replacing a
+  subsentence of $A$ with a logically equivalent sentence, then $A$ and $A'$ are
+  logically equivalent.
+\end{observation}
+\begin{proof}
+  \emph{Proof.} Remember that two sentences are logically equivalent if each
+  entails the other. By definition \ref{def:basicconsequence}, this means that
+  the two sentences are true at the same worlds in every model.
+
+  Now let $A$ be an arbitrary $\L_{M}$-sentence and assume that $A'$ results
+  from $A$ by replacing a subsentence of $A$ with a logically equivalent
+  sentence. To show that $A$ and $A'$ are equivalent, we first show that this
+  holds for the special case where $A$ is a sentence letter. Then we consider
+  different ways in which $A$ might be built up from simpler sentences and show
+  that \emph{if the observation holds for those simpler sentences}, then it also
+  holds for $A$ itself.
+
+  So assume that $A$ is a sentence letter. In that case, $A$ has no sentences as
+  proper parts. The observation is vacuously true. (There is no way of turning
+  $p$ into a non-equivalent sentence by replacing a subsentence within $p$.)
+
+  Next we assume that $A$ is a complex sentence and that the observation holds
+  for all simpler sentences.
+
+  To begin, assume that $A$ is the negation of another sentence $B$. So $A$ is
+  $\neg B$ and $A'$ is $\neg B'$ for some sentence $B'$ that is either
+  equivalent to $B$ (if $B$ is the subsentence of $A$ that has been replaced to
+  yield $A'$) or that results from $B$ by replacing a subsentence within $B$ by
+  an equivalent sentence (if the subsentence of $A$ that has been replaced to
+  yield $A'$ isn't $B$). In the latter case, our assumption that the observation
+  holds for sentences simpler than $A$ implies that $B$ and $B'$ are equivalent.
+  Either way, then, $B$ and $B'$ are logically equivalent: they are true at the
+  same worlds in every model. By clause (b) of definition
+  \ref{def:basicsemantics}, it follows that $A$ and $A'$ are also true at the
+  same worlds in every model.
+
+  Essentially the same reasoning applies in the case where $A$ is a conjunction
+  $B \land C$, a disjunction $B \lor C$, a conditional $B \to C$, a
+  biconditional $B \leftrightarrow C$, a box sentence $\Box B$, and a diamond
+  sentence $\Diamond B$. I won't bore you by going through all of them. Here is
+  the case for $\Box B$.
+  
+  Assume that $A$ has the form $\Box B$. So $A$ is $\Box B$ and $A'$ is
+  $\Box B'$ for some sentence $B'$ that is equivalent to $B$ (by the same
+  reasoning as before). By clause (g) of definition \ref{def:basicsemantics} it
+  follows that $A$ and $A'$ are also equivalent. \qed
+
+\end{proof}
+
+The style of proof I have used here is called an \textbf{induction on
+  complexity}. It is widely used when reasoning about formal languages. In
+general, if you want to show that every sentence of a language has a certain
+property, it suffices to show that (i) all atomic sentences in the language have
+the property, and (ii) \emph{if} all sentences that are simpler than a sentence
+have the property then so does the sentence itself. (In this context, the
+assumption that all simpler sentences have the property is called the
+\emph{induction hypothesis}.)
+
+
+\section{Trees}\label{sec:trees}
+
+I will now introduce a streamlined method for working through definition
+\ref{def:basicsemantics} to check whether a sentence is valid: the method of
+\textbf{analytic tableau} or \textbf{tree proofs}. (You may be familiar with
+this method for non-modal logic. If so, good. If not, no problem.)
+
+The tree method is a method not just for proving validity, but also for finding
+countermodels. It is best introduced by example.
+
+Let's try to find a countermodel for $\Diamond p \to \Box p$. That is, we want
+to construct a model in which there is some world $w$ at which
+$\Diamond p\to \Box p$ is false. We start our search by assuming that the
+\emph{negation} of $\Diamond p \to \Box p$ is \emph{true} at $w$. We write this
+down as follows.
+
+\begin{center}
+  \Tree{%
+    \nnode{18}{1.}{$\neg(\Diamond p \to \Box p)$}{w}{(Ass.)}%
+  }
+\end{center}
+%
+`1.' and `(Ass.)' are for book-keeping; `Ass.'\ is short for `Assumption', since
+we're \emph{assuming} that $\neg(\Diamond p \to \Box p)$ is true at $w$. Now we
+unfold this assumption in accordance with definition \ref{def:basicsemantics}.
+The definition tells us that a conditional $A\to B$ is false at a world $w$ iff
+the antecedent $A$ is true at $w$ and the consequent $B$ is false at $w$. So the
+assumption on line 1 implies that $\Diamond p$ is true at $w$ and that $\Box p$
+is false at $w$. We expand our ``tree'' (or ``tableau'') by adding these consequences.
+
+\begin{center}
+  \tree{%
+    \nnodeticked{18}{1.}{$\neg(\Diamond p \to \Box p)$}{w}{(Ass.)}\\
+    \nnode{18}{2.}{$\Diamond p$}{w}{(1)}\\
+    \nnode{18}{3.}{$\neg\Box p$}{w}{(1)}%
+  }
+\end{center}
+%
+I have ticked off line 1 (with `$\checkmark$') to mark that we won't need to
+look at it again. All the information in line 1 is contained in lines 2 and 3.
+The parenthetical `(1)' at lines 2 and 3 reminds us that these assumptions are
+derived from line 1.
+
+We continue drawing out further consequences. What does the truth of
+$\Diamond p$ at $w$ imply for the subsentence $p$? By definition
+\ref{def:basicsemantics}, there must be some world -- let's call it $v$ -- at
+which $p$ is true.
+
+\begin{center}
+  \tree{%
+    \nnodeticked{18}{1.}{$\neg(\Diamond p \to \Box p)$}{w}{(Ass.)}\\
+    \nnodeticked{18}{2.}{$\Diamond p$}{w}{(1)}\\
+    \nnode{18}{3.}{$\neg\Box p$}{w}{(1)}\\
+    \nnode{18}{4.}{$p$}{v}{(2)}%
+  }
+\end{center}
+
+Line 3 claims that $\Box p$ is false at $w$. By definition
+\ref{def:basicsemantics}, $\Box p$ is true at $w$ iff $p$ is true at all worlds.
+So if $\Box p$ is false at $w$, there must be some world at which $p$ is false.
+Let's introduce such a world, naming it $u$. Our tree looks as follows.
+
+\begin{center}
+  \tree{%
+    \nnodeticked{18}{1.}{$\neg(\Diamond p \to \Box p)$}{w}{(Ass.)}\\
+    \nnodeticked{18}{2.}{$\Diamond p$}{w}{(1)}\\
+    \nnodeticked{18}{3.}{$\neg\Box p$}{w}{(1)}\\
+    \nnode{18}{4.}{$p$}{v}{(2)}\\
+    \nnode{18}{5.}{$\neg p$}{u}{(3)}%
+  }
+\end{center}
+
+Now the only unprocessed lines are assumptions about sentence letters and
+negations of sentence letters. Sentence letters don't have (non-trivial)
+subsentences, so we can't use definition \ref{def:basicsemantics} to further
+break down 4 or 5. The tree is complete. We have found a countermodel for
+$\Diamond p \to \Box p$.
+
+Let's read off the countermodel. There are three worlds in our tree: $w$, $v$,
+and $u$. So $W = \{ w, u, v \}$. By line 4, $p$ is true at $v$. By line 5, $p$
+is false at $u$. We don't know whether $p$ is true or false at $w$, and it
+doesn't matter -- otherwise the tree would say. Let's assume that
+$V(p) = \{ v \}$. As you can verify, $\Diamond p\to \Box p$ is indeed false at
+world $w$ in this model.
+
+One more example, before I state the general rules. Let's try to find a
+countermodel for $\Box(p\to q) \to (p \to \Box q)$. That's another conditional,
+so we begin as before.
+\begin{center}
+  \tree[3]{%
+    & \nnodeticked{32}{1.}{$\neg(\Box(p\to q) \to (p \to \Box q))$}{w}{(Ass.)} &&\\
+    & \nnode{32}{2.}{$\Box(p\to q)$}{w}{(1)} &&\\
+    & \nnode{32}{3.}{$\neg(p \to \Box q)$}{w}{(1)} && \\
+  }
+\end{center}
+%
+Line 1 assumes that the negation of the conditional is true at some world $w$.
+Lines 2 and 3 break down this assumption, using the fact that $\neg (A \to B)$
+is true (at a world) iff $A$ is true and $B$ false. We could deal with line 2
+next, but it's better to ignore it for the moment and process 3 first, which is
+yet another negated conditional.
+
+\begin{center}
+  \tree[3]{%
+    & \nnode{32}{4.}{$p$}{w}{(3)} && \\
+    & \nnode{32}{5.}{$\neg \Box q$}{w}{(3)} && \\
+  }
+\end{center}
+
+Line 5 tells us that $\Box q$ is false at $w$. We can infer that there is a
+world -- call it $v$ -- at which $q$ is false.
+
+\begin{center}
+  \tree[3]{%
+    & \nnode{32}{6.}{$\neg q$}{v}{(5)} && \\
+  }
+\end{center}
+
+Now we need to return to line 2. What can we infer from the hypothesis that
+$\Box(p\to q)$ is true at $w$ about the subsentence $p \to q$? By definition
+\ref{def:basicsemantics}, $p \to q$ must be true at \emph{every} world. So, in
+particular, $p\to q$ must be true at $w$. Let's write that down. We'll add
+another line for $v$ later, so we don't check off node 2.
+
+\begin{center}
+  \tree[3]{%
+    & \nnode{32}{7.}{$p\to q$}{w}{(2)} && \\
+  }
+\end{center}
+
+If you are used to proofs in the natural deduction style, you may now be tempted
+to apply \emph{modus ponens} and infer that $q$ is true at $w$, from lines 4 and
+7. In the tree method, however, we try not to draw inferences from multiple
+premises. We simply look at any lines that can still be processed and check what
+definition \ref{def:basicsemantics} tells us about the immediate subsentences of
+the sentence on that line. So we process line 7 without looking at line 4.
+
+What can we infer from the truth of $p\to q$ at $w$ about the subsentences $p$
+and $q$? By definition \ref{def:basicsemantics}, $p \to q$ is true at $w$ if $p$
+is false at $w$ \emph{or} $q$ is true at $w$. We have to keep track of both
+possibilities. Our (upside down) tree will branch. Here is the full tree at its
+present stage.
+
+\begin{center}
+  \tree[3]{%
+    & \nnodeticked{32}{1.}{$\neg(\Box(p\to q) \to (p \to \Box q))$}{w}{(Ass.)} &&\\
+    & \nnode{32}{2.}{$\Box(p\to q)$}{w}{(1)} &&\\
+    & \nnodeticked{32}{3.}{$\neg(p \to \Box q)$}{w}{(1)} && \\
+    & \nnode{32}{4.}{$p$}{w}{(3)} && \\
+    & \nnodeticked{32}{5.}{$\neg \Box q$}{w}{(3)} && \\
+    & \nnode{32}{6.}{$\neg q$}{v}{(5)} && \\
+    & \bnodeticked{32}{7.}{$p\to q$}{w}{(2)} && \\
+    &&& \\
+    \nnodeclosed{8}{8.}{$\neg p$}{w}{(7)} && \nnode{8}{9.}{$q$}{w}{(7)} & \\
+  }
+\end{center}
+
+So far, I have called the numbered items on a tree `lines'. The proper term is
+\textbf{nodes}. Since nodes 8 and 9 are visually on the same line, it would be
+confusing to call them lines. While we're at it, a \textbf{branch} of a tree is
+series of nodes that extends from the top (or ``root'') node all the way down to
+a node below which there is no other node. The present tree has two branches,
+both of which contain 8 nodes.
+
+What does this tree tell us? Remember that our aim is to construct a model in
+which the sentence at node 1 is true at world $w$. At this stage, the tree tells
+us that there are two worlds $w$ and $v$ in the model; nodes 4 and 5 tell us
+something about the interpretation function in the model: $p$ is true at $w$,
+$q$ is false at $v$. After node 7, the tree branches, meaning that there are two
+ways of extending the model we have construed so far. On the left branch, we
+assume that $p$ is false at $w$. On the right branch, we assume that $q$ is true
+at $w$. But hold on. We already know that $p$ is true at $w$ (from node 4).
+There's no model in which $p$ is both true and false at $w$. So the possibility
+explored on the left branch is a dead-end. it doesn't lead to a countermodel.
+That's why I've \emph{closed} the left branch by drawing a cross below node 8.
+
+We continue on the right-hand branch. Here we expand node 2 again, this time for
+world $v$, which leads to another branching.
+
+\begin{center}
+  \tree[3]{%
+    & \nnodeticked{32}{1.}{$\neg(\Box(p\to q) \to (p \to \Box q))$}{w}{(Ass.)} &&\\
+    & \nnode{32}{2.}{$\Box(p\to q)$}{w}{(1)} &&\\
+    & \nnodeticked{32}{3.}{$\neg(p \to \Box q)$}{w}{(1)} && \\
+    & \nnode{32}{4.}{$p$}{w}{(3)} && \\
+    & \nnodeticked{32}{5.}{$\neg \Box q$}{w}{(3)} && \\
+    & \nnode{32}{6.}{$\neg q$}{v}{(5)} && \\
+    & \bnodeticked{32}{7.}{$p\to q$}{w}{(2)} && \\
+    &&& \\
+    \nnodeclosed{8}{8.}{$\neg p$}{w}{(7)} && \nnode{13}{9.}{$q$}{w}{(7)} & \\
+    && \bnode{13}{10.}{$p\to q$}{v}{(2)} & \\
+    &&& \\
+    & \nnode{8}{11.}{$\neg p$}{v}{(10)} & & \nnodeclosed{8}{12.}{$q$}{v}{(10)} 
+  }
+\end{center}
+%
+On the right-most branch, $q$ is true at $v$ (by node 12) but also false at $v$
+(by node 6), so that branch is closed. But the middle possibility is still open,
+and there are no more assumptions to unfold. We have found a countermodel.
+
+The countermodel is given by all the assumptions \emph{on the middle branch},
+the one that remained open. (The other branches were dead-ends and can be
+ignored.) We have two worlds, $W = \{ w,v \}$. The interpretation function $V$
+makes $p$ true at $w$ (node 4) and false at $v$ (node 11); $q$ is also true at
+$w$ (node 9) and false at $v$ (node ). Again, you may verify that the sentence
+on node 1 is true at world $w$ in this model.
+
+Now for the general rules.
+
+In order to find a countermodel for a sentence $A$ with the help of the tree
+method, you always begin by assuming that the \emph{negation} of $A$ is true at
+world $w$:
+%
+\begin{center}
+  \tree{%
+    \nnode{10}{1.}{$\neg A$}{w}{(Ass.)}
+    }
+\end{center}
+%
+You then expand this node, and every new node that appears on the tree, until no
+more nodes can be expanded.
+
+To expand a node with a non-negated sentence, you consider what the truth of the
+sentence at the node's world implies for the truth-value of the sentence's
+immediate parts. The result may be added to the end of any open branch
+containing the node.
+
+(The immediate parts of a sentence of the form $A\land B$, $A \lor B$,
+$A \to B$, or $A \leftrightarrow B$ are the corresponding sentences $A$ and $B$;
+the only immediate part of $\Box A$, $\Diamond A$, and $\neg A$ is $A$.)
+
+To expand a node with a negation $\neg A$, you consider what the falsity of the
+relevant sentence $A$ at the node's world implies for the immediate parts of
+$A$. The result may again be added to the end of any open branch containing the
+node.
+
+The following diagrams summarize how the different kinds of nodes are expanded.
+
+\bigskip
+
+% Perhaps I shouldn't use 'nu' and 'omega' in the schematic tree rules? students
+% just thought they mean w and v, and asked if the box rule can be applied with
+% an old world other than v. Also might need to clarify that v can be the same
+% world as w.
+\begin{minipage}{0.33\textwidth}\centering
+\tree{
+  \dotbelownode{12}{}{$A \land B$}{\omega}{}\\
+  \\
+  \nnode{12}{}{$A$}{\omega}{}\\
+  \nnode{12}{}{$B$}{\omega}{}
+}
+\end{minipage}
+\begin{minipage}{0.33\textwidth}\centering
+\tree{
+  & \dotbelowbnode{12}{}{$A \lor B$}{\omega}{} &\\
+  && \\
+  && \\
+  \nnode{8}{}{$A$}{\omega}{} && \nnode{8}{}{$B$}{\omega}{}
+}
+\end{minipage}
+\begin{minipage}{0.33\textwidth}\centering
+\tree{
+  & \dotbelowbnode{12}{}{$A \to B$}{\omega}{} &\\
+  && \\
+  && \\
+  \nnode{8}{}{$\neg A$}{\omega}{} && \nnode{8}{}{$B$}{\omega}{}
+}
+\end{minipage}
+
+\vspace{10mm}
+
+\begin{minipage}{0.33\textwidth}\centering
+\tree{
+  & \dotbelowbnode{12}{}{$A \leftrightarrow B$}{\omega}{} & \\
+  & \\
+  & \\
+  \nnode{8}{}{$A$}{\omega}{} & & \nnode{8}{}{$\neg A$}{\omega}{} & & \\
+  \nnode{8}{}{$B$}{\omega}{} & & \nnode{8}{}{$\neg B$}{\omega}{} & & \\
+}
+\end{minipage}
+\begin{minipage}{0.33\textwidth} \centering
+\tree{
+  \dotbelownode{8}{}{$\Box A$}{\omega}{}\\
+  \\
+  \nnode{8}{}{$A$}{\nu}{}\\
+  \Kk[8]{0}{\color{red}$\uparrow$}\\
+  \Kk[8]{0}{\color{red}\small old}
+}
+\end{minipage}
+\begin{minipage}{0.33\textwidth}\centering
+\tree{
+  \dotbelownode{8}{}{$\Diamond A$}{\omega}{}\\
+  \\
+  \nnode{8}{}{$A$}{\nu}{}\\
+  \Kk[8]{0}{\color{red}$\uparrow$}\\
+  \Kk[8]{0}{\color{red}\small new}
+}
+\end{minipage}
+
+\vspace{10mm}
+
+\begin{minipage}{0.33\textwidth}\centering
+\tree{
+  & \dotbelowbnode{15}{}{$\neg(A \land B)$}{\omega}{} &\\
+  && \\
+  && \\
+  \nnode{8}{}{$\neg A$}{\omega}{} && \nnode{8}{}{$\neg B$}{\omega}{}
+}
+\end{minipage}
+\begin{minipage}{0.33\textwidth}\centering
+\tree{
+  \dotbelownode{15}{}{$\neg(A \lor B)$}{\omega}{}\\
+  \\
+  \nnode{15}{}{$\neg A$}{\omega}{}\\
+  \nnode{15}{}{$\neg B$}{\omega}{}
+}
+\end{minipage}
+\begin{minipage}{0.33\textwidth}\centering
+\tree{
+  \dotbelownode{15}{}{$\neg(A \to B)$}{\omega}{}\\
+  \\
+  \nnode{15}{}{$A$}{\omega}{}\\
+  \nnode{15}{}{$\neg B$}{\omega}{}
+}
+\end{minipage}
+
+\vspace{10mm}
+
+\begin{minipage}{0.33\textwidth}\centering
+\tree{
+  & \dotbelowbnode{15}{}{$\neg(A \leftrightarrow B)$}{\omega}{} & \\
+  & \\
+  & \\
+  \nnode{8}{}{$A$}{\omega}{} & & \nnode{8}{}{$\neg A$}{\omega}{} & & \\
+  \nnode{8}{}{$\neg B$}{\omega}{} & & \nnode{8}{}{$B$}{\omega}{} & & \\
+}
+\end{minipage}
+\begin{minipage}{0.33\textwidth}\centering
+\tree{
+  \dotbelownode{10}{}{$\neg \Box A$}{\omega}{}\\
+  \\
+  \nnode{10}{}{$\neg A$}{\nu}{}\\
+  \Kk[10]{0}{\color{red}$\uparrow$}\\
+  \Kk[10]{0}{\color{red}\small new}
+}
+\end{minipage}
+\begin{minipage}{0.33\textwidth}\centering
+\tree{
+  \dotbelownode{10}{}{$\neg \Diamond A$}{\omega}{}\\
+  \\
+  \nnode{10}{}{$\neg A$}{\nu}{}\\
+  \Kk[10]{0}{\color{red}$\uparrow$}\\
+  \Kk[10]{0}{\color{red}\small old}
+}
+\end{minipage}
+
+\vspace{10mm}
+
+\begin{minipage}{0.33\textwidth}\centering
+\tree{%
+  \dotbelownode{12}{}{$\neg\neg A$}{\omega}{}\\
+  \\
+  \nnode{12}{}{$A$}{\omega}{}
+}
+\end{minipage}
+
+\vspace{5mm}
+
+If a branch of a tree contains a sentence $A$ as well as its negation $\neg A$,
+for the same world $\omega$, then the branch is \emph{closed} with an {\sffamily
+  x} at the bottom.
+
+I've used `$\omega$' and `$\nu$' as placeholders for arbitrary world variables.
+
+The rule for $\Box A$ says that from the assumption that $\Box A$ is true at a
+world $\omega$ you may infer that $A$ is true at any world $\nu$ \emph{that
+  already occurs on the branch to which the new node is added}. You're not
+allowed to introduce a new world variable (`$v$', `$u$', etc.) when expanding
+$\Box A$ nodes. The same is true for $\neg \Diamond A$ nodes (which by duality
+means the same as $\Box \neg A$). When you expand a $\Diamond A$ node (or a
+$\neg \Box A$ node), by contrast, you must introduce a new world variable.
+
+Nodes of type $\Box A$ and $\neg \Diamond A$ can be expanded several times, once
+for every world variable on any branch containing the node.
+
+If you have expanded a node that is not of type $\Box A$ or $\neg \Diamond A$,
+and you have added the new nodes to every open branch containing the node, then
+you can tick off the node. You don't need to look at it again. Nodes of type
+$\Box A$ and $\neg \Diamond A$ nodes are never ticked off.
+
+If no more rules can be applied, the tree is complete. Any open branch on a
+complete tree defines a countermodel for the target sentence.
+%
+\begin{exercise}
+  Use the tree method to find countermodels for the following
+  sentences. (Spell out the countermodel, in addition to drawing the tree.)
+  \begin{exlist}
+  \item $p\to q$ 
+  \item $p \to \Box(p \lor q)$
+  \item $\Box p \lor \Box \neg p$
+  \item $\Diamond(p \to q) \to (\Diamond p \to \Diamond q)$
+  % This is invalid, but one can only read off a counterexample once all rules
+  % have been applied. Also emphasize that countermodels must come from /one/
+  % branch only. 
+  \item $\Box \Diamond p \to p$ % infinite
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \medskip
+    
+  \begin{sollist}
+  \item Target: $p\to q$
+  
+    \tree{
+      &\nnode{15}{1.}{$\neg(p \to q)$}{w}{(Ass.)}&\\
+      &\nnode{15}{2.}{$p$}{w}{(1)}&\\
+      &\nnode{15}{3.}{$\neg q$}{w}{(1)}&
+    }
+
+    Countermodel: $W = \{ w \}, V(p) = \{ w \}, V(q) = \emptyset$.
+    
+    \medskip
+  \item Target: $p \to \Box(p \lor q)$
+
+    \tree{
+      \nnode{25}{1.}{$\neg (p \to \Box(p \lor q))$}{w}{(Ass.)}\\
+      \nnode{25}{2.}{$p$}{w}{(1)}\\
+      \nnode{25}{3.}{$\neg \Box(p \lor q)$}{w}{(1)}\\
+      \nnode{25}{4.}{$\neg(p \lor q)$}{v}{(3)}\\
+      \nnode{25}{5.}{$\neg p$}{v}{(4)}\\
+      \nnode{25}{5.}{$\neg q$}{v}{(4)}
+    }
+
+    Countermodel: $W = \{ w, v \}, V(p) = \{ w \}, V(q) = \emptyset$.
+
+  \medskip
+  \item Target: $\Box p \lor \Box \neg p$
+    
+    \tree{
+      \nnode{25}{1.}{$\neg (\Box p \lor \Box \neg p)$}{w}{(Ass.)}\\
+      \nnode{25}{2.}{$\neg \Box p$}{w}{(1)}\\
+      \nnode{25}{3.}{$\neg \Box \neg p$}{w}{(1)}\\
+      \nnode{25}{4.}{$\neg p$}{v}{(2)}\\
+      \nnode{25}{5.}{$\neg \neg p$}{u}{(3)}\\
+      \nnode{25}{6.}{$p$}{u}{(5)}
+    }
+
+    Countermodel: $W = \{ w,v,u \}, V(p) = \{ u \}$.
+    
+    \medskip
+  \item Target: $\Diamond(p \to q) \to (\Diamond p \to \Diamond q)$
+
+    \tree[3]{
+      &\nnode{35}{1.}{$\neg(\Diamond(p \to q) \to (\Diamond p \to \Diamond q))$}{w}{(Ass.)}&\\
+      &\nnode{35}{2.}{$\Diamond(p \to q)$}{w}{(1)}&\\
+      &\nnode{35}{3.}{$\neg (\Diamond p \to \Diamond q)$}{w}{(1)}&\\
+      &\nnode{35}{4.}{$\Diamond p$}{w}{(3)}&\\
+      &\nnode{35}{5.}{$\neg \Diamond q$}{w}{(3)}&\\
+      &\nnode{35}{6.}{$p\to q$}{v}{(2)}&\\
+      &\nnode{35}{7.}{$p$}{u}{(4)}&\\
+      &\nnode{35}{8.}{$\neg q$}{w}{(5)}&\\
+      &\nnode{35}{9.}{$\neg q$}{v}{(5)}&\\
+      &\bnode{35}{10.}{$\neg q$}{u}{(5)}&\\
+      &&\\
+      \nnode{10}{11.}{$\neg p$}{v}{(6)} && \nnodeclosed{10}{12.}{$q$}{v}{(6)}
+    }
+
+    Countermodel: $W = \{ w,v,u \}, V(p) = \{ u \}, V(q) = \emptyset$.
+    
+    \medskip
+  \item $\Box \Diamond p \to p$
+  
+    \tree{
+      &\nnode{20}{1.}{$\neg(\Box\Diamond p \to p))$}{w}{(Ass.)}&\\
+      &\nnode{20}{2.}{$\Box \Diamond p$}{w}{(1)}&\\
+      &\nnode{20}{3.}{$\neg p$}{w}{(1)}&\\
+      &\nnode{20}{4.}{$\Diamond p$}{w}{(2)}&\\
+      &\nnode{20}{5.}{$p$}{v}{(4)}&\\
+      &\nnode{20}{6.}{$\Diamond p$}{v}{(2)}&\\
+      &\nnode{20}{7.}{$p$}{u}{(6)}&\\
+      &\nnode{20}{8.}{$\Diamond p$}{u}{(2)}&\\
+      &\nnode{20}{9.}{$p$}{t}{(8)}&\\
+      &\nnode{20}{}{\vdots}{}{}&
+  }
+
+  \medskip\noindent The tree grows forever. The target sentence isn't valid, but
+  the tree method only gives us an infinite countermodel. In such a case, it may
+  be useful to read off a model from an incomplete version of the tree and
+  manually check whether it is a genuine countermodel. The model determined by
+  the first five nodes of the present tree is $W = \{ w,v \}, V(p)=\{ v \}$,
+  and you can confirm that it is a countermodel to the target sentence.
+
+  If you read off a model from an \emph{incomplete} tree, you can't be sure that
+  it is a countermodel for the target sentence. You must always double-check!
+   
+  \end{sollist}
+  
+\end{solution}
+
+What if all branches on a tree close? Then there is no countermodel for the
+target sentence. If there is no countermodel for a sentence, then the sentence
+is valid. This is how the tree method is used to show that sentences are valid.
+
+The following tree shows that
+$\Diamond \neg p \leftrightarrow \neg \Box p$ is valid. Make sure you understand
+each step. (I've omitted the check marks since these are only useful during the
+construction phase.)
+
+\begin{center}
+  \tree[3]{
+    & \bnode{22}{1.}{$\neg(\Diamond \neg p \leftrightarrow \neg \Box p)$}{w}{(Ass.)} & \\
+  && \\
+  \nnode{12}{2.}{$\Diamond \neg p$}{w}{(1)} && \nnode{12}{4.}{$\neg \Diamond\neg p$}{w}{(1)}  \\
+  \nnode{12}{3.}{$\neg \neg \Box p$}{w}{(1)} && \nnode{12}{5.}{$\neg \Box p$}{w}{(1)}  \\
+  \nnode{12}{6.}{$\Box p$}{w}{(3)} && \nnode{12}{9.}{$\neg p$}{v}{(5)}  \\
+  \nnode{12}{7.}{$\neg p$}{v}{(2)} && \nnodeclosed{12}{10.}{$\neg\neg p$}{v}{(4)}  \\
+  \nnodeclosed{12}{8.}{$p$}{v}{(6)} &&  \\
+}
+\end{center}
+
+A similar tree could obviously be drawn for
+$\Diamond \neg q \leftrightarrow \neg \Box q$, and for any other formula of the
+form $\Diamond \neg A \leftrightarrow \neg \Box A$: we would simply replace each
+occurrence of $p$ on the tree with $A$.
+
+To show that all instances of a schema are valid, we can also directly draw
+\textbf{schematic trees} in which we use schematic variables `$A$', `$B$', `$C$'
+instead of sentence letters.
+
+\begin{exercise}
+  Use the tree method to show that all instances of the following schemas are valid.
+   \begin{exlist}
+   \item[\pr{K}] $\Box (A \to B) \to (\Box A \to \Box B)$
+   \item[\pr{T}] $\Box A \to A$
+   % \item[\pr{D}] $\Box A \to \Diamond A$ 
+   \item[\pr{4}] $\Box A \to \Box \Box A$
+   \item[\pr{5}] $\Diamond A \to \Box \Diamond A$
+   % \item[\pr{G}] $\Diamond\Box A \to \Box \Diamond A$ 
+   \end{exlist}
+\end{exercise}
+\begin{solution}
+  You can enter the schemas at
+  \href{https://www.umsu.de/trees/}{umsu.de/trees}.
+  After entering a formula, tick the checkbox for `universal (S5)'.
+  Alternatively, follow these links:
+  \href{https://www.umsu.de/trees/#~8(A~5B)~5(~8A~5~8B)||universality}{\pr{K}}, \href{https://www.umsu.de/trees/#~8A~5A||universality}{\pr{T}},
+  \href{https://www.umsu.de/trees/#~8A~5~9A||universality}{\pr{D}},
+  \href{https://www.umsu.de/trees/#~8A~5~8~8A||universality}{\pr{4}},
+  \href{https://www.umsu.de/trees/#~9A~5~8~9A||universality}{\pr{5}},
+  \href{https://www.umsu.de/trees/#~9~8A~5~8~9A||universality}{\pr{G}}.
+\end{solution}
+
+\begin{exercise}
+  For each of the following sentences, either show that it is valid or
+  give a countermodel to show that it is invalid:
+  \begin{exlist}
+  \item $p \to \Box\Diamond p$
+  \item $\Diamond\Diamond p \to \Diamond p$
+  %\item $\Box\Box p \to \Box p$
+  \item $\Diamond(p \land q) \to (\Diamond p \land \Diamond q)$
+  \item $(\Diamond p \land \Diamond q) \to \Diamond(p \land q)$
+  %\item $\Diamond p \lor \Box\neg p$
+  \item $\Diamond(p \lor q) \leftrightarrow (\Diamond p \lor \Diamond q)$
+  \item $\Box\Diamond p \to \Diamond\Box p$
+  % \item $(\Diamond p \to \Box q) \to (\Box p \to \Box q)$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  (a), (b), (c), (e), and (g) are valid. You can find the trees at
+  \href{https://www.umsu.de/trees/}{umsu.de/trees} (Remember to tick the checkbox for `universal (S5)') or by following these links:
+  \href{https://www.umsu.de/trees/#p~5~8~9p||universality}{(a)},
+\href{https://www.umsu.de/trees/#~9~9p~5~9p||universality}{(b)},
+\href{https://www.umsu.de/trees/#~9(p~1q)~5(~9p~1~9q)||universality}{(c)},
+\href{https://www.umsu.de/trees/#~9(p~2q)~4(~9p~2~9q)||universality}{(e)}.
+% \href{https://www.umsu.de/trees/#(~9p~5~8q)~5(~8p~5~8q)||universality}{(g)}.
+  
+  (d) and (f) are invalid. Here is a tree for (d):
+
+  \medskip
+  \tree[3]{
+    &\nnode{35}{1.}{$\neg ((\Diamond p \land \Diamond q) \to \Diamond(p \land q))$}{w}{(Ass.)}&&\\
+    &\nnode{35}{2.}{$\Diamond p \land \Diamond q$}{w}{(1)}&&\\
+    &\nnode{35}{3.}{$\neg \Diamond(p \land q)$}{w}{(1)}&&\\
+    &\nnode{35}{4.}{$\Diamond p$}{w}{(2)}&&\\
+    &\nnode{35}{5.}{$\Diamond q$}{w}{(2)}&&\\
+    &\nnode{35}{6.}{$p$}{v}{(4)}&&\\
+    &\nnode{35}{7.}{$q$}{u}{(5)}&&\\
+    &\bnode{35}{8.}{$\neg (p \land q)$}{v}{(3)}&&\\
+    &&&\\
+    \nnodeclosed{9}{9.}{$\neg p$}{v}{(8)}&&\nnode{15}{10.}{$\neg q$}{v}{(8)}&\\
+    &&\bnode{15}{11.}{$\neg(p \land q)$}{u}{(3)}&\\
+    &&&\\
+    &\nnode{15}{12.}{$\neg p$}{u}{(11)}&&\nnodeclosed{9}{13.}{$\neg q$}{u}{(11)}&\\
+    &\bnode{15}{14.}{$\neg(p \land q)$}{w}{(3)}&&\\
+    &&&\\
+    \nnode{9}{15.}{$\neg p$}{w}{(14)}&&\nnode{9}{16.}{$\neg q$}{w}{(14)}&
+  }
+
+  \medskip\noindent
+  We can choose either of the open branches to read off a countermodel. In fact, here we get the same countermodel no matter which open branch we choose:
+$W = \{ w,v,u \}, V(p)=\{ v\}, V(q)=\{u\}$.
+  \medskip
+
+  A tree for (e) might begin like this:
+
+  \tree[3]{
+    &\nnode{25}{1.}{$\neg (\Box\Diamond p \to \Diamond\Box p)$}{w}{(Ass.)}&&\\
+    &\nnode{25}{2.}{$\Box\Diamond p$}{w}{(1)}&&\\
+    &\nnode{25}{3.}{$\neg \Diamond\Box p$}{w}{(1)}&&\\
+    &\nnode{25}{4.}{$\Diamond p$}{w}{(2)}&&\\
+    &\nnode{25}{5.}{$p$}{v}{(4)}&&\\
+    &\nnode{25}{6.}{$\neg \Box p$}{w}{(3)}&&\\
+    &\nnode{25}{7.}{$\neg p$}{u}{(6)}&&\\
+    &\nnode{25}{8.}{$\Diamond p$}{v}{(2)}&&\\
+    &\nnode{25}{9.}{$p$}{s}{(8)}&&\\
+    &\nnode{25}{10.}{$\neg \Box p$}{v}{(3)}&&\\
+    &\nnode{25}{11.}{$\neg p$}{t}{(10)}&&\\
+    &\nnode{25}{}{\vdots}{}{}&&
+  }
+
+  \medskip\noindent The tree grows forever. The model determined by
+  the first seven nodes of the present tree is $W = \{ w,v,u \}, V(p)=\{ v \}$.
+  It is a countermodel to the target sentence.
+    
+\end{solution}
+
+When constructing a tree, you often have a choice of which node to expand next.
+In that case, a good idea is to start with any $\Diamond A$ or $\neg \Box A$
+nodes. If there are none, choose a node of type $A \land B$, $\neg (A \lor B)$
+or $\neg(A \to B)$. Choose a node of another type only if none of the above are
+available. This heuristic often helps to keep trees small, but it is not part of
+the official tree rules.
+
+\begin{exercise}\label{ex:trees-with-premises}
+  Can we use the tree method to show that some premises $A_1,\ldots,A_n$ entail
+  a conclusion $B$? Can we use it to show that two sentences $A$ and $B$ are
+  equivalent?
+\end{exercise}
+\begin{solution}
+  By observation \ref{obs:semantic-deduction-theorem}, $A_{1},\ldots,A_{n}$
+  entail $B$ iff $(A_1\land\ldots\land A_n) \to B$ is valid. To show that
+  $A_{1},\ldots,A_{n}$ entail $B$ we could therefore draw a tree for
+  $(A_1\land\ldots\land A_n) \to B$. In practice, we can save a few steps by
+  starting the tree with multiple assumptions: one for each of the premises
+  $A_{1},\ldots, A_{n}$, and one for the negated conclusion $\neg B$. (All of
+  these are assumed to be true at world $w$.) If the tree closes,
+  $A_1,\ldots,A_n$ entail $B$.
+
+  To show that $A$ and $B$ are equivalent, we can draw a tree for
+  $A \leftrightarrow B$.
+\end{solution}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "ml.tex"
+%%% End:

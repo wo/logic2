@@ -1,0 +1,1190 @@
+\chapter{Towards Modal Predicate Logic}\label{ch:qml}
+
+% Should I do this more like week9.org? Move the whole "modal logic as fragment"
+% section into an exercise?
+
+\section{Predicate logic recap}
+
+In these last two chapters, we are going to add the resources of first-order
+predicate logic to those of propositional modal logic. Let's begin by reviewing
+the syntax and semantics of classical, non-modal predicate logic.
+
+The language $\L_P$ of first-order predicate logic consists of \emph{predicates}
+$F^{0},F^1,F^2,\ldots,$ $G^{0},G^1,G^2,\ldots$, \emph{individual constants} (or
+\emph{names}) $a,b,c,\ldots$, \emph{individual variables} $x,y,z,\ldots$, the
+logical symbols $\neg$, $\land$, $\lor$, $\to$, $\leftrightarrow$, $\forall$,
+$\exists$, and the parentheses $($ and $)$. Individual variables and constants
+are also called \emph{(singular) terms}.
+
+Atomic sentences of $\L_{P}$ are formed by conjoining a predicate with zero or
+more terms. Each predicate takes a fixed number of terms, as indicated by its
+numerical superscript: $F^1$ is a \emph{one-place} predicate that combines with
+one term to form a sentence, $F^2$ is \emph{two-place}, and so on. In practice,
+we usually omit the superscripts, because context makes clear what kind of
+predicate is in play. $Fa \lor Gab$, for example, is well-formed only if $F$ is
+one-place and $G$ two-place.
+
+In English, a predicate is what is what you get when you remove all names from a
+sentence. Removing `Bob' from `Bob is hungry' yields the predicate `-- is
+hungry'. From `Bob is in Rome', we get the two-place predicate '-- is in --'.
+From `Bob saw Carol's father in Jerusalem', we could get the
+three-place-predicate '-- saw --'s father in --'. When we translate from
+English, we normally translate English names into $\L_P$-names and (logically
+simple) English predicates into $\L_P$-predicates. `Bob is in Rome' might become
+$Fab$, where $a$ translates `Bob', $b$ `Rome', and $F$ `-- is in --'.
+
+From atomic sentences, complex sentences are formed in the usual way by means of
+the truth-functional operators $\neg$, $\land$, $\lor$, $\to$,
+$\leftrightarrow$.
+
+Another way to construct a complex sentence from a simpler sentence is to add a
+quantifier in front of the simpler sentence. A \emph{quantifier} is an
+expression of the form $\forall \chi$ or $\exists \chi$, where $\chi$ is some
+variable. A quantifier is said to \emph{bind} the variable it contains:
+$\forall x$ binds $x$, $\exists y$ binds $y$, and so on.
+
+In English, quantifier expressions are usually restricted to a particular
+subclass of the things under discussion: `\emph{all whales} are mammals',
+`\emph{some students} went home'. The $\L_{P}$-quantifiers $\forall x$ and
+$\exists x$ are unrestricted. They roughly correspond to `everything is such
+that \ldots' and `something is such that \ldots'. We can translate restricted
+quantifiers by combining unrestricted quantifiers with truth-functional
+connectives. `All whales are mammals' is equivalent to `Everything is either not
+a whale or a mammal'; so it can be translated as $\forall x(Wx \to Mx)$. `Some
+students went home' could be translated as $\exists x (Sx \land Hx)$.
+
+Variables are book-keeping devices. They function somewhat like pronouns in
+English. $\exists x(Sx \land Hx)$ might be read as `something is such that
+\emph{it} is a student and \emph{it} went home'. By using different variables
+($x,y,z,\ldots$), we can disambiguate statements with nested quantifiers.
+Consider
+\begin{quote}
+  Every dog barked at a tree.
+\end{quote}
+This can mean that there is a particular tree at which all the dogs barked, but
+it can also mean that each dog found some tree to bark at -- possibly different
+trees for different dogs. The first reading could be translated as
+\[
+  \exists y (Ty \land \forall x (Dx \to Bxy)),
+\]
+the second as
+\[
+  \forall x (Dx \to \exists y(Ty \land Bxy)).
+\]
+
+Some more terminology. Recall that the \emph{scope} of an operator (token) in a
+sentence is the shortest well-formed subsentence in which it occurs. In
+$\exists y (Ty \land \forall x(Fx \to Bxy))$, the scope of the quantifier
+$\forall x$ is the subsentence $\forall x(Fx \to Bxy)$. If an occurrence of a
+variable lies in the scope of a quantifier that binds the variable, then the
+occurrence is called \emph{bound}, otherwise it is \emph{free}. In
+$\forall x(Fx \to Bxy)$, all occurrences of $x$ are bound, but $y$ is free.
+
+A sentence containing free variables is called \emph{open}. Sentences that aren't
+open are \emph{closed}. Intuitively, only closed sentences make complete
+statements. For this reason, some authors reserve the word `sentence' for closed
+sentences, referring to open sentences as `formulas'. (Others call every
+$\L_P$-sentence a `formula'.)
+
+\begin{exercise}
+  Translate the following sentences into $\L_P$.
+  \begin{exlist}
+  \item Keren and Keziah are sisters of Jemima.
+  \item All myriapods are oviparous.
+  \item Fred has a new car.
+  \item Not every student loves logic.
+  \item Every student who loves logic loves something.
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+  \item $Srj \land Skj$; \qquad $r$: Keren, $k$: Keziah, $j$: Jemima, $S$: -- is a sister of --
+  \item $\forall x (Mx \to Ox)$; \qquad $M$: -- is a myriapod, $O$: -- is oviparous 
+  \item $\exists x (Cx \land Nx \land Hfx)$; \qquad $f$: Fred, $C$: -- is a car, $N$: -- is new, $H$: -- has --
+  \item $\neg\forall x (Sx \to Lxl)$; \qquad $l$: logic; $S$: -- is a student, $L$: -- loves --
+  \item $\forall x ((Sx \land Lxl) \to \exists y Lxy)$; \qquad $l$: logic; $S$: -- is a student, $L$: -- loves --
+  \end{sollist}
+\end{solution}
+
+Like sentences of modal propositional logic, sentences of predicate logic are
+interpreted relative to a model. A model of predicate logic first of all
+specifies an \emph{individual domain} $D$ over which the quantifiers are said to
+range. If we read $\forall x$ as `everything is such that' and $\exists x$ as
+`something is such that' then the relevant ``somethings'' are the members of the
+domain $D$.
+
+The remainder of a model is an \emph{interpretation function $V$} that assigns
+\begin{itemize}[leftmargin=10mm]
+  \itemsep-1mm
+  \item[(a)] to each name a member of $D$,
+  \item[(b)] to each zero-place predicate a truth-value,
+  \item[(c)] to each one-place predicate a subset of $D$, and
+  \item[(d)] to each $n$-place predicate with $n>1$ a set of $n$-tuples from
+        $D$.
+\end{itemize}
+An ``$n$-tuple from $D$'' is simply a list of length $n$, all elements of which
+are in $D$. Repetitions are allowed, so if Bob is a member of $D$, then
+$\t{\text{Bob, Bob}}$ counts as a 2-tuple from $D$. (2-tuples are more commonly
+called \emph{pairs}.) We can subsume condition (c) under condition (d) by
+assuming that a 1-tuple from $D$ is a member of $D$. We can subsume (b) under
+(d) by identifying the truth-value False with the empty tuple $\emptyset$ and
+the truth-value True with $\{ \emptyset \}$. (Don't worry if you find this confusing or objectionable. We won't be using zero-ary predicates.)
+
+% V(p) = 1 means V(p) is true of all zero-tuples
+
+\begin{definition}{}{predicatemodel}
+  A \textbf{(classical) first-order model} is a pair $\t{D,V}$ consisting of
+  \vspace{-3mm}
+  \begin{itemize*}
+    \item a non-empty set $D$, and
+    \item a function $V$ that assigns to each name a member of $D$ and to each
+    $n$-place predicate a set of $n$-tuples from $D$.
+  \end{itemize*}
+\end{definition}
+
+As always, the purpose of a model is to represent a conceivable scenario together
+with an interpretation of the non-logical vocabulary. The non-logical vocabulary
+of $\L_P$ are the names and predicates, which is why these are interpreted by
+$V$. 
+
+We assume that in any relevant scenario there are some things we want to talk
+about; these things are represented by the domain. The members of $D$ are often
+called \emph{individuals}, but this should not be taken to imply anything about
+their nature. An individual might be a rock, a person, a symphony, a sentence, a
+number, or a possible world. Every $\L_P$-name is assumed to pick out one of
+these individuals. (Different names can pick out the same individual, and there
+can be individuals that aren't picked out by any name.)
+
+Intuitively, a predicate expresses a property or relation that may be
+instantiated by the individuals in the domain. In order to determine the
+truth-value of a sentence like $Fa$ or $\exists x Fx$ in a given scenario,
+however, we only need to know which individuals in the domain have the property
+expressed by $F$. Similarly, to determine the truth-value of sentences like
+$Rab$ or $\forall x \exists y Rxy$, we only need to know which pairs of
+individuals stand in the relation expressed by $R$. That's why the
+interpretation function in a first-order model simply assigns sets of
+individuals or $n$-tuples of individuals to predicates. $Fa$ is true in a given
+model iff the individual assigned to $a$ (in the model) is a member of the set
+assigned to $F$; that is, iff $V(a) \in V(F)$. Likewise, $Rab$ is true in a
+model iff the pair of individuals assigned to $a$ and $b$ -- the pair
+$\t{V(a),V(b)}$ -- is in the set assigned to $R$.
+
+In this way, the truth-value of every closed atomic sentences is determined. For
+truth-functionally complex sentences, the standard rules apply: a negated
+sentence $\neg A$ is true iff the corresponding sentence $A$ is not true;
+$A \land B$ is true iff $A$ and $B$ are both true; and so on.
+
+When we turn to quantified sentences, we face a problem. We can't define the
+truth-value of $\forall x Fx$ in terms of the truth-value of $Fx$, because an
+open sentence like $Fx$ doesn't have a truth-value. Interpretation functions
+interpret names and predicates; they say nothing about variables. Even if we
+changed this and said that $x$ should also be interpreted as picking out a
+member of the domain, we would have to ignore this interpretation when we
+evaluate $\forall x Fx$. We want $\forall x Fx$ to be true iff $Fx$ is true
+\emph{no matter which individual is assigned to $x$}. We therefore define truth
+not just relative to a model, but relative to a model \emph{and an assignment of
+  individuals to variables}.
+
+To illustrate, consider a model with just two individuals, Alice and Bob, which
+are picked out by the names $a$ and $b$ respectively. Let $V(F)$ be the set $\{$
+Alice $\}$, a set that only contains Alice. So $Fa$ is true and $Fb$ false. The
+sentence $Fx$ is neither true nor false, for the variable $x$ does not refer to
+any particular individual. All we can say is that $Fx$ is ``true of'' Alice and
+``false of'' Bob. That is, $Fx$ is true if we assign Alice to $x$ and false if
+we assign Bob to $x$. $\exists x Fx$ is true because there is an individual
+(Alice) of which $Fx$ is true. Equivalently, $\exists x Fx$ is true because
+there is some assignment of individuals to variables relative to which $Fx$ is
+true. $\forall x Fx$ is false because it is not the case that every assignment
+of individuals to variables renders $Fx$ true.
+
+So we'll define truth relative to a model $M = \t{D,V}$ and a variable
+assignment $g$. A \emph{variable assignment} is a function that maps variables
+to members of $D$. When we have nested quantifiers, as in
+$\forall x \exists y Gxy$, we need to consider variable assignments that differ
+from other assignments with respect to a particular variable.
+$\forall x \exists y Gxy$ is true iff, no matter what individual is assigned to
+$x$, there is some assignment of an individual to $y$ (but holding fixed the
+assignment to $x$) that makes $Gxy$ true. Equivalently: $\forall x\exists y Gxy$
+is true iff for every variable assignment $g$, there is some variable assignment
+$g'$ that differs from $g$ at most in what it assigns to $y$ such that $Gxy$ is
+true relative to $g'$.
+
+Let's say that (for any variable $\chi$) a variable assignment $g'$ is an
+\emph{$\chi$-variant} of a variable assignment $g$ iff $g'$ differs from $g$ at
+most in the value it assigns to $\chi$. Let's also introduce $[\tau]^{M,g}$ as
+shorthand for the individual picked out by a term $\tau$ in a model
+$M = \t{D,V}$ relative to assignment $g$:
+\[
+  [\tau]^{M,g} =_\text{def} \begin{cases} \;V(\tau) & \text{ if $\tau$ is a name}\\
+    \;g(\tau) & \text{ if $\tau$ is a variable}.
+  \end{cases}
+\]
+This is a compact way of saying that (1) for any variable $\chi$, $[\chi]^{M,g}$
+is the individual assigned to $\chi$ by $g$, and (2) for any name $\eta$,
+$[\eta]^{M,g}$ is the individual assigned to $\eta$ by the interpretation function
+of $M$.
+
+Now we can state the standard semantics of first-order predicate logic.
+(`$M,g \models A$' is pronounced `$A$ is true in $M$ relative to $g$').
+
+\begin{definition}{Semantics of first-order predicate logic}{predicatesemantics}
+  If $M = \t{D,V}$ is a first-order model, $\phi^{n}$ is an $n$-place predicate
+  (for $n\geq 0$), $\tau_1,\ldots,\tau_n$ are terms, $\chi$ is a variable, and
+  $g$ is a variable assignment, then
+  
+  \medskip
+  \begin{tabular}{lll}
+    (a) & $M,g \models \phi^{n} \tau_1\ldots \tau_n$ &iff $\t{[\tau_1]^{M,g},\ldots,[\tau_n]^{M,g}} \in V(\phi)$.\\
+    % (b) & $M,g \models \tau_1=\tau_2$ &iff $[\tau_1]^{M,g} = [\tau_2]^{M,g}$.\\
+    (b) & $M,g \models \neg A$ &iff $M,g \not\models A$.\\
+    (c) & $M,g \models A \land B$ &iff $M,g \models A$ and $M,g \models B$.\\
+    (d) & $M,g \models A \lor B$ &iff $M,g \models A$ or $M,g \models B$.\\
+    (e) & $M,g \models A \to B$ &iff $M,g \not\models A$ or $M,g \models B$.\\
+    (f) & $M,g \models A \leftrightarrow B$ &iff $M,g \models A\to B$ and $M,g \models B\to A$.\\
+    (g) & $M,g \models \forall \chi A$ &iff $M,g' \models A$ for all $\chi$-variants $g'$ of $g$.\\
+    (h) & $M,g \models \exists \chi A$ &iff $M,g' \models A$ for some $\chi$-variant $g'$ of $g$.
+  \end{tabular}
+\end{definition}
+
+Clause (a) says that, for example, $Fa$ is true in a model $M$ relative to an
+assignment $g$ iff in that model, the predicate $F$ applies to the individual
+picked out by $a$. Clauses (b)-(f) say that the truth-functional operators are
+interpreted in the standard fashion. Clauses (g) and (h) tell us how quantified
+sentences are interpreted. $\exists x Fx$, for example, is true relative to $M$
+and $g$ iff $Fx$ is true relative to some assignment function $g'$ that differs
+from $g$ at most in what it assigns to $x$.
+
+Definition \ref{def:predicatesemantics} settles the truth-value of every
+$\L_P$-sentence in every (first-order) model, relative to any assignment
+function.
+
+We can also define a concept of truth relative to a model, without reference to
+an assignment function. Let's say that an $\L_P$-sentence is \textbf{true in a
+  model} $M$ iff it is true in $M$ relative to \emph{every} assignment function
+$g$ for $M$.
+
+Finally, we say that an $\L_P$-sentence is \textbf{valid} (in classical
+first-order logic) iff it is true in all (classical, first-order)
+models. Equivalently: An $\L_P$ sentence is valid iff it is true in all models
+relative to all assignment functions.
+
+On the present definition, $Fx \to Fx$ is valid, even though it does not make a
+complete statement, due to the free variable $x$. To avoid this, many authors
+restrict the concept of validity to closed sentences.
+
+% We will do so below, because our tree rules don't allow proving Fx v ~Fx. But
+% we don't officially commit to it here. The problem is that if we don't define
+% validity for open sentences then modal logic isn't a fragment of predicate
+% logic: Fx v \neg Fx should be valid.
+
+\begin{exercise}
+  Define a first-order model in which $\exists x Fx \to \forall x Fx$ is
+  false. Demonstrate that the sentence is false in your model by applying all
+  relevant clauses from definition \ref{def:predicatesemantics}.
+\end{exercise}
+\begin{solution}
+  Let the model $M$ be given by $D = \{ \text{Rome}, \text{Paris} \}$ and
+  $V(F) = \{ \text{Rome} \}$. By clause (a) of definition
+  \ref{def:predicatesemantics}, $M,g' \models Fx$ holds for every assignment
+  function $g'$ that maps $x$ to Rome, because then $g'(x) \in V(F)$. By clause
+  (h) it follows that $M,g \models \exists x Fx$ for every assignment function
+  $g$. By clause (a) again, $M, g' \not\models Fx$ for every assignment function
+  $g'$ that maps $x$ to Paris. By clause (g), it follows that
+  $M,g \not\models \forall x Fx$ for every assignment function $g$. So
+  $\exists x Fx$ is true (in $M$) relative to every assignment function while
+  $\forall x Fx$ is false relative to every assignment function. By clause (e)
+  it follows that $\exists x Fx \to \forall x Fx$ is false in $M$ relative to
+  every assignment function.
+\end{solution}
+
+\begin{exercise}
+  The definition of truth in a model uses the method of supervaluation
+  that we met in section \ref{sec:branching}. Give examples to illustrate the
+  following claims.
+  
+  \begin{exlist}
+  \item If a sentence $A$ is not true in a model, it does not follow that
+    $\neg A$ is true in the model.
+  \item A disjunction $A \lor B$ can be true in a model even though neither $A$
+    nor $B$ is true in the model. 
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  For both cases, use $Fx$ as the sentence $A$, and $\neg Fx$ as $B$, and
+  consider a model in which $F$ applies to some but not to all individuals. Both
+  $Fx$ and $\neg Fx$ are then true relative to some assignment functions and
+  false relative to others. So neither sentence is true in the model. But
+  $Fx \lor \neg Fx$ is true relative to every assignment function.
+\end{solution}
+
+\section{Modal fragments of predicate logic}
+\label{sec:fragment}
+
+Much of the power and complexity of predicate logic comes from its ability to
+handle nested quantifiers with different variables. For some applications, these
+complexities aren't needed, and we can simplify the semantics.
+
+Consider a fragment $\L_P^1$ of $\L_P$ with only one variable $x$, no names, and
+only one-place predicates. In $\L_P^1$, we have sentences like $Fx$,
+$\forall x Gx$, $\forall x \exists x (Fx \to Gx)$, but not $Fa$ or
+$\forall x \exists y(Fx \to Gy)$.
+
+Following definition \ref{def:predicatemodel}, a model for $\L_P^1$ consists of
+a non-empty set $D$ and an interpretation function $V$ that assigns to each
+predicate a subset of $D$. That is, for $\L_{P}^{1}$ definition
+\ref{def:predicatemodel} can be simplified as follows:
+
+\begin{justabox}
+  A \textbf{model of $\L_P^1$} is a pair $\t{D,V}$
+  consisting of \vspace{-1mm}
+  \begin{itemize*}
+  \item a non-empty set $D$, and
+  \item a function $V$ that assigns to every $\L_P^1$-predicate a subset of $D$.
+  \end{itemize*}
+\end{justabox}
+
+We can also simplify definition \ref{def:predicatesemantics}. Since $\L_P^1$ has
+only one variable $x$, an assignment function for $\L_P^1$ only needs to tell us
+which individual in $D$ is picked out by $x$. So we can represent an entire
+assignment function for $\L_P^1$ by a member of $D$. This leaves us with the
+following semantics.
+
+\begin{justabox}
+  If $M = \t{D,V}$ is a model for $\L_P^1$, $d$ is a member of $D$, and $\phi$
+  is an $\L_{P}^{1}$-predicate, then
+  
+  \medskip
+  \begin{tabular}{lll}
+    (a) & $M,d \models \phi x$ &iff $d \in V(\phi)$.\\
+    (b) & $M,d \models \neg A$ &iff $M,d \not\models A$.\\
+    (c) & $M,d \models A \land B$ &iff $M,d \models A$ and $M,d \models B$.\\
+    (d) & $M,d \models A \lor B$ &iff $M,d \models A$ or $M,d \models B$.\\
+    (e) & $M,d \models A \to B$ &iff $M,d \not\models A$ or $M,d \models B$.\\
+    (f) & $M,d \models A \leftrightarrow B$ &iff $M,d \models A\to B$ and $M,d \models B\to A$.\\
+    (g) & $M,d \models \forall x A$ &iff $M,d' \models A$ for all $d' \in D$.\\
+    (h) & $M,d \models \exists x A$ &iff $M,d' \models A$ for some $d' \in D$.
+  \end{tabular}
+\end{justabox}
+
+These definitions look a lot like definitions \ref{def:basicmodel} and
+\ref{def:basicsemantics} from chapter \ref{ch:worlds}. The only difference is
+that the sentence letters from chapter \ref{ch:worlds} are now called predicates
+and written in uppercase, the box is written $\forall x$, the diamond
+$\exists x$, and we always append the letter $x$ to sentence letters: we write
+$\forall x Fx$, not $\forall x F$. But it doesn't really matter how a symbol is
+called or how it is written.
+
+The upshot is that propositional modal logic, interpreted as in chapter
+\ref{ch:worlds}, can be regarded as a disguised \emph{fragment of first-order
+  predicate logic}. The sentence letters of $\L_M$ are disguised (one-place)
+predicates, the box and the diamond are disguised quantifiers. If we adopted the
+orthographic convention to write the box as $\forall x$, the diamond as
+$\exists x$, and to always append the letter $x$ to (capitalised) sentence
+letters, $\L_M$ would look just like $\L_P^1$, and it would have the same
+semantics.
+
+If we use chapter \ref{ch:accessibility}'s Kripke semantics rather than the
+simple semantics from chapter \ref{ch:worlds} to interpret $\L_{M}$, we get a
+different fragment of first-order predicate logic. The box and the diamond are
+still disguised quantifiers, but this time they are restricted by the
+accessibility relation. We could drop the disguise by writing $\Box p$ as
+$\forall y(Rxy \to Py)$ and $\Diamond p$ as $\exists y(Rxy \land Py)$. The
+fragment of $\L_P$ that now corresponds to $\L_M$-sentences has two variables
+$x$ and $y$ and one two-place predicate `$R$' in addition to the one-place
+predicates; it no longer has unrestricted quantifiers.
+
+What's the point of the disguise? Why didn't we write boxes and diamonds as
+$\L_P$-quantifiers all along? There are several reasons.
+
+One is that we often use the box and the diamond to formalize pre-theoretic
+concepts of which it is not obvious that they can be understood as a quantifiers
+over worlds. Some hold that the correct semantics for obligation and permission,
+for example, is not Kripke semantics, but neighbourhood semantics. The language
+of modal propositional logic is neutral on this disagreement. Or think of
+provability logic, where the box formalizes mathematical provability. As it
+turns out, one can give a Kripke semantics for provability, but nobody thinks
+this somehow reveals what provability really means. In provability logic,
+$\Box A$ means that $A$ is derivable from the axioms and rules of (say) ZFC; it
+would not be illuminating to write this as $\forall y(Rxy \to Ay)$.
+
+One might also argue that the syntax of modal logic conveniently resembles the
+surface form of English statements that we may want to formalize. In `Bob knows
+that it is raining', for example, the object of Bob's knowledge is specified by
+`it is raining'. It seems appropriate to formalize the sentence in terms of an
+operator $\Kn$ that applies to a sentence, $p$. If we ``dropped the disguise'',
+the formalization would be $\forall y(Rxy \to Py)$. The sentence `it is raining'
+would have to be translated by a predicate $P$ -- a predicate that applies to
+all and only the worlds at which it is raining.
+
+There is a deeper point here. Sentences of modal logic are interpreted \emph{at
+  a world} in a model. Modal logic looks at models ``from the inside'', from the
+perspective of a particular world. Predicate logic, by contrast, describes
+models ``from the outside'', from a God's eye perspective. If we want to say
+that a particular individual has a property $P$ in predicate logic, we need to
+pick out that individual among all the elements of the domain, perhaps by a
+name. We can then say $Pa$. In modal logic, we can simply say $p$ to express
+that the internal point from which we're looking at the model has the relevant
+property.
+
+For many applications, this internal perspective is very natural. When we think
+about what is possible or about what the future will bring, our thinking takes
+place at a particular time, in a particular world. We are looking at the
+structure of times and worlds from the inside. When I say that it is raining, I
+mean that it is raining \emph{here and now}, in \emph{this world}. I don't need
+to pick out the relevant time and place and world from a God's eye perspective.
+I can pick them out simply as the time and place and world at which I currently
+find myself.
+
+There are other, more pragmatic reasons to use the modal language $\L_M$ rather
+than $\L_P$. The language of boxes and diamonds is simpler than the language of
+first-order predicate logic. It has a simpler syntax, a simpler semantics, and
+allows for simpler proofs. For almost all the conceptions of validity we have
+studied (K-validity, S4-validity, etc.), there are efficient mechanical
+procedures to determine whether an arbitrary $\L_M$-sentence is valid or
+invalid, By contrast, there is no mechanical procedure at all to determine, for
+an arbitrary $\L_P$-sentence, whether it is valid or invalid.
+
+You may wonder how this is possible given that $\L_M$-sentence are just
+$\L_P$-sentences in disguise. The reason is that while every $\L_M$-sentence is
+a disguised $\L_P$-sentence, not every $\L_P$-sentence can be disguised as an
+$\L_M$-sentence. There are many things one can say in $\L_P$ that can't be said
+in $\L_M$. The $\L_{P}$-sentence $\forall x Rxx$, for example, states that $R$
+is reflexive. No sentence of $\L_M$ has this meaning: there is no
+$\L_{M}$-sentence that is true at a world in a model iff the model's
+accessibility relation is reflexive.
+
+That's why modal propositional logic, interpreted as in chapter \ref{ch:worlds}
+or \ref{ch:accessibility}, is a disguised \emph{fragment} of predicate logic. It
+is a simple and computationally attractive fragment that takes an ``internal''
+perspective on models.
+
+\begin{exercise}
+  Since $\Box A \to A$ corresponds to reflexivity, one might think that
+  $\Box p \to p$ is true at a world in a model iff the model's accessibility
+  relation is reflexive. (a) Explain why this is not correct. (b) Can you also
+  show that there is no $\L_{M}$-sentence that is true at a world in a model iff
+  the model's accessibility is reflexive?
+\end{exercise}
+\begin{solution}
+  There are many non-reflexive models in which $\Box p \to p$ is true at some
+  world -- for example, any non-reflexive model in which $p$ is false at all
+  worlds.
+
+  For the more general question, let $M_1$ be a model with a single world that
+  can see itself. Let $M_{2}$ be a model with two worlds, each of which can see
+  the other but not itself. In both models, all sentence letters are false at
+  all worlds. The very same $\L_M$-sentences are true at all worlds in these
+  models (as a simple proof by induction shows). But the first model is
+  reflexive and the second isn't. So there is no $\L_{M}$-question that is true
+  at a world in a model iff the model's accessibility relation is reflexive.
+\end{solution}
+
+% \begin{exercise}
+%   Can you give another example of an $\L_P$-sentence (about a Kripke model) for
+%   which there is no equivalent $\L_M$-sentence?
+% \end{exercise}
+% \begin{solution}
+%   For example: $\forall w \neg Rww$ states that $R$ is reflexive; as the answer
+%   to the previous exercise shows, this can't be expressed in $\L_M$. 
+% \end{solution}
+
+% \begin{exercise}
+%   standard translation? 
+% \end{exercise}
+
+
+\section{Predicate logic proofs}
+
+If we want to know whether a given $\L_{P}$-sentence is valid or invalid, we
+could in principle work through definition \ref{def:predicatesemantics}. Various
+proof systems for classical predicate logic offer a more streamlined approach.
+
+Let's look at the tree method for classical predicate logic. Suppose we want to
+test whether $\exists x(Fx \land Gx) \to \exists x Fx$ is valid. As always, we
+start the tree with the negation of the target sentence:
+
+\medskip
+\begin{center}
+  \tree{
+    \nnode{26}{1.}{$\neg(\exists x (Fx \land Gx) \to \exists x Fx)$}{}{(Ass.)}
+  }
+\end{center}
+\medskip%
+There is no world label because we're not doing modal logic. Next, we apply the
+standard rule for negated conditionals:%
+\medskip
+\begin{center}
+  \tree{
+    \nnode{26}{2.}{$\exists x (Fx \land Gx)$}{}{(1)}\\
+    \nnode{26}{3.}{$\neg\exists x Fx$}{}{(1)}
+  }
+\end{center}
+
+\medskip\noindent
+Node 2 says that $Fx \land Gx$ is true of some individual. To
+expand this node, we introduce a new name $a$ for that individual, and infer
+$Fa \land Ga$.
+\medskip
+\begin{center}
+  \tree{
+    \nnode{26}{4.}{$Fa \land Ga$}{}{(2)}\\
+  }
+\end{center}
+
+\medskip\noindent%
+We expand the conjunction on node 4.
+\medskip
+\begin{center}
+  \tree{
+    \nnode{26}{5.}{$Fa$}{}{(4)}\\
+    \nnode{26}{6.}{$Ga$}{}{(4)}
+  }
+\end{center}
+Next, we expand node 3, which says that $Fx$ is true of nothing. In particular
+then, $Fx$ can't be true of $a$. So we add $\neg Fa$:
+
+\medskip
+\begin{center} \tree{
+    \nnodeclosed{26}{7.}{$\neg Fa$}{}{(3)}
+  }
+\end{center}
+
+\medskip\noindent%
+The tree is closed because the sentence on node 7 is the negation of the
+sentence on node 5. The target sentence is valid.
+
+To state the general rules, we need some more notation. If $A$ is a sentence,
+$\chi$ is a variable, and $\eta$ is a name, let $A[\eta/\chi]$ be the sentence
+obtained from $A$ by replacing all free occurrences of $\chi$ with $\eta$. So
+$Fx[a/x]$ is $Fa$, but $\forall x Fx[a/x]$ is $\forall x Fx$ because this
+sentence contains no free occurrences of $x$.
+
+The general rule for expanding nodes of type $\exists \chi A$ is that you add a
+node $A[\eta/\chi]$, where $\eta$ is a ``new'' name that does not already occur
+on the relevant branch. If this node has been added to every open branch below
+$\exists \chi A$ then the $\exists \chi A$ node can be ticked off.
+$\forall \chi A$ nodes can be expanded multiple times, once for each ``old''
+name. So if $\forall x A$ occurs on a branch, and the branch contains the names
+$a$ and $b$ then we can add both $A[a/x]$ and $A[b/x]$. If there is no old name
+on a branch, we are allowed to expand $\forall \chi A$ with a new name.
+$\forall \chi A$ nodes are never ticked off.
+
+Here is a summary of the quantifier rules; `old or first' means that the
+relevant name either already occurs on the branch or it is introduced as the
+first name on the branch.
+
+\bigskip
+
+\begin{minipage}{0.24\textwidth} \centering
+\tree{
+  \dotbelownode{12}{}{$\forall \chi A$}{}{}\\
+  \\
+  \nnode{12}{}{$A[\eta/\chi]$}{}{}\\
+  \Kk[-1]{0}{\color{red}$\uparrow$}\\
+  \Kk[0]{0}{\color{red}\small old or first}
+}
+\end{minipage}
+\begin{minipage}{0.24\textwidth}\centering
+\tree{
+  \dotbelownode{12}{}{$\exists \chi A$}{}{}\\
+  \\
+  \nnode{12}{}{$A[\eta/\chi]$}{}{}\\
+  \Kk[-1]{0}{\color{red}$\uparrow$}\\
+  \Kk[0]{0}{\color{red}\small new}
+}
+\end{minipage}
+\begin{minipage}{0.24\textwidth}\centering
+\tree{
+  \dotbelownode{12}{}{$\neg \forall \chi  A$}{}{}\\
+  \\
+  \nnode{12}{}{$\neg A[\eta/\chi]$}{}{}\\
+  \Kk[0]{0}{\color{red}$\uparrow$}\\
+  \Kk[1]{0}{\color{red}\small new}
+}
+\end{minipage}
+\begin{minipage}{0.24\textwidth} \centering
+\tree{
+  \dotbelownode{12}{}{$\neg \exists \chi A$}{}{}\\
+  \\
+  \nnode{12}{}{$\neg A[\eta/\chi]$}{}{}\\
+  \Kk[0]{0}{\color{red}$\uparrow$}\\
+  \Kk[1]{0}{\color{red}\small old or first}
+}
+\end{minipage}
+
+\medskip
+
+\begin{exercise}
+  Give tree proofs for the following sentences.
+  \begin{exlist}
+  \item $\forall x Fx \to Fa$
+  \item $\forall x (Fx \to Gx) \to (\forall x Fx \to \forall x Gx)$
+  \item $\forall x (Fx \land Gx) \leftrightarrow (\forall x Fx \land \forall x Gx)$
+  \item $\exists x\forall y Gxy \to \forall y \exists x Gxy$
+  \item $\exists y \forall x(Fy \to Fx)$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  Use \href{https://www.umsu.de/trees/}{umsu.de/trees/}.
+\end{solution}
+
+There are also axiomatic calculi for predicate logic. We can, for example, use
+the following axiom schemas:
+%
+\begin{principles}
+  \pri{$\forall\exists$}{\neg\exists \chi A \leftrightarrow \forall \chi \neg A}\\
+  \pri{UI}{\forall \chi A \to A[\eta/\chi]}\\
+  \pri{DI}{\forall \chi (A \to B) \to (A \to \forall \chi B),\text{ if $\chi$ is not free in $A$}}
+\end{principles}
+%
+To these we would add the following rules. As in earlier chapters, $\Gamma \models_{P} A$ means that $A$ is a truth-functional consequence of (the sentences in) $\Gamma$.
+\begin{principles}
+  \pri{CPL}{\text{If }\Gamma \models_{P} A\text{ and all members of }\Gamma\text{ are on a proof, then one may add $A$.}}\\
+  \pri{Gen}{\text{If $A$ occurs on a proof, then one may add $\forall \chi A[\eta/\chi]$.}}
+\end{principles}
+
+% These are based on Bostock, pp.220f.. Bostock doesn't have the duality rule
+% because he takes \exists as defined. His GEN rule says that if |- A then |-
+% \forall\chi A[\chi/\nu]. I.e., it converts provable closed sentences into
+% quantifies sentences. His UI rule (A4) says \forall \chi A \to A[\nu/\chi],
+% i.e. it doesn't allow deriving (x)Fx -> Fx. He mentions that if open sentences
+% are permitted then my version must be used. I'm not sure why we need the
+% substitution in GEN. Suppose we can prove the closed sentence phi(a).
+% Bostock's GEN allows inferring (x)phi(x). If in every such case we can also
+% prove phi(x) then my simpler rule (Gen) suffices. I think all my axioms and
+% rules are neutral between names and variables, insofar as any proof ending
+% with phi(a) can be converted into a proof of phi(x) by simply replacing all
+% occurrences of a with x (for some x). For how could the name have been
+% introduced? Either by (CPL), e.g. through the tautology Fa v ~Fa, in which
+% case one could just as well use a variable, or by (UI), where again one can
+% just as well use a variable. All inferences from sentences with the name can
+% still be made if the name is replaced by a variable.
+
+The calculus is sound and complete: everything that can be proved is valid, and
+every valid (closed) sentence can be proved. The above tree rules are also sound
+and complete.
+
+\begin{exercise}
+  The completeness proof for first-order trees (like the proof in chapter
+  \ref{ch:proofs}) shows that if a sentence is valid then any fully expanded
+  tree for that sentence will close, provided the tree rules are applied in a
+  sensible order. Why doesn't this contradict the claim I made in the previous
+  section. that there is no mechanical procedure to determine, for an arbitrary
+  $\L_P$-sentence, whether the sentence is valid? (Tree proofs count as
+  ``mechanical'', so that's not the problem.)
+\end{exercise}
+\begin{solution}
+  If a sentence is valid (in first-order predicate logic) then a fully expanded
+  tree for the sentence will close and show that the sentence is valid. But if a
+  sentence is not valid, the tree might grow forever. There is no algorithm for
+  detecting whether a tree will grow forever. 
+\end{solution}
+
+
+\section{Modality de dicto and de re}
+
+% A student: "Page 179 of the Modal Predicate Logic handout. I don't
+% understand the de re sentence Ex◇Fx. ◇Fx means that there is some x
+% at v which is F, that's fine. But what does the existential
+% qualifier mean in this context? That there is some x at world w that
+% can see Fx at v? If so, surely all x at w can see v, in which case
+% any existential qualifier followed by a modal operator would be
+% either Ex or Vx?"
+
+We are now ready to add boxes and diamonds to the language of first-order
+predicate logic. This gives us the \textbf{standard language of first-order
+  modal logic}, or $\L_{M\!P}$. The sentences of $\L_{M\!P}$ are defined as
+follows.
+%
+\begin{enumerate}[leftmargin=9mm]
+  \itemsep-1mm
+  \item An $n$-place predicate followed by $n$ terms is an $\L_{M\!P}$-sentence.
+  \item If $A$ is an $\L_{M\!P}$-sentence, then so are $\neg A$, $\Diamond A$,
+        and $\Box A$.
+  \item If $A$ and $B$ are $\L_{M\!P}$-sentences, then so are $(A \land B)$,
+        $(A \lor B)$, $(A \to B)$ and $(A \leftrightarrow B)$.
+  \item If $A$ is an $\L_{M\!P}$-sentence and $\chi$ is a variable, then
+        $\forall \chi A$ and $\exists \chi A$ are $\L_{M\!P}$-sentence.
+  \item Nothing else is an $\L_{M\!P}$-sentence.
+\end{enumerate}
+
+We continue to interpret the box and the diamond as (disguised) quantifiers. So
+$\L_{M\!P}$ effectively has two kinds of quantifiers: overt quantifiers of the
+form $\forall \chi$ and $\exists \chi$, and the disguised quantifiers $\Box$ and
+$\Diamond$. This is only useful if the two kinds of quantifiers range over
+different things. In applications of modal predicate logic, the box and the
+diamond usually range over possible worlds or times, while the overt
+quantifiers range over things like people, rocks, ghosts, etc., which are
+assumed to inhabit the worlds or times.
+
+To illustrate, consider the following inference, in which I've written the box as `$\Kn$'.
+
+\bigskip
+\begin{tabular}{ll}
+  Bob knows that all humans are mortal. & $\Kn\forall x (Hx \to Mx)$\\
+  Socrates is human. & $Hs$\\
+  Therefore: Socrates is mortal. & $Ms$
+\end{tabular}
+\bigskip
+
+\noindent%
+The knowledge operator $\Kn$ is a quantifier over the worlds compatible with
+Bob's (implicit) knowledge. $\Kn\forall x (Hx \to Mx)$ says that
+$\forall x (Hx \to Mx)$ is true at every world compatible with Bob's knowledge.
+$\forall x (Hx \to Mx)$ is assumed to quantify not over worlds, but over things
+that exist relative to a world. $\forall x (Hx \to Mx)$ is true at a world $w$
+iff $Hx \to Mx$ is true of every inhabitant of $w$, meaning that every
+inhabitant of $w$ is either not human or mortal. The inference is valid because
+the accessibility relation for knowledge is reflexive.
+
+Imagine a lottery. Let's read the box as `it is certain that' and $W$ as `-- is
+a winning ticket'. Can you see what is expressed by the following two
+statements?
+\begin{enumerate}[leftmargin=14mm]
+  \itemsep-1mm
+  \item[(1)] $\Box \exists x Wx$
+  \item[(2)] $\exists x \Box Wx$
+\end{enumerate}
+%
+(1) says that it is certain that some ticket wins: at every epistemically
+accessible world there is a winning ticket. (2) says that there is a particular
+ticket of which we are sure that it will win: there is an individual such that
+at every epistemically accessible world, \emph{it} is the winning ticket.
+(2) is only true if we know which ticket is the (or a) winning ticket.
+
+Sentences like $\exists x \Box Wx$ are called \textbf{de re}, Latin for `of a
+thing'. Intuitively, $\exists x \Box Wx$ assert \emph{of} a particular ticket
+that it has a modal property, namely the property of being the certain winner.
+By contrast, $\Box \exists x Fx$, merely states that the proposition (Latin,
+\emph{dictum}) $\exists x Fx$ is certain. Sentences like this are called
+\textbf{de dicto}.
+
+In general, an $\L_{M\!P}$-sentence is \emph{de re} whenever it contains a
+variable that is free in the scope of some modal operator. To determine
+whether a sentence $A$ is \emph{de re}, first identify all subsentences of $A$
+that constitute the scope of a modal operator. (In $\exists x \Box Wx$, there is
+one such subsentence: $\Box Wx$.) Next, check if at least one of these
+subsentences contains a free variable. ($\Box Wx$ contains the free variable
+$x$.) If yes, the sentence $A$ is \emph{de re}.
+
+If a sentence contains a modal operator and is not \emph{de re}, then it is
+\emph{de dicto}. So $\forall x (Fx \to \Box Gx)$ and
+$\exists y\Box (\forall x Fx \to Fy)$ are \emph{de re}, but
+$\Box \forall x Fx \to Fa$ is \emph{de dicto}. $\forall x Fx \to Fa$ is neither
+\emph{de dicto} nor \emph{de re}, because it isn't modal.
+
+There is no consensus on how to classify sentences like $\Box Fa$ that contain
+a name, but no free variable, in the scope of a modal operator. One might argue
+that $\Box Fa$ is \emph{de dicto} because it attributes a modal status -- say,
+necessity -- to the proposition $Fa$. But one might also interpret the sentence
+as attributing a modal property to the individual $a$: the property of being
+necessarily $F$. The sentence should then be classified as \emph{de re}. Which
+of these two perspectives is more adequate depends on the precise semantics of
+$\L_{M\!P}$. We therefore have to postpone the question until the next chapter,
+where we will consider some options for developing a semantics of $\L_{M\!P}$.
+
+% I don't actually return to the question, do I?
+
+Many natural-language sentences are ambiguous between a \emph{de re} reading and
+a \emph{de dicto} reading. Consider `something necessarily exists'. This can
+mean either that there is an object which could not have failed to exist
+($\exists x \Box Ex$); but it can also mean that it is necessary that something
+or other exists ($\Box \exists x Ex$). The first reading is \emph{de re}, the
+second \emph{de dicto}.
+
+\begin{exercise}
+  Translate the following sentences into modal predicate logic. (Some of them
+  are ambiguous.)
+  \begin{exlist}
+  \item John must be hungry.
+  \item Anyone who is a cyclist must have legs.
+  \item Every day might be our last.
+  \item If anyone wants to leave early, they should do so quietly.
+  \item Everyone who bought a ticket is allowed to enter.
+  % \item One day, all those who are rich will be poor.
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+
+  \begin{sollist}
+    \item $\Box Fa$ \\ $a$: John, $F$: -- is hungry.\\[1mm]
+    (Might be classified as either \emph{de re} or \emph{de dicto}.)\\[-2mm]
+    
+  \item $\Box \forall x(Fx \to Gx)$ \\ $F$: -- is a cyclist, $G$: -- has legs.\\[1mm]
+    This is \emph{de dicto}. Also correct (but different in meaning) is the \emph{de re} translation $\forall x (Fx \to \Box Gx)$.
+    Close but incorrect (and \emph{de re}): $\forall x \Box(Fx \to Gx)$.\\[-2mm] 
+    
+  \item $\forall x (Fx \to \Diamond Gx)$ \\ $F$: -- is a day, $G$: -- is our last day.\\[1mm]
+    This is \emph{de re}. The English sentence could also be understood \emph{de dicto}, as 
+    $\Diamond \forall x (Fx \to Gx)$, but that would be a very strange
+    thing to say.\\[-2mm]
+    
+  \item %If anyone wants to leave early, they should do so quietly.
+    $\forall x \Ob(Fx \to Gx)$\\
+    $F$: -- wants to leave early, $G$: -- leaves quietly.\\[1mm]
+    Even better, if we can use the conditional obligation operator: $\forall x \Ob(Gx / Fx)$. These aren't too far off either:
+    $\forall x (Fx \to \Ob Gx)$, $\Ob\forall x(Fx \to Gx)$ .
+
+    All of these are \emph{de re}. \\[-2mm]
+    
+  \item % Everyone who bought a ticket is allowed to enter.
+
+    $\forall x (\exists y (Fy \land Hxy) \to \Pe Gx)$\\
+    $F$: -- is a ticket, $G$: -- enters, $H$: -- bought --.\\[1mm]
+    Perhaps even better: $\forall x \Pe(Gx/ \exists y (Fy \land Hxy))$.
+    Both of these are \emph{de re}.\\[1mm]
+    You could translate `bought a ticket' as a simple predicate here;
+    you could also use a temporal operator to account for the past
+    tense of `bought' (but it's confusing to use two different kinds
+    of `$\tP$' in one sentence).
+    \\[-2mm]
+
+   % \item $\tF \forall x (Fx \to Gx$)\\
+   %  $F$: -- is rich, $G$: -- is poor.\\[1mm]
+   %  Assuming that `rich' and `poor' are incompatible, this is equivalent to $\tF \forall x \neg Fx$.\\
+   %  The more natural reading of the sentence can only be captured with the `now' operator:
+   %  $\tF \forall x (\tN Fx \to Gx)$.\\[1mm]
+   %  Both translations are \emph{de re}.
+  \end{sollist}
+\end{solution}
+
+\begin{exercise}
+  Which of your translations from the previous exercise are \emph{de
+    re} and which are \emph{de dicto}?
+\end{exercise}
+\begin{solution}
+  See the previous answer.
+\end{solution}
+
+On some interpretations of the modal operators, one may question whether
+\emph{de re} sentences are intelligible. Suppose we interpret the box as `it is
+analytic that' or `it is provable that'. The things that are analytic or
+provable are sentences or propositions. That 2+2=4, for example, is provable in
+ZFC, and `all vixens are female foxes' is analytic in English. (Remember that a
+sentence is analytic if it is true in virtue of its meaning.) It is not clear
+what it could mean to say that something is provable or analytic \emph{of} a
+particular thing.
+
+To illustrate the problem, let's introduce the name `Julius' for whoever
+invented the zip. The sentence `Julius invented the zip' is analytic. (In fact,
+`Julius invented the zip' entails that someone invented the zip, which is not
+analytic. We should really use `If anyone invented the zip, then Julius invented
+the zip'. Let's ignore this complication.) But is it analytic \emph{of} the
+person who invented the zip that they invented the zip? The problem is that this
+person has multiple names, and depending on which name we plug into the schema
+`--- invented the zip', we sometimes get an analytic truth and sometimes not.
+For `Julius', the sentence is analytic; for whatever name the inventor of the
+zip was given by his or her parents, the sentence is not analytic.
+
+This kind of worry was prominently raised by W.V.O.\ Quine in the 1940s.  It has
+since faded, mostly because philosophers have turned their attention away from
+analyticity to other interpretations of the box for which the problem is thought
+not to arise. But we will return to the matter in section \ref{sec:twi}.
+
+% factoid: ``(Ex)[]A is not equivalent to any de dicto sentence even in
+% S5+BF and so not in any weaker system.'' Cresswell 149.
+
+\section{Identity and descriptions}
+\label{sec:identity}
+
+In applications of modal and non-modal predicate logic, it is often useful to
+have a special predicate for identity. Let's assume that $\L_P$ and $\L_{M\!P}$
+have the two-place predicate `='. The identity predicate is conventionally
+placed between its two arguments: we write `$a=b$', not `$=\!ab$'. We also write
+`$a\not=b$' instead of `$\neg(a\!=\!b)$'.
+
+Unlike the other predicates of $\L_P$ and $\L_{M\!P}$, the identity predicate
+counts as a logical symbol. Its meaning is held fixed. In any model, $a=b$
+means that the individual picked out by $a$ is the very same thing as the
+individual picked out by $b$. This is reflected by the following clause, which
+we add to the semantics of predicate logic:
+\[
+  M,g \models \tau_1\!=\!\tau_2\text{ \; iff }[\tau_1]^{M,g} = [\tau_2]^{M,g}.
+\]
+
+It is easy to see that the sentence $a=a$ is now valid, because $a$ and $a$ are
+guaranteed to pick out the same individual. More interestingly, since the
+function of a name in classical predicate logic is just to pick out an
+individual, it never matters which of two names we use if they pick out the same
+individual. That is, if $a=b$ is true, then replacing some or all occurrences of
+$a$ in a sentence with $b$ never affects whether that sentence is true. This
+principle is known as \textbf{Leibniz' Law}.
+
+To reflect these facts, the tree method for (non-modal) predicate logic must be
+extended by two new rules. First, if $\eta$ is an ``old'' name (that already
+occurs on a branch) then we can always add a node $\eta=\eta$ to the branch.
+Second, if an identity statement $\eta_1=\eta_2$ occurs on a branch, and some
+sentence $A$ on the branch contains $\eta_1$, then we may add a new node with
+the same sentence $A$ except that one or more occurrences of $\eta_1$ in $A$ are
+replaced by $\eta_2$, or one or more occurrences of $\eta_2$ by $\eta_1$. Let
+$A[\eta_2//\eta_1]$ stand for any sentence that results from $A$ by replacing
+one or more occurrences of $\eta_1$ by $\eta_2$. The new rules can then be
+summarized as follows.
+
+\bigskip
+\begin{center}
+  \begin{minipage}[t]{0.3\textwidth} \centering
+
+    Self-Identity
+    
+    \tree{
+      \dotbelowbarenode{}\\
+      \\
+      \barenode{$\eta=\eta$}\\
+      \Kk[0]{0}{\color{red}$\uparrow$\hspace{6mm}}\\
+      \Kk[0]{0}{\color{red}\small old\hspace{6mm}}
+    }
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth} \centering
+    Leibniz' Law
+    \bigskip
+
+    \tree{
+      \nnode{20}{}{$\eta_1=\eta_2$}{}{}\\
+      \dotbelownode{20}{}{$A$}{}{}\\
+      \\
+      \nnode{20}{}{$A[\eta_2//\eta_1]$}{}{}
+    }
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth} \centering
+    Leibniz' Law
+    \bigskip
+
+    \tree{
+      \nnode{20}{}{$\eta_1=\eta_2$}{}{}\\
+      \dotbelownode{20}{}{$A$}{}{}\\
+      \\
+      \nnode{20}{}{$A[\eta_1//\eta_2]$}{}{}
+    }
+  \end{minipage}
+  
+\end{center}
+
+
+\bigskip
+
+Here is a tree for $(Raa \land a\!=\!b) \to Rab$, using Leibniz's Law.
+
+\medskip
+\begin{center}
+  \tree{
+    \nnode{30}{1.}{$\neg((Raa \land a\!=\!b) \to Rab)$}{}{(Ass.)}\\
+    \nnode{30}{2.}{$Raa \land a\!=\!b$}{}{(1)}\\
+    \nnode{30}{3.}{$\neg Rab$}{}{(1)}\\
+    \nnode{30}{4.}{$Raa$}{}{(2)}\\
+    \nnode{30}{5.}{$a\!=\!b$}{}{(2)}\\
+    \nnodeclosed{30}{6.}{$Rab$}{}{\quad(4, 5, LL)}
+  }
+\end{center}
+
+\begin{exercise}
+  Use the tree method to check which of the following sentences are valid.
+  \begin{exlist}
+  \item $\forall x (x\!=\!x)$
+  \item $\forall x \forall y(x\!=\!y \to y\!=\!x)$
+  \item $(a=b \land b=c) \to a=c$
+  \item $Rab \to \forall x(x=a \leftrightarrow Rxb)$
+  \item $\forall x \forall y\forall z(x\not= y \land y\not= z \to x \not= z)$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  Use \href{https://www.umsu.de/trees/}{umsu.de/trees/}.
+\end{solution}
+
+\begin{exercise}
+  Show that the second version of the Leibniz' Law rule is redundant: we could
+  reach $A[\eta_1//\eta_2]$ from $\eta_1=\eta_2$ and $A$ with the other rules.
+\end{exercise}
+\begin{solution}
+  We assume that some branch on a tree contains nodes $b=c$ and $A$. We have to
+  show that we can add $A[b//c]$ without using the second version of Leibniz'
+  Law.
+  \tree{
+    \nnode{15}{k.}{$b=c$}{}{}\\
+    \nnode{15}{n.}{$A$}{}{}\\ % e.g. Fc v Hcb, want to get Fb v Hcb
+    \nnode{15}{m.}{$b=b$}{}{(SI)}\\
+    \nnode{15}{m+1.}{$c=b$}{}{\hspace{32mm}(k, m, LL (first version))}\\
+    \nnode{15}{m+2.}{$A[b//c]$}{}{\hspace{32mm}(m+1, n, LL (first version))} }
+\end{solution}
+
+In the axiomatic approach, the two facts about identity are often represented by
+the following axiom schemas:
+%
+\begin{principles}
+  \pri{SI}{\eta=\eta}\\
+  \pri{LL}{\eta_1=\eta_2 \to (A \to A[\eta_2//\eta_1])}
+\end{principles}
+
+Once we add boxes and diamonds to the language of predicate logic, the seemingly
+harmless axioms and rules for identity become problematic. Consider the
+following inference:
+%
+\begin{quote}
+  It is analytic that Julius invented the zip.\\
+  Julius = Whitcomb L.\ Judson.\\
+  Therefore: It is analytic that Whitcomb L.\ Judson invented the zip.
+\end{quote}
+%
+The conclusion clearly doesn't follow from the premises, but the inference seems
+to be licensed by Leibniz's law. Another well-known example:
+%
+\begin{quote}
+  Lois Lane believes that Superman can fly.\\
+  Superman = Clark Kent.\\
+  Therefore: Lois Lane believes that Clark Kent can fly.
+\end{quote}
+
+\begin{exercise}
+  (a) Give an axiomatic proof of $\Box \exists x\, x=a$, using (SI), (UI), (CPL),
+  ($\forall\exists$), (CPL), and (Nec), in this order. (b) Can you see why we might
+  not want to count $\Box\exists x\, x=a$ as a logical truth in some
+  applications of modal logic? At which point do you think the proof goes wrong?
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+    
+    \item 
+\begin{align*}
+   1. \quad & a=a &&\text{ (SI)}\\
+   2. \quad & \forall x\, x\not= a \to a\not= a &&\text{ (UI)}\\
+   3. \quad & \neg \forall x\, x\not=a &&\text{ (1, 2, CPL)}\\
+   4. \quad & \neg \exists x\, x=a \leftrightarrow \forall x \, x\not=a &&\text{ ($\forall\exists$)}\\
+   5. \quad & \exists x\, x=a &&\text{ (3, 4, CPL)}\\
+   6. \quad & \Box\exists x\, x=a &&\text{ (5, Nec)}
+\end{align*}
+
+\item There are many correct answers. For example: historians debate whether
+Homer ever existed. If $a$ translates `Homer' then $\exists x\, x=a$ is arguably false if Homer isn't a real person. Since the available evidence is compatible with  $\neg \exists x\, x=a$, the sentence $\Box\exists x\, x=a$ is false on an epistemic interpretation of the box.
+
+Where does the proof go wrong? Each of steps 1, 2, and 6 might be blamed.
+\end{sollist}
+\end{solution}
+
+
+We will return to these issues in section \ref{sec:twi}. In the remainder of the
+present section, I want to highlight some other things we can do with the
+identity predicate, apart from making claims about identity.
+
+You have already encountered one other use in earlier chapters. Suppose we want
+to express that some relation $R$ is connected, meaning that for any two things,
+either the first is $R$-related to the second or the second is $R$-related to
+the first. This can't be expressed without an identity predicate. With an
+identity predicate, it is easy:
+\[
+  \forall x\forall y(Rxy \lor x\!=\!y \lor Ryx).
+\]
+
+We can also use identity to express numerical quantifiers. For example, we can
+express `there are at least two $F$s' as
+\[
+  \exists x(Fx \land \exists y(Fy \land x\not=y)).
+\]
+`There is exactly one $F$' can be expressed as
+\[
+  \exists x(Fx \land \forall y(Fy \to x\!=\!y)).
+\]
+
+\begin{exercise}
+  Can you express the following in $\L_P$ with identity?
+  \begin{exlist}
+  \item There are exactly two $F$s.
+  \item There are no more than three $F$s.
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+  \item $\exists x \exists y(Fx \land Fy \land x\not=y \land \forall z(Fz \to (z=x \lor z=y)))$
+  \item $\forall x \forall y\forall z\forall v(Fx \land Fy \land Fz \land Fv \to (x=y \lor x=z \lor x=v \lor y=z \lor y=v \lor z=v))$
+  \end{sollist}
+\end{solution}
+
+Another important use of the identity predicate is to formalise statements
+involving definite descriptions. A definite description is a complex noun
+phrase, typically of the form `the $F$', that purports to pick out a particular
+object. `The current Prime Minister', `the highest mountain in Scotland', and
+`Carol's father' are definite descriptions.
+
+The standard language of predicate logic does not have a definite article
+(`the'). The only way to pick out an individual in $\L_P$ is by a name. But
+there are good reasons not to translate descriptions as names.
+
+One reason is that we would thereby miss logical connections between
+descriptions and predicates. `The current Prime Minister is not Prime Minister'
+is a logical contradiction, but this can't be brought out if we translate `the
+current Prime Minister' as a simple name.
+
+% Another reason not to translate descriptions as names is that descriptions can
+% fail to refer. Since France is a republic, `the present King of France' does not
+% refer to anybody. But names in classical predicate logic always have a
+% reference: they pick out some member of the domain $D$. --- Well, names can also
+% fail to refer.
+
+Another reason not to translate descriptions as names is that descriptions often
+give rise to a \emph{de re}/\emph{de dicto} ambiguity. Consider the following
+sentence:
+\begin{quote}
+  The Pope might have been Italian.
+\end{quote}
+This has two readings. It can mean either that the actual Pope, Jorge Mario
+Bergoglio, might have been Italian (\emph{de re}). Alternatively, it can mean
+that the following might have been the case: some Italian person is Pope
+(\emph{de dicto}). There is no way to account for these two readings in
+$\L_{M\!P}$ if we translate `the Pope' as a name. 
+
+A better translation for statements involving definite descriptions was proposed
+by Bertrand Russell in 1905. Russell argued that a statement of the form `the
+$F$ is $G$' is true just in case there is exactly one (relevant) $F$, and
+this one $F$ is also $G$. If we have an identity predicate, we can easily
+express this in the language of predicate logic:
+\[
+  \exists x(Fx \land \forall y(Fy \to x\!=\!y) \land Gx). 
+\]
+
+Following Russell, we might translate `The current Prime Minister is not Prime
+Minister' as
+\[
+  \exists x(Px \land \forall y(Py \to x\!=\!y) \land \neg Px).
+\]
+This is indeed a contradiction: it is true in no model.
+
+We can also account for the two readings of `the Pope might have been Italian'.
+The \emph{de re} reading is
+\[
+  \exists x (Px \land \forall y(Py \to x\!=\!y) \land \Diamond Ix).
+\]
+The \emph{de dicto} reading is
+\[
+  \Diamond \exists x (Px \land \forall y(Py \to x\!=\!y) \land Ix).
+\]
+
+% \begin{exercise}
+%   People sometimes translate DDs with a term-form iota. Why is that problematic?
+% \end{exercise}
+
+\begin{exercise}
+  Give two translations for each of the following sentences, one \emph{de re} and one \emph{de dicto}.
+  \begin{exlist}
+  \item Hillary Clinton might have been the 45th US President.
+  \item Smith's murderer could have been a woman.
+  \item Alice believes that the student representative is rude.
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  The \emph{de dicto} reading of (a) can be translated as
+  \begin{equation*}
+    \Diamond \exists x (Px \land \forall y(Py \to x\!=\!y) \land x\!=\!c),%
+  \end{equation*}
+  where `$P$' translates `-- is 45th US President' and `$c$' denotes Hillary
+  Clinton. The \emph{de re} reading can be translated as
+  \begin{equation*}
+    \exists x (Px \land \forall y(Py \to x\!=\!y) \land \Diamond x\!=\!c).
+  \end{equation*}
+  The answers to (b) and (c) are analogous.
+\end{solution}
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "ml.tex"
+%%% End:

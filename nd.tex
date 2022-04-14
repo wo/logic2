@@ -1,0 +1,336 @@
+\documentclass{../wobook2018}
+
+\definecolor{commentcol}{rgb}{0.0, 0.2, 0.1}
+%\newcommand{\cmnt}[1]{{\small\color{commentcol}#1}}
+\newcommand{\cmnt}[1]{{\iffalse #1 \fi}}
+
+
+\usepackage[normalem]{ulem}
+% \usepackage{logicproof}
+% \usepackage{KMcalc}
+
+\begin{document}
+
+\section*{More tree exercises}
+
+\renewcommand{\KMproveword}{Show}
+\renewcommand{\KMProveword}{\sout{Show}}
+\newlength{\proofwidth}
+\setlength{\proofwidth}{6cm}
+\newcommand{\ndline}[2]{\KMline{\;\makebox[\proofwidth][l]{$#1$}#2}{}}
+\newcommand{\ndprove}[2]{\KMprove{\;\makebox[\proofwidth][l]{$#1$}#2}{}}
+
+\cmnt{
+  \textbf{ND in Parsons}
+
+  https://sites.google.com/site/tparsons5555/home/logic-text
+  
+  Parsons introduces a Kalish-Montague-style ND system, similar to
+  Fitch-style, but with boxes around subproofs.
+  
+  ch.1, p.11 lists the ``rules'' of repetition, MP, MT, and (two rules
+  of) double negation. The rules state what ``you can infer'' from
+  what.
+
+  p.13 introduces ``direct derivations'' which consist of stringing
+  together simple inferences. Example:
+
+  \begin{logicproof}{1}
+    \text{\sout{To show} $\neg W$:} & \\
+    \begin{subproof}
+     \neg T & pr\\
+    \neg P \to T & pr\\
+    \neg\neg P & 2\; 3\; mt\\ 
+    P &  4\; dn\\
+   \ldots & \\
+    \neg W & 7\;8\; mp\; dd
+    \end{subproof}
+  \end{logicproof}
+
+  The box contains the actual proof; `dd' indicates that it is a
+  direct derivation. P.16 precisely defines direct derivations.
+
+  p.19 introduces ``conditional derivations''. These look like so:
+
+  \begin{logicproof}{1}
+    \text{\sout{To show} $R \to \neg W$:} & \\
+    \begin{subproof}
+     R & ass cd\\
+     R \to \neg S  & pr\\
+     \ldots & \\
+     \neg W & 7\;8\; mt\; cd
+    \end{subproof}
+  \end{logicproof}
+
+  p.22 introduces ``indirect derivations'', for reductio arguments:
+  
+  \begin{logicproof}{1}
+    \text{\sout{To show} $\neg(R \to W)$:} & \\
+    \begin{subproof}
+     R\to W & ass id\\
+     R  & pr\\
+     W & 2 3 mp\\
+     \neg W & pr 4 id
+    \end{subproof}
+  \end{logicproof}
+
+  p.27 introduces derivations within derivations. Here the striked-out
+  ``show'' lines come in handy: after striking out, the line holds an
+  ordinary sentence which can be used further down, and the box proof
+  below it can be ignored.
+
+  p.30 summarizes the derivation rules.
+
+  p.43 adds another rule: ``any instance of any previously derived
+  theorem may be entered on any line of a derivation. As
+  justification, write the name of the theorem. (E.g. ‘T13’.)''
+
+  ch.2 introduces '$\land$', `$\lor$', and `$\leftrightarrow$' into
+  the language.
+
+  p.11 introduces ``rules'' for these:
+  \begin{itemize}
+  \item rule s: $A \land B \therefore A$
+    
+  \item rule adj: $A, B \therefore A \land B$
+    
+  \item rule add: $A \therefore A \lor B$, $B \therefore A \lor B$
+
+  \item rule mtp: $A \lor B, \neg A \therefore B$ and variants
+
+  \item rule bc: $A \leftrightarrow B \therefore A \to B$ etc.
+
+  \item rule cb: $A \to B, B \to A \therefore A \leftrightarrow B$
+  \end{itemize}
+
+  pp.25--31 introduces some ``derived rules'' such as de Morgan's.
+
+  
+}
+
+Natural deduction proofs try to mirror intuitive (``natural'') ways of arguing
+for a conclusion. For example, if you wanted to show that a conjunction
+$p\land q$ is true, an intuitive approach would be to show that $p$ is true,
+then show that $q$ is true, and then infer that $p\land q$ is true. Since people
+disagree over what kinds of inference are natural, there are many styles of
+natural deduction. I will not survey all the possibilities. Instead, I will
+briefly explain how one particular style of natural deduction -- known as the
+\emph{Kalish-Montague} style -- can be extended to modal logic.
+
+% See
+% https://sites.ualberta.ca/~francisp/papers/PellHazenSubmittedv2.pdf
+% for a survey. KM is derived from an idea roposed by Stanisław
+% Jaśkowski)
+
+Let's say we want to prove $(p \land q) \to q$, in classical
+propositional logic. In a Kalish-Montague proof, we'd start by writing
+down our goal, like this.
+
+\setlength{\proofwidth}{5cm}
+
+\begin{KMcalc}[]
+  \ndline{\text{Show\, } (p \land q) \to q}{}
+\end{KMcalc}
+
+\noindent%
+A (supposedly) ``natural'' way to prove a conditional $A\to B$ is to assume the
+antecedent $A$ and derive the consequent $B$. We might therefore start a
+subproof in which we try to derive $q$ from $p \land q$.
+
+\begin{KMcalc}[]
+  \ndline{\text{Show\, } (p \land q) \to q}{}
+  \ndline{\quad p \land q}{ass cd}
+\end{KMcalc}
+
+\noindent%
+The annotation `ass cd' tells us that we're \emph{assuming} $p\land q$
+for the purpose of a \emph{conditional derivation}. From $p\land q$ we
+can directly infer $q$, by the rule of ``simplification'' (also known as
+``conjunction elimination'').
+
+\begin{KMcalc}[]
+  \ndline{\text{Show\, } (p \land q) \to q}{}
+  \ndline{\quad p \land q}{ass cd}
+  \ndline{\quad q}{2, s}
+\end{KMcalc}
+
+\noindent%
+Having derived $q$ from $p \land q$, we can infer $(p \land q) \to q$.
+So we cross out `Show' from `Show $(p \land q) \to q$' and close off
+the subproof by putting it in a box.
+%
+\begin{KMcalc}[]
+  \ndprove{(p \land q) \to q}{}
+  \ndline{\quad p \land q}{ass cd}
+  \ndline{\quad q}{2 s}
+  \ndline{}{2 3 cd}
+  \KMclose[]
+\end{KMcalc}
+%
+The empty last line indicates that the box was closed by the rule of
+conditional derivation applied to lines 2 and 3.
+
+A proof can contain several subproofs, and subsubproofs within
+subproofs. Different subproofs are isolated from one another: if
+you've introduced an assumption $A$ in one subproof, you can't draw on
+$A$ in another subproof, except if the second subproof is embedded in
+the first. Sentences from a higher-up level may be imported into a
+subproof, by the rule of ``repetition''.
+
+You can find a complete description of this proof method, with all its
+rules, in Terence Parson's \emph{Exposition of Symbolic Logic}, which
+is freely available at
+\href{https://sites.google.com/site/tparsons5555/home/logic-text}{sites.google.com/site/tparsons5555/home/logic-text}.
+
+The method is easily extended to a range of modal logics. To reflect
+the duality of the box and the diamond, we need to add a ``modal
+negation'' rule \emph{mn}. It is actually four rules:
+%
+\[ 
+  \emph{mn:}\quad
+  \neg \Box \neg A \therefore \Diamond A \qquad
+  \neg \Diamond \neg A \therefore \Box A \qquad
+  \neg \Box A \therefore \Diamond\neg A \qquad
+  \neg \Diamond A \therefore \Box \neg A
+\]
+The three dots `$\therefore$' indicate that any instance of the schema
+on the right can be inferred from the corresponding instance of the
+schema on the left. So `$\neg \Box \neg A \therefore \Diamond A$'
+states that one may infer, say, $\Diamond (p \to \Box p)$ from
+$\neg \Box \neg (p \to \Box p)$.
+
+We also need a new type of derivation, \emph{sd} (for ``strict
+derivation''), to derive sentences of the form $\Box A$. Strict
+derivations use a special kind of subproof that starts with no
+assumption. Intuitively, the subproof takes you to an arbitrary new
+world that is accessible from a world at which the sentences you have
+previously proved (or assumed) are true. Your goal is to prove that
+$A$ holds at this world. If that is done, the subproof can be closed
+and $\Box A$ has been shown. In this kind of subproof, you are not
+allowed to import sentences from outside the subproof by the
+repetition rule. Instead, you have to use a \emph{modal importation
+  rule}.
+
+The basic importation rule, \emph{im}, says that if some boxed
+sentence $\Box A$ has been established on a higher-up level in a
+proof, then you may assume the corresponding sentence $A$ inside a
+strict derivation.
+
+Here is a proof of $(\Box p \land \Box q) \to \Box (p\land q)$, using
+these resources.
+ 
+\begin{KMcalc}[]
+  \ndprove{(\Box p \land \Box q) \to \Box(p \land q)}{}
+  \ndline{\Box p \land \Box q}{ass cd}
+  \ndline{\Box p}{2, s}
+  \ndline{\Box q}{2, s}
+  \ndprove{\Box(p \land q)}{}
+  \ndline{p}{3, im}
+  \ndline{q}{4, im}
+  \ndline{p \land q}{6, 7, adj}
+  \ndline{}{8, sd}
+  \KMclose[]
+  \ndline{}{2, 5, cd}
+  \KMclose[]
+\end{KMcalc}
+
+\noindent%
+On line 6, the modal importation rule $im$ is used to import
+assumption $p$, based on assumption $\Box p$ on line 3 (which is on a
+higher-up level in the proof). Similarly for $q$ on line 7. Line 9
+indicates that since $p \land q$ could be derived for an arbitrary
+accessible world, we can infer $\Box(p \land q)$, by \emph{strict
+  derivation}.
+
+These rules suffice to prove every K-valid sentence. For stronger
+systems of modal logic, we need further rules.
+
+For example, for the system T we would add the rule
+\[
+  \emph{ni:} \quad \Box A \therefore A.
+\]
+For system D, we would instead add
+\[
+  \emph{bd:} \quad \Box A \therefore \Diamond A.
+\]
+For K4, we need another modal importation rule. This rule, \emph{im4},
+allows you to import sentences of type $\Box A$ unchanged into a
+strict derivation. The rule is used in the following proof of
+$\Box p \to \Box \Box p$.
+
+\begin{KMcalc}[]
+  \ndprove{\Box p \to \Box\Box p}{}
+  \ndline{\Box p}{ass cd}
+  \ndprove{\Box\Box p}{}
+  \ndline{\Box p}{2, im4}
+  \ndline{}{4, sd}
+  \KMclose[]
+  \ndline{}{2, 5, cd}
+  \KMclose[]
+\end{KMcalc}
+%
+
+\noindent
+K5 requires a similar modal repetition rule, \emph{im5}. This
+one allows you to import sentences of type $\Diamond A$ unchanged into
+strict derivations.
+
+If both \emph{ni} and \emph{im4} are added to the natural deduction
+rules for K, we get a natural deduction system for S4. \emph{ni} and
+\emph{im5} together yield a natural deduction system for S5. For S4.2,
+yet another rule, \emph{img}, is needed, which allows importing
+sentences of type $\Diamond \Box A$ unchanged into strict derivations.
+
+% This claim is from Hazen 1972, "Semantics for S4.2", p.527.
+
+% \begin{exercise}
+%   \beginwithlist
+%   \begin{exlist}
+%   \item Use the K5-rules to prove $\Diamond p \to \Box\Diamond p$.
+%   \item Use the K-rules to prove $\Box(p \to q) \to (\Box p \to \Box q)$. 
+%   \end{exlist}
+  
+% 1. Show <>p -> []<>p
+% 2. <>p       ass cd
+% 3. Show []<>p
+% 4. <>p         2, mr5
+% 5.             4, sd
+
+% - Construct a T-derivation of [](p->q) -> ([]p ->[]q)
+
+% 1. Show [](p->q) -> ([]p ->[]q)
+% 2. [](p->q)    ass id
+% 3. Show []p ->[]q
+% 4. []p          ass id
+% 5. Show []q
+% 6. (p->q)        2, t rule
+% 7. p             4, t rule
+% 8. q             6,7,mp
+% 9.               8, nec
+
+% - Construct an S5-derivation of p -> []<>p
+% - Construct an S4-derivation of <><>p -> <>p
+% - Construct an S5-derivation of <>[]p -> []p
+
+% \end{exercise}
+
+% Completeness is easy to show by giving ND proofs of all axioms.
+
+% Pelletier and Hazen: Not all modal logics have nice natural
+% deduction formulations, but those that do include many of the most
+% important for applications. Fitch (1966) gives natural deduction
+% formulations for a number of alethic and deontic logics and systems
+% with both alethic and deontic operators. Fitting (2002) describes
+% natural deduction formulations of a large num- ber of logics, in
+% addition to tableau versions. Several introductory logic texts (for
+% example, Anderson and Johnstone, 1962; Iseminger, 1968; Purtill,
+% 1971; Bonevac, 1987; Gamut, 1991; Forbes, 1994; Bessie and Glennan,
+% 2000) include natural deduction formulations of one or more systems
+% of modal logic, and Garson (2006), intended for students who have
+% already done a bit of logic, introduces many modal logics, both
+% propositional and quantified, with both natural deduction and
+% tableau formulation.
+
+
+
+\end{document}

@@ -1,0 +1,1480 @@
+\chapter{Temporal Logic}\label{ch:time}
+
+\section{Reasoning about time}\label{sec:time-intro}
+
+It is currently raining in Edinburgh. But it wasn't raining yesterday, and
+perhaps it won't rain tomorrow. Let's introduce some operators to formalize
+reasoning about the unfolding of events through time.
+
+If we read $r$ as `it is raining', we use $\tF r$ to express that is will be
+raining at some point in the future. We use $\tP r$ to express that it has been
+raining at some point in the past. In general:
+%
+\begin{quote}
+  $\tF A$ is true at a time $t$ iff $A$ is true at some time after $t$.\\
+  $\tP A$ is true at a time $t$ iff $A$ is true at some time before $t$.
+\end{quote}
+
+The operators $\tF$ and $\tP$ can be nested. We can use $\tF \tP r$ to express
+that at some point it will have rained, $\tP\tF r$ to say that it was once going
+to rain, $\tP\tP r$ to say that there was a time before which it rained, and
+$\tF\tF r$ to say that there will come a time after which it will rain.
+
+Unlike $\Box$ and $\Diamond$, $\tF$ and $\tP$ are not duals of each other:
+$\neg \tP A$ is not equivalent to $\tF \neg A$, and $\neg \tF A$ is not
+equivalent to $\tP \neg A$. But it is useful to have duals of $\tF$ and $\tP$.
+We therefore introduce two more operators. $\tG$ will be the dual of $\tF$, and
+$\tH$ be the dual of $\tP$.
+
+Intuitively, $\tG A$ means that $A$ is always \emph{g}oing to be the case.
+(Hence the symbol `G'.) For example, if it is not the case that at some point in
+the future it will not rain ($\neg \tF \neg r$), then it is always going to be
+the case that it will rain ($\tG r$). Similarly, $\tH A$ means that $A$
+\emph{h}as always been the case. If it is not the case that at some point in the
+past it was not raining ($\neg \tP \neg r$), then it has always been raining
+($\tH r$).
+
+We can state the truth-conditions of $\tG A$ and $\tH A$ in parallel to the
+above truth-conditions for $\tF A$ and $\tP A$:
+\begin{quote}
+  $\tG A$ is true at a time $t$ iff $A$ is true at all times after $t$.\\
+  $\tH A$ is true at a time $t$ iff $A$ is true at all times before $t$.
+\end{quote}
+
+The language of standard propositional logic, extended by the four operators
+$\tF,\tP,\tG,\tH$ is known as the \textbf{language of basic temporal logic}. We
+will sometimes call it $\L_t$.
+
+% $\L_t$ is only a crude approximation to the means by which we talk about time in
+% natural language. In English, for example, there is a past tense -- as in `it
+% rained' -- but no future tense; to express that something happens in the future
+% we typically use the modal verb `will' applied to an infinitive: `it will rain'.
+% In many languages, there is a complex system of tenses and aspects to indicate
+% an event's position in time and its status as finished or ongoing. $\L_t$ lacks
+% most of these subtleties, but it proves sufficient to formalise many interesting
+% hypotheses and arguments about time. We will look at some extensions of the
+% language in section \ref{sec:2d}.
+
+\begin{exercise}
+  Translate the following sentences into the language of basic temporal logic.
+  \begin{exlist}
+  \item It has never been warm. %H-w, -Pw
+  \item There will be a sea battle. %Fc (note English may not be existential)
+  \item There will not have been a sea battle. % F-Pc or -FPc (clarify difference)
+  \item At some point, it will be warm or it will have been warm. % F(w v Pw)
+  \item If you haven't studied, you won't pass the exam. % -Ps -> -Fp
+  \item I was having tea when the door bell rang. % P(t & r)
+  \end{exlist}
+  \vspace{-2mm}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+  \item $\tH \neg p$\\
+    $p$: It is warm\\[-2mm]
+  \item $\tF p$\\
+    $p$: There is a sea battle\\[-2mm]
+  \item $\neg \tF \tP p$ or, perhaps, $\tF\neg \tP p$\\
+    $p$: There is a sea battle\\[-2mm]
+  \item  $\tF(p \lor \tP q)$\\
+    $p$: It is warm\\[-2mm]
+  \item $\neg \tP p \to \neg \tF q$, or $\tG(\neg\tP p \to \neg q)$\\
+    $p$: You study, $q$: you pass the exam\\[-2mm]
+  \item $\tP(p \land q)$\\
+    $p$: I am having tea, $q$: the door bell rings
+  \end{sollist}
+\end{solution}
+
+
+\section{Temporal models}
+
+A complete scenario for temporal logic needs to tell us what times there are,
+how they are ordered, and what is going on at each of them. We can represent
+such a scenario, together with an interpretation of $\L_{t}$'s non-logical
+vocabulary, by a structure that settles (a) what times there are, (b) which
+times come before or after which others, and (c) which sentence letters are true
+at which times. This is enough to determine, for $\L_{t}$-sentence and every time, whether the sentence is true at that time.
+
+\begin{definition}{Temporal Model}{temporalmodel}
+  A \textbf{temporal model} consists of
+  \vspace{-3mm}
+  \begin{itemize*}
+  \item a non-empty set $T$ (of ``times''),
+  \item a binary relation $<$ on $T$ (the \textbf{precedence relation}),
+  \item a function $V$ that assigns to each sentence letter of $\L_T$
+    a subset of $T$.
+  \end{itemize*}
+\end{definition}
+
+% In a sense, a time is a world. A world is a maximally specific way things
+% might be. Now here's a way things might be: it might be Monday. Ignorance of
+% time plays an important role in our life, so the worlds of epistemic logic,
+% say, must not just specify what is the case from an eternal, God's eye
+% perspective. If worlds have a time coordinate, then past times are worlds that
+% stand in a certain relationship to our world. They share the same untensed
+% truths.
+
+We use `$M, t \models A$' as a short-hand notation to express that sentence $A$
+is true at time $t$ in model $M$. The following definition formally specifies
+the truth-value of every $\L_T$-sentence at every time in every model.
+
+\begin{definition}{Standard Temporal Semantics}{temporalsemantics}
+  If $\Mfr = \t{T,<,V}$ is a temporal model, $t$ is a member of $T$, $P$ is
+  any sentence letter, and $A,B$ are any $\L_T$-sentences, then
+
+  \medskip
+  \begin{tabular}{lll}
+    (a) & $M,t \models P$ &iff $t$ is in $V(P)$.\\
+    (b) & $M,t \models \neg A$ &iff $M,t \not\models A$.\\
+    (c) & $M,t \models A \land B$ &iff $M,t \models A$ and $M,t \models B$.\\
+    (d) & $M,t \models A \lor B$ &iff $M,t \models A$ or $M,t \models B$.\\
+    (e) & $M,t \models A \to B$ &iff $M,t \not\models A$ or $M,t \models B$.\\
+    (f) & $M,t \models A \leftrightarrow B$ &iff $M,t \models (A\to B)$ and $M,t \models (B\to A)$.\\
+    (g) & $M,t \models \tF A$ &iff $M,s \models A$ for some $s\in T$ such that $t<s$.\\
+    (h) & $M,t \models \tG A$ &iff $M,s \models A$ for all $s\in T$ such that $t<s$.\\
+    (i) & $M,t \models \tP A$ &iff $M,s \models A$ for some $s\in T$ such that $s<t$.\\
+    (j) & $M,t \models \tH A$ &iff $M,s \models A$ for all $s\in T$ such that $s<t$.
+  \end{tabular}
+\end{definition}
+Clause (a) says that a sentence letter is true at a time in a model iff the
+model's interpretation function specifies that the sentence letter is true at
+that time. Clauses (b)--(f) say that the truth-functional connectives have their
+normal truth-table meaning at each time. Clauses (g)--(j) formalize the
+truth-conditions for temporal sentences from the previous section.
+
+% We'll say that an $\L_T$-sentence is \textbf{valid} iff it is true at every time
+% in every (suitable) temporal model; an $\L_T$-sentence $B$ is a \textbf{logical
+%   consequence} of sentences $A_1,\ldots,A_n$ iff $B$ is true at every time in
+% every (suitable) model at which $A_1,\ldots,A_n$ are all true. I say
+% ``suitable'' because we will want to put some constraints on the precedence
+% relation $<$. More on that in a moment.
+
+All this should remind you of our Kripke semantics for $\L_M$ in chapter
+\ref{ch:accessibility}. In fact, temporal models \emph{are} Kripke models, as
+defined on page \pageref{def:kripkemodel}. I have merely relabelled the set
+`$W$' as `$T$', and the relation `$R$' as `$<$'. Definition
+\ref{def:temporalsemantics} resembles definition \ref{def:kripkesemantics} from
+page \pageref{def:kripkesemantics}, except that we have two box-like operators
+$\tG$ and $\tH$, and two diamond-like operators $\tF$ and $\tP$. The language of
+basic temporal logic is bi-modal, with forward-looking operators ($\tF$ and
+$\tG$) and backward-looking operators ($\tP$ and $\tH$). Unlike ordinary models
+for multi-modal languages (definition \ref{def:multikripkemodel}), temporal
+models have only a single accessibility relation. That's because, even though
+forward and backward-looking operators can't be defined in terms of each other,
+the accessibility relation for $\tP$ and $\tH$ is definable from the
+accessibility relation for $\tF$ and $\tG$: a time $s$ is earlier than a time
+$t$ iff $t$ is later than $s$.
+
+% Exercise: define operators that look back on the epistemic or doxastic
+% accessibility relation. ...
+
+Let's look at an example of a temporal model. For the set of times $T$, we use
+the set of natural numbers 0,1,2, etc. Let's say that the precedence relation
+$<$ holds between $t$ and $s$ iff $t$ is smaller than $s$. So $0<1$ and
+$1 < 25$. (We could just as well have stipulated that $<$ holds between $t$ and
+$s$ iff $t$ is greater than $s$; we would then have $1<0$ and $25<1$. In
+temporal logic, the symbol `$<$' means `earlier than', not `smaller than'.)
+Finally, let's say that the interpretation function assigns to $p$ the set of
+all even numbers.
+
+Let's call this model $M$. By definition \ref{def:temporalsemantics}, we can
+figure out the following facts, among others.
+\begin{itemize}[leftmargin=10mm]
+\itemsep-1mm
+\item $M,0 \models p$ (because 0 is even);
+\item $M,0 \models \tF p$ (because there are even numbers greater than 0);
+\item $M,0 \models \tG\tF p$ (because for every number there is a greater number that is even);
+\item $M,0 \models \neg\tF\tG p$ (because there is no number for which all greater numbers are even).
+\end{itemize}
+
+\begin{exercise}
+  Now let $M$ be the following model. As before, $T$ is the set of natural
+  numbers $\{ 0,1,2,\ldots \}$, and $t < s$ iff $t$ is smaller than $s$. This
+  time, $V(p)$ is the set of numbers smaller than 10. Which of the following
+  statements are true?
+  \begin{exlist}
+  %\item $M,0 \models \tF (p \land \neg p)$
+  \item $M,0 \models \tF p \land \tF \neg p$ 
+  \item $M,0 \models \tG \neg p$
+  \item $M,0 \models \tF\tG \neg p$
+  \item $M,0 \models \tG\tF p$
+  \item $M,0 \models \tG(\tF p \to \tF\tF p)$
+  \item $M,0 \models \tF\tH p$
+  \item $M,0 \models \neg \tP(p \lor \neg p)$
+  \item $M,0 \models \tH p$
+  \end{exlist}
+  \vspace{-2mm}
+\end{exercise}
+\begin{solution}
+  (a), (c), (f), (g), and (h) are true, (b), (d), and (e) are false. 
+\end{solution}
+
+Real times are, of course, not numbers. When I say that `it is raining' is true
+now, I don't mean that the sentence is true at a particular number. It isn't
+obvious what kinds of things times are. Fortunately, this doesn't matter for us,
+just as the nature of possible worlds doesn't matter for the logic of
+possibility and necessity. As long as the formal structure of the times in a
+scenario matches the structure of the natural numbers, it does no harm to use
+numbers as times in a model of the scenario.
+
+The formal structure of time in a temporal model is captured by the relevant
+frame: the pair $\t{T,<\!}$ of the set of times and the precedence relation.
+Frames in temporal logic are also called \textbf{flows of time}. Different
+applications of temporal logic often come with different assumptions about the
+flow of time.
+
+In computer science, for example, the ``times'' $T$ are often understood as
+possible states of a computational process; the precedence relation holds
+between states $t$ and $s$ iff the relevant process can lead from $t$ to $s$. If
+the process is indeterministic, so that a given state can have different
+successors, the relevant flow of time will involve forks towards the future: we
+can have different ``times'' $s$ and $r$ such that $t<s$ and $t<r$ but neither
+$s<r$ nor $r<s$. Here the precedence relation cannot be modelled by the
+less-than relation on the natural numbers, because the structure of the
+less-than relation does not include forks.
+
+In other applications, we may be interested in how the weather changes from day
+to day. Here we might identify the relevant times with days and the precedence
+relation with the earlier-relation between days, even though intuitively a day
+is not a single time, but an interval comprising many times. For this
+application, the natural numbers might have the right formal structure.
+
+For yet other applications, we may want to assume that time is \textbf{dense},
+meaning that whenever $t < s$ then there is another point of time lying in
+between $t$ and $s$. This assumption is common in physics. The natural numbers,
+by contrast, have a \textbf{discrete} structure. There is no natural number in
+between 2 and 3. For dense models, we could use real or rational numbers
+(fractions) instead of natural numbers.
+
+% Humberstone 199f. distinguishes two notions of discreteness that come apart in models of branching time. The easier one of them corresponds to $(A \land H A) \to FH A$.
+
+If we want to take seriously what physics tells us about time, it is not enough
+to assume that time is dense. We also need to reconceptualize the set $T$.
+According to the theory of special relativity, whether a point in time is
+earlier or later than another is relative to a spatial frame of reference. An
+adequate model of relativistic time must therefore include a representation of
+space. In these \textbf{spacetime models} (or \emph{Minkowski models}), the set
+$T$ consists of spacetime points $\t{x_1,x_2,x_3,t}$ with three spatial and one
+temporal coordinate; $(x_1,x_2,x_3,t) < (y_1,y_2,y_3,s)$ holds iff the second
+point can be reached from the first without travelling faster than the speed of
+light.
+
+\section{Logics of time}
+
+Let's define the minimal temporal logic K$_t$ as the set of $\L_{t}$-sentences
+that are true at all times in all temporal models. Since temporal models are
+just Kripke models, proof methods for the minimal modal logic K are easily
+adapted to K$_{t}$. The main novelty is that the rules for the box and the
+diamond can be used twice over, once for the forward-looking operators $\tF$ and
+$\tG$, and once for the backward-looking $\tP$ and $\tH$.
+
+In the tree method for K$_{t}$, we have all the K-rules, with $\tG$ as the box
+and $\tF$ as the diamond. In addition, we have rules for $\tH$ as the box and
+$\tP$ as the diamond with a reversed perspective on the accessibility (or
+precedence) relation:
+
+\bigskip\hspace{-3mm}
+\begin{minipage}{0.26\textwidth} \centering
+  \tree{
+    \nnode{12}{}{$\tG A$}{\omega}{}\\
+    \dotbelownode{12}{}{$\omega<\nu$}{}{}\\
+    \\
+    \nnode{12}{}{$A$}{\nu}{}\\
+    \Kk[12]{0}{}\\
+    \Kk[12]{0}{}
+}
+\vspace{8mm}
+
+
+  \tree{
+    \dotbelownode{12}{}{$\neg\tG A$}{\omega}{}\\
+    \\
+    \nnode{12}{}{$\omega<\nu$}{}{}\\
+    \nnode{12}{}{$\neg A$}{\nu}{}\\
+    \Kk[12]{0}{$\uparrow$}\\
+    \Kk[12]{0}{\small new}
+}
+\end{minipage}
+\begin{minipage}{0.26\textwidth}\centering
+\tree{
+    \dotbelownode{12}{}{$\tF A$}{\omega}{}\\
+    \\
+    \nnode{12}{}{$\omega<\nu$}{}{}\\
+    \nnode{12}{}{$A$}{\nu}{}\\
+    \Kk[12]{0}{$\uparrow$}\\
+    \Kk[12]{0}{\small new}
+}
+
+\vspace{8mm}
+
+  \tree{
+    \nnode{12}{}{$\neg\tF A$}{\omega}{}\\
+    \dotbelownode{12}{}{$\omega<\nu$}{}{}\\
+    \\
+    \nnode{12}{}{$\neg A$}{\nu}{}\\
+    \Kk[12]{0}{}\\
+    \Kk[12]{0}{}
+}
+\end{minipage}
+\begin{minipage}{0.26\textwidth} \centering
+\tree{
+    \nnode{12}{}{$\tH A$}{\omega}{}\\
+    \dotbelownode{12}{}{\color{red}{$\nu<\omega$}}{}{}\\
+    \\
+    \nnode{12}{}{$A$}{\nu}{}\\
+    \Kk[12]{0}{}\\
+    \Kk[12]{0}{}
+}
+
+\vspace{8mm}
+
+
+\tree{
+    \dotbelownode{12}{}{$\neg \tH A$}{\omega}{}\\
+    \\
+    \nnode{12}{}{\color{red}{$\nu<\omega$}}{}{}\\
+    \nnode{12}{}{$\neg A$}{\nu}{}\\
+    \Kk[12]{0}{$\uparrow$}\\
+    \Kk[12]{0}{\small new}
+  }
+  
+\end{minipage}
+\begin{minipage}{0.26\textwidth}\centering
+\tree{
+    \dotbelownode{12}{}{$\tP A$}{\omega}{}\\
+    \\
+    \nnode{12}{}{\color{red}{$\nu<\omega$}}{}{}\\
+    \nnode{12}{}{$A$}{\nu}{}\\
+    \Kk[12]{0}{$\uparrow$}\\
+    \Kk[12]{0}{\small new}
+  }
+  
+\vspace{8mm}
+
+\tree{
+    \nnode{12}{}{$\neg\tP A$}{\omega}{}\\
+    \dotbelownode{12}{}{\color{red}{$\nu<\omega$}}{}{}\\
+    \\
+    \nnode{12}{}{$\neg A$}{\nu}{}\\
+    \Kk[12]{0}{}\\
+    \Kk[12]{0}{}
+}
+\end{minipage}
+\bigskip
+
+In the axiomatic approach, we have two versions of the \pr{K} schema, one for
+the forward-looking box $\tG$ and one for the backward-looking box $\tH$:%
+%
+\begin{principles}
+   \pri{GK}{\tG(A\to B) \to (\tG A \to \tG B)}\\
+   \pri{HK}{\tH(A\to B) \to (\tH A \to \tH B)}
+\end{principles}
+%
+We also have two versions of Necessitation, and two versions of \pr{Dual}:
+%
+\begin{principles}
+  \pri{GDl}{\neg\tF A \leftrightarrow \tG\neg A}\\
+  \pri{HDl}{\neg\tP A \leftrightarrow \tH\neg A}\\
+  \pri{GNec}{\text{If $A$ occurs in a proof, $\tG A$ may be appended.}}\\
+  \pri{HNec}{\text{If $A$ occurs in a proof, $\tH A$ may be appended.}}
+\end{principles}
+%
+In addition, we need two interaction principles, reflecting the fact that the
+accessibility relation for $\tF$ and $\tG$ is the inverse of the accessibility
+relation for $\tP$ and $\tH$:
+%
+\begin{principles}
+\pri{Con1}{A \to \tG\tP A}\\
+\pri{Con2}{A \to \tH\tF A}
+\end{principles}
+
+These axioms and rules, added to those of classical propositional logic, define
+an axiomatic calculus that is sound and complete for K$_{t}$. (Completeness is
+easily proved with the canonical model technique.)
+
+\begin{exercise}
+  Show with the help of definition \ref{def:temporalsemantics} that all
+  instances of \pr{Con1} and \pr{Con2} are true at all times in all temporal
+  models. % delete?
+\end{exercise}
+\begin{solution}
+  (Con1): Suppose some sentence of the form $A \to \tG\tP A$ is false at some time $t$ in some temporal model. By clause (e) of definition \ref{def:temporalsemantics}, this means that $A$ is true at $t$ and $\tG\tP A$ is false at $t$. By clause (h), the latter means that there is a time $s$ with $t<s$ such that $\tP A$ is not true at $s$. By clause (i), it follows that $A$ is not true at $t$. Contradiction.
+
+  The argument for (Con2) is analogous.
+\end{solution}
+
+% \begin{exercise}
+%   Explain why \pr{Con1} and \pr{Con2} could be equivalently expressed as
+%   $\tF\tH A \to A$ and $\tP\tG A \to A$.
+% \end{exercise}
+
+\begin{exercise}
+  Give K$_{t}$-tree proofs for the following schemas.
+  \begin{exlist}
+    \item $A \to \tG \tP A$
+    \item $A \to \tH \tF A$
+    \item $\tF A \to \tH\tF\tF A$ 
+    \item $\tP\tG A \to \tP\tF A$ 
+    \item $\tH A \leftrightarrow \tH\tF\tH A$ 
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+    
+    \item \tree[4]{%
+        \nnode{19}{1.}{$\neg(A \to \tG\tP A)$}{t}{(Ass.)} \\
+        \nnode{19}{2.}{$A$}{t}{(1)} \\
+        \nnode{19}{3.}{$\neg \tG\tP A$}{t}{(1)}  \\
+        \nnode{19}{4.}{$t<s$}{}{(3)}  \\
+        \nnode{19}{5.}{$\neg \tP A$}{s}{(3)}  \\
+        \nnodeclosed{19}{6.}{$\neg A$}{t}{(4,5)}  \\
+    }
+    \medskip
+
+    \item \tree[4]{%
+        \nnode{19}{1.}{$\neg(A \to \tH\tF A)$}{t}{(Ass.)} \\
+        \nnode{19}{2.}{$A$}{t}{(1)} \\
+        \nnode{19}{3.}{$\neg \tH\tF A$}{t}{(1)}  \\
+        \nnode{19}{4.}{$s<t$}{}{(3)}  \\
+        \nnode{19}{5.}{$\neg \tF A$}{s}{(3)}  \\
+        \nnodeclosed{19}{6.}{$\neg A$}{t}{(4,5)}  \\
+   }
+    \medskip
+
+   \item \tree[4]{%
+        \nnode{24}{1.}{$\neg(\tF A \to \tH\tF\tF A)$}{t}{(Ass.)} \\
+        \nnode{24}{2.}{$\tF A$}{t}{(1)} \\
+        \nnode{24}{3.}{$\neg \tH\tF\tF A$}{t}{(1)}  \\
+        \nnode{24}{4.}{$s<t$}{}{(3)}  \\
+        \nnode{24}{5.}{$\neg \tF\tF A$}{s}{(3)}  \\
+        \nnodeclosed{24}{6.}{$\neg \tF A$}{t}{(4,5)}  \\
+      }
+    \medskip
+
+    \item \tree[4]{%
+        \nnode{22}{1.}{$\neg(\tP\tG A \to \tP\tF A)$}{t}{(Ass.)} \\
+        \nnode{22}{2.}{$\tP\tG A$}{t}{(1)} \\
+        \nnode{22}{3.}{$\neg \tP\tF A$}{t}{(1)}  \\
+        \nnode{22}{4.}{$s<t$}{}{(2)}  \\
+        \nnode{22}{5.}{$\tG A$}{s}{(2)}  \\
+        \nnode{22}{6.}{$A$}{t}{(4,5)}  \\
+        \nnode{22}{7.}{$\neg \tF A$}{s}{(3,4)}  \\
+        \nnodeclosed{22}{8.}{$\neg A$}{t}{(4,7)}  \\
+    }
+    \medskip
+      
+   \item \tree[4]{%
+        & \bnode{24}{1.}{$\neg(\tH A \leftrightarrow \tH\tF\tH A)$}{t}{(Ass.)} & \\
+        &&\\
+        \nnode{15}{2.}{$\tH A$}{t}{(1)} && \nnode{15}{4.}{$\neg \tH A$}{t}{(1)} \\
+        \nnode{15}{3.}{$\neg\tH\tF\tH A$}{t}{(1)} && \nnode{15}{5.}{$\tH\tF\tH A$}{t}{(1)} \\
+        \nnode{15}{6.}{$s<t$}{}{(3)} && \nnode{15}{9.}{$s<t$}{}{(4)} \\
+        \nnode{15}{7.}{$\neg\tF\tH A$}{s}{(3)} && \nnode{15}{15.}{$\neg A$}{s}{(4)} \\
+        \nnodeclosed{15}{8.}{$\neg\tH A$}{t}{(6,7)} && \nnode{15}{11.}{$\tF\tH A$}{s}{(5,9)} \\
+        && \nnode{15}{12.}{$s<r$}{}{(11)} \\
+        && \nnode{15}{13.}{$\tH A$}{r}{(11)} \\
+        && \nnodeclosed{15}{14.}{$A$}{s}{(12,13)} \\
+   }
+   
+  \end{sollist}
+  
+\end{solution}
+
+For most applications, K$_{t}$ is too weak. We will want to impose further
+restrictions on the relevant temporal models. For example, definition
+\ref{def:temporalmodel} allows for cases in which $t < s$ and $s < r$ without
+$t < r$. But if a time $t$ is earlier than $s$, and $s$ is earlier than $r$,
+then surely $t$ must be earlier than $r$. For almost every application of
+temporal logic, we assume that the precedence relation is transitive. This
+corresponds to the \pr{4}-schema for $\tG$, and also to the \pr{4}-schema for
+$\tH$.
+\begin{principles}
+  \pri{4G}{\tG A \to \tG\tG A}\\
+  \pri{4H}{\tH A \to \tH\tH A}
+\end{principles}
+
+\begin{exercise}
+  Explain why, if a relation $<$ is transitive, then so is its converse. The
+  converse $>$ of $<$ is the relation that holds between $x$ and $y$ iff $y<x$.
+\end{exercise}
+\begin{solution}
+  Suppose < is transitive, and $x > y$ and $y > z$. Equivalently, $y < x$ and
+  $z < y$.By transitivity of <, we have $z < x$. So $x > z$.
+\end{solution}
+
+Another plausible condition is that no time is earlier than itself. Formally,
+$<$ should be \emph{irreflexive}, so that no element of $T$ is $<$-related to
+itself. We know that reflexivity corresponds to the \pr{T}-schema, whose
+(forward-looking) temporal analogue would be $\tG A \to A$. What corresponds to
+irreflexivity? The following observation reveals the answer: nothing.
+
+\begin{observation}{noirrefl}
+  A sentence is valid in the class of irreflexive frames iff it is valid in the
+  class of all frames.
+\end{observation}
+%
+\begin{proof}
+  \emph{Proof sketch:} The right-to-left direction is obvious. The left-to-right direction is implied by the answer to exercise \ref{ex:acyclical}.
+  % In that exercise we showed that every sentence that is satisfiable in a
+  % cyclical model is satisfiable in an acyclical model. Suppose X is true at
+  % all worlds in all irreflexive models, but that it is not true at all worlds
+  % in all reflexive models. So ~X is true at some world in some reflexive
+  % model, but not at any world in any irreflexive model. This contradicts the
+  % exercise (because every acyclical model is irreflexive).
+  But we can give a more direct argument.
+
+  Suppose that some sentence $A$ is not valid in the class of all frames. We
+  show that $A$ is not valid in the class of irreflexive frames. That $A$ is not
+  valid in the class of all frames means that there is some world $w$ in some
+  model $M = \t{W,R,V}$ at which $A$ is false. We will show that there is some
+  world in some irreflexive model at which $A$ is false.
+
+  To this end, we will construct an irreflexive model $M^i = \t{W',R',V'}$ from
+  $M$ in which the same sentences are true at $w$ as in $M$. Since $A$ is true
+  at $w$ in $M$, it follows that $A$ is true at $w$ in $M^i$.
+
+  Initially, $M^i$ has the same worlds, the same accessibility relation, and the
+  same interpretation function as $M$. Now for any world $w$ in $M$ that can see
+  itself, we add a new world $w'$ to $M^i$ so that
+  % 
+  \begin{itemize}[leftmargin=10mm]
+    \itemsep-1mm
+  \item $w'$ verifies the same sentence letters as $w$: for all $\rho$, $V'(\rho,w') = V'(\rho, w)$;
+  \item $w'$ can see the same worlds as $w$: whenever $wR'v$ then $w'R'v$; and
+  \item $w'$ can be seen from the same worlds as $w$: whenever $vR'w$ then $vR'w'$.
+  \end{itemize}
+  % Since $w$ can see itself, this means that $wR'w'$ and $w'R'w$.
+  Finally, we make $w$ inaccessible from itself in $M^i$. A simple proof
+  by induction on complexity shows that if a sentence is true at a
+  world $w$ in $M$ then it is also true at $w$ in $M^i$.
+  \qed
+
+  % Can we adjust this proof for an arbitrary class of frames? I.e., $A$ is
+  % valid in the class of irreflexive C-frames iff it is valid in all
+  % C-frames. No: If $A$ is false at some world in some C-model $M$, we can
+  % construct an irreflexive model $M^i = \t{W',R',V'}$ from $M$ in which the
+  % same sentences are true at $w$ as in $M$.  But we also need to show that
+  % $M^i$ still satisfies the condition C. That won't be the case if C is, for
+  % example, the condition that there is exactly one world, or that now world
+  % can see more than one world.
+\end{proof}
+
+% Observation \ref{obs:noirrefl} tells us that there is no modal principle that is
+% valid in all and only the irreflexive frames. So the logic of irreflexive frames
+% is the same as logic of all frames. The proof carries over to many
+% other classes of frames. For example, the logic of irreflexive and transitive
+% frames is the same as the logic of transitive frames (namely, K4).
+
+% We can easily add a tree rule for irreflexivity: simply allow any branch to be
+% closed that contains $\omega < \omega$. But while that rule may help to find
+% irreflexive countermodels, it won't allow us to prove anything we couldn't
+% prove without the rule.
+
+% From Humberstone 84: Why is the class of universal frames not modally
+% definable? Take any two universal frames. Their disjoint union is not
+% universal. Similar arguments show that the class of finite frames is not
+% definable, nor is the class of frames in which each world is accessible from
+% some world. We could here mention that we've implicitly seen something like
+% this in ch.3, where we saw that a sentence is valid in universal frames iff it
+% is valid in equivalence frames. It follows that there's no sentence that
+% corresponds to universal frames.
+
+Given transitivity, irreflexivity is closely related to asymmetry. Recall from
+the previous chapter that $<$ is asymmetric if whenever $t<s$ then not $s<t$.
+There is no modal schema that corresponds to asymmetry.
+
+\begin{exercise}\label{ex:partialorder}
+  Show that a transitive relation is irreflexive iff it is asymmetric.
+\end{exercise}
+\begin{solution}
+  Suppose $R$ is transitive. If there are points $x$ and $y$ for which $xRy$ and
+  $yRx$ then $xRx$ by transitivity. So if $R$ isn't asymmetric then it isn't
+  irreflexive. If $R$ isn't irreflexive then there is a point $x$ with $xRx$.
+  This violates asymmetry, because asymmetry demands that if $xRx$ then not
+  $xRx$.
+\end{solution}
+
+\begin{exercise}
+  A popular idea in many cultures is that time is circular. Does this
+  cast doubt on asymmetry? What about irreflexivity? 
+\end{exercise}
+\begin{solution}
+  If time is transitive and circular, then it is neither asymmetric nor
+  irreflexive.
+\end{solution}
+
+\begin{wrapfigure}{r}{3cm}
+  \quad
+  \begin{tikzpicture}[modal, world/.append style={minimum size=0.5cm}]
+    \node[world] (w1) [label=above:{$t$}] {};
+    \node[world] (w2) [label=above:{$s$}, above right=5mm and 15mm of w1] {};
+    \node[world] (w3) [label=below:{$r$}, below right=5mm and 15mm of w1] {};
+    \draw[->] (w1) -- (w2);
+    \draw[->] (w1) -- (w3);
+  \end{tikzpicture}
+\end{wrapfigure}
+In the previous chapter, I mentioned that transitive and irreflexive relations
+are called (strict) partial orders. The name reflects the fact that such orders
+need not order everything. In a model of branching time, for example, we can
+have $t<s$ and $t<r$ but neither $s<r$ nor $r<s$; in that case, $r$ and $s$ are
+not ordered by the precedence relation.
+
+We can rule out such cases by imposing the requirement of
+\textbf{connectedness}. This demands that for any points $t$ and $s$, either
+$t < s$ or $t=s$ or $s < t$. (Note that connectedness allows for cases where
+$t<s$ \emph{and} $s<t$.) An irreflexive, transitive, and connected relation is
+called a \textbf{(strict) linear order} (or a \emph{strict total order}).
+
+For some applications, we may want linearity in only one direction. Many
+philosophers have been attracted to a branching-future conception of time,
+wherein a point in time may have more than one future, but only one past. In
+such models, we would only require \textbf{left-linearity}: that \emph{if
+  $s < t$ and $r < t$}, then either $s < r$ or $s=r$ or $r < s$.
+
+An axiom schema corresponding to left-linearity is \pr{LL}:
+%
+\principle{LL}{\tF\tP A \to (\tF A \lor A \lor \tP A)}
+%
+Right-linearity -- the assumption that if $t < s$ and $t < r$, then either
+$s < r$ or $s=r$ or $r < s$ -- corresponds to \pr{RL}:
+%
+\principle{RL}{\tP\tF A \to (\tP A \lor A \lor \tF A)}
+%
+% These are from Mueller, p.333. HC (143) use
+% $\tG((A \land \tG A) \to B) \lor \tG((B \land \tG B) \to A)$, which looks like
+% a redundant disjunction; but apparently this really is the axiom Lem_0.
+%
+The conjunction of \pr{LL} and \pr{RL} is valid on a frame iff the frame's
+precedence relation does not branch in either direction. This is not quite the
+same as connectedness, because it allows for frames with parallel time lines.
+There is no schema that corresponds to connectedness.
+% Gore mentions this. It seems obvious.
+
+% Humberstone 77: K4.3 is determined by the class of transitive, irreflexive,
+% and connected frames. .3 is []([]A & A) -> B) v []([]B->A). Humberstone 195
+% says this disallows branching.
+
+The tree rules for left-linearity and right-linearity directly reflect the
+definition of the two properties.
+% These rules are from Priest. Girle's rules are wrong.
+\bigskip
+\begin{center}
+
+  \begin{minipage}[t]{0.4\textwidth} \centering
+    Left-Linearity
+    
+    \tree[2]{
+      & \barenode{$\nu < \omega$} & \\
+      & \dotbelowbaretribnode{$\upsilon < \omega$} & \\
+      && \\
+      && \\
+      \barenode{$\nu < \upsilon$} & \barenode{$\nu = \upsilon$} & \barenode{$\upsilon < \nu $}
+    }
+  \end{minipage}
+  \begin{minipage}[t]{0.4\textwidth} \centering
+    Right-Linearity
+
+    \tree[2]{
+      & \barenode{$\omega < \nu$} & \\
+      & \dotbelowbaretribnode{$\omega < \upsilon$} & \\
+      && \\
+      && \\
+      \barenode{$\nu < \upsilon$} & \barenode{$\nu = \upsilon$} & \barenode{$\upsilon < \nu $}
+    }
+  \end{minipage}
+\end{center}
+\bigskip%
+These rules create \emph{three} branches. They also create ``identity nodes'' of
+the form $\nu = \upsilon$, stating that two world/time labels refer to the same
+thing. (This must be taken into account when we read off a countermodel from an
+open branch.) We need two further rules to deal with identity nodes. Both of
+these rules are called `Identity'.%
+\bigskip
+\begin{center}
+  \begin{minipage}[t]{0.3\textwidth} \centering
+    
+    \tree[2]{
+      \nnode{10}{}{$A$}{\omega}{} \\
+      \dotbelowbarenode{$\omega = \nu$} \\
+      && \\
+      \nnode{10}{}{$A$}{\nu}{}
+    }
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth} \centering
+
+    \tree[2]{
+      \nnode{10}{}{$A$}{\omega}{} \\
+      \dotbelowbarenode{$\nu = \omega$} \\
+      && \\
+      \nnode{10}{}{$A$}{\nu}{}
+    }
+  \end{minipage}
+\end{center}
+
+\begin{exercise}
+  Use the tree method to check which of the following sentences are valid,
+  assuming time is linear (i.e., using the Transitivity, Left-Linearity,
+  Right-Linearity, and Identity rules).
+  \begin{exlist}
+  \item $(\tF p \land \tF q) \to \tF(p \land q)$
+  \item $\tP\tG\tG p \to \tG\tG p$
+  \item $\tP\tF p \to (\tP p \lor (p \lor \tF p))$
+  \item $\tP\tH p \to \tH p$
+  \item $\tF\tG p \to \tG\tF p$
+  \item $\tF (\tG q \land \neg p) \to \tG(p \to (\tG p \to q))$ 
+  % \item $(\tF p \land \tF q) \to (\tF(p \land q) \lor (\tF (p \land \tF q) \lor \tF(\tF p \land q)))$ % add
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  (a), (d), and (e) are invalid. Here are trees for (b), (c), and (f):
+
+  \bigskip
+  \begin{sollist}
+
+    \item[(b)] \tree[4]{%
+        \nnode{25}{1.}{$\neg(\tP\tG\tG p \to \tG\tG p)$}{t}{(Ass.)} \\
+        \nnode{25}{2.}{$\tP\tG\tG p$}{t}{(1)} \\
+        \nnode{25}{3.}{$\neg \tG\tG p$}{t}{(1)}  \\
+        \nnode{25}{4.}{$s<t$}{}{(2)}  \\
+        \nnode{25}{5.}{$\tG\tG p$}{s}{(2)}  \\
+        \nnode{25}{6.}{$t<r$}{}{(3)}  \\
+        \nnode{25}{7.}{$\neg \tG p$}{r}{(3)}  \\
+        \nnode{25}{8.}{$s<r$}{}{(3,6)}  \\
+        \nnodeclosed{25}{9.}{$\tG p$}{r}{(5,8)}  \\
+    }
+    \medskip
+
+    \item[(c)] \tree[8]{%
+        & \nnode{35}{1.}{$\neg(\tP\tF p \to (\tP p \lor (p \lor \tF p)))$}{t}{(Ass.)} & \\
+        & \nnode{35}{2.}{$\tP\tF p$}{t}{(1)} & \\
+        & \nnode{35}{3.}{$\neg(\tP p \lor (p \lor \tF p))$}{t}{(1)} & \\
+        & \nnode{35}{4.}{$\neg \tP p$}{t}{(3)} & \\
+        & \nnode{35}{5.}{$\neg (p \lor \tF p)$}{t}{(3)} & \\
+        & \nnode{35}{6.}{$\neg p$}{t}{(5)} & \\
+        & \nnode{35}{7.}{$\neg \tF p$}{t}{(5)} & \\
+        & \nnode{35}{8.}{$s < t$}{}{(2)} & \\
+        & \nnode{35}{9.}{$\tF p$}{s}{(2)} & \\
+        & \nnode{35}{10.}{$s < r$}{}{(9)} & \\
+        & \tribnode{35}{11.}{$p$}{r}{(9)} & \\
+        && \\
+        \nnode{10}{12.}{$t<r$}{}{} &    \nnode{10}{13.}{$t=r$}{}{} & \nnode{10}{14.}{$r<t$}{}{} \\
+        \nnodeclosed{10}{15.}{$\neg p$}{r}{(7,12)} &  \nnodeclosed{10}{16.}{$\neg p$}{r}{(6,13)} & \nnodeclosed{10}{17.}{$\neg p$}{r}{(4,16)}  \\
+    }
+    \medskip
+
+    \item[(f)] \tree[8]{%
+      & \nnode{38}{1.}{$\neg(\tF (\tG q \land \neg p) \to \tG(p \to (\tG p \to q)))$}{t}{(Ass.)} & \\
+      & \nnode{38}{2.}{$\tF (\tG q \land \neg p)$}{t}{(1)} & \\
+      & \nnode{38}{3.}{$\neg\tG(p \to (\tG p \to q))$}{t}{(1)} & \\
+      & \nnode{38}{4.}{$t < s$}{}{(2)} & \\
+      & \nnode{38}{5.}{$\tG q \land \neg p$}{s}{(2)} & \\
+      & \nnode{38}{6.}{$\tG q$}{s}{(5)} & \\
+      & \nnode{38}{7.}{$\neg p$}{s}{(5)} & \\
+      & \nnode{38}{8.}{$t < r$}{}{(3)} & \\
+      & \nnode{38}{9.}{$\neg(p \to (\tG p \to q))$}{r}{(3)} & \\
+      & \nnode{38}{10.}{$p$}{r}{(9)} & \\
+      & \nnode{38}{11.}{$\neg(\tG p \to q)$}{r}{(9)} & \\
+      & \nnode{38}{12.}{$\tG p$}{r}{(11)} & \\
+      & \tribnode{38}{13.}{$\neg q$}{r}{(11)} & \\
+      && \\
+      \nnode{10}{14.}{$s<r$}{}{} &    \nnode{10}{15.}{$s=r$}{}{} & \nnode{10}{16.}{$r<s$}{}{} \\
+      \nnodeclosed{10}{17.}{$q$}{r}{(6,14)} &  \nnodeclosed{10}{18.}{$p$}{s}{(10,15)} & \nnodeclosed{10}{19.}{$p$}{s}{(12,16)}  \\
+    }
+    \medskip
+  \end{sollist}
+\end{solution}
+
+% While we can define non-branchingness, we can't define branchingness.
+
+The precedence relation in relativistic spacetime is neither left-linear nor
+right-linear. But it has a weaker property: convergence.
+%
+% Haven't really talked about convergence so far. Draw picture like in HC 134?
+%
+A spacetime point $p_1$ can precede two points $p_2$ and $p_3$ neither of which
+precedes the other, but these two points will always precede a common later
+point $p_4$. Convergence corresponds to the \pr{G}-schema. In temporal
+logic, we have one \pr{G}-schema for future convergence and one for past
+convergence.
+%
+\begin{principles}
+\pri{FG}{\tF\tG A \to \tG\tF A}\\
+\pri{PG}{\tP\tH A \to \tH\tP A}
+\end{principles}
+
+% Goldblatt proved that S4.2 is the temporal logic of diodorean necessity in
+% Minkowski spacetime. Diodorean has F mean 'true from now on'. Is 0.2 implied by
+% no branching?
+
+% The logic of Minkowski spacetime with an irreflexive relation is D4.2+(<>p \land
+% <>q \to <>(<>p \land <>q)), see \cite[955]{kracht07logically}.
+
+\begin{exercise}
+  Can you find schemas that correspond to the following frame properties?
+  \begin{exlist}
+  \item There is no last time. (That is, every time precedes some time.)
+  \item There is no first time. 
+  \item There is a last time.
+  \item There is a first time.
+  \end{exlist}
+\vspace{-2mm}
+% HC 131 say that []<>p & []<>q -> <>(p v q) characterises the idea that time
+% has an end, or rather: that every point can see a final point. In the presence
+% of S4, they say this simplifies to the McKinsey axiom []<>p -> <>[]p.
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+    \item For example, $\tG A \to \tF A$.
+    % Suppose there's a last time $t$. Let $p$ be true there. Then $\tG p \to \tF p$ is false at $g$. Conversely, suppose there's no last time and $\tG A$ is true at some time. Then $\tF A$ is true there as well.
+  \item For example, $\tH A \to \tP A$.
+  \item No schema corresponds to the class of frames with a last time. If we
+  also assume transitivity and quasi-connected (see page
+  \pageref{quasiconnected}), then
+  $\tG(A \land \neg A) \lor \tF\tG(A \land \neg A)$ works.
+  % Mueller and Garanko and Humberstone say this. (But why does Garanko say
+  % "assuming irreflexivity"?) Girle says FA -> F-FA = GA v FGA. But that
+  % doesn't seem right. Without transitivity, there can be a last time, but
+  % $G\bot v FG\bot$ is false at any world that's at least two steps away from a
+  % last time. Transitivity gets around this. But it's not enough: consider a
+  % frame with one eternal time and a disconnected lonely further time t. Here
+  % we have a last time, but $G\bot v FG\bot$ is false at all times on the line.
+  \item No schema corresponds to the class of frames with a first time. If we
+    also assume transitivity and quasi-connectedness, then
+    $\tH(A \land \neg A) \lor \tP\tH(A \land \neg A)$ works.
+  \end{sollist}
+\end{solution}
+\vspace{-2mm}
+
+\begin{exercise}
+  Can you show that the schema $\tF A \to \tF\tF A$ corresponds to density? (You
+  have to show that (a) whenever a frame is dense then $\tF A \to \tF\tF A$ is
+  valid on the frame, and (b) whenever $\tF A \to \tF\tF A$ is valid on a frame
+  then the frame is dense.)
+\end{exercise}
+\begin{solution}
+  Assume a frame is dense. Suppose for reductio that some instance of
+  $\tF A \to \tF\tF A$ is false at some point $t$ in some model $M$ based on
+  that frame. Then $\tF A$ is true at $t$ and $\tF\tF A$ is false. Since $\tF A$
+  is true at $t$, it follows by definition \ref{def:temporalsemantics} that $A$
+  is true at some point $s$ such that $t<s$. By density, there is a point $r$
+  such that $t<r<s$. But since $A$ is true at $s$, $\tF A$ is true at $r$, and
+  so $\tF\tF A$ is true at $t$; contradiction.
+
+  In the other direction, we have to show that if a frame isn't dense then some
+  instance of $\tF A \to \tF\tF A$ is false at some point $t$ in some model $M$
+  based on that frame. We take the simplest instance $\tF p \to \tF\tF p$. If a
+  frame isn't dense then there are points $t,s$ such that $t<s$ and no point
+  lies in between $t$ and $s$. Let $V$ be an interpretation function that makes
+  $p$ true at $s$ and false everywhere else. Then $\tF p$ is true at $t$ but
+  $\tF\tF p$ is false. So $\tF p \to \tF\tF p$ is false at $t$.
+\end{solution}
+\vspace{-2mm}
+
+\begin{exercise}
+  Can you find an $\L_T$-expression stating that $p$ is true at all times? Can
+  you do so if you make assumptions about the precedence relation?
+\end{exercise}
+\begin{solution}
+  Without assumptions about the flow of time there is no way to express in
+  $\L_T$ that $p$ is true at all times (or at some time). In linear flows,
+  $p \land \tH p \land tG p$ does the job. 
+  % Does $GA\land HGA$ work with negatively transitive time (no parallel lines)?
+\end{solution}
+
+% Adding \pr{LL} and \pr{RL} yields a sound and complete logic of linear time.
+% The completeness proof is non-trivial because the canonical model is not
+% linear. We need techniques such as bulldozing. See Venema p.10f.
+
+% \begin{exercise}
+%   Can you find a frame condition that corresponds to the \pr{GL}-schema
+%   $\Box(\Box A \to A) \to \Box A$? (Hints: (a) In Kripke semantics, \pr{GL}
+%   entails \pr{4}; (b) The dual of \pr{GL} is
+%   $\Diamond A \to \Diamond(A \land \neg\Diamond A$.)
+% \end{exercise}
+% \begin{solution}
+%   Informally, $\Diamond A \to \Diamond(A \land \neg\Diamond A$ says that if it
+%   will ever be the case that $A$ then it will at some time be the case that $A$
+%   for the last time. So time will come to an end.
+% \end{solution}
+
+
+
+\section{Branching time}\label{sec:branching}
+
+In section \ref{sec:systems} we looked at the idea that the future is ``open''
+while the past is ``settled'', insofar as we can still influence (say)
+whether we will exercise tomorrow, but not whether we have exercised
+yesterday. Some have argued that this calls for a non-linear model of time, with
+multiple branches into the future. On one branch, we would exercise tomorrow, on
+another we would not.
+
+This line of thought appears to conflate temporal and modal considerations.
+The precedence relation in models of time is normally understood as a purely
+temporal relation -- as the earlier-later relation. The fact that we can bring
+about a world in which we exercise tomorrow and a world in which we don't
+exercise does not entail that both kinds of tomorrow take place here in the
+actual world.
+
+If we want to make explicit the connections between settledness and time, it is
+better to use a multi-modal language with circumstantial operators for
+settledness and openness in addition to the purely temporal operators
+$\tF, \tG, \tP, \tH$. We could then say things like $\tP p \to \Box \tP p$ to
+formalize the claim that if $p$ has happened then it is settled that $p$ has
+happened.
+
+% The accessibility relation for the box would have to hold fixed the past, so
+% that a world $v$ is accessible from a world $w$ only if the past of $v$
+% coincides with the past of $w$.
+
+\begin{exercise}
+  Suppose we endorse all instances of the schema (S1) $\tP A \to \Box \tP A$.
+  Suppose we also endorse all instances of (S2)
+  $\neg \tP A \to \Box \neg \tP A$, on the grounds that if something has failed to
+  happen then there is nothing we can do that would make it have happened.
+  Suppose also that settledness is closed under logical consequence, so that if
+  $\Box A_{1},\ldots \Box A_{n}$ are true and $A_{1},\ldots,A_{n}$ entail $B$,
+  then $\Box B$ is true as well. Finally, suppose the present time is not the
+  first. Show that we can then derive the fatalist conclusion that the future is
+  settled: $\tF A \to \Box \tF A$. (Hint: Suppose $\tF A$ is true at the present time $t$. Then $\tH \tF\tF A$ is true at $t$ as well. Now continue.)
+\end{exercise}
+\begin{solution}
+  Suppose some instance of $\tF A$ is true at the present time $t$. Then
+  $\tH \tF \tF A$ is true at $t$ as well. Since $\tH \tF \tF A$ is equivalent to
+  $\neg \tP \neg \tF \tF A$, it follows by (S2) that $\Box \tH \tF \tF A$ is
+  true at $t$. Since $t$ is not the first point in time, we also have
+  $\tP(A \lor \neg A)$ at $t$. By (S1), we get $\Box \tP(A \lor \neg A)$. Now
+  $\tH \tF \tF A$ and $\tP(A \lor \neg A)$ together $K_{t}$-entail $\tF A$.
+  Assuming that the box is closed under logical consequence, we can infer that
+  $\Box \tF A$ is true at $t$.
+\end{solution}
+
+% Exercise: multi-modal time travel -- can we change the past? Can you kill your
+% Grandfather? We'll see that in the worlds where you do, the person you kill is
+% not your grandfather. Calling the person your grandfather is smuggling in facts
+% about the future.
+
+Still, there are good reasons to consider branching models of time. I already
+mentioned that branching time models are widely used in computer science, where
+the ``times'' represent states of a computational process and the precedence
+relation has a semi-modal interpretation, holding between two states iff the
+first can lead to the second.
+% (The relevant logics of branching time are called ``computational tree
+% logics'').
+
+I also mentioned that the precedence relation in relativistic spacetime allows
+for branching, although diverging spacetime branches ultimately reconverge. A
+more classical form of branching (without reconvergence) has been argued to
+follow from the so-called ``Everett interpretation'' of quantum physics. On this
+interpretation, what are normally understood to be chance events are really
+branching events in which all possible outcomes actually take place.
+
+Another way to motivate a branching conception of time arises from a
+metaphysical view called \emph{presentism}. According to presentism, only the
+present is real; all truths that seem to concern other times are reducible to
+more fundamental truths about the present. If, for example, it is true that
+there was a sea battle yesterday, then according to presentism this must
+ultimately be explained by what is true \emph{now}; there must be facts about
+the present state of the world that entail (and explain) yesterday's sea battle.
+Different forms of presentism disagree over what the relevant facts about the
+present might be. On one view, they are particular facts about the distribution
+of physical particles and fields etc.\ together with the general laws of nature.
+If the laws of nature are deterministic, then the complete truth about the
+present distribution of particles and fields etc.\ together with the laws fixes
+all truths about the past and about the future. But suppose the laws are
+indeterministic towards the future: they merely settle that if the present
+physical state of the world is so-and-so, then the future is \emph{either like
+  this or like that}. In that case, the presentist will regard both of these
+futures as equally actual.
+
+Let's assume, then, that we want to reason about branching time. This is less
+straightforward than it might at first appear.
+
+The models we are interested in are not right-linear. I will, however, assume
+that they satisfy the following weaker property of
+\textbf{quasi-connectedness}:\label{quasiconnected}
+\[
+  \text{if $t < s$ then for any $r$, either $t < r$ or $r<s$}.
+\]
+% I've made up that label.
+Quasi-connectedness is more often called \emph{negative transitivity}, because
+it is equivalent to the assumption that if $t \not< s$ and $s\not<r$ then
+$t\not<r$. It slightly simplifies our models, for example by ruling out entirely
+disconnected parallel time lines.
+
+Two pieces of terminology will be useful. First, let's define a \textbf{history}
+in a model $\t{T,<,V}$ as a maximal linearly ordered subset of $T$. That is, a
+history is a collection of times $H$ such that
+\begin{itemize}[leftmargin=10mm]
+  \itemsep0mm
+\item[(i)] for all $t$ and $s$ in $H$, either $t<s$ or $t=s$ or $s<t$, and
+\item[(ii)] no further member of $T$ could be added to $H$ without
+  making (i) false.
+\end{itemize}
+%
+\noindent
+\begin{wrapfigure}{r}{4cm}
+  \vspace{-8mm}
+  \quad
+  \begin{tikzpicture}[modal, world/.append style={minimum size=0.5cm}]
+    \node[world] (w1) [label=above:{$t_1$}] {};
+    \node[world] (w2) [label=above:{$t_2$}, right=10mm of w1] {};
+    \node[world] (w3) [label=above:{$t_3$}, above right=5mm and 10mm of w2] {};
+    \node[world] (w4) [label=below:{$t_4$}, below right=5mm and 10mm of w2] {};
+    \draw[->] (w1) -- (w2);
+    \draw[->] (w2) -- (w3);
+    \draw[->] (w2) -- (w4);
+  \end{tikzpicture}
+  \vspace{-10mm}
+\end{wrapfigure}
+
+\noindent
+The model (or rather, frame) depicted on the right contains two
+histories: $\{ t_1, t_2, t_3 \}$ and $\{ t_1, t_2, t_4 \}$.
+
+Second, if $t$ is any time in any model, then any maximal linearly ordered set
+of times \emph{later than $t$} will be called a \textbf{future of $t$}. In the
+model on the right, $t_1$ has two futures: $\{ t_2, t_3 \}$ and
+$\{ t_2, t_4 \}$.
+
+If you look back at definition \ref{def:temporalsemantics}, you can see that in
+the standard semantics for temporal logic, $\tG p$ is true at $t$ iff $p$ is
+true at all times \emph{in all futures of $t$}; $\tF p$, on the other hand, is
+true at $t$ iff $p$ is true at some time \emph{in at least one future of $t$}.
+This ensures that $\tG$ and $\tF$ are duals, but it is often thought to be
+problematic if we want $\tF p$ to translate `it will be the case that $p$'.
+
+To illustrate, suppose I'm about to toss a coin. In one future (let's assume),
+the coin will land heads, in another it will land tails. By definition
+\ref{def:temporalsemantics}, both $\tF h$ and $\tF t$ are true. But should we
+say that the coin will land heads and also that it will land tails?
+
+%Which of Con1 and Con2 should we reject?
+
+We could adopt an alternative semantics for $\tF$ according to which $\tF p$
+is true at $t$ iff $p$ is true at some time in \emph{all} futures of $t$:
+%
+\begin{quote}
+  $M,t \models \tF A \;\text{iff every future of $t$ contains some $s$ such that $M,s \models A$}.$
+\end{quote}
+This is known as the \textbf{Peircean interpretation} of $\tF$ (after
+Charles S.\ Peirce; the name is due to Arthur Prior).
+
+On the Peircean account, $\tF p$ is false whenever $p$ only takes place in one
+of several futures. If we keep the classical interpretation of $\tG$, both
+$\tF p$ and $\tG \neg p$ can be false; the two operators are no longer duals.
+The dual of $\tF$ is a strange operator that applies to a sentence $A$ iff there
+is \emph{some} future in which $A$ is always true.
+
+\begin{exercise}
+  Explain why the Peircean interpretation renders $p \to \tH\tF p$, an instance
+  of \pr{Con2}, invalid.
+\end{exercise}
+\begin{solution}
+  Consider a model with three times ordered by $s<t$ and $s<r$. Assume $p$ is true at $t$ and not at $r$. Then $p \to \tH\tF p$ is false on the Peircean interpretation.
+\end{solution}
+
+A rather different approach is taken by (what Prior called) the
+\textbf{Ockhamist} approach. According to Ockhamism, if there are several
+futures then it doesn't make sense to say -- without qualification -- that $p$
+will be the case, or that $p$ won't be case. To talk about what will or won't be
+the case we must specify which future we have in mind.
+
+Formally, in Ockhamist semantics, the truth-value of every sentence is evaluated
+at a pair consisting at a time and a history. Histories are linear by
+definition, so the problems raised by multiple futures disappear. To say that
+$p$ is the case in \emph{some} history, or in \emph{all} histories, Ockhamists
+add new operators $\Diamond$ and $\Box$ that quantify over histories. The
+Peircean $\tF$ operator is equivalent to $\Box \tF$ in Ockhamism. $\Box \tF p$
+says that every future holds a time at which $p$ is true; $\Diamond Fp$, by
+contrast, would say that some future holds a time which $p$ is true.
+
+Here is the full Ockhamist semantics.
+
+\begin{definition}{Ockhamist Semantics}{ockhamistsemantics}
+  If $M = \t{T,<,V}$ is a temporal model, $H$ is a history in $M$, $t$
+  is a member of $H$, $P$ is any sentence letter, and $A,B$ are any
+  sentences in the Ockhamist language, then
+
+  \medskip
+  \begin{tabular}{lll}
+    (a) & $M,H,t \models P$ &iff $t$ is in $V(P)$.\\
+    (b) & $M,H,t \models \neg A$ &iff $M,H,t \not\models A$.\\
+    (c) & $M,H,t \models A \land B$ &iff $M,H,t \models A$ and $M,H,t \models B$.\\
+    (d) & $M,H,t \models A \lor B$ &iff $M,H,t \models A$ or $M,H,t \models B$.\\
+    (e) & $M,H,t \models A \to B$ &iff $M,H,t \not\models A$ or $M,H,t \models B$.\\
+    (f) & $M,H,t \models A \leftrightarrow B$ &iff $M,H,t \models (A\to B)$ and $M,H,t \models (B\to A)$.\\
+    (g) & $M,H,t \models \tF A$ &iff $M,H,s \models A$ for some $s$ in $ H$ such that $t<s$.\\
+    (h) & $M,H,t \models \tG A$ &iff $M,H,s \models A$ for all $s$ in $ H$ such that $t<s$.\\
+    (i) & $M,H,t \models \tP A$ &iff $M,H,s \models A$ for some $s$ in $ H$ such that $s<t$.\\
+    (j) & $M,H,t \models \tH A$ &iff $M,H,s \models A$ for all $s$ in $ H$ such that $s<t$.\\
+    (k) & $M,H,t \models \Box A$ &iff $M,J,t \models A$ for all histories $J$ that contain $t$.\\
+    (l) & $M,H,t \models \Diamond A$ &iff $M,J,t \models A$ for some history $J$ that contains $t$.
+  \end{tabular}
+\end{definition}
+
+% ``The Ockhamist semantics for temporal logic was intuitively conceived by Prior
+% but formally developed later, in Burgess (1979)''
+
+A sentence is \emph{valid} in Ockhamist semantics if it is true at all times $t$
+on all histories $H$ (containing $t$) in all models. As always, we can get
+stronger conceptions of validity -- stronger logics -- by adding further
+constraints on the precedence relation.
+
+% Axiomatic systems for many such concepts of validity have been found,
+% but I am not aware of any provably complete tree method.
+% for ax.systems see \cite{kracht07logically}, p.958, who cite Zanardo 1985 and
+% Reynolds 2003.
+
+\begin{exercise}
+  Which of the following schemas are valid in Ockhamist semantics?
+  \begin{exlist}
+  \item $\Box A \to A$
+  \item $\Box A \to \Box\Box A$
+  \item $\Diamond A \to \Box\Diamond A$
+  \item $\Box \tF A \to \tF\Box A$
+  \item $\tP A \to \Box \tP \Diamond A$%
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  (a)--(d) are valid, (e) is invalid.
+
+  To show that a schema is valid, assume for reductio that there is some time
+  $t$ on some history $H$ in some model $M$ at which the schema is false. Then
+  (repeatedly) use definition \ref{def:ockhamistsemantics} to derive a
+  contradiction.
+
+  For (e), consider a model with three times $t,s,r$ such that $s\prec t$,
+  $r\prec t$, and neither $s \prec r$ nor $r\prec s$. Let $q$ be true at $s$ and
+  false at the other two times. $\tP q \to \Box \tP \Diamond q$ is false at $t$
+  on the history $\t{s,t}$.
+\end{solution}
+
+There is something odd about the Ockhamist approach. Consider a scenario in
+which there are multiple futures; one future holds a sea battle, another holds
+no sea battle. Let $p$ translate `there is a sea battle'. Is $\tF p$ is true in
+this scenario (under the given interpretation of $p$)? What about
+$\tF(p \lor \neg p)$? Or $Gp \to GGp$?
+
+Ockhamism refuses to give an answer. In Ockhamism, sentences are only true or
+false relative to a model and a time \emph{and a history}. A branching-time
+scenario, however, does not fix a particular history. We'd like to know which
+sentences are true today if there are multiple futures. Ockhamism only tells us
+which sentences are true relative to each of the different futures. Relative to
+a history that contains a sea battle $\tF p$ is true, relative to other
+histories $\tF p$ is false.
+
+% In almost every approach to modal semantics, sentences are evaluated as true
+% or false relative to a model and a certain \textbf{evaluation point} taken
+% from the model. In standard Kripke semantics, for example, sentences are
+% defined as true or false relative to a model and a world (see definition
+% \ref{def:kripkesemantics}). Here the world is the evaluation point. In
+% Ockhamist semantics, an evaluation point consists of a time and a history:
+% definition \ref{def:ockhamistsemantics} settles which sentences are true
+% relative to a model $M$, a history $H$, and a time $t$. The problem is that an
+% intuitive brnaching-time scenario determines only a model and a time, but not
+% a history.
+
+If we insist that logical validity should formalize the idea of truth in all
+scenarios under all interpretations of non-logical vocabulary then we can't
+accept the official definition of validity in Ockhamist semantics. We have to
+extend the Ockhamist semantics to specify under what conditions a sentence is
+true \emph{in a model at a time}, without fixing a history. Then we can say that
+a sentence is valid iff it is true at all times in all models.
+
+A simple way to do this is to stipulate that a sentence is true at time in an
+(Ockhamist) model iff it is true relative to \emph{all} histories that contain
+the time:
+\begin{align*}
+  M,t \models A & \;\text{iff $M,H,t \models A$ for all histories $H$ that contain $t$}.
+\end{align*}
+This is known as a \textbf{supervaluationist} semantics.
+
+Supervaluationism is often used when a formal semantics defines truth relative
+to an ``extra'' parameter that doesn't correspond to any feature of a
+conceivable scenario. In Ockhamist semantics, that parameter is $H$. For a
+different application, consider vagueness. If $p$ translates `it is warm', and
+the temperature is borderline warm, it is not clear what we should say about the
+truth-value of $p$, and about various complex sentences containing $p$. One
+popular approach to vagueness is to first define truth relative to a
+\emph{sharpening} of vague expressions. Relative to a sharpening on which
+temperatures above 15.0 degrees Celsius are warm, $p$ has a clear truth-value in
+any conceivable scenario, as do complex sentences containing $p$. Since an
+actual scenario does not fix a particular sharpening, this semantics contains an
+extra parameter. We can define a notion of truth without that parameter by
+saying that a sentence is true in a scenario iff it is true in that scenario
+relative to every eligible sharpening.
+
+Supervaluationist accounts tend to have some non-classical features. Suppose we
+live in a branching world in which one future contains a sea battle and another
+doesn't. Let $p$ express that a sea battle takes place. According to
+supervaluationist Ockhamism, neither $\tF p$ nor $\neg \tF p$ is true in that
+scenario. Both are true relative to some but not relative to all histories, and
+that means that neither is simply true. Assuming that a sentence is \emph{false}
+if its negation is true, $\tF p$ is neither true nor false!
+
+Logics in which a sentence can have a third status besides (mere) truth and
+(mere) falsity are called \textbf{three-valued}. Three-valued approaches to
+branching time are sometimes defended by the intuition that if a sea battle
+occurs on some but not all branches of the future, then one can't truly assert
+that a battle \emph{will} occur nor that it \emph{won't} occur.
+
+The Polish logician Jan \polishL{}ukasiewicz argued that statements about the
+future are either true, false, or ``indeterminate''. To accommodate this third
+truth-value, he proposed three-valued truth-tables specifying how the
+truth-value of complex sentences are determined by the truth-value of their
+parts. For example, he suggested that if two sentences $A$ and $B$ are
+indeterminate, then their conjunction $A \land B$, disjunction $A \lor B$, and
+negations $\neg A, \neg B$ are also indeterminate.
+
+In the sea battle scenario, \polishL{}ukasiewicz's account renders
+$\tF s \lor \neg \tF s$ indeterminate, assuming $\tF s$ is indeterminate. This
+is often regarded as problematic: even if we shouldn't assert that there will be
+a sea battle, it is argued that we are justified to assert that there either
+will or there won't be a sea battle. The supervaluationist form of Ockhamism,
+while also three-valued, avoids this problem. On the supervaluationist
+interpretation, $\tF s$ and $\neg \tF s$ are neither true nor false in the sea
+battle scenario, but $\tF s \lor \neg \tF s$ is true.
+
+\begin{exercise}
+  Let's say that a sentence is \emph{super-valid} if it is true at all times in
+  all models, where truth at a time in a model is understood in accordance with
+  supervaluationist Ockhamism. Explain why the super-valid sentences are
+  precisely the sentences that are valid by the original Ockhamist definition of
+  validity (just below definition \ref{def:ockhamistsemantics}).
+\end{exercise}
+\begin{solution}
+  A sentence $A$ is super-valid iff $M,t \models A$ for all temporal models $M$
+  and times $t$ in $M$. By supervaluationism, this holds iff $M,H,t \models A$
+  for all $M,t$, and histories $H$ containing $t$. That's how Ockhamist validity was originally defined.
+\end{solution}
+\vspace{-2mm}
+\begin{exercise}
+  Things are more complicated for entailment. Let's say that $A$
+  \emph{Ockham-entails} $B$ iff there is no time on any history in any temporal
+  model at which $A$ is true and $B$ false. Let's say that $A$
+  \emph{super-entails} $B$ iff there is no time in any temporal model at which
+  $A$ is true and $B$ false, where truth at a time in a model is defined in
+  accordance with supervaluationism. Is Ockham-entailment equivalent to
+  super-entailment? Explain.
+\end{exercise}
+\begin{solution}
+  Ockham-entailment is stronger than super-entailment: whenever $A$
+  Ockham-entails $B$, then $A$ super-entails $B$, but not the other way around.
+
+  Suppose $A$ Ockham-entails $B$. Let $t$ be any time in any temporal model at
+  which $A$ is true, i.e.: true relative to all histories through $t$. Since $A$
+  Ockham-entails $B$, $B$ is true at $t$ relative to all histories through
+  $t$. So $A$ super-entails $B$.
+
+  But suppose $A$ super-entails $B$. Let $t$ be any time on any history $h$ in
+  any temporal model at which $A$ is true. We can't infer that $B$ is true at
+  $t$ on $h$, for $A$ may be false at $t$ relative to other histories $h'$. So
+  we can't infer that $A$ Ockham-entails $B$. Indeed, $\tF p$ super-entails
+  $\Box \tF p$, but $\tF p$ does not Ockham-entail $\Box \tF p$.
+\end{solution}
+
+% So is the true logic of time three-valued? I think this is not a good
+% question. The way I see it, it's a matter of choice. We can easily speak about
+% branching time in a classical, two-valued logic. And we could do this in
+% different ways. If it really turns out that the world has a branching time
+% structure, it might be reasonable to never say things like 'so-and-so will
+% happen tomorrow', and instead say 'it will happen on one branch', or 'it will
+% happen on all branches'. But we could also adopt a convention to use 'it will
+% happen' as shorthand for 'it will happen on all branches', and then, if the
+% convention is spelled out in a certain way, we'll have chosen to speak in a
+% three-valued language.
+
+
+\section{Extending the language}\label{sec:2d}
+
+The expressive resources of standard modal and temporal logic are weak. There
+are many things we might want to say about the unfolding of events in time that
+can't be said with $\tF, \tG, \tP$, and $\tH$. The Ockhamist history quantifiers
+are one way of adding expressive power to the basic language of temporal logic.
+In this section, we will look at some others.
+
+A useful operator for logics of discrete and linear time is the ``next''
+operator $\tX$ (also written `$\bigcirc$'). Informally, $\tX A$ means that $A$
+is true at the next point in time. Formally:
+%
+\begin{align*}
+\hspace{-17mm}
+  M,t \models \tX A \;\text{iff} & \;\text{$M,s \models A$ for some $s$ such that (i) $t<s$ and (ii) $s<r$ for all $r$}\\[-0.5mm]
+  & \;\text{such that $t\not=s$ and $t<r$.}
+\end{align*}
+
+With the help of $\tX$, we can also say that $A$ is true in two units of time
+($\tX\tX A$), in three units of time ($\tX\tX\tX A$), and so on. The
+corresponding operator for talking about the \emph{previous} point in time is
+usually written $\mathsf{Y}$.
+
+A more powerful extension of $\L_T$ adds binary operators for ``since'' and
+``until'', which can be used to translate sentences like (1) and (2).
+%
+\begin{itemize}[leftmargin=10mm]
+  \itemsep-1mm
+\item[(1)] Ever since we left the house it has been raining.
+\item[(2)] It will be raining until we go back inside.
+\end{itemize}
+%
+Informally, $A\tS B$ is true iff $B$ was true at some time in the past and $A$
+has always been true since then; $A \tU B$ is true iff $B$ will be true at some
+time in the future and $A$ will always be true until then. Formally:
+
+\vspace{-5mm}
+\begin{align*}
+  \hspace{-17mm}
+  M,t \models A \tS B \;\text{iff} &\; \text{there is some $s$ with $s < t$ for which $M,s \models B$, and for all $r$}\\[-0.5mm]
+                                    &\;\text{with $s < r < t$, we have $M, r \models A$.}
+\end{align*}
+\vspace{-12mm}
+\begin{align*}
+  \hspace{-17mm}
+M,t \models A \tU B \;\text{iff} &\; \text{there is some $s$ with $t < s$ for which $M,s \models B$, and for all $r$}\\[-0.5mm]
+  &\;\text{with $t < r < s$, we have $M, r \models A$.}
+\end{align*}
+
+If we have $\tS$ and $\tU$, we don't actually need $\tF, \tG,\tP,$ and $\tH$,
+because these can be defined in terms of $\tS$ and $\tU$: $\tP A$ is equivalent
+to $(p\lor \neg p)\tS A$; $\tF A$ is equivalent to $(p \lor \neg p)\tU A$.
+
+\begin{exercise}
+  Define $\tX A$ in terms of $\tU$.
+\end{exercise}
+\begin{solution}
+  $(A \land \neg A) \tU A$.
+\end{solution}
+
+Another noteworthy addition to temporal logic is the ``Now'' operator $\tN$.
+To see the point of this operator, consider the following multi-modal statement.
+
+\begin{itemize}[leftmargin=10mm]
+  \itemsep-1mm
+\item[(3)] We already knew yesterday that there would be a test today.
+\end{itemize}
+
+Using $\tY$ for `yesterday', we might try to translate (3) as $\tY \Kn p$, where
+$p$ translates `there is a test'. But that's wrong. By the semantics for $\tY$,
+$\tY \Kn p$ is true today iff $\Kn p$ is true yesterday (using days as temporal
+units). Since $\Kn p$ entails $p$, it follows that $\tY \Kn p$ is true today
+only if $p$ is true \emph{yesterday}. But the test takes place today, not
+yesterday.
+
+Intuitively, the problem is that `today' in (3) refers to the present day, even
+though it occurs in the scope of the `yesterday' operator. The same thing
+happens in the quantified statement (4).
+%
+\begin{itemize}[leftmargin=10mm]
+  \itemsep-1mm
+\item[(4)] One day everyone who is now rich will be poor.
+\end{itemize}
+% 
+Here, `now' refers to the present time, even though it is in the scope
+of the $\tF$ operator `one day'.
+
+% Kamp 1971 proved that every $\L_T$ sentence containing Now is
+% equivalent to one without Now. Things change in quantified logic.
+
+With the ``Now'' operator $\tN$, we can translate (3) as $\tY \Kn \tN p$, and
+(4) as $\tF \forall x (\tN Rx \to Px)$. (We will have a closer look at
+quantified modal logic in later chapters.)
+
+Intuitively, the $\tN$ operator allows us to look outside the scope of an
+embedding operator. $\tP \tN p$, for example, is true if there is some time in
+the past such that $p$ is true not at that time, but at the present. How
+does this work formally?
+
+By the semantics of $\tP$,%
+\begin{align*}
+  M,t \models \tP \tN p \;\text{iff} \;\text{$M,s \models \tN p$ for some time $s < t$}.
+\end{align*}
+Now we want $M,s\models \tN p$ to be true iff $p$ is true at the original time
+$t$. So we need to keep track of the original time at which we evaluate a
+sentence, even if a temporal operator shifts the time at which a subsentence is
+evaluated.
+
+The simplest way to achieve this is to define truth relative to pairs of
+times. One of the times is shifted by the temporal operators, the other is held
+fixed.
+
+\begin{definition}{Two-Dimensional Temporal Semantics}{2dtemporalsemantics}
+  If $\Mfr = \t{T,<,V}$ is a temporal model, $t,t_0$ are members of $T$, $P$ is
+  any sentence letter, and $A,B$ are any $\L_T$-sentences, then
+
+  \medskip
+  \begin{tabular}{lll}
+    (a) & $M,t_0,t \models P$ &iff $t$ is in $V(P)$.\\
+    (b) & $M,t_0,t \models \neg A$ &iff $M,t_0,t \not\models A$.\\
+    (c) & $M,t_0,t \models A \land B$ &iff $M,t_0,t \models A$ and $M,t_0,t \models B$.\\
+    (d) & $M,t_0,t \models A \lor B$ &iff $M,t_0,t \models A$ or $M,t_0,t \models B$.\\
+    (e) & $M,t_0,t \models A \to B$ &iff $M,t_0,t \not\models A$ or $M,t_0,t \models B$.\\
+    (f) & $M,t_0,t \models A \leftrightarrow B$ &iff $M,t_0,t \models (A\to B)$ and $M,t_0,t \models (B\to A)$.\\
+    (g) & $M,t_0,t \models \tF A$ &iff $M,t_0,s \models A$ for some $s$ in $ T$ such that $t<s$.\\
+    (h) & $M,t_0,t \models \tG A$ &iff $M,t_0,s \models A$ for all $s$ in $ T$ such that $t<s$.\\
+    (i) & $M,t_0,t \models \tP A$ &iff $M,t_0,s \models A$ for some $s$ in $ T$ such that $s<t$.\\
+    (j) & $M,t_0,t \models \tH A$ &iff $M,t_0,s \models A$ for all $s$ in $ T$ such that $s<t$.\\
+    (k) & $M,t_0,t \models \tN A$ &iff $M,t_0,t_0 \models A$.
+  \end{tabular}
+\end{definition}
+
+Like the Ockhamist semantics from the previous section, this semantics has an
+extra parameter. An ordinary scenario is represented by a single time in a
+model, not by a pair of two times. So we still need to specify under what
+conditions a sentence is true at a single time. Here, the standard approach is
+not supervaluation but ``diagonalization'':
+\begin{align*}
+  M,t \models A & \;\text{iff $M,t,t \models A$}.
+\end{align*}
+
+Here is why $\tP\tN p$ entails $p$.
+\begin{enumerate}[leftmargin=10mm]
+  \itemsep-1mm
+\item Assume $M,t \models \tP\tN p$.
+\item Then $M,t,t \models \tP\tN p$, by the definition of truth at a time in a model.
+\item Then $M,t,s \models \tN p$ for some $s<t$, by clause (i) of definition \ref{def:2dtemporalsemantics}.
+\item Then $M,t,t \models p$, by clause (k) of definition \ref{def:2dtemporalsemantics}.
+\item Then $M,t \models p$, by the definition of truth at a time in a model.
+\end{enumerate}
+
+The presence of a ``Now'' operator has far-reaching consequences for the logic
+of time. For example, $\tN p \to p$ is valid, in the sense that it is true at
+all times in all models. But $\tG(\tN p \to p)$ is invalid. If $p$ is true at
+$t$ and false at some time after $t$, then $\tG(\tN p \to p)$ is false at $t$.
+So we must give up the forward and backward Necessitation rules. The fact that
+something is logically true does not entail that it will always be true!
+
+\begin{exercise}
+  `It might have been that everyone who is actually rich is poor.' This says
+  that there is a world $w$ such that everyone who is rich \emph{at the actual
+    world} is poor \emph{at $w$}. To formalize statements like these, we need a
+  modal operator analogous to $\tN$ that takes us back to the actual world, even
+  in the scope of other modal operators. This operator is called the
+  \emph{actually} operator. Let's write it as $\tA$ and add it to $\L_{M}$. Can
+  you find a sentence $B$ in this language that is logically true but not
+  necessarily true, in the sense that $B$ is true at all worlds in all models
+  but $\Box B$ is not?
+\end{exercise}
+\begin{solution}
+  $\tA p \to p$.
+\end{solution}
+
+% \begin{align}
+%   1. & N p \to p & \text{theorem}\\
+%   2. & \Kn(Np \to p) & \text{necessitation}\\
+%   2. & \tG \Kn(Np \to p) & \text{necessitation}\\
+%   3. & \tG (\Kn(Np \to p) \to \Kn(Np \to p))& \text{nec factivity}\\
+%   4. & \tG (Np \to p)& \text{2,3}\\
+%   5. & p\to \tG Np& \text{theorem}\\
+%   6. & p\to \tG p& \text{4,5}
+% \end{align}
+
+% From Rini & Cresswell p.20: It is usually assumed that worlds and times can be
+% shifted independently. Meyer 2006 "Worlds and Times" considers the possibility
+% that what times there are varies from world to world, so that we might need to
+% allow a sentence to be true/false at a triple <w,t,p> even if t doesn't exist
+% at p. [p is a person index.]
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "ml.tex"
+%%% End:

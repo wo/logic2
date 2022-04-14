@@ -1,0 +1,1356 @@
+\chapter{Conditionals}\label{ch:conditionals}
+
+\section{Material conditionals}\label{sec:material}
+
+We are often interested not just in whether something is in fact the case, but
+also in whether it is (or would be) the case \emph{if} something else is (or
+would be) the case. We might, for example, wonder in what will happen to the
+climate if we don't reduce greenhouse gases, or whether World War 2 could have
+been avoided if certain steps had been taken in the 1930s.
+
+A sentence stating that something is (or would be) the case if something else is
+(or would be) the case is called a \textbf{conditional}. What exactly, do these
+statements mean? What is their logic? Philosophers have puzzled over these
+questions for more than 2000 years, with no agreement in sight.
+
+One attractively simple view is that a conditional `if $A$ then $B$' is true iff
+the antecedent $A$ is false or the consequent $B$ is true. This would make `if
+$A$ then $B$' equivalent to `not $A$ or $B$'. Conditionals with these
+truth-conditions are called \textbf{material conditionals}.
+
+The conditionals of classical logic are material. In $\L_{M}$, for example, a
+sentence $A \to B$ is true (at a world in a model) iff $A$ is false or $B$ is
+true (at that world in that model). According to the view that English
+conditionals are material conditionals, we can faithfully translate English
+conditionals into $\L_{M}$-sentences of the form $A \to B$. Is this correct?
+
+There are some arguments for a positive answer. Suppose I make the following
+promise.
+\begin{itemize}[leftmargin=10mm]
+  \item[(1)] If I don't have to work tomorrow then I will help you move.
+\end{itemize}
+I have made a false promise if the next day I don't have to work and yet I don't
+help you move. Under all other conditions you could not fault me for breaking my
+promise. So it seems that (1) is false iff I don't have to work and don't help
+you move. Generalizing, this suggests that `if $A$ then $B$' is true iff $A$ is
+false or $B$ is true.
+
+Another argument for analysing English conditionals as material conditionals
+starts with the intuitively plausible assumption that `$A$ or $B$' entails the
+corresponding conditional `if not-$A$ then $B$'. (This is sometimes called the
+\emph{or-to-if} inference.) If I tell you that Nadia is either in Rome or in
+Paris, you can infer that if she's not in Rome then she's in Paris. Now we can
+reason as follows.
+
+If $A$ is true and $B$ false then the conditional `if $A$ then $B$' is clearly
+false. Suppose, alternatively, that $A$ is false or $B$ is true. Then `not-$A$
+or $B$' is true. By or-to-if, we can infer that `if $A$ then $B$' is true as
+well. Thus `if $A$ then $B$' is true iff $A$ is false or $B$ is true.
+
+Most philosophers and linguists, however, don't think that English conditionals
+are material conditionals. Consider these facts about logical consequence (in
+classical propositional logic).
+%
+\begin{principles}\label{paradoxes-mat-imp}
+\pri{M1}{B \models A \to B}\\
+\pri{M2}{\neg A \models A \to B}\\
+\pri{M3}{\neg (A \to B) \models A}\\
+%\item (A \to B) \lor (B \to A)}\\
+%\pri (A \to B) \lor (B \to C)}\\
+\pri{M4}{A \to B \models \neg B\to \neg A}\\
+\pri{M5}{A \to B \models (A\land C) \to  B}
+\end{principles}
+
+If English conditionals were material conditionals then the following
+inferences, corresponding to (M1)--(M5), would be valid.
+
+\begin{enumerate}[leftmargin=12mm]
+  \itemsep1mm
+  \item[(E1)] There won't be a nuclear war. Therefore: If Russia attacks the US
+        with nuclear weapons then there won't be a nuclear war.
+  \item[(E2)] There won't be a nuclear war. Therefore: If there will be a
+        nuclear war then nobody will die.
+  \item[(E3)] It is not the case that if it will rain tomorrow then the Moon
+        will fall onto the Earth. Therefore: It will rain tomorrow.
+  \item[(E4)] If our opponents are cheating, we will never find out. Therefore:
+        If we will find out that our opponents are cheating, then they aren't
+        cheating.
+  \item[(E5)] If you add sugar to your coffee, it will taste good. Therefore: If
+        you add sugar and vinegar to your coffee, it will taste good.
+\end{enumerate}
+
+These inferences do not sound good. If we wanted to defend the view that English
+conditionals are material conditionals we would have to explain why they sound
+bad even though they are valid. We will not explore this option any further.
+
+\begin{exercise}
+  Can you find a different analysis of English conditionals that, like the
+  material analysis, would make them truth-functional but that would render all
+  of (E1)--(E5) invalid?
+\end{exercise}
+\begin{solution}
+  (E1)--(E5) are invalid assuming that `if $A$ then $B$' is true iff both $A$
+  and $B$ are true. There are, of course, strong reasons against the analysis of
+  English conditionals as conjunctions.
+\end{solution}
+
+Even those who defend the material analysis of English conditionals admit that
+it does not work for all English conditionals. Consider (2).
+\begin{enumerate}[leftmargin=10mm]
+\item[(2)] If water is heated to $100^\circ$ C, it evaporates.
+\end{enumerate}
+This shouldn't be translated as $p\to q$. Intuitively, (2) states that \emph{in
+  all (normal) cases} where water is heated to $100^\circ$ C, it evaporates. It
+is a quantified, or modal claim.
+
+Another important class of conditionals that can't be analysed as material
+conditionals are so-called \textbf{subjunctive conditionals}. Compare the
+following two statements.
+
+\begin{enumerate}[leftmargin=10mm]
+  \itemsep-1mm
+\item[(3)] If Shakespeare didn't write \emph{Hamlet}, then someone else did.
+\item[(4)] If Shakespeare hadn't written \emph{Hamlet}, then someone else
+  would have.
+\end{enumerate}
+%
+(3) seems true. Someone has written \emph{Hamlet}; if it wasn't Shakespeare then
+it must have been someone else. But (4) is almost certainly false. After all, it
+is very likely that Shakespeare did write \emph{Hamlet}. And it is highly
+unlikely that if he hadn't written \emph{Hamlet} -- if he got distracted by
+other projects, say -- then someone else would have stepped in to write the
+exact same piece.
+
+Sentences like (3) are called \textbf{indicative conditionals}. Intuitively, an
+indicative conditional states that something is \emph{in fact} the case on the
+assumption that something else is the case. A subjunctive conditional like (4)
+states that something \emph{would be} the case if something else \emph{were} the
+case. Typically we know that this something else is not in fact the case. We
+know, for example, that Shakespeare wrote \emph{Hamlet} and therefore that the
+antecedent of (4) is false. For this reason, subjunctive conditionals are also
+called \emph{counterfactual conditionals} or simply \emph{counterfactuals}.
+
+It should be clear that subjunctive conditionals are not material conditionals.
+I said that (4) is almost certainly false. But it almost certainly has a false
+antecedent. So the corresponding material conditional is almost certainly true.
+
+\section{Strict conditionals}\label{sec:strict-implication}
+
+% On the history see http://hume.ucdavis.edu/mattey/phi134/strict.htm
+
+One apparent difference between material conditionals $A \to B$ and conditionals
+in natural language is that $A\to B$ requires no connection between the
+antecedent $A$ and the consequent $B$. Consider (1).
+\begin{enumerate}[leftmargin=10mm]
+  \item[(1)] If we leave after 5, we will miss the train.
+\end{enumerate}
+Intuitively, if someone utters (1), they want to convey that missing the train
+is a \emph{necessary consequence} of leaving after 5 -- that it is impossible to
+leave after 5 and still make it to the train, given certain facts about the
+distance to the station, the time it takes to get there, etc. This suggests that
+(1) should be formalized not as $p \to q$ but as $\Box(p \to q)$ or,
+equivalently, $\neg \Diamond(p \land \neg q)$.
+
+Sentences of the form $\Box(A \to B)$ or $\neg \Diamond(A \land \neg B)$ are
+called \textbf{strict conditionals}. The label goes back to C.I.\ Lewis (1918),
+who also introduced the abbreviation $A \strictif B$ for strict conditionals.
+
+Lewis was not interested in the interpretation of ordinary-language
+conditionals. He wanted $A \strictif B$ to formalize `$A$ implies $B$' or `$A$
+entails $B$'. His intended use of $\strictif$ roughly matches our use of the
+double-barred turnstile `$\models$'. But there are important differences. The
+turnstile is an operator in our \emph{meta-language}; Lewis's $\strictif$ is an
+\emph{object-language} operator that, like $\land$ or $\to$, can be placed
+between any two sentences in a formal language to generate another sentence in
+the language. $p \strictif (q \strictif p)$ is well-formed, whereas
+$p \models (q\models p)$ is gibberish. Moreover, while $p \models q$ is simply
+false -- because there are models in which $p$ is true and $q$ false -- Lewis's
+$p \strictif q$ is true on some interpretation of the sentence letters and false
+on others. If $p$ means that it raining heavily and $q$ that it is raining, then
+$p \strictif q$ is true because the hypothesis that it is raining heavily
+implies that it is raining.
+
+Let's set aside Lewis's project of formalizing the concept of implication. Our
+goal is to find an object-language construction that functions like `if \ldots
+then \ldots' in English. To see whether `$\ldots \strictif\ldots$' can do the job,
+let's have a closer look at the logic of strict conditionals.
+
+Since $A \strictif B$ is equivalent to $\Box(A \to B)$, standard Kripke
+semantics for the box also provides a semantics for strict conditionals. In
+Kripke semantics, $\Box(A \to B)$ is true at a world $w$ iff $A \to B$ is true
+at all worlds $v$ accessible from $w$. And $A \to B$ is true at $v$ iff either
+$A$ is false at $v$ or $B$ is true at $v$. We therefore have the following
+truth-conditions for strict conditionals.
+
+\begin{definition}{Kripke semantics for $\strictif$}{semstrictif}
+  If $M = \t{W,R,V}$ is a Kripke model, then\\[1mm]
+  $M,w \models A \strictif B$ iff for all $v$ such that $wRv$, either
+  $M,v \not\models A$ or $M,v \models B$.
+\end{definition}
+
+\begin{exercise}
+  $A \strictif B$ is equivalent to $\Box(A \to B)$. Can you find a sentence
+  schema with $\strictif$ as the only non-truth-functional operator that is
+  equivalent (in Kripke semantics) to $\Box A$?
+\end{exercise}
+\begin{solution}
+  For example: $\neg A \strictif A$ or $(A\lor \neg A) \strictif A$.
+\end{solution}
+
+As always, the logic of strict conditionals depends on what constraints we
+impose on the accessibility relation. Without any constraints, $\strictif$ does
+not validate \emph{modus ponens}, in the sense that $A \strictif B$ and $A$
+together do not entail $B$. We can see this by translating
+$A \strictif B$ back into $\Box(A \to B)$ and setting up a tree. Recall that to
+test whether some premises entail a conclusion, we start the tree with the
+premises and the negated conclusion.
+%
+\begin{center}
+  \tree[3]{%
+    & \nnode{18}{1.}{$\Box (A \to B)$}{w}{(Ass.)} &\\
+    & \nnode{18}{2.}{$A$}{w}{(Ass.)} &\\
+    & \nnode{18}{3.}{$\neg B$}{w}{(Ass.)} &
+  }
+\end{center}
+%
+With the K-rules, where we don't make any assumptions about the accessibility
+relation, node 1 can't be expanded, so there is nothing more we can do.
+
+\begin{exercise}
+  Give a countermodel in which $p \strictif q$ and $p$ are true at some world
+  while $q$ is false.
+\end{exercise}
+\begin{solution}
+  $W = \{ w \}$, $R = \emptyset$, $V(p) = \{ w \} $, $V(q)=\emptyset$.
+\end{solution}
+
+If we assume that the accessibility relation is reflexive, the tree closes:
+\begin{center}
+  \tree[3]{%
+    & \nnode{18}{4.}{$wRw$}{}{(Ref.)} &\\
+    & \bnode{18}{5.}{$A \to B$}{w}{(1,4)} &\\
+    &&\\
+    \nnodeclosed{10}{6.}{$\neg A$}{w}{(5)} && \nnodeclosed{10}{7.}{$B$}{w}{(5)}
+  }
+\end{center}
+
+It is not hard to show that \emph{modus ponens} for $\strictif$ is valid on all
+and only the reflexive frames. Reflexivity is precisely what we need to render
+\emph{modus ponens} valid. And we probably want \emph{modus ponens} to be valid
+for English conditionals. If $A$ is true and $B$ false, then the conditional `if
+$A$ then $B$' seems clearly false. So we'll want the relevant Kripke models to
+be reflexive.
+
+\begin{exercise}\label{ex:sda-import}
+  Using the tree method, and translating $A \strictif B$ into $\Box(A \to B)$, confirm that following claims hold, for all $A,B,C$.
+  \begin{exlist}
+  \item $\models_K A \strictif A$
+  \item $A \strictif B \models_K \neg B \strictif \neg A$
+  \item $A \strictif B \models_K (A \land C) \strictif B$
+  \item $A\strictif B, B \strictif C \models_{K} A \strictif C$
+  \item $(A \lor B) \strictif C \models_K (A \strictif C) \land (B \strictif C)$
+  \item $A \strictif (B \strictif C) \models_T (A \land B) \strictif C$
+%  \item $A \strictif B, \neg B \models_T \neg A$ 
+  \item $A\strictif B \models_{S4} C \strictif (A \strictif B)$
+    % inspired by Hacking's formula for 4, which is the necessitated version of the corresponding conditional
+  \item $((A\strictif B) \strictif C) \strictif (A\strictif B) \models_{S5} A\strictif B$
+  \end{exlist}
+  Which of these do you think are plausible if we
+  assume that $A \strictif B$ translates indicative conditionals `if $A$ then $B$'?
+\end{exercise}
+\begin{solution}
+  Use \href{https://www.umsu.de/trees/}{umsu.de/trees/}.
+\end{solution}
+
+% Note: if epistemic, then maybe S4.2; if subjunctive, then maybe 5?
+
+We could now look at other conditions on the accessibility relation and decide
+whether they should be imposed, based on what they would imply for the logic of
+conditionals. But let's take a shortcut.
+
+I have suggested that sentence (1) might be understood as saying that it is
+\emph{impossible} to leave after 5 and still make it to the train. Impossible in
+what sense? There are many possible worlds at which we leave after 5 and still
+make it to the train. There are, for example, worlds at which the train departs
+two hours later, at which we live right next to the station, and so on. When I
+say that it is impossible to leave after 5 and still make it to the train, I
+arguably mean that it is impossible \emph{given what we know about the departure
+  time, our location, etc.}
+
+Generalizing, a tempting proposal is that the accessibility relation that is
+relevant for indicative conditionals like (1) is the epistemic accessibility
+relation that we studied in chapter \ref{ch:epistemic}, where a world $v$ is
+accessible from $w$ iff it is compatible with what is known at $w$. On that
+hypothesis, the logic of indicative conditionals is determined by the logic
+of epistemic necessity. We don't need to figure out the relevant accessibility
+relation from scratch.
+
+Since knowledge varies from agent to agent, the present idea implies that the
+truth-value of indicative conditionals should be agent-relative. This seems to
+be confirmed by the following puzzle, due to Allan Gibbard.
+\begin{quote}
+  Sly Pete and Mr.\ Stone are playing poker on a Mississippi riverboat. It is
+  now up to Pete to call or fold. My henchman Zack sees Stone’s hand, which is
+  quite good, and signals its content to Pete. My henchman Jack sees both hands,
+  and sees that Pete's hand is rather low, so that Stone's is the winning hand.
+  At this point the room is cleared. A few minutes later, Zack slips me a note
+  which says `if Pete called, he won', and Jack slips me a note which says `if
+  Pete called, he lost'. % \cite[231]{gibbard1981xxx}
+\end{quote}
+The puzzle is that Zack's note and Jack's note are intuitively contradictory,
+yet they both seem to be true.
+
+We can resolve the puzzle if we understand the conditionals as strict
+conditionals with an agent-relative epistemic accessibility relation. Take Zack.
+Zack knows that Pete knows Stone's hand. He also knows that Pete would not call
+unless he has the better hand. So among the worlds compatible with Zack's
+knowledge, all worlds at which Pete calls are worlds at which Pete wins. If $p$
+translates `Pete called' and $q$ `Pete won', then $p \strictif q$ is true
+relative to Zack's information state. Relative to Jack's information state,
+however, the same sentence is false. Jack knows that Stone's hand is better than
+Pete's, but he doesn't know that Pete knows Stone's hand. Among the worlds
+compatible with Jack's knowledge, all worlds at which Pete calls are therefore
+worlds at which Pete loses. Relative to Jack's information state,
+$p \strictif \neg q$ is true.
+
+Another advantage of the ``epistemically strict'' interpretation is that it
+might explain why indicative conditionals with antecedents that are known to be
+false seem defective. For example, suppose Jones has gone to work. In that
+scenario, is (2) true or false?
+\begin{enumerate}[leftmargin=10mm]
+  \item[(2)] If Jones has not gone to work then he is helping his neighbours.
+\end{enumerate}
+The question is hard to answer, and not because we lack information about the
+scenario. Once we are told that Jones has gone to work, it is unclear how we are
+meant to assess whether Jones is helping his neighbours \emph{if} he has not
+gone to work. On the epistemically strict interpretation, (2) says that Jones is
+helping his neighbours at all epistemically accessible worlds at which Jones
+hasn't gone to work. Since we know that Jones has gone to work, there are no
+epistemically accessible worlds at which he hasn't gone to work. And if there
+are no $A$-worlds then we naturally balk at the question whether all $A$-worlds
+are $B$-worlds. (In logic, we resolve to treat `all $A$s are $B$' as true if
+there are no $A$s. Accordingly, (2) comes out true on the epistemically strict
+analysis. But we can still explain why it seems defective.)
+
+We have found a promising alternative to the hypothesis that indicative
+conditionals are material conditionals. According to the present alternative,
+they are epistemically strict conditionals -- strict conditionals with an
+epistemic accessibility relation.
+
+What about subjunctive conditionals? Return to the two Shakespeare conditionals
+from the previous section. When we evaluate the indicative sentence -- `If
+Shakespeare didn't write \emph{Hamlet}, then someone else did' -- we hold fixed
+our knowledge that \emph{Hamlet} exists; worlds where the play was never written
+are inaccessible. That's why the conditional is true. At all accessible worlds
+at which Shakespeare didn't write \emph{Hamlet}, someone else wrote the play.
+When we evaluate the subjunctive conditional -- `If Shakespeare hadn't written
+\emph{Hamlet}, then someone else would have' -- we do consider worlds at which
+\emph{Hamlet} was never written, even though we know that the actual world is
+not of that kind. If subjunctive conditionals are strict conditionals, then
+their accessibility relation does not track our knowledge or information.
+Unfortunately, as we are going to see in the next section, it is hard to say
+what else it could track.
+
+This is one problem for the strict analysis of natural-language conditionals.
+Another problem lies in the logic of strict conditionals. Remember (E1)--(E5)
+from page \pageref{paradoxes-mat-imp}. We can easily explain why (E1)--(E3) are
+invalid. For example, while $q$ entails $p \to q$, it does not entail
+$p \strictif q$. If we translate English conditionals as strict conditionals, we
+are therefore not committed to the validity of (E1). But the strict analogues of
+\pr{M4} and \pr{M5} still hold, no matter what we say about accessibility (see
+exercise \ref{ex:sda-import}):
+\begin{gather*}
+  A \strictif B \models \neg B\strictif \neg A;\\
+  A \strictif B \models (A\land C) \strictif  B.
+\end{gather*}
+So we still predict that the inferences (E4) and (E5) are valid.
+
+\begin{enumerate}[leftmargin=12mm]
+  \itemsep1mm
+  \item[(E4)] If our opponents are cheating, we will never find out. Therefore:
+        If we will find out that our opponents are cheating, then they aren't
+        cheating.
+  \item[(E5)] If you add sugar to your coffee, it will taste good. Therefore: If
+        you add sugar and vinegar to your coffee, it will taste good.
+\end{enumerate}
+
+\begin{exercise}
+  The badness of (E4) and (E5) suggests that indicative conditionals can't be
+  analysed as strict conditionals. Can you give a similar argument suggesting
+  that \emph{subjunctive} conditionals can't be analysed as strict conditionals?
+\end{exercise}
+\begin{solution}
+  (E1)--(E5) all work equally well in the subjunctive mood. For \pr{E4} and
+  \pr{E5}:
+  \begin{itemize}
+  \item If our opponents had been cheating, we would never have found out.
+    Therefore: If we had found out that our opponents are cheating, then
+    they wouldn't have been cheating.
+  \item If you had added sugar to your coffee, it would have tasted
+    good. Therefore: If you had added sugar and vinegar to your coffee, it would
+    have tasted good.
+  \end{itemize}
+  Both of these inferences are valid if subjunctive conditionals are strict
+  conditionals. But they don't sound good.
+\end{solution}
+
+% Another problem: subjunctive mights. Might if A then B doesn't seem to mean
+% $\Diamond\Box(A \to B)$, nor $\Box(A \to \Diamond B)$.
+
+% \begin{exercise}
+%   Some have argued that problems similar to those raised by
+%   \pr{M1}--\pr{M3} remain for strict implication, because the
+%   following turn out to be true:
+%   \begin{enumerate*}
+%   \item $\Box B \models A \strictif B$
+%   \item $\Box \neg A \models A \strictif B$
+%   \item $\neg (A \strictif B) \models \Diamond A$
+%   \end{enumerate*}
+  
+%   Note analogy to wide-scope analysis of conditional obligation.
+% \end{exercise}
+
+% Arguably, natural language conditionals lie in between strict and material. For
+% if $A \to B$ is false, then $A$ is true and $B$ false, and then `if $A$ then
+% $B$' is surely false. And if $A\to B$ is necessary, so at all worlds where $A$
+% holds $B$ holds, then plausibly if $A$ holds (or were to hold) at the actual
+% world, then so does (would) $B$.
+
+% Every SC model (as defined here) is a VC model (as defined in next sec). So
+% everything that's true in all VC models is true in all SC models; i.e. the
+% logic SC is strictly stronger than VC.
+
+\begin{exercise}
+  A plausible norm of pragmatics is that a sentence should only be asserted if
+  it is known to be true. Let's call a sentence \emph{assertable} if it is known
+  to be true. Show that if the logic of knowledge is at least S4, then an
+  epistemically strict conditional $A \strictif B$ is assertable iff the
+  corresponding material conditional $A \to B$ is assertable.
+\end{exercise}
+\begin{solution}
+  Suppose $A \to B$ is assertable. Then $A\to B$ is known. So $\Kn (A \to
+  B)$. In S4, it follows that $\Kn\Kn(A \to B)$. So the epistemically strict
+  conditional $\Kn(A \to B)$ is assertable. Conversely, if $\Kn(A \to B)$ is
+  assertable, then it is known; so $\Kn\Kn(A \to B)$. In S4, it follows that
+  $\Kn(A \to B)$. So $A \to B$ is assertable.
+\end{solution}
+
+\begin{exercise}
+  Explain why the `or-to-if' inference from `$p$ or $q$' to `if not $p$ then
+  $q$' is invalid on the assumption that the conditional is epistemically
+  strict. How could a friend of this assumption explain why the inference
+  nonetheless looks reasonable, at least in normal situations? (Hint: Remember
+  the previous exercise.)
+\end{exercise}
+\begin{solution}
+  The `or-to-if' inference is not valid on the assumption that the conditional
+  is epistemically strict. For example, if $p$ and $q$ are both true at the actual world and both false at some epistemically accessible world, then `$p$ or $q$' is true but `if $p$ then $q$' is false (on the strict analysis).
+
+  The inference might nonetheless look reasonable because it would normally be
+  inappropriate to assert a disjunction `$p$ or $q$' unless the disjunction is
+  known -- unless it is true at all epistemically accessible worlds. And if
+  $p \lor q$ is true at all epistemically accessible worlds then $\neg p \to q$
+  is also true at all epistemically accessible worlds, and so $\Box(p \to q)$ is
+  true. Thus the conclusion of or-to-if is true in any situation in which the
+  premise is \emph{assertable}. If the logic of knowledge validates the
+  \pr{4}-schema, we can go further and say that the conclusion is assertable in
+  any situation in which the premise is assertable.
+\end{solution}
+
+  
+\section{Variably strict conditionals}
+
+Let's have a closer look at subjunctive conditionals. As I am writing these
+notes, I am sitting in Coombs Building, room 2228, with my desk facing
+the wall to Al H\'ajek's office in room 2229. In light of these facts, (1) seems
+true.
+\begin{enumerate}[leftmargin=10mm]
+\item[(1)] If I were to drill a hole through the wall behind my desk,
+  the hole would come out in Al's office.
+\end{enumerate}
+% This example is meant to get around some of Al's worries.
+There is no logical connection between the antecedent of (1) and the consequent.
+There are many possible worlds at which I drill a hole through the wall behind
+my desk and don't reach Al's office -- for example, worlds at which my desk
+faces the opposite wall, worlds at which Al's office is in a different room, and
+so on. If (1) is a strict conditional then all such worlds must be inaccessible.
+
+Now consider (2).
+\begin{enumerate}[leftmargin=10mm]
+\item[(2)] If the office spaces had been randomly reassigned yesterday then Al's
+  office would (still) be next to mine.
+\end{enumerate}
+(2) seems false, or at least very unlikely. But if (2) is a strict conditional,
+and worlds at which Al is not in room 2229 or I am not in 2228 are inaccessible
+-- as they seem to be for (1) -- then (2) should be true. Among worlds at which
+I am in 2228 and Al is in 2229, all worlds at which the office spaces have been
+randomly reassigned yesterday are worlds at which Al's office is next to mine.
+When we evaluate (2), it looks like we no longer hold fixed who is in which
+office. Worlds that were inaccessible for (1) are accessible for (2).
+
+So the accessibility relation, at least for subjunctive conditionals, appears to
+vary from conditional to conditional. As David Lewis put it, subjunctive
+conditionals seem to be not strict, but ``variably strict''.
+
+Let's try to get a better grip on how this might work. (What follows is a
+slightly simplified version of an analysis developed by Robert Stalnaker and
+David Lewis at around 1970.)
+
+Intuitively, when we ask what would have been the case if a certain event had
+occurred, we are looking at worlds that are much like the actual world up to the
+time of the event. Then these worlds deviate in some minimal way to allow the
+event to take place. Afterwards the worlds unfold in accordance with the general
+laws of the actual world.
+
+For example, if we wonder what would have happened if Shakespeare hadn't written
+\emph{Hamlet}, we are interested in worlds that are like the actual world until
+1599, at which point some mundane circumstances prevent Shakespeare from writing
+\emph{Hamlet}. We are not interested in worlds at which Shakespeare was never
+born, or in which the laws of nature are radically different from the laws at
+our world. One might reasonably judge that Shakespeare would have been a famous
+author even if he hadn't written \emph{Hamlet}, although we would hardly be
+famous in worlds in which he was never born.
+
+Likewise for (1). Here we are considering worlds that are much like the actual
+world up to now, at which point I decide to drill a hole and find a suitable
+drill. These changes do not require my office to be in a different room. Worlds
+where I'm not in room 2228 can be ignored. Figuratively speaking, such worlds
+are ``too remote'': they differ from the actual world in ways that are not
+required to make the antecedent true.
+
+This suggests that a subjunctive conditional is true iff the consequent is true
+at the \emph{closest} worlds at which the antecedent is true -- where closeness
+is a matter of similarity in certain respects. The closest worlds (to the actual
+world) at which Shakespeare didn't write \emph{Hamlet} are worlds that almost
+perfectly match the actual world until 1599, then deviate a little so that
+Shakespeare didn't write Hamlet, and afterwards still resemble the actual world
+with respect to the general laws of nature. We will not try to spell out in full
+generality what the relevant closeness measure should look like.
+
+Let `$v \prec_w u$' mean that $v$ is closer to $w$ than $u$, in the sense that
+$v$ differs less than $u$ from $w$ in whatever respects are relevant to the
+interpretation of subjunctive conditionals.
+
+We make the following structural assumptions about the world-relative ordering
+$\prec$.
+
+\begin{enumerate}[leftmargin=8mm]
+  \itemsep-1mm
+  \item If $v \prec_w u$ then $u \nprec_w v$. (Asymmetry)
+  \item If $v \prec_w u$, then for all $t$ either $v \prec_w t$ or
+        $t \prec_w u$. (Quasi-connectedness)
+% \item For all $w$ and $v$, $v \nprec_w w$. (\textbf{Weak centring})
+  \item For any non-empty set of worlds $X$ and world $w$ there is a $v$ in $X$
+        such that there is no $u$ in $X$ with $u \prec_w v$.
+  % There are different formulations of the Limit Assumption. This is what
+  % Kaufmann 2017 calls PLA.
+\end{enumerate}
+
+Asymmetry is self-explanatory. Quasi-connectedness (a.k.a.\ negative
+transitivity) ensures that the ``equidistance'' relation that holds between $v$
+and $u$ if neither $v \prec_w u$ nor $u \prec_w v$ is an equivalence relation.
+With these two assumptions, we can picture each world $w$ as associated with
+nested spheres of worlds; $v \prec_w u$ means that $v$ is in a more narrow
+$w$-sphere than $u$.
+
+Assumption 3 is known as the \textbf{Limit Assumption}. It ensures that for any
+consistent proposition $A$ and world $w$, there is a set of closest $A$-worlds.
+Without the Limit Assumption, there could be an infinite chain of ever closer
+$A$-worlds, with no world being maximally close.
+
+% Maybe express similarity models in terms of spheres, like neighbourhood models,
+% i.e. N(w) = { { w }, { w, v }, ... }? This makes the frames easier to draw and
+% to write. Students don't know how to write that two worlds are tied in terms
+% of <_{w}.
+
+\begin{exercise}
+  Show that asymmetry and quasi-connectedness imply transitivity.
+\end{exercise}
+\begin{solution}
+  Assume that $R$ is asymmetric and quasi-connected. We want to show that
+  $R$ is transitive. So assume we have $xRy$ and $yRz$. By quasi-connectedness,
+  $yRz$ implies that either $yRx$ or $xRz$. By asymmetry, we can't have $yRx$,
+  since we have $xRy$. So $xRz$.
+\end{solution}
+
+\begin{exercise}
+  Define $\preceq_{w}$ so that $v \preceq_w u$ iff $u \nprec_w v$ (that is, if
+  it is not the case that $u \prec_{w} v$). Informally, $v \preceq_w u$ means
+  that $v$ is at least as similar to $w$ in the relevant respects as $u$. Many
+  authors use $\preceq$ rather than $\prec$ as their basic notion. Can you
+  express the above three conditions on $\prec$ in terms of $\preceq$? (For
+  example, Asymmetry turns into the assumption that for all $w,v,u$, either
+  $u \preceq_{w} v$ or $v \preceq_{w} u$.)
+\end{exercise}
+\begin{solution}
+  We have the following equivalences (using `$\Leftrightarrow$' to mean that the
+  expressions on either side are equivalent):
+  \[
+    u \npreceq_w v \Leftrightarrow \neg (u \preceq_w v) \Leftrightarrow \neg(v \nprec_w u) \Leftrightarrow v \prec_w u.
+  \]
+  So you can simply replace every instance of $\omega \prec_{w} \nu$ in the
+  conditions by $\nu \npreceq_{w} \omega$, and every instance of
+  $\omega \nprec_{w} \nu$ by $\nu \preceq_{w} \omega$.
+
+  Asymmetry thereby turns into: if $u \npreceq_{w} v$ then $v \preceq_{w} u$.
+  Equivalently: either $u \preceq_{w} v$ or $v \preceq_{w} u$. This
+  property of relations is called \textbf{strong connectedness}. Notice that it
+  entails reflexivity.
+
+  Quasi-connectedness turns into: if $u \npreceq_{w} v$ then for all $t$, either
+  $t \npreceq_{w} v$ or $u \npreceq_{w} t$. This is equivalent to transitivity
+  for $\preceq$.
+
+  % Weak centring turns into: for all $w$ and $v$, $w \preceq_{w} v$.
+
+  The Limit Assumption turns into: for any non-empty set of worlds $X$ and world
+  $w$ there is a $v\in X$ such that there is no $u \in X$ with
+  $v \npreceq_{w} u$. Equivalently, for any non-empty set of worlds $X$
+  and world $w$ there is a $v\in X$ such that $v \preceq_{w} u$ for all $u\in X$.
+\end{solution}
+
+We are going introduce a variably strict operator $\boxright$ so that
+$A\boxright B$ is true at a world $w$ iff $B$ is true at the closest worlds to
+$w$ at which $A$ is true. Models for a language with the $\boxright$ operator
+must contain a closeness ordering $\prec$ on the set of worlds.
+
+\begin{definition}{}{similaritymodel}
+  A \textbf{similarity model} consists of
+  \vspace{-3mm}
+  \begin{itemize*}
+  \item a non-empty set $W$,
+  \item for each $w$ in $W$ an asymmetric and quasi-connected order $\prec_w$
+  that satisfies the Limit Assumption, and
+  \item a function $V$ that assigns to each sentence letter a subset of $W$.
+  \end{itemize*}
+  % Notice that this is a special kind of neighbourhood model: the propositions
+  % necessary at w are the nested spheres around w.
+\end{definition}
+
+To formally state the semantics of $\boxright$, we can re-use a concept from
+section \ref{sec:oblig-circ}. Let $S$ be an arbitrary set of worlds, and let $w$
+be some world (that may or may nor be in $S$). It will be useful to have an
+expression that picks out the most similar worlds to $w$, among all the worlds in
+$S$. That term is $\emph{Min}^{\prec_w}(S)$, which we have defined as follows in
+section \ref{sec:oblig-circ}:
+\[
+  \emph{Min}^{\prec_w}(S) =_\text{def} \{ v: v \in S \land \neg\exists u (u \in S \land u \prec_w v) \}.
+\]
+
+Now $\{ u : M,u\models A \}$ is the set of worlds (in model $M$) at which $A$ is
+true. So $\emph{Min}^{\prec_w}(\{ u : M,u\models A \})$ is the set of those
+$A$-worlds that are closest to $w$. We want $A \boxright B$ to be true at $w$
+iff $B$ is true at the closest $A$-worlds to $w$.
+
+\begin{definition}{Similarity semantics for $\boxright$}{similaritysemantics}
+  If $M$ is a similarity model and $w$ a world in $M$, then\\[1mm]
+  $M,w \models A \boxright B$ iff $M,v \models B$ for all
+  $v$ in $\emph{Min}^{\prec_w}(\{ u: M,u \models A \})$.
+\end{definition}
+
+You may notice that $A \boxright B$ works almost exactly like $\Ob(B/A)$. In
+section \ref{sec:oblig-circ} we said that for any world $w$ in a deontic
+ordering model $M$,
+
+\medskip
+\quad$M,w \models \Ob (B/A) \text{ iff } M,v \models B\text{ for all $v$ in $\emph{Min}^{\prec_w}(\{ u: wRu $ and $M,u\models A \})$}$.
+
+\medskip \noindent%
+The main difference is that conditional obligation is sensitive to an
+accessibility relation. If that relation is an equivalence relation then this
+makes no difference to the logic.
+
+% Does quasi-connectedness make a difference to the logic? I haven't assumed it
+% for deontic ordering models!
+
+Of course, the order $\prec$ in deontic ordering models is supposed to represent
+degree of conformity to norms, while the order $\prec$ in similarity models
+represents a certain similarity ranking in the evaluation of subjunctive
+conditionals. A different type of ordering might be in play when we evaluate
+indicative conditionals, which some have argued should also be interpreted as
+variably strict. But again, these differences in interpretation don't affect the
+logic.
+
+Suppose we add the $\boxright$ operator to the language of standard
+propositional logic. The set of sentences in this language that are true at all
+worlds in all similarity models is known as \textbf{system V}. There are tree
+rules and axiomatic calculi for this system, but they aren't very user-friendly.
+We will instead explore the system semantically.
+
+To begin, let's check if \emph{modus ponens} is valid for $\boxright$. That is,
+let's check whether the truth of $A$ and $A \boxright B$ at a world in a
+similarity model entails the truth of $B$. Assume that $A$ and $A \boxright B$
+are true at a world $w$. By definition \ref{def:similaritysemantics}, the latter
+means that $B$ is true at all the closest $A$-worlds to $w$ (at all worlds in
+$\emph{Min}^{\prec_w}(\{u: M,u\models A\})$). The world $w$ itself is an
+$A$-world. If we could show that $w$ is among the closest $A$-worlds to itself
+then we could infer that $A$ is true at $w$.
+
+Without further assumptions, however, we can't show this. If we want to validate
+\emph{modus ponens}, we must add a further constraint on our models: that every
+world is among the closest worlds to itself. More precisely,
+\[
+  \text{for all worlds $w$ and $v$, $v \nprec_{w} w$.}
+\]
+This assumption is known as \textbf{Weak Centring}.
+% It means that the closeness spheres associated with a world are centred on that
+% world: every world is in the sphere of closest worlds around itself.
+The logic we get if we impose this constraint is \textbf{system VC}.
+
+\begin{exercise}
+  Should we accept Weak Centring for deontic ordering models?
+\end{exercise}
+\begin{solution}
+  No. We don't want $A$ and $\Ob(B/A)$ to entail $B$. Semantically, we don't
+  want to assume that every world is among the best worlds relative to its own
+  norms.
+\end{solution}
+
+\begin{exercise}
+  Explain why $A \boxright B$ entails $A \to B$, assuming Weak Centring.
+\end{exercise}
+\begin{solution}
+  Suppose $A \boxright B$ is true at some world $w$ in some model $M$. So $B$ is
+  true at all the closest $A$-worlds to $w$. Now either $A$ is true at $w$ or
+  $A$ is false at $w$. If $A$ is false at $w$, then $A\to B$ is true at $w$. If
+  $A$ is true at $w$, then $w$ is one of the closest $A$-worlds to $w$, by Weak
+  Centring; so $B$ is true at $w$; and so $A\to B$ is true at $w$. Either way,
+  then, $A\to B$ is true at $w$.
+ \end{solution}
+
+\begin{exercise}
+  Show that if $A$ is true at no worlds, then $A \boxright B$ is true.
+  % This shows how we could define box A.
+\end{exercise}
+\begin{solution}
+  If $A$ is true at no worlds, then $\emph{Min}^{\prec_w}(\{u: M,u\models A\})$
+  is the empty set. So it is vacuously true that $M,v \models B$ for all
+  $v \in \emph{Min}^{\prec_w}(\{ u: M,u \models A \})$.
+\end{solution}
+
+None of the problematic inferences (E1)--(E5) are valid if the relevant
+conditionals are interpreted as variably strict. (E5), for example, would assume
+that $p \boxright r $ entails $(p \land q) \boxright r$. But it does not. We can
+give a countermodel with two worlds $w$ and $v$; $p$ is true at both worlds, $q$
+is true only at $v$, and $r$ only at $w$; if $w$ is closer to itself than $v$,
+then $p \boxright r$ is true at $w$ (because the closest $p$-worlds to $w$ are
+all $r$-worlds), but $(p \land q) \boxright r$ is false at $w$ (because the
+closest $(p\land q)$-worlds to $w$ aren't all $r$-worlds).
+
+\begin{wrapfigure}{r}{5cm}
+  \quad
+  \begin{tikzpicture}[modal, world/.append style={minimum size=0.5cm}]
+    \node[world] (w) [label=above:{$w$}] {$p,r$};
+    \node[world] (v) [label=above:{$v$}, right=7mm of w] {$p,q$};
+    \node[circle, draw=gray, minimum size=20mm] at (w) (c) {};
+    \node[circle, draw=gray, minimum size=50mm] at (w) (c) {};
+    % \node[circle, draw=gray, minimum size=20mm] at (v) (c) {};
+  \end{tikzpicture}
+  \vspace{-10mm}
+\end{wrapfigure}
+The diagram on the right represents this model. The circles around $w$ depict
+the similarity spheres. $w$ is closer to $w$ than $v$ because it is in the
+innermost sphere around $w$, while $v$ is only in the second sphere. (If $v$
+were also in the innermost sphere then the two worlds would be equally close to
+$w$. That's allowed.) In general, we represent the assumption that a world $v$
+is closer to a world $w$ than a world $u$ ($v \prec_w u$) by putting $v$ is in a
+closer sphere around $w$ than $u$. I have not drawn any spheres around $v$
+because it doesn't matter what these look like.
+
+% Can we turn this approach into a pictorial proof method? 1. start by putting
+% the target sentence(s) into a world w. 2. Draw a sphere around w. 3. Expand
+% each world as a non-modal tree. 3a. Rule for A []-> B at w: put A->B in all
+% worlds outwards from w until and including worlds in spheres within which A is
+% true somewhere. 3b. Rule for not(A []-> B): add a world v with A and -B, and
+% make it one of the closest A-worlds. I.e., if A at w, then add v to innermost
+% sphere. If not-A at w, draw a sphere around just w and put v outside it. ....?
+
+\begin{exercise}
+  Draw countermodels showing that (E1)--(E4) are invalid if the conditionals are
+  translated as statements of the form $A \boxright B$. (Hint: You never need
+  more than two worlds.)
+\end{exercise}
+
+The logic of variably strict conditionals is weaker than the logic of strict
+conditionals. Some have argued that it is too weak to explain our actual
+reasoning with conditionals. It is, for example, not hard to see that the
+following statements are all false. (The corresponding statements for
+$\strictif$ are true; see exercise \ref{ex:sda-import}.)
+\begin{enumerate}[leftmargin=10mm]
+  \itemsep-1mm
+\item $p \boxright q, q \boxright r \models p \boxright r$
+\item $((p \lor q) \boxright r) \models (p \boxright r) \land (q \boxright r)$
+\item $p \boxright (q \boxright r) \models (p \land q) \boxright r$
+\end{enumerate}
+If English conditionals are variably strict, this means that we can't (say)
+infer `if $p$ then $r$' from `if $p$ then $q$' and `if $q$ then $r$'. But isn't
+that kind of inference reasonable?
+
+Many inferences of this form do look reasonable. But not all. Stalnaker gives the
+following apparent counterexample, using cold-war era subjunctive conditionals.
+\begin{quote}
+  If J.\ Edgar Hoover had been born a Russian, he would be a communist.\\
+  If Hoover were a communist, he would be a traitor.\\
+  Therefore, if Hoover had been born a Russian, he would be a traitor.
+\end{quote}
+
+\begin{exercise}
+  Can you find a case where `if $p$ or $q$ then $r$' does not appear to entail
+  `if $p$ then $r$' and `if $q$ then $r$'? You can use either indicative or
+  subjunctive conditionals. (Hint: Try to find a case in which `if $p$ or $q$
+  then $p$' sounds acceptable.)
+\end{exercise}
+\begin{solution}
+  Frances has never learnt a foreign language, although she would have loved to
+  learn French. If Frances had been given a choice between learning French and
+  learning Italian, she would have chosen French. \emph{If Frances had learned
+    French or Italian then she would have learned French.} It does not follow that
+  if Frances had learned Italian then she would have learned French.
+
+  The same style of example works for indicative conditionals.
+\end{solution}
+
+% \begin{exercise}
+%   Are \emph{modus tollens} and contraposition valid for $\boxright$? That is,
+%   (a) do $A$ and $A \boxright B$ always entail $B$, and (b) does
+%   $A \boxright B$ always entail $\neg B \boxright \neg A$?
+% \end{exercise}
+
+The semantics I have presented for $\boxright$ is a middle ground between that
+of Lewis and Stalnaker. Stalnaker assumes that $\prec_w$ is not just
+quasi-connected, but connected: for any $w,v,u$, either $v \prec_w u$ or $v=u$
+or $u \prec_w v$. (`$v=u$' means that $v$ and $u$ are the same world.) This
+rules out ties in similarity: no sphere contains more than one world.
+
+Stalnaker's logic (called \textbf{C2}) is stronger than Lewis's VC. The
+following principle of ``Conditional Excluded Middle'' is C2-valid but not VC-valid:
+%
+\principle{CEM}{(A \boxright B) \lor (A \boxright \neg B)}
+
+%  NB: Uniqueness alone doesn't entail CEM, only Uniqueness + Limit.
+
+Whether conditionals in natural language satisfy Conditional Excluded Middle is
+a matter of ongoing debate. On the one hand, it is natural think that `it is not
+the case that if $p$ then $q$' entails `if $p$ then not $q$', which suggests
+that the principle is valid. On the other hand, suppose I have a number of coins
+in my pocket, none of which I have tossed. What would have happened if I had
+tossed one of the coins? Arguably, I might have gotten heads and I might have
+gotten tails. Either result is possible, but neither \emph{would} have come
+about.
+
+\begin{exercise}
+  Explain why the following statements are true, for all $A,B,C$:
+  \begin{exlist}
+  \item $A \land B \models_{C2} A \boxright B$
+  \item $A \boxright (B\lor C) \models_{C2} (A \boxright B) \lor (A \boxright C)$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+    \item Assume $A\land B$ is true at some world $w$ in some model $M$. By
+    Centring, $w$ is among the closest $A$-worlds to $w$. By connectedness, $w$
+    is the unique closest $A$-world to $w$. So $B$ is true at all closest
+    $A$-worlds to $w$.
+    \item Assume $A \boxright (B\lor C)$ is true at some world $w$ in some model
+    $M$. So all the closest $A$-worlds to $w$ are $(B\lor C)$-worlds. If there
+    are no $A$-worlds then $A \boxright B$ and $A \boxright C$ are both true. If
+    there are $A$-worlds then Stalnaker's semantics implies that there is a
+    unique closest $A$-world $v$ to $w$. Since $B\lor C$ is true at $v$, either $B$ or $C$ must be true at $v$. So either $B$ is true at all closest $A$-worlds to $w$ or $C$ is true at all closest $A$-worlds to $v$.
+  \end{sollist}
+\end{solution}
+
+Lewis not only rejects connectedness, but also the Limit Assumption, arguing
+that there might well be an infinite chain of ever closer $A$-worlds. Definition
+\ref{def:similaritysemantics} implies that if there are no closest $A$-worlds
+then any sentence of the form $A \boxright B$ is true. That does not seem right.
+Lewis therefore gives a more complicated semantics:
+
+\begin{quote}
+  $M,w \models A \boxright B$ iff either there is no $v$ for
+  which $M,v\models A$ or there is some world $v$ such that
+  $M,v\models A$ and for all $u \prec_w v$, $M,w \models A \to B$.
+\end{quote}
+%
+It turns out that it makes no difference to the logic whether we impose the
+Limit Assumption and use the old definition or don't impose the Limit Assumption
+and use Lewis's new definition. The same sentences are valid either
+way. % (Lewis 1973, p.444).
+
+% Rini and Cresswell 58 use a 4-place relation C to evaluate >, where for any
+% time t and worlds w1, w2, w3, C(t,w1,w2,w3) iff at t, w2 is closer to w1 than
+% w3. I can probably fold the t into w1. RC point out that Aqvist 1973 also
+% invented this kind of semantics.
+
+\iffalse
+
+Let's say that for any sentence $A$, a world $v$ is \emph{$A$-accessible} from
+$w$ (for short, $wR_Av$) iff $v$ is one of the closest $A$-worlds to $w$; that
+is, iff $v \in \emph{Min}^{\prec_w}(\{u: M,u \models A\})$. Definition
+\ref{def:similaritysemantics} then states that $A \boxright B$ is true at a
+world $w$ iff $B$ is true at all worlds $A$-accessible from $w$. These are the
+standard truth-conditions for the box, except that accessibility is relativised
+to the antecedent $A$.
+
+We can therefore adapt the standard tree rules for the box to reason with
+$\boxright$, as follows.
+
+\bigskip
+\begin{center}
+\begin{minipage}{0.4\textwidth} \centering
+\tree{
+  \nnode{18}{}{$A \boxright B$}{\omega}{}\\
+  \dotbelownode{18}{}{$\omega R_A v$}{}{}\\
+  \\
+  \nnode{18}{}{$B$}{\nu}{}\\
+  \Kk[18]{0}{\color{red}$\uparrow$}\\
+  \Kk[18]{0}{\color{red}\small old}
+}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}\centering
+\tree{
+  \dotbelownode{18}{}{$\neg (A \boxright B)$}{\omega}{}\\
+  \\
+  \nnode{18}{}{$\omega R_A v$}{}{}\\
+  \nnode{18}{}{$\neg B$}{\nu}{}\\
+  \Kk[18]{0}{\color{red}$\uparrow$}\\
+  \Kk[18]{0}{\color{red}\small new}
+}
+\end{minipage}
+\end{center}
+\bigskip
+
+To get a complete tree system, we need further rules. For example, the above two
+rules don't account for the fact that the closest $A$-worlds are always
+$A$-worlds. They also don't account for the fact that every $A$-world is among
+the closest $A$-worlds to itself (by weak centring). We can add two more rules
+to fill these gaps.
+
+\bigskip
+\begin{center}
+  \begin{minipage}[t]{0.4\textwidth} \centering
+    \hspace{-10mm}Truth:
+    \medskip
+    
+\tree{
+  \dotbelownode{12}{}{$\omega R_A \nu$}{}{}\\
+  \\
+  \nnode{12}{}{$A$}{\nu}{}\\
+}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth} \centering
+  \hspace{-10mm}Centring:
+    \medskip
+  
+\tree{
+  \dotbelownode{12}{}{$A$}{\omega}{}\\
+  \\
+  \nnode{12}{}{$\omega R_A \omega$}{}{}\\
+}
+\end{minipage}
+\end{center}
+\bigskip
+
+The resulting tree system is still not complete, because it doesn't reflect
+interactions between different accessibility relations. For example, if the
+worlds that are $A$-accessible from some world $w$ include $B$-worlds, then the
+$A\land B$-accessible worlds from $w$ must be contained within the worlds
+$A$-accessible from $w$. The complete tree rules for the $\boxright$ operator
+turn out to be rather complicated. I will leave it at the above four rules,
+which suffice to establish many useful facts about variably strict conditionals.
+
+% Priest points out that for Lewis-Stalnaker we have more conditions than in the
+% basic "plural selection" semantics that underlines his tableaux. In particular,
+% we have: (3) if $A$ is consistent, then there is always a non-empty set of
+% closest $A$-worlds; (4) if the closest $A$-worlds are a subset of the B worlds,
+% and the closest B worlds are a subset of the A-worlds, then the closest A-worlds
+% area the clsoest B-worlds; (5) if there are some B-worlds among the clsoest
+% A-worlds, then the closest A-and-B worlds are among the closest A-wrolds. [p.92]
+% This means that e.g. $A > B, B> A \models (A > C) \leftrightarrow (B > C)$ is
+% valid in LS, but not provable with a tableaux. "There are presently no known
+% tableau systems of the kind used in this book for S [Lewis/Stalnaker] (and its
+% extensions that we will meet in the next section)". p.93. So I might mention
+% that the rules are incomplete, meaning that anything that can be proved is
+% indeed valid, but that caution is needed when concluding that something is
+% invalid.
+
+% Zach 2018 points out that the logic and semantics Priest discusses is due to
+% Chellas; the tableau rules are Priest's. ``We give additional branch extension
+% rules for Priest’s system which result in sound and complete tableau systems for
+% CK and [Lewis's] VC. These systems are, however, non-analytic in that the cut
+% rule is included. ... These are not the first tableau systems for Lewis’s VC .
+% Gent [1992], based on work of de Swart [1983], has given a tableau system for VC
+% . More recently, Negri and Sbardolini [2016] have offered a cut-free complete
+% sequ ent calculus for VC . These approaches are all based on Lewis’s semantics
+% based on rela tive proximity of worlds and incorporate the ordering relation
+% between w orlds into the syntax.''
+
+Here is a tree proof to show (once more) that \emph{modus ponens} is valid.
+
+\begin{center}
+  \tree[3]{
+    & \nnode{18}{1.}{$A \boxright B$}{w}{(Ass.)} & \\
+    & \nnode{18}{2.}{$A$}{w}{(Ass.)} & \\
+    & \nnode{18}{3.}{$\neg B$}{w}{(Ass.)} & \\
+    & \nnode{18}{4.}{$wR_Aw$}{}{\quad\quad(Centring)} & \\
+    & \nnodeclosed{18}{5.}{$B$}{w}{(1,4)} & 
+  }
+\end{center}
+
+\begin{exercise}
+  Give tree proofs for the following statements.
+  \begin{exlist}
+  \item $A, \neg B \models \neg(A\boxright B)$ \cmnt{easy}
+  \item $A\boxright B, A\boxright C \models  A \boxright (B \land C)$ \cmnt{Girle}
+  \item $A \boxright (B \land C) \models (A \boxright B) \land (A\boxright C)$
+  \item $A\boxright \neg A \models A\boxright B$ \cmnt{easy}
+  \end{exlist}
+\end{exercise}
+
+Since the tree rules I have presented are sound, you can be sure that whenever a
+tree closes then the tested entailment or validity holds.  But since the rules
+are not complete, care is required when a tree doesn't close. You always need to
+check if a model read off from an open tree is an actual countermodel.
+
+Constructing countermodels from open trees is at any rate not entirely
+straightforward. By way of illustration, let's show that
+$A\boxright B$ and $B\boxright C$ does not entail $A \boxright C$. The
+tree starts like this.
+
+\begin{center}
+  \tree[3]{
+    & \nnode{20}{1.}{$A \boxright B$}{w}{(Ass.)} & \\
+    & \nnode{20}{2.}{$B \boxright C$}{w}{(Ass.)} & \\
+    & \nnodeticked{20}{3.}{$\neg(A \boxright C)$}{w}{(Ass.)} & \\
+    & \nnode{20}{4.}{$wR_Av$}{}{(3)} & \\
+    & \nnode{20}{5.}{$\neg C$}{v}{(3)} & \\
+    & \nnode{20}{6.}{$B$}{v}{(1,4)} & \\
+    & \nnode{20}{7.}{$A$}{v}{\quad\;(4,Truth)} & 
+  }
+\end{center}
+The Centring rule would allow us to add six more lines, but they
+wouldn't be useful, so let's stop here.
+% & \nnode{18}{2.}{$wR_{\neg C}w$}{}{(5,Centring)} & \\
+
+The open tree suggests that there is a countermodel with two worlds, $w$ and
+$v$. At $v$, $A$ and $B$ are true. We also have $wR_Av$, so $v$ is among the
+closest $A$-worlds to $w$. Since $wR_A w$ is not in the tree, let's assume that
+$w$ is not among the closest $A$-worlds to $w$, which also means that $A$ is
+false at $w$. We don't have $wR_B v$ on the tree either. So even though $B$ is
+true at $v$, $v$ is not among the closest $B$-worlds to $w$. We can ensure this
+by assuming that $B$ is true at $w$ itself, and that $w$ is the unique closest
+$B$-world from itself. Now you can verify that $A \boxright B$ and
+$B \boxright C$ are both true at $w$ while $A \boxright C$ is false.
+
+% Priest gives some rules for reading off countermodels: For the initial logic:
+% ``Counter-models are read off from the tableau in a natural way. If there is
+% something of the form A > B or ¬(A > B) on the branch, then RA is as the
+% information about rA on the branch specifies. Otherwise, RA may be arbitrary.''
+% For the full logic: ``If A does not occur as the antecedent of a conditional or
+% negated conditional at a node, we can no longer allow RA to be arbitrary,
+% however, since it must satisfy (1) [centring] and (2) [A is true at any
+% R(A)-accessible world]. The simplest trick is to let [the set of closest
+% A-worlds to w] = [A] [i.e., the set of all A-worlds] (for every w). With this
+% definition, (1) and (2) are clearly satisfied.'' He adds a footnote: ``This is
+% legitimate, since [the set of closest A-worlds] is not required to define the
+% truth value of A at a world. To evaluate the truth value of A at a world, one
+% needs to know only [the set of closest B-worlds] for those B that occur as the
+% antecedents of conditionals within A.'' I don't get it. Doesn't this treat the
+% conditional as strict? Ah. $\models_S \Phi$ implies $\models_C \Phi$; i.e. if
+% something is valid for strict implication then it's also valid for variably
+% strict implication. (Right? Might be a good exercise.) So $\not\models_C \Phi$
+% implies $\not\models_S\Phi$. So any invalidity in $C$ is also an invalidity in
+% $S$. And so (??) any countermodel in $C$ is also a countermodel in $S$.
+
+\fi
+
+
+\section{Restrictors}
+\label{sec:restrictor-analysis}
+
+Consider these two statements.
+\begin{enumerate}[leftmargin=10mm]
+  \itemsep-1mm
+  \item[(1)] If it rains we always stay inside.
+  \item[(2)] If it rains we sometimes stay inside.
+\end{enumerate}
+On its most natural reading, (1) says that we stay inside at all times at which
+it rains. We can express this in $\L_{M}$, using the box (`always') as a
+universal quantifier over the relevant times. The translation would be
+$\Box(r \to s)$.
+
+One might expect that (2) should then be translated as $\Diamond(r \to s)$,
+where the diamond (`sometimes') is an existential quantifier over the relevant
+times. But $\Diamond(r \to s)$ is equivalent to $\Diamond(\neg r \lor s)$. It is
+true whenever $\Diamond \neg r$ is true. (2), however, isn't true simply because
+it doesn't always rain. On its most salient reading, (2) says there are times at
+which it rains \emph{and} we stay inside. Its correct translation is
+$\Diamond(r \land s)$. This is a little surprising, given that (2) seems to
+contain a conditional. Does the conditional here express a conjunction?
+
+Things get worse if we look at (3).
+\begin{enumerate}[leftmargin=10mm]
+  \item[(3)] If it rains we usually stay inside.
+\end{enumerate}
+Let's introduce an operator $\Mostly$ for `usually', so that $\Mostly A$ is true
+at a time iff $A$ is true at \emph{most} times. You might try to translate (3)
+with the help of $\Mostly$.
+
+Neither $\Mostly(r \to s)$ nor $\Mostly(r \land s)$ capture the intended meaning
+of (3). $\Mostly(r \land s)$ entails that $r$ is usually true. But (3) doesn't
+entail that it usually rains. $\Mostly(r \to s)$ is true as long as $r$ is
+usually false, even if we're always outside when it is raining.
+
+You could try to bring in some of the new kinds of conditional that we've
+encountered in the previous sections. How about $\Mostly(r \boxright s)$, or
+$\Mostly(r \strictif s)$, or $r \boxright \Mostly s$, or
+$r \strictif \Mostly s$? None of these are adequate.
+
+The problem is that (3) doesn't say, of any particular proposition, that it is
+true at most times. It doesn't say that among all times, most are such-and-such.
+Rather, it says that \emph{among times at which it rains}, most times are times
+at which we stay inside. The function of the `if'-clause in (3) is to
+\textbf{restrict the domain} of times over which the `usually' operator
+quantifies.
+
+% We can formalize (3) if we treat $\Mostly$ as a binary operator, taking two
+% propositions as arguments: $\Mostly(s/r)$. The semantics for the two forms of
+% $\Mostly$ would look as follows, assuming that we are quantifying over times.
+
+% \bigskip
+% \begin{tabular}{ll}
+%   $M,t \models \Mostly A$ &iff $M,s \models A$ for most times $s$.\\
+%   $M,t \models \Mostly(A/B)$ &iff $M,s \models A$ for most times $s$ such that
+%                                $M,s \models B$.
+% \end{tabular}
+
+Now return to (1) and (2). Suppose that here, too, the `if'-clause serves to
+restrict the domain of times, so that `always' and `sometimes' only quantify
+over times at which it rains. On that hypothesis, (1) says that \emph{among
+  times at which it rains}, all times are times at which we stay inside, and (2)
+says that \emph{among times at which it rains}, some times are times at which we
+stay inside. This is indeed what (1) and (2) mean, on their most salient
+interpretation.
+
+As it happens, `among $r$-times, all times are $s$-times' is equivalent to `all
+times are not-$r$-times or $s$-times'. That's why we can formalize (1) as
+$\Box(r \to s)$. `Among $r$-times, some times are $s$-times', on the other hand,
+is equivalent to `some times are $r$-times and $s$-times'. That's why we can
+formalize (2) as $\Diamond(r \land s)$. But it would be wrong to think that the
+conditional in (1) is material, the conditional in (2) is a conjunction, and the
+conditional in (3) is something else altogether. A much better explanation is
+that the `if'-clause in (1) does the exact same thing as in (2) and (3). In each
+case, it restricts the domain of times over which the relevant operators
+quantify.
+
+We can see the same effect in (4) and (5).
+\begin{enumerate}[leftmargin=10mm]
+  \itemsep-1mm  
+  \item[(4)] If the lights are on, Ada must be in her office.
+  \item[(5)] If the lights are on, Ada might be in her office.
+\end{enumerate}
+Letting the box express epistemic necessity, we can translate (4) as
+$\Box(p \to q)$. But (5) can't be translated as $\Diamond(p \to q)$, which would
+be equivalent to $\Diamond(\neg p \lor q)$. Nor can we translate (5) as
+$p \to \Diamond q$, which is entailed by $\Diamond q$. It is easy to think of
+scenarios in which (5) is false even though `Ada might be in her office' is
+true. The correct translation of (5) is $\Diamond(p \land q)$. The sentence is
+true iff there is an epistemically accessible world at which the lights are on
+and Ada is in her office.
+
+As before, we can understand what is going if we realize that the
+`if'-clause in (4) and (5) functions as a restrictor. The `if'-clause restricts
+the domain of worlds over which `must' and `might' quantify. (4) says that
+\emph{among epistemically possible worlds at which the lights are on}, all
+worlds are worlds at which Ada is in her office. (5) says that among these
+worlds, some worlds are worlds at which Ada is in her office.
+
+\begin{exercise}
+  Translate `all dogs are barking' and `some dogs are barking' into the language
+  of predicate logic. Can you translate `most dogs are barking' if you add a
+  `most' quantifier $\Mostly$ so that $\Mostly x Fx$ is true iff most things
+  satisfy $Fx$?
+\end{exercise}
+\begin{solution}
+  `All dogs are barking': $\forall x(Dx \to Bx)$\\
+  `Some dogs are barking': $\exists x(Dx \land Bx)$\\
+  `Most dogs are barking' cannot be translated in terms of $\Mostly x$. We need
+  a binary quantifier: $\Mostly x(Bx / Dx)$
+  % (There is a strong parallel here to explicit (nominal) quantifiers in
+  % natural language. We usually translate `all $F$ are $G$' as
+  % $\forall x (Fx \to Gx)$, and `some $F$ are $G$' as
+  % $\exists x (Fx \land Gx)$. This works, but it is a bit strange that what
+  % appear to be entirely analogous constructions in English get such different
+  % translations. Moreover, the approach breaks down for `most'. `Most $F$ are
+  % $G$' cannot be analysed in terms of a quantifier $Mx$ that applies to
+  % individual open sentences. In \emph{generalised quantifier theory}, all
+  % quantifiers are instead treated as two-place functions, so that we can write
+  % $\forall x (Gx/Fx)$, $\exists x (Gx/Fx)$, and $Mx (Gx/Fx)$. (Actually, these
+  % are more commonly written $[\forall x: Fx]Gx$, \ldots.) Semantically, the
+  % extra argument place selects the domain in which it is claimed that
+  % all/some/most things are $G$.)
+\end{solution}
+
+% ``The data involving modification by only and even, and VP ellipsis phenomena
+% provide strong evidence against the view that the antecedent and consequent of
+% conditionals are coordinated. These data support the view that if-clauses are
+% adverbials, like temporal phrases and clauses. Furthermore, pronominalization by
+% then suggests that if-clauses are advervials, since their anaphoric reflex -
+% then - is an adverb''. Bhatt and Pancheva 2006
+
+The hypothesis that `if'-clauses are restrictors also sheds light on the problem
+of conditional obligation.
+\begin{enumerate}[leftmargin=10mm]
+  \itemsep-1mm  
+  \item[(6)] Jones ought to help his neighbours.
+  \item[(7)] If Jones doesn't help his neighbours, he ought to not tell them that he's coming.
+\end{enumerate}
+In chapter \ref{ch:deontic}, we analyzed `ought' as a quantifier over the best
+of the circumstantially accessible worlds. On this approach, (6) says that among
+the accessible worlds, all the best ones are worlds at which Jones helps his
+neighbours. Suppose the `if'-clause in (7) serves to restrict the domain of
+worlds, leaving only worlds at which Jones doesn't help his neighbours. We then
+predict (7) to state that \emph{among the accessible worlds at which Jones
+  doesn't help his neighbours}, all the best worlds are worlds at which Jones
+doesn't tell his neighbours that he's coming. This can't be expressed by
+combining the monadic $\Ob$ quantifier with truth-functional connectives. Hence
+we had to introduce a primitive binary operator $\Ob(\cdot/\cdot)$.
+
+% As Richmond Thomason argued in 1981, A proper theory of conditional
+% obligation \ldots will be the product of two separate components: a
+% theory of the conditional and a theory of obligation.
+
+The upshot of all this is that we can make sense of a wide range of puzzling
+phenomena by assuming that `if'-clauses are restrictors. Their purpose is to
+restrict the domain or worlds or times over which modal operators quantify.
+
+What, then, is the purpose of `if'-clauses in ``bare'' conditionals like (8) and
+(9), where there are no modal operators to restrict?
+\begin{enumerate}[leftmargin=10mm]
+  \itemsep-1mm
+  \item[(8)] If Shakespeare didn't write \emph{Hamlet}, then someone else did.
+  \item[(9)] If Shakespeare hadn't written \emph{Hamlet}, then someone else
+        would have.
+\end{enumerate}
+
+Here opinions vary. One possibility, prominently defended by the linguist
+Angelika Kratzer, is that even bare conditionals contain modal operators.
+Arguably, `would' in (9) functions as a kind of box. If this box functions as a
+simple quantifier over circumstantially accessible worlds, and the `if'-clause
+in (9) restricts its domain, then (9) can be formalized as $\Box(p \to q)$. If,
+on the other hand, `would' in (9) works more light `ought', quantifying over the
+\emph{closest} of the accessible worlds, and the `if'-clause restricts the
+domain of accessible worlds, then the resulting truth-conditions are those of
+$p \boxright q$. Both the strict and the variably strict analysis of (9) are
+therefore compatible with the hypothesis that `if'-clauses are restrictors.
+
+What about (8)? This sentence really doesn't appear to contain a relevant modal.
+Kratzer suggests that it contains an unpronounced epistemic `must': (8) says
+that if Shakespeare didn't write \emph{Hamlet} then someone else \emph{must}
+have written \emph{Hamlet}. Assuming that the `if'-clause restricts the domain
+of this operator, bare indicative conditionals would then be equivalent to
+strict epistemic conditionals.
+
+\begin{exercise}
+  Suppose bare indicative conditionals like (8) contain a box operator $\Box$
+  whose accessibility relation relates each world to itself and to no other
+  world. This is a redundant operator insofar as $\Box A$ is equivalent to $A$.
+  Assume the `if'-clause restricts the domain of that operator. What are the
+  resulting truth-conditions of (8)?
+\end{exercise}
+\begin{solution}
+  On this proposal, bare indicative conditionals like (8) are material
+  conditionals. If $p$ is true and $q$ is false then there is an accessible
+  $p$-world at which $q$ is false, and so $q$ is not true at all accessible
+  worlds at which $p$ is true. In all other cases, $q$ \emph{is} true at all
+  accessible worlds at which $p$ is true.
+\end{solution}
+
+\begin{exercise}
+  Besides ``would counterfactuals'' there are also ``might counterfactuals'' like
+  \begin{enumerate}[leftmargin=10mm]
+    \item[(10)] If I had played the lottery, I might have won.
+  \end{enumerate}
+  Suppose `might' is the dual of `would', and suppose the `if'-clause in (10)
+  restricts the domain of worlds over which `might' quantifies. It follows that
+  `if $A$ then might $B$' is true iff $B$ holds at some of the
+  closest/accessible $A$-worlds. (`Closest' or `accessible' depending on how we
+  understand the `would'/`might' operators.) Can you see why this casts doubt on
+  the validity of Conditional Excluded Middle?
+\end{exercise}
+\begin{solution}
+  Conditional Excluded Middle is valid iff there is never more than one
+  closest/accessible $A$-world. On that assumption, `some closest/accessible
+  $A$-world is a $B$-world' entails `all closest/accessible $A$-worlds are
+  $B$-worlds'. But (10) does not entail `If I had played the lottery, I would
+  have won'.
+\end{solution}
+
+
+\iffalse
+
+We don't have a versatile restrictor device in $\L_{M}$. For many purposes it
+isn't needed. We can use $\Box(A \to B)$ or $\Diamond(A \land B)$ to express
+restricted necessity or possibility claims. Could we also add a conditional
+operator $>$ that serves as a general restrictor?
+
+Informally, we want $A > B$ to be true at a world $w$ in a model $M$ iff $B$ is
+true at $w$ in a model $M'$ that is like $M$ except that all not-$A$ worlds are
+removed. To achieve this, let's make truth relative to an added parameter $U$,
+the ``universe of live possibilities''. The truth-functional connectives behave
+in the usual way. We have the following clauses for sentence letters, the box,
+and the restrictor conditional.
+
+\begin{definition}{Restrictor semantics for $>$}{restrictorsemantics}
+  If $\Mfr = \t{W,R,V}$ is a Kripke model, $w$ is a member of $W$, $A$ is a
+  sentence letter, and $B,C$ are $\L_M$-sentences, then \medskip
+  \begin{tabular}{lll}
+    (a) & $M,U,w \models A$ &iff $w$ is in $V(A)$.\\
+    (b) & $M,U,w \models \neg B$ &iff $M,U,w\not\models B$.\\
+    (c) & $M,U,w \models A \to B$ &iff $M,U,w\not\models B$ or $M,U,w \models C.\\
+    % $M,U,w \models A$ iff $M,U,w \models A$ and $w \in V(A)$;\\
+    % without this, 'if p q' is equivalent to 'q'.
+    (d) & $M,U,w \models \Box B$ &iff $M,v \models B$ for all $v$ in $U$ such that $wRv$.\\
+    (e) & $M,U,w \models B > C$ &iff $M,U,w \not\models B$ or $M,\{ v \in U: M,U,v \models B \},w \models C$.
+    % "At all worlds, blanking out the A worlds, B" should mean the same as "at all A-worlds, B". So "blanking out the A worlds, B" must be true at w iff w is either a not-A world or a B-world. I.e., w |= A>B iff w |= A->B ?! We say w |= A>B iff [A],w |= B. This should be vacuously true if w is not in [A]. Can we ensure in the compositional semantics that U,w occurs on the LHS of |= only if w \in U? Sure. The condition is trivially satisfied for U=W. So we only need to adjust the clause for >: instead of saying that U,w |= A>B iff U \cap [A],w |= B, we say that U,w |= A>B iff either w \not\in [A] or U \cap [A],w |= B. Equivalently, U,w |= A>B iff U \cap [A],w |= A->B. It might be better to treat w \in U as a presupposition. -- All of that is problematic if we want A > []B to be non-vacuous if A is false! "Blanking out non-A worlds, all worlds are B-worlds" should not be vacuous.
+  \end{tabular}
+\end{definition}
+%
+Clause (d) says that $\Box
+B$ is true at $w$ iff all accessible worlds among the live possibilities $U$ are $B$-worlds. Clause (e) says that $B
+>
+C$ is true at $w$ iff restricting the live possibilities $U$ to $B$-worlds renders $C$ true at $w$, provided $w$ is itself a $B$-world; if it is not, then $B
+> C$ counts as vacuously true at $w$. 
+
+We define truth relative to a world and a model by stipulating that for any sentence $A$, $M,w
+\models A$ iff $M,W,w \models A$.
+
+It is easy to see that $p > \Box q$ is equivalent to $\Box(p \to q)$, in the
+sense that $M,w \models p > \Box q$ iff $M,w \models \Box(p \to q)$. Both
+sentences are true at a world $w$ iff $q$ is true at all $w$-accessible worlds
+at which $p$ is true.
+% check limit case: if there's no (accessible) p-world then p > []A is true iff
+% A is true at all v in the empty set; so p > []A is vacuously true, just like
+% [](p->q).
+In the same way, $p > \Diamond q$ is equivalent to $\Diamond(p \land q)$.
+% limit case: if there's no (accessible) p-world then p > <>A is true iff A is
+% true at some v in the empty set, which is never the case.
+
+If we add the restrictor $>$ to an ordering model, where $\Box A$ quantifies
+over the minimal $U$-worlds (or the minimal accessible $U$-worlds), $p > \Box q$
+becomes equivalent to $p \boxright q$. In deontic ordering models, this, in
+turn, is equivalent to $\Ob(q/p)$.
+
+% What happens in A > <><>B? The restrictor account suggests that this means
+% <>(A & <>B). My semantics makes it equivalent to <><>(A & B).
+
+% Covic and Egre discuss a model in which $R$ is shifted: $w,R \models \Box(A/B)$
+% iff $w,R' \models \Box A$ where $R'(w)$ is $R(w)$ restricted by the truth-set of
+% $B$ relative to $R,\preceq$. Seems easier with modal bases: the if-clause is
+% added to the modal base.
+
+\fi
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "ml.tex"
+%%% End:

@@ -1,0 +1,419 @@
+\documentclass{wobook2018}
+
+% fonts:
+% https://r2src.github.io/top10fonts/
+% https://ctan.org/pkg/mlmodern?lang=en
+  
+\newif\ifcompilesolutions
+\compilesolutionsfalse
+\compilesolutionstrue
+
+\definecolor{commentcol}{rgb}{0.0, 0.2, 0.1}
+%\newcommand{\cmnt}[1]{{\small\color{commentcol}#1}}
+\newcommand{\cmnt}[1]{{\iffalse #1 \fi}}
+
+%\DeclareFontFamily{OT1}{pzc}{}
+%\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.15] pzcmi7t}{}
+%\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+%\newcommand{\Fr}[1]{\ensuremath{\mathpzc{#1}}}
+%\newcommand{\Sc}[1]{\ensuremath{\mathpzc{#1}}}
+\let\polishL\L
+\renewcommand{\L}{\ensuremath{\mathfrak{L}}\xspace}
+\newcommand{\Cfr}{\ensuremath{\mathfrak{C}}\xspace}
+\newcommand{\Mfr}{\ensuremath{M}\xspace}
+
+% make box and diamond larger, and vdash (too small in newtxmath):
+\usepackage{scalerel}
+\let\oldbox\Box
+\renewcommand\Box{\scaleobj{1.2}{\oldbox}}
+\let\olddiamond\Diamond
+\renewcommand\Diamond{\scaleobj{1.2}{\olddiamond}}
+\let\oldvdash\vdash
+\renewcommand\vdash{\scaleobj{1.3}{\oldvdash}}
+
+% define inverted \models:
+\makeatletter
+\providecommand*{\invmodels}{%
+  \mathrel{%
+    \mathpalette\@invmodels\models
+  }%
+}
+\newcommand*{\@invmodels}[2]{%
+  \reflectbox{$\m@th#1#2$}%
+}
+\makeatother
+
+
+% make \to smaller and with less spacing to the sides:
+\let\oldto\to
+\renewcommand\to{\scaleobj{0.95}{\,\oldto\,}}
+\let\oldleftrightarrow\leftrightarrow
+\renewcommand\leftrightarrow{\scaleobj{0.95}{\,\oldleftrightarrow\,}}
+
+% define strictif and boxright:
+\DeclareSymbolFont{symbolsC}{U}{txsyc}{m}{n}
+\DeclareMathSymbol{\strictif}{\mathrel}{symbolsC}{74}
+\DeclareMathSymbol{\boxright}{\mathrel}{symbolsC}{128}
+
+% define boxes and diamonds for specialist logics:
+\DeclareMathOperator{\Kn}{\mathsf{K}{}}
+\DeclareMathOperator{\Ind}{\mathsf{Ind}{}}
+\DeclareMathOperator{\Mi}{\mathsf{M}}
+\DeclareMathOperator{\Po}{\mathsf{P}}
+\DeclareMathOperator{\Bel}{\mathsf{B}}
+\DeclareMathOperator{\EKn}{\mathsf{E}}
+\DeclareMathOperator{\CKn}{\mathsf{C}}
+\DeclareMathOperator{\tP}{\mathsf{P}}
+\DeclareMathOperator{\tF}{\mathsf{F}}
+\DeclareMathOperator{\tG}{\mathsf{G}}
+\DeclareMathOperator{\tH}{\mathsf{H}}
+\DeclareMathOperator{\tX}{\mathsf{X}}
+\DeclareMathOperator{\tY}{\mathsf{Y}}
+\DeclareMathOperator{\tS}{\mathsf{S}}
+\DeclareMathOperator{\tU}{\mathsf{U}}
+\DeclareMathOperator{\tN}{\mathsf{N}}
+\DeclareMathOperator{\Ob}{\mathsf{O}}
+\DeclareMathOperator{\Pe}{\mathsf{P}}
+\DeclareMathOperator{\tA}{\mathsf{A}}
+\DeclareMathOperator{\Always}{\mathsf{A}}
+\DeclareMathOperator{\Sometimes}{\mathsf{S}}
+\DeclareMathOperator{\Mostly}{\mathsf{M}}
+% better smallcaps:
+\newcommand{\smallcaps}[1]{{\text{\footnotesize \MakeUppercase{#1}}}}
+\newcommand{\stit}{\mathop{\textsf{\smallcaps{stit}}}}
+\newcommand{\OK}{\mathop{\textsf{\smallcaps{N}}}}
+
+\newcommand{\Ax}[1]{\smallcaps{\text{A#1}}}
+\newcommand{\prov}[1]{\vdash_{\!\scriptscriptstyle{#1}}}
+\newcommand{\notprov}[1]{\scaleobj{1.3}{\not\vdash}_{\!\scriptscriptstyle{#1}}}
+\newcommand{\CM}[1]{M_{\!\scriptscriptstyle{\Ax{#1}}}}
+
+
+% shortcut for displaying named axiom schemas:
+\newcommand{\principle}[2]{\begin{equation}\tag{#1}#2\end{equation}}
+\newenvironment{principles}{\gather}{\endgather}
+\newcommand{\pri}[2]{#2 \tag{#1}}
+
+\newcommand{\pr}[1]{(#1)}
+
+% custom list format in exercises:
+\usepackage[shortlabels]{enumitem} % \begin{enumerate}[(a)]
+\newenvironment{exlist}{\vspace{-2mm}\begin{enumerate}[(a)]\itemsep-1.5mm}{\end{enumerate}\vspace{-3mm}}
+\newenvironment{sollist}{\vspace{-5mm}\begin{enumerate}[(a)]\itemsep-1.5mm}{\end{enumerate}\vspace{-3mm}}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+
+% BOXES:
+
+\usepackage[most]{tcolorbox}
+
+%\definecolor{teal}{HTML}{ba5536}
+%\definecolor{terra}{HTML}{363237}
+\definecolor{teal}{HTML}{34675c}
+\definecolor{terra}{HTML}{324851}
+
+% plain box:
+
+\newtcolorbox{justabox}{
+  enhanced,
+  colback=terra!2!white,
+  colframe=terra!80!white,
+  boxrule=0.3mm,
+  drop small lifted shadow,
+  beforeafter skip=\baselineskip,
+}
+
+% Definition environment with counter:
+\newtcbtheorem[number within=chapter]{definition}{Definition}{%
+  enhanced,
+  breakable,
+  enhanced jigsaw,
+  colback=terra!2!white,
+  colframe=terra!80!white,
+  colbacktitle=terra!2!white,
+  boxrule=0.3mm,
+  drop small lifted shadow,
+  titlerule=-0.5mm,
+  toptitle=2mm,
+  beforeafter skip=\baselineskip,
+  fonttitle=\upshape\bfseries\sffamily,
+  coltitle=terra!90!black,
+  fontupper=\normalfont,
+  }{def}
+
+% Observation environment without title bar:
+\newtcbtheorem[number within=chapter]{obs}{Observation}{%
+  theorem style=plain,
+  enhanced,
+  colback=terra!2!white,
+  colframe=terra!80!white,
+  boxrule=0.3mm,
+  beforeafter skip=\baselineskip,
+  fonttitle=\upshape\bfseries\sffamily,
+  coltitle=terra!90!black,
+  fontupper=\normalfont,
+  drop small lifted shadow,
+  }{obs}
+\newenvironment{observation}[1]{\begin{obs}{}{#1}}{\end{obs}}
+
+% Theorem environment without 'Theorem' label:
+\newenvironment{theorem}[2]{%
+  \begin{tcolorbox}[%
+    enhanced,
+    title={#1},
+    colframe=terra!80,
+    colback=terra!2!white,
+    colframe=terra!80!white,
+    colbacktitle=terra!2!white,
+    coltitle=terra!90!black,
+    boxrule=0.3mm,
+    titlerule=-0.5mm,
+    toptitle=2mm,
+    fonttitle=\upshape\bfseries\sffamily,
+    drop small lifted shadow,
+    beforeafter skip=\baselineskip,
+    ]\label{thm:#2}%
+  }%
+  {\end{tcolorbox}}
+
+    
+\renewtcolorbox{proof}{
+  blanker,enforce breakable,left=3mm,
+  before skip=10pt,after skip=10pt,
+  parbox=false, % for paragraph indentation
+  borderline west={0.2mm}{0pt}{terra!60!white}
+}
+%  \setlength{\parskip}{\normalparskip}%
+%  \setlength{\parindent}{\normalparindent}}
+
+% % Exercises:
+% \NewTColorBox[auto counter,number within=chapter]{exercise}{+!O{}}{%
+%   enhanced,
+%   breakable,
+%   enhanced jigsaw,
+%   fonttitle=\sffamily\upshape\bfseries,
+%   coltitle=teal!10!white,
+%   colback=teal!02!white,
+%   colbacktitle=teal,
+%   colframe=teal!70!black,
+%   boxrule=0.3mm,
+%   attach boxed title to top left={yshift=-1mm, xshift=1mm},
+%   beforeafter skip=.9\baselineskip,
+%   title=Exercise~\thetcbcounter,
+%   lowerbox=ignored,
+%   savelowerto=solutions/exercise-\thetcbcounter.tex,
+%   record={\string\solution{\thetcbcounter}{solutions/exercise-\thetcbcounter.tex}},
+%   #1
+% }
+% \tcbset{no solution/.style={no recording,after upper=}}
+
+
+\ifcompilesolutions
+
+\usepackage[clear-aux]{xsim}
+\xsimsetup{
+  exercise/template=tcb,
+  exercise/within=chapter,
+  exercise/the-counter = \thechapter.\arabic{exercise},
+  solution/template=tcbsol,
+  solution/name=Exercise,
+  print-solutions/headings=false,
+}
+
+\DeclareExerciseEnvironmentTemplate{tcb} {%
+  \tcolorbox[
+  breakable,
+  enhanced jigsaw,
+  fonttitle=\sffamily\upshape\bfseries,
+  coltitle=teal!10!white,
+  colback=teal!02!white,
+  colbacktitle=teal,
+  colframe=teal!70!black,
+  boxrule=0.3mm,
+  attach boxed title to top left={yshift=-1mm, xshift=1mm},
+  beforeafter skip=.9\baselineskip,
+  title = Exercise~\GetExerciseProperty{counter}%
+        \GetExercisePropertyT{subtitle}{ \textit{\PropertyValue}}%
+        \IfInsideSolutionF{%
+            \GetExercisePropertyT{points}{ % notice the space
+                (%
+                \PropertyValue
+                \IfExerciseGoalSingularTF{points}
+                    {\XSIMtranslate{point}}
+                    {\XSIMtranslate{points}}%
+                )%
+            }%
+        }%
+    ]%
+    % \IfInsideSolutionT{%
+    %   \tcbsubtitle{Exercise}
+    %   \input{\jobname-\ExerciseType-\ExerciseID-exercise-body.tex}
+    %   \tcbsubtitle{Solution}
+    % }
+}{\endtcolorbox}
+
+% Solution headings:
+\DeclareExerciseEnvironmentTemplate{tcbsol}{%
+  \tcbox[
+  fontupper=\sffamily\upshape\bfseries,
+  coltext=teal!10!white,
+  colback=teal!80!white,
+  colframe=teal!50!white,
+  boxrule=0.3mm,
+  boxsep=-0.5mm,
+  before skip=\baselineskip,
+  after skip=0.5\baselineskip,
+  ]{Exercise~\GetExerciseProperty{counter}}
+  \noindent
+}
+
+\else
+
+\newtcolorbox[auto counter,number within=chapter]{exercise}{
+  breakable,
+  enhanced jigsaw,
+  fonttitle=\sffamily\upshape\bfseries,
+  coltitle=teal!10!white,
+  colback=teal!02!white,
+  colbacktitle=teal,
+  colframe=teal!70!black,
+  boxrule=0.3mm,
+  attach boxed title to top left={yshift=-1mm, xshift=1mm},
+  beforeafter skip=.9\baselineskip,
+  title=Exercise~\thetcbcounter,
+}
+\usepackage{comment}
+\excludecomment{solution}
+\newcommand{\printsolutions}{}
+
+\fi
+
+% \DeclareExerciseType{exercise}{
+%     exercise-env=ltxexercise,
+%     solution-env=ltxsolution,
+%     exercise-name=\XSIMtranslate{exercise},
+%     solution-name=\XSIMtranslate{solution},
+%     exercise-template=tcb,
+%     solution-template=tcb,
+%     within=chapter,
+% }
+
+%\newcommand{\beginwithlist}{\leavevmode\vspace{-7mm}}
+\newcommand{\beginwithlist}{\vspace{1mm}}
+
+\usepackage{wrapfig}
+
+\let\description=\eqlist
+\let\enddescription=\endeqlist
+\let\eqlistlabel\descriptionlabel
+\newenvironment{semantics}{\begin{description}}{\end{description}}
+
+% graphs for models, from http://www.actual.world/resources/tex/doc/TikZ.pdf
+\usetikzlibrary{positioning,arrows,calc}
+\tikzset{
+modal/.style={>=stealth',shorten >=1pt,shorten <=1pt,auto,node distance=1.5cm,
+semithick},
+world/.style={circle,draw,minimum size=0.5cm,fill=gray!15,font=\small},
+point/.style={circle,draw,inner sep=0.5mm,fill=black},
+reflexive above/.style={->,loop,looseness=7,in=120,out=60},
+reflexive below/.style={->,loop,looseness=7,in=240,out=300},
+reflexive left/.style={->,loop,looseness=7,in=150,out=210},
+reflexive right/.style={->,loop,looseness=7,in=30,out=330}
+}
+\definecolor{rgreen}{RGB}{0,150,0}
+\definecolor{rblue}{RGB}{0,0,150}
+\definecolor{rred}{RGB}{180,0,0}
+
+
+% Trees:
+\usepackage{xyling}
+\usepackage{xfp}
+\usepackage{ifthen}
+\definecolor{annotcol}{rgb}{0.3, 0.4, 0.5}
+\definecolor{red}{rgb}{1,0,0}
+\def\checkmark{\color{annotcol}\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\tree}[2][0]{\Treek[#1]{0.7}{#2}}
+%\newcommand{\dotline}{\GB{d}{.}}
+\newcommand{\wlabel}[2]{\Kk[#1]{0}{\ifthenelse { \equal {#2} {} } {} {\ensuremath{(#2)}}}}
+\newcommand{\ticklabel}[1]{\Kk[#1]{0}{\checkmark}}
+\newcommand{\annotlabel}[2]{\Kk[#1]{0}{{\color{annotcol}#2}}}
+\newcommand{\llabel}[2]{\Kk[-#1]{0}{{\color{annotcol}#2}}}
+\newcommand{\branchbelow}{\B{ddl}\B{ddr}}
+\newcommand{\tribranchbelow}{\B{ddl}\B{dd}\B{ddr}}
+\newcommand{\closed}{\Below{\sffamily x}}
+\newcommand{\treenode}[5]{\llabel{\fpeval{(#1)-1}}{#2} #3 \wlabel{#1}{#4} \annotlabel{\fpeval{(#1)+10}}{#5}}
+\newcommand{\treenodeticked}[5]{\llabel{\fpeval{(#1)-1}}{#2} #3 \wlabel{#1}{#4} \annotlabel{\fpeval{(#1)+10}}{#5}  \ticklabel{\fpeval{(#1)+18}}  }
+\newcommand{\nnode}[5]{\treenode{#1}{#2}{\K{#3}}{#4}{#5}}
+\newcommand{\nnodeticked}[5]{\treenodeticked{#1}{#2}{\K{#3}}{#4}{#5}}
+\newcommand{\nnodeclosed}[5]{\treenode{#1}{#2}{\K{#3}\closed}{#4}{#5}}
+\newcommand{\dotbelowbnode}[5]{\treenode{#1}{#2}{\K{#3}\GB{dd}{.}\B[-8]{dddl}\B[-8]{dddr}}{#4}{#5}}
+\newcommand{\dotbelownode}[5]{\treenode{#1}{#2}{\K{#3}\GB{dd}{.}}{#4}{#5}}
+\newcommand{\bnode}[5]{\treenode{#1}{#2}{\K{#3}\branchbelow}{#4}{#5}}
+\newcommand{\bnodeticked}[5]{\treenodeticked{#1}{#2}{\K{#3}\branchbelow}{#4}{#5}}
+\newcommand{\tribnode}[5]{\treenode{#1}{#2}{\K{#3}\tribranchbelow}{#4}{#5}}
+\newcommand{\barenode}[1]{\K{#1}}
+\newcommand{\dotbelowbarenode}[1]{\K{#1}\GB{dd}{.}}
+\newcommand{\dotbelowbarebnode}[1]{\K{#1}\GB{dd}{.}\B[-8]{dddl}\B[-8]{dddr}}
+\newcommand{\dotbelowbaretribnode}[1]{\K{#1}\GB{dd}{.}\B[-8]{dddl}\B[-8]{ddd}\B[-8]{dddr}}
+
+% Syntax:
+%
+% \tree[1]{ ... } => optional 1 adds width to branching
+%
+% Trees are defined like tabular tables:
+%
+% \tree{ & node1 & \\ node2 & & node3 }
+%
+% A tree node is defined by
+%
+% \nnode{10}{1.}{$A \land B$}{w}{Ass.}
+%
+% The first argument (10) controls the distance between the formula
+% and the line number/world/annotation.
+%
+% Nodes under which the tree branches are defined by \bnode instead of
+% \nnode. A bnode must be followed by an empty row:
+%
+%\tree[2]{
+%    & \bnode{13}{1.}{$A \lor B$}{w}{Ass.} & \\
+%    && \\
+%    \nnode{8}{2.}{$A$}{w}{(1)} && \nnode{8}{3.}{$B$}{w}{(1)}
+%}
+
+\usepackage{tabularx}
+
+
+\usepackage[type={CC}, modifier={by-nc-sa}, version={4.0}, imageposition=left, imagewidth=20mm, imagedistance=3mm]{doclicense}
+
+\begin{document}
+
+\tcbstartrecording
+
+\include{title}
+\include{00-preface}
+\include{01-operators}
+\include{02-worlds}
+\include{03-accessibility}
+\include{04-proofs}
+\include{05-epistemic}
+\include{06-deontic}
+\include{07-time}
+\include{08-conditionals}
+\include{09-qml}
+\include{10-qml2}
+
+\ifcompilesolutions
+\include{answers}
+\fi
+
+
+% {
+% \small
+% \bibliographystyle{../wobib2en}
+% \bibliography{../bib}
+% }
+
+
+
+\end{document}

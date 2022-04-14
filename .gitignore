@@ -1,0 +1,10 @@
+*.aux
+*.log
+*.out
+logic2-exercise-*.tex
+*.fdb_latexmk
+*.fls
+*.toc
+*.xsim
+*.synctex.gz
+

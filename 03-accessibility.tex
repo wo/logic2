@@ -1,0 +1,1311 @@
+\chapter{Accessibility}\label{ch:accessibility}
+
+\section{Variable modality}
+
+In the previous chapter, we read $\Box A$ as saying that $A$ is true at every
+possible world. We might hope to allow for different flavours of modality by
+letting each flavour select different kinds of worlds as possible. If the box
+represents epistemic necessity, a possible world would be a world that is
+compatible with the available information. If the box represents historical
+necessity, a possible world would be one that can be brought about. If the box
+represents obligation, a possible world would be a world in which all relevant
+norms are respected. (These worlds are more commonly called \emph{ideal}.)
+
+But there is a problem. The semantics from the previous chapter determines a
+particular logic: S5. And that logic is not appropriate for every application of
+modal logic. In deontic logic, for example, we don't want the schema
+%
+\begin{principles}
+  \pri{T}{\Box A \to A}
+\end{principles}
+%
+to be invalid. We can easily conceive of scenarios in which $\Box p$ is true (on
+some interpretation of $p$) even though $p$ is false.
+
+The semantics from the previous chapter renders the \pr{T}-schema valid.
+Whenever a sentence $\Box A$ is true at a world $w$ in a model then $A$ is true
+at $w$ as well, because the box quantifies over all worlds, including $w$. To
+make room for deontic logic, we need a semantics in which not all worlds in $W$
+are among the ``possible'' worlds over which the modal operators quantify. Not
+all worlds are ideal.
+
+We might also want to allow for cases in which the worlds over which the modal
+operators quantify depend on the world at which the relevant sentence is
+evaluated. Perhaps you are obligated to do the dishes in worlds where you have
+promised to do the dishes, but not in worlds where you haven't made the promise.
+Worlds in which you don't do the dishes are then ideal relative to the second
+kind of world, but not relative to the first.
+
+This kind of variability is also needed for other flavours of modality. Suppose
+the box quantifies over all worlds that are compatible with our knowledge. Which
+worlds are compatible with our knowledge depends on what we know. But we don't
+always know what we know. Sometimes we believe that we know something, but don't
+actually know it because it is false. We don't know it, without knowing that we
+don't know it. \label{par:notB}Among the worlds compatible with our knowledge
+there are then worlds in which we know more than we actually do. What's
+compatible with our knowledge in \emph{these} worlds is different from what's
+compatible with our knowledge in the actual world.
+
+Let's assume, then, that for any world in any scenario there is a set of worlds
+that are possible \emph{relative to $w$}. $\Box p$ as true at $w$
+iff $p$ is true at all worlds that are possible relative to $w$. If a world $v$
+is possible relative to $w$ we also say that $v$ is \textbf{accessible} from $w$,
+or (informally) that $w$ \emph{can see} $v$.
+
+Accessibility means different things in different applications. In epistemic
+logic, a world $v$ is accessible from $w$ iff $v$ is compatible with what is
+known at $w$. In the logic of historical necessity, $v$ is accessible from $w$
+iff $v$ can be brought about at $w$. And so on. We can still allow for scenarios
+in which every worlds is accessible from every world, so that the box and the
+diamond are unrestricted quantifiers over all worlds in the scenario, as in the
+previous chapter.
+
+Since facts about accessibility matter to the truth-value of modal sentences,
+they must be represented by our models. From now on, a model for $\L_M$ will
+therefore specify which worlds in $W$ are accessible from which others (and from
+themselves). This marks the difference between a ``basic model'' and a ``Kripke
+model'' -- named after Saul Kripke, who popularised models of this kind.
+%
+% see Burgess, ``Kripke Models'', 2011, for more on the history of Kripke models.
+% 
+\begin{definition}{}{kripkemodel}
+  A \textbf{Kripke model} of $\L_M$ is a triple $\t{W,R,V}$ consisting of
+  \vspace{-3mm}
+  \begin{itemize*}
+  \item a non-empty set $W$,
+  \item a binary relation $R$ on $W$, and
+  \item a function $V$ that assigns to each sentence letter of $\L_M$
+  a subset of $W$.
+  \end{itemize*}
+\end{definition}
+%
+\noindent%
+$R$ is the accessibility relation. It is called a relation ``on $W$'' because it
+holds between members of $W$. We write `$wRv$' to express that $R$ holds between
+$w$ and $v$.
+
+We also need to update definition \ref{def:basicsemantics}, which settles under
+what conditions an $\L_M$-sentence is true at a world in a model. The old
+definition had the following clauses for the box and the diamond:
+
+\bigskip
+\begin{tabular}{lll}
+  (g) & $M,w \models \Box A$ &iff $M,v \models A$ for all $v$ in $ W$.\\
+  (h) & $M,w \models \Diamond A$ &iff $M,v \models A$ for some $v$ in $ W$.
+\end{tabular}
+\bigskip
+
+\noindent%
+In the new semantics, the box and the diamond only quantify over
+accessible worlds:
+
+\bigskip
+\begin{tabular}{lll}
+  (g) & $M,w \models \Box A$ &iff $M,v \models A$ for all $v$ in $ W$ such that $wRv$.\\
+  (h) & $M,w \models \Diamond A$ &iff $M,v \models A$ for some $v$ in $ W$ such that $wRv$.
+\end{tabular}
+\bigskip
+
+Here is the full definition, for completeness.
+
+\begin{definition}{Kripke Semantics}{kripkesemantics}
+  If $\Mfr = \t{W,R,V}$ is a Kripke model, $w$ is a member of $W$, $P$ is
+  any sentence letter, and $A,B$ are any $\L_M$-sentences, then
+
+  \medskip
+  \begin{tabular}{lll}
+    (a) & $M,w \models P$ &iff $w$ is in $V(P)$.\\
+    (b) & $M,w \models \neg A$ &iff $M,w \not\models A$.\\
+    (c) & $M,w \models A \land B$ &iff $M,w \models A$ and $M,w \models B$.\\
+    (d) & $M,w \models A \lor B$ &iff $M,w \models A$ or $M,w \models B$.\\
+    (e) & $M,w \models A \to B$ &iff $M,w \not\models A$ or $M,w \models B$.\\
+    (f) & $M,w \models A \leftrightarrow B$ &iff $M,w \models A\to B$ and $M,w \models B\to A$.\\
+    (g) & $M,w \models \Box A$ &iff $M,v \models A$ for all $v$ in $ W$ such that $wRv$.\\
+    (h) & $M,w \models \Diamond A$ &iff $M,v \models A$ for some $v$ in $ W$ such that $wRv$.
+  \end{tabular}
+\end{definition}
+%
+When I speak of truth at a world in a Kripke model, this should always be
+understood in accordance with definition \ref{def:kripkesemantics}. Definition
+\ref{def:basicsemantics} defines truth at a world in a basic model.
+
+To see definition \ref{def:kripkesemantics} in action, consider a simple model
+with two worlds, $w$ and $v$. World $v$ is accessible from world $w$, but $v$ is
+not accessible from $w$. Neither world can access itself. The interpretation
+function assigns $\{ w \}$ to $p$ and the empty set $\emptyset$ to all other
+sentence letters. The model can be pictured like this, with an arrow
+representing accessibility:
+
+\begin{center}
+  \begin{tikzpicture}[modal, world/.append style={minimum size=0.8cm}, node distance = 15mm]
+    \node[world] (w1) [label=above:{$w$}] {};
+    \node[world] (w2) [label=above:{$v$}, right=of w1] {$p$};
+    \path[->] (w1) edge (w2);
+  \end{tikzpicture}
+\end{center}
+%
+Using definition \ref{def:kripkesemantics}, we can figure which $\L_M$-sentences
+are true at which worlds in the model. For example:
+
+\begin{itemize*}
+  \item By clause (a) of definition \ref{def:kripkesemantics}, $p$ is true at
+  $v$ and false at $w$.
+  \item By clause (h), $\Diamond p$ is true at $w$ because $p$ is true at $v$
+  and $v$ is accessible from $w$. $\Diamond p$ is false at $v$ because there is
+  no world accessible from $v$ at which $p$ is true.
+  \item By clause (g), $\Box\Diamond p$ is false at $w$ because $\Diamond p$ is
+  false at $v$ and $v$ is accessible from $w$. $\Box\Diamond p$ is true at $v$
+  because there is no world accessible from $v$ at which $\Diamond p$ is false.
+\end{itemize*}
+%
+Note that $\Diamond p$ and $\Box \Diamond p$ have different truth-values at both
+$w$ and $v$. In the new semantics, we can no longer ignore all but the last
+in a string of modal operators. Note also that $\Box p$ is true at $w$ even
+though $p$ is false; $\Box p \to p$ is no longer valid.
+
+\begin{exercise}
+  Explain why every sentence of the form $\Box A$ is true at world $v$
+  in the above model.
+\end{exercise}
+\begin{solution}
+  $v$ has access to no world. So any sentence $A$ is true at
+  \emph{all} (zero) worlds accessible from $v$.
+
+  If this seems strange, remember that $\Box A$ is equivalent to
+  $\neg \Diamond \neg A$. And $\Diamond \neg A$ means that there's an
+  accessible world where $\neg A$ is true. If there are no accessible
+  worlds, then this is false. So $\neg \Diamond \neg A$ is true.
+\end{solution}
+
+The next three exercises refer to the following model:
+%
+\begin{center}
+  \begin{tikzpicture}[modal, world/.append style={minimum size=0.8cm}, node distance = 15mm]
+    \node[world] (w1) [label=above:{$w_1$}] {$p$};
+    \node[world] (w2) [label=above:{$w_2$}, right=of w1] {};
+    \node[world] (w3) [label=below:{$w_3$}, below=of w1] {$p$};
+    \node[world] (w4) [label=below:{$w_4$}, right=of w3] {$q$};
+    \path[->] (w1) edge (w4);
+    \path[<-] (w1) edge (w2);
+    \path[<->] (w1) edge (w3);
+    \path[->] (w2) edge (w4);
+    \path[->] (w4) edge [reflexive right] (w4);
+  \end{tikzpicture}
+\end{center}
+
+\begin{exercise}
+  At which worlds in the  model are the following sentences true?
+  \begin{exlist}
+  \item $p \lor \neg q$
+  \item $\Box(p \lor \neg q)$
+  \item $\Diamond(\neg p \land \neg q)$
+  \item $\Diamond\Box q$
+  \item $\Diamond\Diamond\Box q$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  (a) $w_{1}, w_{2}$, and $w_{3}$; (b) $w_{3}$; (c) --; (d) $w_{1}, w_{2}$ and $w_{4}$; (e) all.
+\end{solution}
+
+\begin{exercise}
+  For each world in the model, find an $\L_M$-sentence that is true only at
+  that world.
+\end{exercise}
+\begin{solution}
+  There are infinitely many correct answers for each world. For
+  example: $w_1: \Diamond\Box p$, $w_2: \neg p \land \neg q$,
+  $w_3: \Box p$, $w_4: \Box q$.
+\end{solution}
+
+\begin{exercise}
+  Can you draw a diagram of a smaller model (with fewer worlds) in
+  which the exact same $\L_M$-sentences are true at $w_1$?
+\end{exercise}
+\begin{solution}
+  \begin{tikzpicture}[modal, world/.append style={minimum size=0.8cm}, node distance = 15mm]
+    \node[world] (w1) [label=above:{$w_1$}] {$p$};
+    \node[world] (w3) [label=below:{$w_3$}, below=of w1] {$p$};
+    \node[world] (w4) [label=below:{$w_4$}, right=of w3] {$q$};
+    \path[->] (w1) edge (w4);
+    \path[<->] (w1) edge (w3);
+    \path[->] (w4) edge [reflexive right] (w4);
+  \end{tikzpicture}
+\end{solution}
+
+% \begin{exercise}
+%   This exercise is due to Johan van Benthem. Consider the following structure.
+
+%   \begin{center}
+%     \begin{tikzpicture}[modal, world/.append style={minimum size=0.8cm}, node distance = 10mm]
+%       \node[world] (w1) [label=above:{$w_1$}] {};
+%       \node[world] (w2) [label=above:{$w_2$}, right=of w1] {};
+%       \node[world] (w3) [label=above:{$w_3$}, right=of w2] {$p$};
+%       \node[world] (w4) [label=left:{$w_4$}, below=of w1] {};
+%       \node[world] (w5) [label={[label distance=-1mm]above left:{$w_5$}}, below=of w2] {};
+%       \node[world] (w6) [label=right:{$w_6$}, below=of w3] {$p$};
+%       \node[world] (w7) [label=below:{$w_7$}, below=of w4] {$p$};
+%       \node[world] (w8) [label=below:{$w_8$}, below=of w5] {};
+%       \node[world] (w9) [label=below:{$w_9$}, below=of w6] {$t$};
+%       \path[->] (w1) edge (w2);
+%       \path[->] (w2) edge (w3);
+%       \path[->] (w1) edge (w4);
+%       \path[->] (w2) edge (w5);
+%       \path[->] (w3) edge (w6);
+%       \path[->] (w4) edge (w5);
+%       \path[->] (w5) edge (w6);
+%       \path[->] (w4) edge (w7);
+%       \path[->] (w5) edge (w8);
+%       \path[->] (w6) edge (w9);
+%       \path[->] (w7) edge (w8);
+%       \path[->] (w8) edge (w9);
+%     \end{tikzpicture}
+%   \end{center}
+%   % 
+%   There's a treasure at $w_9$, marked by the sentence letter $t$;
+%   pirates are standing at $w_3, w_6,$ and $w_7$. At which worlds are
+%   the following sentences true?
+%   \begin{exlist}
+%   \item $\Diamond t$
+%   \item $\Diamond \Box t$
+%   \item $\Diamond p$
+%   \item $\Box \Diamond p$
+%   \end{exlist}
+
+% \end{exercise}
+
+% \begin{exercise}
+%   For each world in the previous exercise, find a sentence that is
+%   true only there.
+% \end{exercise}
+
+
+\section{The systems K and S5}\label{sec:systems-k-s5}
+
+As in the previous chapter, we call a sentence \emph{valid} if it is true at all
+worlds in all models. But we now use a different conception of models, and a
+different definition of truth at a world in a model. To avoid confusion, it is
+best to use different expressions for different kinds of validity. Let's call
+the new kind of validity \emph{K-validity}. (`K' for Kripke.) The old kind will
+henceforth be called \emph{S5-validity}, because the sentences that are valid by
+the definition from the previous chapter are precisely the sentences in C.I.\
+Lewis's system S5.
+
+\begin{definition}{}{kvalid}
+  A sentence $A$ is \textbf{K-valid} (for short, $\models_K A$) iff $A$
+  is true at every world in every Kripke model.
+\end{definition}
+
+% Many properties of S5-consequence and S5-validity carry over to
+% K-consequence and K-validity. In particular, observation \ref{obs:semantic-deduction-theorem} (p.\ \pageref{obs:semantic-deduction-theorem}), the
+% propositional extension theorem (p.\
+% \pageref{thm:propositional-extension-theorem}), and the replacement
+% theorem (p.\ \pageref{thm:replacement-theorem}) still hold, and for
+% the same reasons as before. I won't go through the arguments again.
+
+The same distinction applies to the concept of entailment. Entailment in the old
+sense (definition \ref{def:basicconsequence}) will henceforth be called
+\emph{S5-entailment}. Our new definitions of models and truth lead to the
+concept of \emph{K-entailment}.
+
+\begin{definition}{}{kconsequence}
+  Some sentences $\Gamma$ \textbf{K-entail} a sentence $A$ (for short:
+  $\Gamma \models_{K} A$) iff there is no world in any Kripke model at which all
+  sentences in $\Gamma$ are true while $A$ is false.
+\end{definition}
+
+The set of K-valid sentences is a system of modal logic. This system did
+not figure in C.I.\ Lewis's list of systems. It is known as \textbf{system K}.
+
+K is \textbf{weaker} than S5, by which we mean that not all S5-valid
+sentences are K-valid. $\Box p \to p$, for example, is S5-valid but not K-valid.
+Conversely, however, every K-valid sentence is S5-valid. Let's prove this.
+
+\begin{observation}{kins5}
+  Every K-valid sentence is S5-valid.
+\end{observation}
+%
+\begin{proof}
+  \emph{Proof:} In essence, observation \ref{obs:kins5} holds because the basic
+  models from the previous chapter can be simulated by Kripke models in which
+  all worlds have access to all worlds. If a sentence $A$ is K-valid, meaning
+  that $A$ is true throughout every Kripke model, then $A$ is true throughout
+  every Kripke model of this kind, and so $A$ is also true in every basic model.
+
+  It is worth going through this more carefully. For any basic model
+  $M = \langle W,V \rangle$, let $M^*$ be the Kripke model
+  $\langle W,R,V \rangle$ with the same worlds $W$ and the same interpretation
+  function $V$, and with an accessibility relation $R$ that holds between all
+  worlds in $W$. That is, every world in $M^*$ can see every other world as well
+  as itself. If every world can see every world, then it makes no difference
+  whether we use definition \ref{def:basicsemantics} or definition
+  \ref{def:kripkesemantics} to evaluate the truth of sentences at a world.
+  That's because the two definitions only differ for the case of the modal
+  operators, which definition \ref{def:basicsemantics} interprets as quantifiers
+  over all worlds, while definition \ref{def:kripkesemantics} interprets them as
+  quantifiers over the accessible worlds. So we have:
+  \begin{quote}
+  \begin{itemize}
+  \item[(*)] A sentence is true at a world $w$ in a basic model $M$ iff
+    it is true at $w$ in the corresponding Kripke model $M^*$.
+  \end{itemize}
+  \end{quote}
+  (A full proof of (*) would proceed by induction on complexity of the
+  sentence.)
+
+  Now suppose a sentence $A$ is \emph{not} S5-valid, meaning that it is false at
+  some world $w$ in some basic model $M$. By (*), it follows that $A$ is also
+  false at some world in some Kripke model -- namely, at the same world $w$ in
+  $M^*$. And if $A$ is false at some world in some Kripke model, then $A$ is not
+  K-valid. By contraposition, it follows that if $A$ is K-valid, then $A$ is
+  S5-valid. \qed
+\end{proof}
+
+You may remember from section \ref{sec:systems} that S5 can be axiomatized by
+five axiom schemas and two rules:
+%
+\begin{principles}
+  \pri{Dual}{\neg\Diamond A \leftrightarrow \Box\neg A}\\
+  \pri{K}{\Box(A\to B) \to (\Box A \to \Box B)}\\
+  \pri{T}{\Box A \to A}\\
+  \pri{4}{\Box A \to \Box \Box A}\\
+  \pri{5}{\Diamond A \to \Box \Diamond A}\\
+  \pri{Nec}{\text{If $A$ is in the system, then so is }\Box A.}\\
+  \pri{CPL}{\text{If }\Gamma \models_{P} A\text{ and all members of }\Gamma\text{ are in the system, then so is }A.}
+\end{principles}
+%
+All instances of \pr{Dual}, \pr{K}, \pr{T}, \pr{4}, and \pr{5} are S5-valid, and
+all and only the S5-valid sentences can be derived from some of these instances
+by \pr{Nec} and \pr{CPL}.
+
+The system K can be axiomatized by dropping three of the axiom schemas: \pr{T},
+\pr{4}, and \pr{5}, leaving only \pr{Dual} and \pr{K}. All and only the K-valid
+sentences can be derived from instances of \pr{Dual} and \pr{K} by \pr{Nec}
+and \pr{CPL}.
+
+(Many authors define $\Box$ as $\neg\Diamond\neg$ or $\Diamond$ as
+$\neg\Box\neg$, in which case \pr{Dual} is true by definition. The only
+remaining axiom schema is then \pr{K}. Don't confuse the schema \pr{K} with the
+system K!)
+
+\begin{exercise}
+  \begin{exlist}
+    \item Describe a Kripke model in which some instance of \pr{4} is false at
+    some world.
+    \item Describe a Kripke model in which some instance of \pr{5} is false at
+    some world.
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+    \item For example: $W = \{ w,v \}$, $R = \{ (w,v), (v,w) \}$,
+    $V(p) = \{ v \}$. $\Box p \to \Box\Box p$ is false at $w$.
+    (`$R = \{ (w,v), (v,w) \}$' means that $R$ relates $w$ to $v$ and $v$ to $w$
+    and nothing else to anything else.)
+    \item For example: $W = \{ w,v \}$, $R = \{ (w,w), (w,v) \}$,
+    $V(p) = \{ w \}$. $\Diamond p \to \Box\Diamond p$ is false at $w$.
+  \end{sollist}
+\end{solution}
+
+\begin{exercise}
+  Can you find an instance of the \pr{T}-schema that is K-valid?
+\end{exercise}
+\begin{solution}
+  For example: $\Box(p \lor \neg p) \to (p \lor \neg p)$.
+\end{solution}
+
+\begin{exercise}
+  Show that $\Box(p \lor \neg p)$ is K-valid, using definition
+  \ref{def:kripkesemantics}.
+\end{exercise}
+\begin{solution}
+  By clause (g) of definition \ref{def:kripkesemantics}, $\Box(p \lor \neg p)$
+  is false at a world $w$ in a Kripke model only if $p \lor \neg p$ is false at
+  some world accessible from $w$. By clause (d) of definition
+  \ref{def:kripkesemantics}, $p \lor \neg p$ is false at a world only if both
+  $p$ and $\neg p$ are false at the world, which by clause (a) means that $p$ is
+  both true and false at the world. This is impossible. So $\Box(p \lor \neg p)$
+  is not false at any world in any Kripke model.
+\end{solution}
+
+% Other valid principles: $\Box$ distributes over $\land$ and vice versa.
+% $\Box (A \to B) \to (\Diamond A \to \Diamond B)$.
+% $(\Box A \land \Diamond B) \to \Diamond (A \land B)$.
+  
+% Also: If $A \to B$ is valid, then so are $\Box A \to \Box A$ and
+% $\Diamond A \to \Diamond B$.
+
+% \begin{exercise}
+%   The sentences that are true at a world $w$ in a model $M$ contain
+%   information not just about $w$ but also about other worlds in $M$. For
+%   example, if $\Box p$ is true at $w$, we know that $w$ is true at all worlds,
+%   and if $\neg p$ and $\Diamond p$ are both true at $w$, we know that $p$ is
+%   true at some other world. Question: do the sentences true at $w$ completely
+%   determine the model $M$? If not, give an example of two worlds $w_1$ and
+%   $w_2$ in two models $M1$, $M2$ that verify the same sentences even though
+%   the models are not isomorphic.
+% \end{exercise}
+
+\section{Some other normal systems}\label{sec:normalsystems}
+
+For many applications of modal logic, we need a concept of validity that lies in
+between K-validity and S5-validity. Suppose, for example, we read the box as
+physical necessity and the diamond as physical possibility, understood as
+compatibility with the laws of nature. On a certain conception of what it means
+to be a law of nature, nothing that happens is ever incompatible with the laws
+of nature. Equivalently, anything that is physically necessary is actually the
+case. We therefore want $\Box A$ to entail $A$. On the other hand, it is not
+clear if $\Box A$ should entail $\Box\Box A$: if $A$ is physically necessary,
+can we infer that it is physically necessary that $A$ is physically necessary?
+Below I will argue that we can't. If that is right, then the logic of physical
+necessity is neither K nor S5. We want a logic with \pr{T} ($\Box A \to A$)
+but without \pr{4} ($\Box A \to \Box\Box A$). S5 gives us both, K gives us
+neither.
+
+Our current semantics makes it easy to define systems in between K and S5 by
+putting restrictions on the accessibility relation in Kripke models.
+
+Let's say that an $\L_M$-sentence is \textbf{valid in a class of Kripke models}
+iff the sentence is true at every world in every model that belongs to the
+class. K-validity is validity in the class of all Kripke models. S5-validity is
+validity in the class of Kripke models in which every world has access to every
+world (as mentioned earlier, in the proof of observation \ref{obs:kins5}).
+
+% Humberstone says valid "over" a class of frames or models
+
+If you inspect countermodels to the K-validity of $\Box p \to p$, you may notice
+that all of them involve worlds that don't have access to themselves. If we
+require that every world can see itself then all instances of the \pr{T}-schema
+become valid.
+
+\begin{observation}{treflexive}
+  All instances of \pr{T} are valid in the class of Kripke models in which every
+  world is accessible from itself.
+\end{observation}
+%
+\begin{proof}
+  \emph{Proof:} According to clause (e) of definition \ref{def:kripkesemantics},
+  an instance of $\Box A \to A$ is false at a world $w$ only if $\Box A$ is true
+  at $w$ and $A$ is false; but if $\Box A$ is true at $w$ and $w$ has access to
+  itself, then by clause (g) of definition \ref{def:kripkesemantics}, $A$ is
+  true at $w$. So if $\Box A \to A$ is false at $w$, and $w$ is accessible from
+  itself, then $A$ is both true and false at $w$, which is impossible. Hence
+  $\Box A \to A$ is true at every world in every model in which every world is
+  accessible from itself. \qed
+\end{proof}
+
+A relation $R$ on a set $W$ is called \textbf{reflexive} if each member of $W$
+is $R$-related to itself. If the accessibility relation in a Kripke model is
+reflexive, we'll also call the model itself reflexive. Observation
+\ref{obs:treflexive} therefore states that all instances of \pr{T}
+are valid in the class of reflexive Kripke models.
+
+The set of all sentences that are valid in the class of reflexive Kripke models
+is known as \textbf{system T}. Accordingly, any sentence that is valid in this
+class of Kripke models (every member of system T) is called \textbf{T-valid}.
+
+% The system T was first discussed in Feys 1937, who dropped one of the axioms
+% in Godel 1933.
+
+System T is stronger than K, but weaker than S5. The system can be axiomatized
+by adding the axiom schema \pr{T} to the axioms and rules of K. We don't have
+\pr{4} or \pr{5}. $\Box p \to \Box \Box p$ is S5-valid but not T-valid.
+
+Systems of modal logic sometimes share their name with a schema. For
+disambiguation, I always put schema names in parentheses. \pr{T} is a schema, T
+is a system. \pr{K} is a schema, K is a system. All instances of \pr{T} are in
+T, but many sentences in T -- for example, all instances of \pr{K} -- are not
+instances of \pr{T}.
+
+\begin{exercise}
+  Show that $\Box p \to \Diamond p$ is T-valid.
+\end{exercise}
+\begin{solution}
+  By definition \ref{def:kripkesemantics}, $\Box p \to \Diamond p$ is false at a
+  world $w$ in a Kripke model only if $\Box p$ is true at $w$ and $\Diamond p$
+  is false at $w$. But if $w$ has access to itself then the truth of $\Box p$ at $w$ implies that $p$ is true at $w$, and then $\Diamond p$ is false at $w$. So $\Box p \to \Diamond p$ can't be false at any world in any Kripke model in which each world has access to itself.
+\end{solution}
+
+In chapter \ref{ch:time}, we will study a temporal application of modal
+logic in which the box is read as `it is always going to be the case that'.
+The ``worlds'' in a Kripke model here represent times. $\Box p$ is
+understood to be true at a time $t$ iff $p$ is true at all times after $t$. The
+accessibility relation is the earlier-later relation: $t_1Rt_2$ iff $t_1$ is
+earlier than $t_2$. In this application, we don't want to assume that $R$ is
+reflexive, which would mean that every point in time is earlier than itself.
+% On the contrary, we may want to assume that $R$ is
+% \emph{irreflexive}, meaning that no member of $W$ is $R$-related to
+% itself.
+But we'll want something else. Suppose $t_1$ is earlier than $t_2$, and $t_2$ is
+earlier than $t_3$. Then surely $t_1$ is earlier than $t_3$. 
+
+A relation $R$ is called \textbf{transitive} if whenever $xRy$ and $yRz$ then
+$xRz$. As before, we call a Kripke model transitive if its accessibility
+relation is transitive. When we do temporal logic, we will restrict the relevant
+models to transitive models.
+
+The set of sentences that are valid in the class of transitive Kripke models is
+known as \textbf{system K4}. The name alludes to the fact that this system can
+be axiomatized by adding schema \pr{4} to the axioms and rules of K.
+
+\begin{observation}{4trans}
+  All instances of \pr{4} are valid in the class of transitive Kripke models.
+\end{observation}
+%
+\begin{proof}
+  \emph{Proof:} Suppose for reductio that there is some transitive Kripke model
+  in which some instance of $\Box A \to \Box \Box A$ is false at some world $w$.
+  By clause (e) of definition \ref{def:kripkesemantics}, it follows that (i)
+  $\Box A$ is true at $w$ and (ii) $\Box\Box A$ is false at $w$. By clause (g)
+  of definition \ref{def:kripkesemantics}, (ii) implies that there is some world
+  $v$ accessible from $w$ where $\Box A$ is false. And that, in turn implies
+  that there is some world $u$ accessible from $v$ at which $A$ is false. Since
+  $R$ is transitive, $u$ is accessible from $w$. By (i), $A$ is true at $u$. So
+  $A$ is both true and false at $u$. Contradiction. \qed
+\end{proof}
+
+We can combine the systems T and K4 by requiring both reflexivity and
+transitivity. The set of sentences valid in the class of reflexive and
+transitive Kripke models is C.I.\ Lewis's \textbf{system S4}. It is stronger
+than K, T, and K4, but weaker than S5.
+
+There are many other conditions we could impose on the accessibility relation,
+and many combinations of these conditions. Each of them defines a system of
+modal logic. The following table lists some well-known model classes with the
+conventional names for the corresponding systems, repeating (for future
+reference) the ones we already know. We will have a closer look at some of these
+systems in later chapters, when we turn to applications of modal logic.
+
+\bigskip
+\begin{tabular}{ll}
+  \toprule
+  \emph{System} & \emph{Constraint on $R$}\\
+  \midrule
+  K & --\\
+  T & $R$ is \textbf{reflexive}: every world in $W$ can access itself\\
+  D & $R$ is \textbf{serial}: every world in $W$ can access some world\\
+  K4 & $R$ is \textbf{transitive}: whenever $wRv$ and $vRu$, then $wRu$\\
+  K5 & $R$ is \textbf{euclidean}: whenever $wRv$ and $wRu$, then $vRu$\\
+  KD45 & $R$ is serial, transitive, and euclidean\\
+  B & $R$ is reflexive and \textbf{symmetric}: whenever $wRv$ then $vRw$\\
+  S4 & $R$ is reflexive and transitive\\ 
+  S4.2 & $R$ is reflexive, transitive, and \textbf{convergent}: whenever $wRv$ and $wRu$,\\[-0.5mm]
+      & then there is some $t$ such that $vRt$ and $uRt$ \\ 
+  S5 & $R$ is reflexive, transitive, and symmetric\\ 
+  S5 & $R$ is \textbf{universal}: every world has access to every world\\
+  \bottomrule
+\end{tabular}\label{table:systems}
+
+\bigskip
+
+% Any system that can be defined by putting constraints on the accessibility
+% relation in Kripke models is called \textbf{normal}. So K, T, D, K4, K5, B,
+% S4, and S5 are examples of normal systems, or normal logics. There are also
+% non-normal systems/logics. These require a different kind of semantics. We
+% will look at one alternative in section~\ref{sec:neighbourhood}, but mostly we
+% will stay within the realm of the normal.
+
+S5 occurs twice in the list. We already know S5 as the system for
+universal models, in which the box and the diamond quantify unrestrictedly over
+the whole space $W$. But we also get S5 if we merely require the accessibility
+relation to be reflexive, transitive, and symmetric.
+
+Relations that are reflexive, transitive, and symmetric are called
+\textbf{equivalence relations}. An equivalence relation on a set divides the
+members of the set into classes within which everything stands in the relation
+to everything. (These classes are called \textbf{equivalence classes}.)
+
+For example, let $S$ be the relation that holds between two people iff they have
+the same birthday. This is an equivalence relation. It is reflexive: everyone
+has the same birthday as themselves. It is transitive: if $aSb$ and $bSc$ then
+$aSc$. And it is symmetric: if $aSb$ then $bSa$. For any person $a$, consider
+the class $[a]_S$ of everyone who has the same birthday as $a$. (A ``class'' is
+essentially the same thing as a set.) Everyone in $[a]_S$ has the same birthday
+as everyone else in $[a]_S$. So within $[a]_S$, the same-birthday relation $S$
+is universal.
+
+Now let me explain why the above two characterisations of S5 are equivalent.
+
+\begin{observation}{equivalence-universal}
+  A sentence is valid in the class of Kripke models whose accessibility relation
+  is universal iff it is valid in the class of Kripke models whose accessibility
+  relation is an equivalence relation.
+\end{observation}
+%
+\begin{proof}
+  \emph{Proof sketch:} The right-to-left direction is easy. If $R$ is the universal
+  relation on $W$, then $R$ is reflexive, transitive, and symmetric. So the
+  universal relation on $W$ is a special kind of equivalence relation on $W$. If
+  a sentence is valid in every model in which $R$ is an equivalence relation, it
+  must therefore be valid in every model in which $R$ is universal.
+
+  The other direction is more interesting. We argue by contraposition, showing
+  that if a sentence $A$ is not valid in the class of models in which $R$ is an
+  equivalence relation, then $R$ is also not valid in the class of universal
+  models. So assume $A$ is not valid in the class of models in which $R$ is an
+  equivalence relation. Then there is some world $w$ in some such model
+  $M = \t{W,R,V}$ such that $M,w \not\models A$. Define the new model
+  $M' = \t{W',R',V'}$ as follows:
+  \begin{quote}
+    $W'$ is the class of worlds accessible in $M$ from $w$ (i.e., the
+    equivalence class $[w]_R$).
+
+    $R'$ is the universal relation on $W'$.
+
+    $V'$ is the restriction of $V$ to $W'$, so that for any sentence letter $B$,
+    $V'(B) = V'(B) \cap W'$.
+  \end{quote}
+  (If $X$ and $Y$ are sets, then $X \cap Y$ -- the \emph{intersection} of $X$ and
+  $Y$ -- is the set of all things that are both in $X$ and in $Y$.)
+
+  $M'$ has a universal accessibility relation. But from the perspective of $w$,
+  $M$ and $M'$ are indistinguishable. \emph{Any sentence is true at $w$ in $M$ iff
+    it is true at $w$ in $M'$.} This could be shown by induction, but I hope you
+  see intuitively why it is the case.
+
+  Granting the italicized sentence, the assumption that $A$ is false at some model
+  whose accessibility relation is an equivalence relation entails that $A$ is
+  false in some model whose accessibility relation is universal. \qed
+\end{proof}
+
+\begin{exercise}
+  Let $R$ be the relation on the set of people that holds between $a$ and $b$
+  iff $b$ is at least as old as $a$. Is $R$ reflexive? serial? transitive?
+  euclidean? symmetric? universal?
+\end{exercise}
+\begin{solution}
+  Reflexive yes, serial yes, transitive yes, euclidean no, symmetric no,
+  universal no.
+\end{solution}
+
+\begin{exercise}\label{ex:relations}
+  Explain these facts:
+  \begin{exlist}
+  \item If $R$ is symmetric and transitive, then $R$ is euclidean.
+  \item If $R$ is symmetric and euclidean, then $R$ is transitive.
+  \item If $R$ is reflexive and euclidean, then $R$ is symmetric.
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+    \item Suppose $R$ is symmetric and transitive, and that $xRy$ and $xRz$. By
+    symmetry, $yRx$. By transitivity, $yRz$.
+    \item Suppose $R$ is symmetric and euclidean, and that $xRy$ and $yRz$. By
+    symmetry, $yRx$. By euclidity, $xRz$.
+    \item Suppose $R$ is reflexive and euclidean, and that $xRy$. By
+    reflexivity, $yRy$. By euclidity, $yRx$.
+  \end{sollist}
+\end{solution}
+
+\begin{exercise}
+  What is wrong with the following argument? ``If $R$ is symmetric,
+  then $wRv$ implies $vRw$; if $R$ is transitive, it follows that
+  $wRw$. So symmetry and transitivity together imply reflexivity.''
+\end{exercise}
+\begin{solution}
+  It's true that if $R$ is symmetric and transitive then $wRv$ implies $vRw$
+  which implies $wRw$. But this only shows that every world $w$ \emph{that can
+    see some world $v$} can see itself. Symmetry, transitivity, \emph{and
+    seriality} together imply reflexivity. Symmetry and transitivity alone do
+  not.
+\end{solution}
+
+%\begin{exercise}
+%  Show that seriality and transitivity and symmetry implies reflexivity.
+%\end{exercise}
+
+
+\section{Frames}\label{sec:frames}
+
+There is a close connection between conditions on the accessibility relation in
+Kripke models and modal schemas -- between reflexivity and the \pr{T}-schema,
+between transitivity and the \pr{4}-schema, and so on. What exactly is that
+connection?
+
+You might think the connection between \pr{T} and reflexivity is this:
+\begin{quote}
+  \begin{itemize}
+    \item[(?)] All instances of \pr{T} are valid in a class of models iff all
+    models in the class are reflexive.
+  \end{itemize}
+\end{quote}
+%
+But that's false. We know (observation
+\ref{obs:treflexive}) that all \pr{T} instances are valid in the class of
+reflexive models. It follows that if all models in some class $C$ are reflexive,
+then all \pr{T} instances are valid in $C$. But the other direction fails. For a
+counterexample, consider the following model.
+\begin{center}
+  \begin{tikzpicture}[modal, world/.append style={minimum size=0.8cm}, node distance = 15mm]
+    \node[world] (w1) [label=above:{$w$}] {$p$};
+    \node[world] (w2) [label=above:{$v$}, right=of w1] {$p$};
+    \path[<->] (w1) edge (w2);
+  \end{tikzpicture}
+\end{center}
+There are two worlds, both of which can see each other; neither can see itself.
+$p$ is true at both worlds, all other sentence letters are false at both worlds.
+This model is not reflexive, but no instance of the \pr{T}-schema $\Box A \to A$
+is false at any world in the model. (Try to find a false instance!) The fact
+that the \pr{T}-schema is valid in a class of models therefore does not entail
+that all models in the class are reflexive. The class might contain models like
+the one just described.
+
+To understand the connection between modal schemas and conditions on the
+accessibility relation, we need to talk about \emph{frames}. A frame is what you
+get if take a Kripke model and remove the interpretation function.
+
+\begin{definition}{}{Kripke frame}
+  A \textbf{Kripke frame} is a pair of a non-empty set $W$ and a relation $R$ on $W$.
+\end{definition}
+
+Roughly speaking, if we think of a model as representing a scenario and an
+interpretation, then a frame is the part of the model that represents the
+scenario.
+
+% In modal logic, we only care about the abstract structure of a
+% scenario: how many worlds there are, and how they are accessible from one
+% another.
+
+Frames can be pictured just like Kripke models, but without any sentence letters
+in the nodes. The frame of the model displayed above looks like this:
+\begin{center}
+  \begin{tikzpicture}[modal, world/.append style={minimum size=0.8cm}, node distance = 15mm]
+    \node[world] (w1) [label=above:{$w$}] {$$};
+    \node[world] (w2) [label=above:{$v$}, right=of w1] {$$};
+    \path[<->] (w1) edge (w2);
+  \end{tikzpicture}
+\end{center}
+
+Now remember that validity is truth in virtue of the meaning of the logical
+expressions. Whether a sentence is valid should not depend on the
+meaning of the non-logical expressions. So if we define a particular kind of
+validity by reference to a class of Kripke models, the constraints we impose on
+the models in the class should be constraints on the frame of the models, not on
+the interpretation function.
+
+To see why, suppose I suggested that a sentence is ``$X$-valid'' iff it is true
+at all worlds in all Kripke model whose interpretation function assigns the
+empty set to the sentence letter $p$. So $\Box \neg p$ is $X$-valid, while
+$\Box \neg q$ is $X$-invalid. But $\Box \neg p$ and $\Box \neg q$ have the same
+logical form. If $\Box \neg p$ is true in virtue of its logical form, then
+$\Box \neg q$ should also be true in virtue of its logical form. $X$-validity is
+not a sensible concept of logical validity. The systems from the previous
+section were all defined sensibly, by putting constraints on the frame of a
+Kripke model, not on the interpretation function.
+
+Let's say that a sentence is \textbf{valid on a frame} if it is true at all
+worlds in all models with that frame. A sentence is \textbf{valid in a class of
+  frames} if it valid on all frames in the class.
+
+If a sentence is valid in the class of all models whose accessibility relation
+satisfies a certain condition, then it is also valid in the class of all frames
+whose accessibility relation satisfies that condition, and vice versa. We could
+have defined the systems from the previous section in terms of frame classes
+rather than model classes: K is the set of sentences valid in the class of all
+frames, T is the set of sentences valid in the class of reflexive frames, and so
+on. (A reflexive/transitive/etc.\ frame is a frame with a
+reflexive/transitive/etc.\ accessibility relation.)
+
+Now here is the connection between \pr{T} and reflexivity: All \pr{T} instances
+are valid in a class of frames iff every frame in the class is reflexive. More
+simply:
+
+\begin{observation}{tcorrespondence}
+  All instances of \pr{T} are valid on a frame iff the frame is reflexive.
+\end{observation}
+%
+\begin{proof}
+  \emph{Proof:} The right-to-left direction follows from observation
+  \ref{obs:treflexive}, according to which all \pr{T} instances are valid in the
+  class of reflexive models, and therefore in the class of reflexive frames, and
+  therefore on any frame in that class. For the other direction, we have to show
+  that if all instances of \pr{T} are valid on a frame $\t{W,R}$, then $R$ is
+  reflexive. We do this by showing that if $R$ is not reflexive, then we can
+  find an interpretation function $V$ that makes $\Box p \to p$ false at some
+  world $w$. $w$ will be an arbitrary world in $W$ that can't see itself. (There
+  must be some such world if $R$ is not reflexive.) Let $V(p)$ comprise all
+  worlds in $W$ except $w$. Then $\Box p$ is true at $w$ and $p$ false. So
+  $\Box p \to p$ is false at $w$. \qed
+\end{proof}
+
+If all instances of a schema are valid on all and only the frames whose
+accessibility relation satisfies a certain property, the schema is said to
+\textbf{correspond} to that property (and to \emph{define} the relevant class of
+frames). Observation \ref{obs:tcorrespondence} says that the \pr{T} schema
+corresponds to reflexivity.
+
+% More generally, a class of frames is /modally defined/ by a set of formulas
+% iff it is the class of frames for the set of formulas, i.e. the frames on
+% which all the formulas are valid.
+ 
+Instead of proving more facts about the correspondence between modal schemas and
+frame conditions, I will simply give you a list of some important results.
+
+\bigskip
+\begin{tabular}{rll}
+  \toprule
+  \multicolumn{2}{l}{\emph{Schema}} & \emph{Corresponding Frame Condition}\\\midrule
+  \pr{T} & $\Box A \to A$ & $R$ is reflexive: every world in $W$ is accessible from itself\\
+  \pr{D} & $\Box A \to \Diamond A$ & $R$ is serial: every world in $W$ can access some world in $W$\\
+  \pr{B} & $A \to \Box\Diamond A$ & $R$ is symmetric: whenever $wRv$ then $vRw$\\
+  \pr{4} & $\Box A \to \Box\Box A$ & $R$ is transitive: whenever $wRv$ and $vRu$, then $wRu$\\
+  \pr{5} & $\Diamond A \to \Box\Diamond A$ & $R$ is euclidean: whenever $wRv$ and $wRu$, then $vRu$\\
+  \pr{G} & $\Diamond \Box A \to \Box\Diamond A$ & $R$ is convergent:
+                                                      whenever $wRv$ and $wRu$, then there is\\[-0.5mm]
+      && some $t$ such that $vRt$ and $uRt$ \\ 
+  \bottomrule
+\end{tabular}
+\bigskip
+
+Correspondence facts are often useful when trying to figure out which schemas
+should be valid on a given interpretation of the modal operators. Return to the
+case of physical possibility and necessity from the start of section
+\ref{sec:normalsystems}. I claimed that on this interpretation of the box and
+the diamond, we should not regard all instances of the \pr{4}-schema
+$\Box A \to \Box\Box A$ as valid. My claim is not based on a direct intuition
+that something could be physically necessary without it being physically
+necessary that it is physically necessary. My claim is rather based on a
+judgement about the non-transitivity of physical accessibility. My reasoning
+goes like this. I assume that a world $v$ is physically possible relative to a
+world $w$ if nothing that happens at $v$ contradicts the laws of nature at $w$.
+This does not imply that $v$ has the same laws as $w$. For example, suppose the
+only law at $w$ is that ravens are black; at $v$, there is no such law but there
+happen to be no non-black ravens. Then what happens at $v$ does not contradict
+the laws at $w$, even though $v$ has different laws. Relative to the laws of
+$v$, worlds with white ravens are physically possible. So a world accessible
+from a world that is accessible from $w$ need not itself be accessible from $w$.
+Since \pr{4} corresponds to transitivity, I can infer that the logic of physical
+necessity does not render all instances of that schema valid.
+
+\begin{exercise}
+  Can you find frame conditions that correspond to these schemas?
+  \begin{exlist}
+  \item $\Box A \leftrightarrow A$
+  \item $\Box A$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+  \item Every world has access only to itself.
+  \item No world has access to any world.
+  \end{sollist}
+\end{solution}
+
+\section{More trees}
+\label{sec:more-trees}
+
+In section \ref{sec:trees}, I described the tree method for checking whether a
+sentence is valid, and for constructing countermodels. These were the rules for
+the box and the diamond:
+
+\bigskip
+
+\begin{minipage}{0.24\textwidth} \centering
+\tree{
+  \dotbelownode{8}{}{$\Box A$}{\omega}{}\\
+  \\
+  \nnode{8}{}{$A$}{\nu}{}\\
+  \Kk[8]{0}{\color{red}$\uparrow$}\\
+  \Kk[8]{0}{\color{red}\small old}
+}
+\end{minipage}
+\begin{minipage}{0.24\textwidth}\centering
+\tree{
+  \dotbelownode{8}{}{$\Diamond A$}{\omega}{}\\
+  \\
+  \nnode{8}{}{$A$}{\nu}{}\\
+  \Kk[8]{0}{\color{red}$\uparrow$}\\
+  \Kk[8]{0}{\color{red}\small new}
+}
+\end{minipage}
+\begin{minipage}{0.24\textwidth}\centering
+\tree{
+  \dotbelownode{10}{}{$\neg \Box A$}{\omega}{}\\
+  \\
+  \nnode{10}{}{$\neg A$}{\nu}{}\\
+  \Kk[10]{0}{\color{red}$\uparrow$}\\
+  \Kk[10]{0}{\color{red}\small new}
+}
+\end{minipage}
+\begin{minipage}{0.24\textwidth}\centering
+\tree{
+  \dotbelownode{10}{}{$\neg \Diamond A$}{\omega}{}\\
+  \\
+  \nnode{10}{}{$\neg A$}{\nu}{}\\
+  \Kk[10]{0}{\color{red}$\uparrow$}\\
+  \Kk[10]{0}{\color{red}\small old}
+}
+\end{minipage}
+%
+
+\bigskip
+\noindent
+The rule for $\Box A$ allows us to infer, from the hypothesis that $\Box A$ is
+true at some world, that $A$ is true at any world that occurs on a tree branch.
+This made sense given the semantics of the previous chapter, where the box
+quantified unrestrictedly over all worlds. With the new semantics of the present
+chapter, we need to change the tree rules.
+
+If $\Box A$ is true at a world $w$, and there's some other world $v$ on the
+branch, we can only infer that $A$ is true at $v$ if $v$ is accessible from $w$.
+So we need to keep track of which worlds are accessible from any world on a
+tree. We do this by adding meta-linguistic statements about accessibility to the
+tree.
+
+For example, suppose we want to expand the following node.
+%
+\begin{center}
+  \tree{%
+    \nnode{18}{n.}{$\Diamond p$}{w}{} 
+  }
+\end{center}
+%
+The node represents the hypothesis that $\Diamond p$ is true at $w$.
+It follows that $p$ is true at some world $v$. Moreover, that world
+$v$ must be accessible from $w$. So we add two new nodes:
+
+\begin{center}
+  \tree{%
+    \nnode{18}{m.}{$wRv$}{}{} \\
+    \nnode{18}{m+1.}{$p$}{v}{} 
+  }
+\end{center}
+%
+Node $m+1$ is what we would have added by the old rules. Node $m$ is a
+meta-linguistic statement reminding us that $v$ is accessible from
+$w$. `$wRv$' is not a sentence of $\L_M$; it isn't true or false
+relative to a world, which is why node $m$ has no world label.
+
+What if we want to expand a box node?
+%
+\begin{center}
+  \tree{%
+    \nnode{18}{n.}{$\Box p$}{$w$}{} 
+  }
+\end{center}
+%
+By itself, this doesn't tell us anything about the truth-value of $p$
+at any world. We can't infer that $p$ is true at $w$, because $w$
+might not be accessible from itself. Indeed, if no world is accessible
+from $w$, then $\Box p$ can be true even if $p$ is false at every
+world. So we can't even infer that there is some world or other at
+which $p$ is true.
+
+However, suppose a branch that contains node $n$ also contains the
+following node.
+\begin{center}
+  \tree{%
+    \nnode{18}{m.}{$w R v$}{}{} 
+  }
+\end{center}
+Now we can infer that $p$ is true at $v$. So to expand a box node on a
+branch, there must be another node on the branch telling us that
+the world at which the boxed sentence is true has access to some
+other world.
+
+Here are diagrams of the new rules for the box and the diamond.
+
+\bigskip
+
+\begin{minipage}{0.24\textwidth} \centering
+\tree{
+  \nnode{12}{}{$\Box A$}{\omega}{}\\
+  \dotbelownode{12}{}{$\omega R\nu$}{}{}\\
+  \\
+  \nnode{12}{}{$A$}{\nu}{}\\
+  \Kk[12]{0}{}\\
+  \Kk[12]{0}{}
+}
+\end{minipage}
+\begin{minipage}{0.24\textwidth}\centering
+\tree{
+  \dotbelownode{12}{}{$\Diamond A$}{\omega}{}\\
+  \\
+  \nnode{12}{}{$\omega R \nu$}{}{}\\
+  \nnode{12}{}{$A$}{\nu}{}\\
+  \Kk[12]{0}{\color{red}$\uparrow$}\\
+  \Kk[12]{0}{\color{red}\small new}
+}
+\end{minipage}
+\begin{minipage}{0.24\textwidth}\centering
+\tree{
+  \dotbelownode{12}{}{$\neg \Box  A$}{\omega}{}\\
+  \\
+  \nnode{12}{}{$\omega R \nu$}{}{}\\
+  \nnode{12}{}{$\neg A$}{\nu}{}\\
+  \Kk[12]{0}{\color{red}$\uparrow$}\\
+  \Kk[12]{0}{\color{red}\small new}
+}
+\end{minipage}
+\begin{minipage}{0.24\textwidth} \centering
+\tree{
+  \nnode{12}{}{$\neg \Diamond  A$}{\omega}{}\\
+  \dotbelownode{12}{}{$\omega R \nu$}{}{}\\
+  \\
+  \nnode{12}{}{$\neg A$}{\nu}{}\\
+  \Kk[12]{0}{}\\
+  \Kk[12]{0}{}
+}
+\end{minipage}
+
+\bigskip\noindent%
+If two nodes occur above the dotted line in a rule, as in the rule for $\Box A$,
+this means that the rule can only be applied if both nodes already occur on the
+relevant branch (in any order, and not necessarily adjacent to each other).
+
+The rules for negated boxes and diamonds are what you would expect from
+the duality of the box and the diamond. Note that only nodes of type
+$\Diamond A$ and $\neg \Box A$ allow us to introduce hypotheses about
+accessibility into a tree.
+
+The rule for the classical connectives all stay the same. Together,
+all these rules are known as the \textbf{K-rules}; the tree rules from
+section \ref{sec:trees} are the \textbf{S5-rules}.
+
+Here is a schematic tree proof to show that
+$\models_K \Box (A \land B) \to (\Box A \land \Box B)$.
+
+\begin{center}
+  \tree[4]{%
+    & \nnode{32}{1.}{$\neg(\Box (A \land B) \to (\Box A \land \Box B))$}{w}{(Ass.)} &\\
+    & \nnode{32}{2.}{$\Box(A \land B)$}{w}{(1)} &\\
+    & \bnode{32}{3.}{$\neg(\Box A \land \Box B)$}{w}{(1)} & \\
+    &&\\
+    \nnode{12}{4.}{$\neg\Box A$}{w}{(3)} && \nnode{12}{5.}{$\neg\Box B$}{w}{(3)} \\
+    \nnode{12}{6.}{$wRv$}{}{(4)} && \nnode{12}{11.}{$wRu$}{}{(5)} \\
+    \nnode{12}{7.}{$\neg A$}{v}{(4)} && \nnode{12}{12.}{$\neg B$}{u}{(5)} \\
+    \nnode{12}{8.}{$A\land B$}{v}{(2,6)} && \nnode{12}{13.}{$A \land B$}{u}{(2,11)} \\
+    \nnode{12}{9.}{$A$}{v}{(8)} && \nnode{12}{14.}{$A$}{u}{(13)} \\
+    \nnodeclosed{12}{10.}{$B$}{v}{(8)} && \nnodeclosed{12}{15.}{$B$}{u}{(13)} \\
+  }
+\end{center}
+%
+The annotation `(2,6)' for node 8 indicates that this node is based on two
+assumptions from earlier in the branch: the assumption on node 2 that
+$\Box (A \land B)$ is true at $w$, and the assumption on node 6 that $wRv$. Only
+these two assumptions together allow us to infer that $A \land B$ is true at
+$v$.
+
+What happens if we try to prove $\Box p \to p$?
+
+\begin{center}
+  \tree{%
+    & \nnode{15}{1.}{$\neg(\Box p \to p)$}{w}{(Ass.)} &\\
+    & \nnode{15}{2.}{$\Box p$}{w}{(1)} &\\
+    & \nnode{15}{3.}{$\neg p$}{w}{(1)} &
+  }
+\end{center}
+%
+At this point, no more rules can be applied. We can read off a countermodel from
+the open branch:
+\begin{center}
+  $W = \{ w \}$\\
+  $R = \emptyset$\\
+  $V(p) = \emptyset$
+\end{center}
+This is the smallest possible Kripke model. It consists of a single world that
+can't see itself. `$R = \emptyset$' is a way of saying that no world can see any
+world. If you want to say that $R$ holds between $w$ and $v$ and between $v$ and
+$u$, you might write `$R = \{ (w,v), (v,u) \}$' or simply `$wRv, vRu$'.
+
+\begin{exercise}
+  Use the K-rules to check which of the following sentences are K-valid. If a sentence is invalid, describe a countermodel.
+  \begin{exlist}
+  \item $(\Box p \land \Box q) \to \Box (p \land q)$
+  \item $\Diamond (p \land q) \to (\Diamond p \land \Diamond q)$
+  \item $(\Diamond p \land \Diamond q) \to \Diamond (p \land q)$
+  \item $\Diamond(p \lor q) \leftrightarrow (\Diamond p \lor \Diamond q)$
+  \item $\Box(p \lor q) \leftrightarrow (\Box p \lor \Box q)$
+  \item $\Box (p \to q) \to (\Diamond p \to \Diamond q)$. % yes
+  \item $(\Box p \land \Diamond q) \to \Diamond (p \land q)$. % yes
+  % <>A->[]B entails []A->[]B.
+  % $\Diamond A \to (\Box B \to \Diamond B)$
+  % $\Diamond (A \to B) \leftrightarrow (\Box A \to \Diamond B)$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  You can enter the sentences at
+  \href{https://www.umsu.de/trees/}{umsu.de/trees}. To check for K-validity, leave all the checkboxes (for `universal' etc.) empty.
+\end{solution}
+
+For systems in between K and S5 that are characterised by certain constraints on
+the accessibility relation, we add new rules for manipulating accessibility
+nodes. For example, if we want to check whether a sentence is T-valid, we use a
+\emph{reflexivity rule} in addition to the K-rules. The reflexivity rule says
+that if a world variable $\omega$ occurs on a branch, then we may always add
+$\omega R\omega$ to the branch.
+
+Here is a proof of $\Box p \to p$, using the reflexivity rule.
+
+\begin{center}
+  \tree[4]{%
+     \nnode{19}{1.}{$\neg(\Box p \to p)$}{w}{(Ass.)} \\
+     \nnode{19}{2.}{$\Box p$}{w}{(1)} \\
+     \nnode{19}{3.}{$\neg p$}{w}{(1)}  \\
+     \nnode{19}{4.}{$wRw$}{}{(Ref.)}  \\
+     \nnodeclosed{19}{5.}{$p$}{w}{(2,4)}  \\
+  }
+\end{center}
+
+To test for validity in the class of transitive frames (or models), we need a
+\emph{transitivity rule}, which allows us to infer $\omega R\upsilon$ from
+$\omega R\nu$ and $\nu R\upsilon$. Here is a proof of $\Box p \to \Box\Box p$
+that uses this rule.
+
+\begin{center}
+  \tree[4]{%
+     \nnode{25}{1.}{$\neg(\Box p \to \Box\Box p)$}{w}{(Ass.)} \\
+     \nnode{25}{2.}{$\Box p$}{w}{(1)} \\
+     \nnode{25}{3.}{$\neg \Box\Box p$}{w}{(1)}  \\
+     \nnode{25}{4.}{$wRv$}{}{(3)}  \\
+     \nnode{25}{5.}{$\neg\Box p$}{v}{(3)}  \\
+     \nnode{25}{6.}{$vRu$}{}{(5)}  \\
+     \nnode{25}{7.}{$\neg p$}{u}{(5)}  \\
+     \nnode{25}{8.}{$wRu$}{}{\quad(4,6,Tr.)}  \\
+     \nnodeclosed{25}{9.}{$p$}{u}{(2,8)}  \\
+  }
+\end{center}
+
+The following diagrams summarize the tree rules for the frame conditions we have
+so far considered.
+%
+\begin{center}
+
+  \begin{minipage}[t]{0.3\textwidth} \centering
+
+    Reflexivity
+    
+    \vspace{-3mm}
+
+    \tree{
+      \dotbelowbarenode{}\\
+      \\
+      \barenode{$\omega R \omega$}\\
+      \Kk[0]{0}{\color{red}$\uparrow$\hspace{6mm}}\\
+      \Kk[0]{0}{\color{red}\small old\hspace{6mm}}
+    }
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth} \centering
+    Seriality
+
+    \vspace{-3mm}
+
+    \tree{
+      \dotbelowbarenode{}\\
+      \\
+      \barenode{$\omega R \nu$}\\
+      \Kk[0]{0}{\color{red}$\uparrow$\hspace{3mm}$\uparrow$}\\
+      \Kk[0]{0}{\color{red}\small old \; new}
+    }
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth} \centering
+    Transitivity
+
+    \medskip
+    
+    \tree{
+      \barenode{$\omega R \nu$}\\
+      \dotbelowbarenode{$\nu R \upsilon$}\\
+      \\
+      \barenode{$\omega R \upsilon$}\\
+    }
+  \end{minipage}
+  \bigskip
+  
+  \begin{minipage}[t]{0.3\textwidth} \centering
+    Symmetry
+
+    \medskip
+    
+    \tree{
+      \dotbelowbarenode{$\omega R \nu$}\\
+      \\
+      \barenode{$\nu R \omega$}\\
+    }
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth} \centering
+    Euclidity
+    
+    \medskip
+
+    \tree{
+      \barenode{$\omega R \nu$}\\
+      \dotbelowbarenode{$\omega R \upsilon$}\\
+      \\
+      \barenode{$\nu R \upsilon$}\\
+    }
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth} \centering
+    Convergence
+    
+    \medskip
+
+    \tree{
+      \barenode{$\omega R \nu$}\\
+      \dotbelowbarenode{$\omega R \upsilon$}\\
+      \\
+      \barenode{$\nu R \tau$}\\
+      \barenode{$\upsilon R \tau$}\\
+      \Kk[0]{0}{\hspace{6mm}\color{red}$\uparrow$}\\
+      \Kk[0]{0}{\hspace{6mm}\color{red}\small new}
+    }
+  \end{minipage}
+
+\end{center}
+
+By selectively adding some of these rules to the K-rules, we get tree rules for
+a variety of modal logics, such as the following.  (Compare the table on p.\
+\pageref{table:systems}.)
+
+\bigskip
+\begin{tabular}{ll}
+  \toprule
+  \emph{System} & \emph{Tree Rules}\\
+  \midrule
+  K & K-rules\\
+  T & K-rules and reflexivity rule\\
+  D & K-rules and seriality rule\\
+  K4 & K-rules and transitivity rule\\
+  K5 & K-rules and euclidity rule\\
+  KD45 & K-rules, seriality rule, transitivity rule, and euclidity rule\\
+  B & K-rules, reflexivity rule, and symmetry rule\\
+  S4 & K-rules, reflexivity rule, and transitivity rule\\ 
+  S4.2 & K-rules, reflexivity rule, transitivity rule, and convergence rule\\
+  \bottomrule
+\end{tabular}
+\bigskip
+
+% seriality tree rule should only be allowed for w if there's not already a node
+% wRv on the tree. (Priest.)
+
+\begin{exercise}
+  Use the tree method to check the following claims.
+  \begin{exlist}
+    \item $\models_{K4} \Diamond p \to \Diamond\Diamond p$.
+    \item $\models_{D} (\Box p \land \Box q) \to \Diamond (p \lor q)$.
+    \item $\models_{B} \Diamond p \to \Box\Diamond p$.
+    \item $\models_{T} (\Diamond\Box(p \to q) \land \Box p) \to \Diamond q$.
+    \item $\models_{T} \Diamond (p \to \Box \Diamond p)$.
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  You can enter the sentences at
+  \href{https://www.umsu.de/trees/}{umsu.de/trees}. To
+  test for K4-validity, check the `transitive' box. To test for D-validity, check `serial'. To test for B-validity, check `symmetric'. To test for T-validity, check `reflexive'.
+\end{solution}
+
+
+% A nice hard exercise is to prove <>[]5 in S4 (or K4).
+
+% Should I introduce some jargon? A logic S is /determined by/ a class of frames
+% if S is sound and complete wrt the class (i.e. iff its theorems are exactly
+% the formulas valid over the class).
+
+% Also point out: a logic S is determined by (sound and complete wrt) any class
+% of frames iff it is determined by the class of frames for S.
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "ml.tex"
+%%% End:
