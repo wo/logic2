@@ -26,9 +26,9 @@ one-place and $G$ two-place.
 
 In English, a predicate is what is what you get when you remove all names from a
 sentence. Removing `Bob' from `Bob is hungry' yields the predicate `-- is
-hungry'. From `Bob is in Rome', we get the two-place predicate '-- is in --'.
+hungry'. From `Bob is in Rome', we get the two-place predicate `-- is in --'.
 From `Bob saw Carol's father in Jerusalem', we could get the
-three-place-predicate '-- saw --'s father in --'. When we translate from
+three-place-predicate `-- saw --'s father in --'. When we translate from
 English, we normally translate English names into $\L_P$-names and (logically
 simple) English predicates into $\L_P$-predicates. `Bob is in Rome' might become
 $Fab$, where $a$ translates `Bob', $b$ `Rome', and $F$ `-- is in --'.
@@ -179,7 +179,7 @@ truth-value of $\forall x Fx$ in terms of the truth-value of $Fx$, because an
 open sentence like $Fx$ doesn't have a truth-value. Interpretation functions
 interpret names and predicates; they say nothing about variables. Even if we
 changed this and said that $x$ should also be interpreted as picking out a
-member of the domain, we would have to ignore this interpretation when we
+member of the domain, we would have to ignore this interpretation if we
 evaluate $\forall x Fx$. We want $\forall x Fx$ to be true iff $Fx$ is true
 \emph{no matter which individual is assigned to $x$}. We therefore define truth
 not just relative to a model, but relative to a model \emph{and an assignment of
@@ -199,7 +199,7 @@ of individuals to variables renders $Fx$ true.
 
 So we'll define truth relative to a model $M = \t{D,V}$ and a variable
 assignment $g$. A \emph{variable assignment} is a function that maps variables
-to members of $D$. When we have nested quantifiers, as in
+to members of $D$. If we have nested quantifiers, as in
 $\forall x \exists y Gxy$, we need to consider variable assignments that differ
 from other assignments with respect to a particular variable.
 $\forall x \exists y Gxy$ is true iff, no matter what individual is assigned to
@@ -426,7 +426,7 @@ name. We can then say $Pa$. In modal logic, we can simply say $p$ to express
 that the internal point from which we're looking at the model has the relevant
 property.
 
-For many applications, this internal perspective is very natural. When we think
+For many applications, this internal perspective is very natural. If we think
 about what is possible or about what the future will bring, our thinking takes
 place at a particular time, in a particular world. We are looking at the
 structure of times and worlds from the inside. When I say that it is raining, I
@@ -660,7 +660,7 @@ To these we would add the following rules. As in earlier chapters, $\Gamma \mode
 % just as well use a variable. All inferences from sentences with the name can
 % still be made if the name is replaced by a variable.
 
-The calculus is sound and complete: everything that can be proved is valid, and
+These axioms and rules are sound and complete: everything that can be proved is valid, and
 every valid (closed) sentence can be proved. The above tree rules are also sound
 and complete.
 
@@ -1097,6 +1097,7 @@ express `there are at least two $F$s' as
   \item $\forall x \forall y\forall z\forall v(Fx \land Fy \land Fz \land Fv \to (x=y \lor x=z \lor x=v \lor y=z \lor y=v \lor z=v))$
   \end{sollist}
 \end{solution}
+% should add more identity translation exercises, as e.g. in Macfarlane p.30?
 
 Another important use of the identity predicate is to formalise statements
 involving definite descriptions. A definite description is a complex noun

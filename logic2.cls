@@ -179,9 +179,11 @@
 % \renewcommand\vdash{\scaleobj{1.3}{\oldvdash}}
 
 % \renewcommand\models{x\mathrel{|}\joinrel=}
-\renewcommand\models{TTTTTTT}
 
-\newcommand{\notmodels}{y\mathrel{|}\joinrel\not=}
+\AtBeginDocument{ % otherwise ignored by unicode-math
+  \renewcommand{\models}{\mathrel{|}\joinrel=}
+}
+\newcommand{\notmodels}{\mathrel{|}\joinrel\not=}
 
 % define inverted \models:
 \makeatletter
@@ -270,7 +272,7 @@ reflexive right/.style={->,loop,looseness=7,in=30,out=330}
 \newcommand{\tree}[2][0]{\Treek[#1]{0.7}{#2}}
 %\newcommand{\dotline}{\GB{d}{.}}
 \newcommand{\wlabel}[2]{\Kk[#1]{0}{\ifthenelse { \equal {#2} {} } {} {\ensuremath{(#2)}}}}
-\newcommand{\ticklabel}[1]{\Kk[#1]{0}{\checkmark}}
+\newcommand{\ticklabel}[1]{\Kk[#1]{0}{\ensuremath{\checkmark}}}
 \newcommand{\annotlabel}[2]{\Kk[#1]{0}{{\color{annotcol}#2}}}
 \newcommand{\llabel}[2]{\Kk[-#1]{0}{{\color{annotcol}#2}}}
 \newcommand{\branchbelow}{\B{ddl}\B{ddr}}

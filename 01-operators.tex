@@ -1,7 +1,9 @@
 \chapter{Modal Operators}\label{ch:operators}
 
-\section{Boxes and Diamonds}
+\section{A new language}
 \label{sec:intro}
+
+% Modal Logic
 
 Modal logic is an extension of propositional and predicate logic that is widely
 used to reason about possibility and necessity, obligation and permission, the
@@ -10,10 +12,14 @@ Each of these applications begins by adding new symbols to the formal language
 of classical propositional or predicate logic. Before we explore such additions,
 let's briefly review why we use formal languages in the first place.
 
+% Validity
+
 When reasoning about a given topic, we sometimes want to make sure that the
 stated conclusions really follow from the stated premises. If they do, we say
 that the reasoning is \emph{valid}. By this we mean that there is no conceivable
 scenario in which the premises are true while the conclusions are false.
+
+% Logical validity
 
 Here is an example of a valid argument.
 %
@@ -37,6 +43,8 @@ No matter what descriptive terms you plug in for $F$, $G$, and $H$, you get a
 valid argument. The argument about myriapods is therefore not just valid, but
 \emph{logically valid} -- valid in virtue of its logical form.
 
+% The case for formal languages
+
 In natural languages like English, the logical form of sentences is not always
 transparent. `Every dog barked at a tree' can mean either that there is a single
 tree at which every dog barked, or that for each dog there is a tree at which it
@@ -48,13 +56,15 @@ the children. In `Paul went to the zoo and Paula stayed at home', the word `and'
 does not seem to have this temporal meaning.
 
 To get around these problems, we invent formal languages in which there are no
-ambiguities of logical form and in which the logical expressions have
+ambiguities of logical form and in which all logical expressions have
 determinate, precise meanings. If we want to evaluate natural-language arguments
 for logical validity, we first have to translate them into the formal language.
 (Sometimes an argument will be valid on one translation and invalid on another.)
 With some practice, one can also reason directly in a formal language.
 
-Returning to modal logic, consider the following argument.
+% A modal argument
+
+Now consider the following argument.
 %
 \begin{quote}
   It might be raining.\\
@@ -73,45 +83,51 @@ propositional or predicate logic. We need formal expressions corresponding to
 `it might be that' and `it is certain that'. The languages of classical
 logic do not have such expressions.
 
+% The standard languages of modal logic
+
 So let's add them. Let's invent a new formal language with two new logical
-symbols. It doesn't matter what these look like; a popular choice is to use a
-diamond $\Diamond$ and a box $\Box$. We use the diamond formalize `it might be
-that', and the box `it is certain that'.
+symbols. It doesn't matter what these look like; a popular choice is a
+diamond $\Diamond$ and a box $\Box$. We use the diamond to formalize `it might be
+that', and the box for `it is certain that'.
 
 If we add these symbols to the language of propositional logic, we get the
 standard language of modal propositional logic. If we add them to the language
 of predicate logic, we get the standard language of modal predicate logic. We
 will stick with propositional logics until chapter \ref{ch:qml}.
 
-We can now translate the above argument into the language of modal propositional
-logic, using $r$ to mean that it is raining and $w$ that we will get wet.
-\begin{quote}
-  $\Diamond r$\\
-  $\Box(r \to w)$\\[-3mm]
-  \rule{2cm}{0.2mm}\\
-  $\Diamond w$
-\end{quote}
+% Translating the modal argument
 
-Let's define exactly what counts as a sentence in the standard language of modal
-propositional logic, or $\L_{M}$ for short.
+% We can translate the above argument into the language of modal propositional
+% logic, using $r$ to mean that it is raining and $w$ that we will get wet.
+% \begin{quote}
+%   $\Diamond r$\\
+%   $\Box(r \to w)$\\[-3mm]
+%   \rule{2cm}{0.2mm}\\
+%   $\Diamond w$
+% \end{quote}
+
+% A formal definition
+
+Let's officially define the standard language of modal propositional logic.
 
 \begin{definition}{The language $\L_{M}$}{LM}
-  \vspace{-2mm}
-\begin{enumerate}[leftmargin=9mm]
-  \itemsep-1mm
-  \item Every sentence letter $p,q,r,\ldots$ is an $\L_{M}$-sentence.
-  \item If $A$ is an $\L_M$-sentence, then so are $\neg A$, $\Diamond A$, and   $\Box A$.
-  \item If $A$ and $B$ are $\L_M$-sentences, then so are $(A \land B)$,
-  $(A \lor B)$, $(A \to B)$ and $(A \leftrightarrow B)$.
-  \item Nothing else is an $\L_{M}$-sentence.
-\end{enumerate}
+  A \emph{sentence letter} of $\L_{M}$ is any lower-case letter of the Latin
+  alphabet ($a,b,c,\ldots,z$), possibly followed by numerical subscripts
+  ($a_{1}, p_{18}, \ldots$). 
+
+  A \emph{sentence} of $\L_{M}$ is either a sentence letter of $\L_{M}$ or an
+  expression of the form $\neg A$, $(A \land B)$, $(A \lor B)$, $(A \to B)$,
+  $(A \leftrightarrow B)$, $\Box A$, or $\Diamond A$, where $A$ and $B$ are
+  $\L_{M}$-sentences.
 \end{definition}
-%
-I use lower-case letters $p,q,r,\ldots$ for atomic sentences of $\L_{M}$. I use
+
+% Some conventions
+
+I use lower-case letters $a,b,c,\ldots$ as atomic $\L_{M}$-sentences and
 upper-case letters $A,B,C,\ldots$ when I want to talk about arbitrary
 $\L_{M}$-sentences. To reduce clutter, I generally omit outermost parentheses
-and quotation marks when I mention $\L_{M}$-sentences: $p \land q$ is treated as
-an abbreviation of `$(p \land q)$'.
+and quotation marks when I mention $\L_{M}$-symbols or sentences: $p \land q$ is
+treated as an abbreviation of `$(p \land q)$'.
 
 \begin{exercise}
   Which of these are $\L_M$-sentences?
@@ -128,61 +144,90 @@ an abbreviation of `$(p \land q)$'.
   (a), (c), and (d) are $\L_{M}$-sentences, (b), (e), and (f) are not.
 \end{solution}
 
-Of course, having new symbols is only the beginning. We will also need to lay
-down some new rules for how to reason with these symbols. The rules should be
-motivated by what the symbols are supposed to mean. So we shall also assign a
-more precise meaning to the diamond and the box -- just as classical logic
-assigns a precise meaning to the symbol $\land$ that may or may not exactly
-match the meaning of `and' in English. 
+% Outstanding tasks
 
-We have entered the realm of modal logic.
+Having new symbols is only the beginning. We also need to lay down 
+rules for reasoning with these symbols. The rules should be motivated by
+what the symbols are supposed to mean. So we shall also assign a more precise
+meaning to the diamond and the box -- just as classical logic assigns a precise
+meaning to the symbol $\land$ that may or may not exactly match the meaning of
+`and' in English.
 
-Historically, modal logic grew out of the study of necessity and contingency,
-which medieval logicians regarded as ``modes of truth''. Hence the name `modal
-logic'. Today, the study of necessity and contingency is but one of many
-subfields within modal logic. To a first (and rough) approximation, any part of
-logic that involves \emph{non-truth-functional sentence operators} is part of
-modal logic.
+% Truth tables
 
-By a \textbf{sentence operator} I mean an expression that combines with one or
-more sentences to create a new sentence. Classical propositional logic has the
-sentence operators $\neg$ (not), $\land$ (and), $\lor$ (or), $\to$ (if-then),
-and $\leftrightarrow$ (if-and-only-if). In modal logic, we have further
-operators such as $\Diamond$ and $\Box$. (Sentence operators are also called
-`connectives'.)
-
-The sentence operators of classical propositional logic are all
-truth-functional. Remember that an operator is \textbf{truth-functional} if the
-truth-value of a complex sentence built with the use the operator is determined
-by the truth-value of its parts. For example, a material conditional $A \to B$
-is true just in case either $A$ is false or $B$ is true. If you know the
-truth-value of $A$ and $B$, you have all you need to figure out the truth-value
-of $A\to B$.
-
-In classical propositional logic, we can summarize how the truth-value of a
-complex sentence depends on the truth-value of its immediate parts by a
-\emph{truth table}. Here is a combined truth table for the classical
-(``Boolean'') operators:
-
+The meaning of $\land$ can be given by a \emph{truth table}:
 \begin{center}
   \begin{tabular}{cc|ccccc}
-    A & B & $\neg A$ & $A \land B$ & $A\lor B$ & $A\to B$ & $A\leftrightarrow B$\\\hline
-    T & T & F & T & T & T & T\\
-    T & F & F & F & T & T & F\\
-    F & T & T & F & T & F & F\\
-    F & F & T & F & F & T & T\\
+    A & B & $A \land B$ \\\hline
+    T & T & T\\
+    T & F & F\\
+    F & T & F\\
+    F & F & F
   \end{tabular}
 \end{center}
-%
-The table effectively defines what the Boolean operators mean. (You can see, for
-example, that $A \land B$ does not imply anything about the temporal order of
-$A$ and $B$.) The meaning of modal operators, by contrast, can almost never be
-defined by a truth table. The standard approach to define their meaning involves
-the concept of possible worlds. Roughly, we'll interpret $\Diamond A$ as saying
-that $A$ is true at some possible world, and $\Box A$ as saying that $A$ is true
-at all possible worlds.
+This tells us how the truth-value of $A \land B$ depends on the truth-value of
+$A$ and $B$: the compound sentences is true iff (if and only if) both of its
+parts are true. If you know this, you know all there is to know about the
+meaning of $\land$. (You can see, for example, that $A \land B$ does not imply
+anything about the temporal order of $A$ and $B$.)
 
-Much more on this later. 
+\begin{exercise}
+  Draw the truth tables for $\neg, \lor, \to$, and $\leftrightarrow$.
+\end{exercise}
+\begin{solution}
+  Here is a combined truth table for all the classical connectives: 
+  \begin{center}
+    \begin{tabular}{cc|ccccc}
+      A & B & $\neg A$ & $A \land B$ & $A\lor B$ & $A\to B$ & $A\leftrightarrow B$\\\hline
+      T & T & F & T & T & T & T\\
+      T & F & F & F & T & F & F\\
+      F & T & T & F & T & T & F\\
+      F & F & T & F & F & T & T\\
+    \end{tabular}
+  \end{center}
+\end{solution}
+
+% Truth-functionality
+
+The sentence operators (or connectives) of classical propositional logic
+($\neg, \land, \lor, \to$, and $\leftrightarrow$) are all truth-functional. Recall
+that an operator is \textbf{truth-functional} if the truth-value of a compound
+sentence formed by applying the operator to other sentences is always determined
+by the truth-value of these other sentences. The truth tables for the classical
+operators spell out this dependence. They tell us how to compute the truth-value
+of a compound sentence from the truth-values of its constituents.
+
+% 'Might' is not truth-functional
+
+The diamond operator can't be truth-functional if it is supposed to mean
+anything like `it might be that' in English. To see why, note first that `it
+might be that $P$' can be true if $P$ is true, but also if $P$ is false. `It
+might be raining' doesn't entail that it is actually raining, nor that it isn't
+raining. It merely says that our evidence is compatible with rain. Now, if the
+diamond were truth-functional, then what would follow from the fact that
+$\Diamond p$ is \emph{sometimes} true when $p$ is true? It would follow that
+$\Diamond p$ is \emph{always} true when $p$ is true. (Make sure you understand
+why.) Likewise, from the fact that $\Diamond p$ is sometimes true when $p$ is
+false, it would follow that $\Diamond p$ is true whenever $p$ is false.
+$\Diamond p$ would be a logical truth. But `it might be raining' is surely not a
+logical truth.
+
+% \begin{exercise}\label{ex:might-truth-func}
+%   Explain why the $\Diamond$ operator that formalises `it might be that' is not truth-functional.
+% \end{exercise}
+% \begin{solution}
+%   In most situations, there are false propositions $P$ for which `it might be
+%   that $P$' is true (because we are not omniscient) and other false propositions
+%   $Q$ for which `it might be that $Q$' is false (because there are at least some truths we actually know).
+% \end{solution}
+
+% Possible worlds
+
+If an operator isn't truth-functional, its meaning can't be defined by a truth
+table. The standard approach to defining the meaning of modal operators instead
+involves the concept of possible worlds. Roughly, we'll interpret $\Diamond A$
+as saying that $A$ is true at some possible world, and $\Box A$ as saying that
+$A$ is true at all possible worlds. Much more on this later.
 
 \begin{exercise}\label{ex:truth-func}
   Which of these English expressions are truth-functional?
@@ -208,29 +253,31 @@ Much more on this later.
   things; otherwise (f) is not truth-functional.
 \end{solution}
 
-\begin{exercise}\label{ex:might-truth-func}
-  Explain why the $\Diamond$ operator that formalises `it might be that' is not truth-functional.
-\end{exercise}
-\begin{solution}
-  In most situations, there are false propositions $P$ for which `it might be
-  that $P$' is true (because we are not omniscient) and other false propositions
-  $Q$ for which `it might be that $Q$' is false (because there are at least some truths we actually know).
-\end{solution}
-
 \section{Flavours of modality}
 \label{sec:flavours}
 
-`It might be that' and `it is certain that' express an \emph{epistemic} kind of
-possibility and necessity, related to evidence and knowledge. When we say that
-it might be raining, we convey that our evidence leaves open the possibility
-that it is raining. There are other kinds -- or \emph{flavours} -- of
-possibility and necessity.
+% Historically, modal logic grew out of the study of necessity and contingency,
+% which medieval logicians regarded as ``modes of truth''. Hence the name `modal
+% logic'. Today, the study of necessity and contingency is but one of many
+% subfields within modal logic. To a first (and rough) approximation, any part of
+% logic that involves \emph{non-truth-functional sentence operators} is part of
+% modal logic.
 
-Consider `John must leave'. This would typically not be understood as a
-statement about the available evidence, but about contextually salient norms.
-The sentence says that \emph{by these norms} it is necessary that John leaves.
-Here we are dealing with a \emph{deontic} flavour of necessity (from Greek
+% Epistemic modality
+
+`It might be that' and `it is certain that' express an \emph{epistemic} kind of
+possibility and necessity, related to evidence and knowledge. There are other
+kinds -- or \emph{flavours} -- of possibility and necessity.
+
+% Deontic modality
+
+Consider `John must leave'. This expresses a kind of necessity, but it would
+typically not be understood as a statement about the available evidence. On its
+most natural interpretation, it says that some relevant norms require John to
+leave. This flavour of necessity is called \emph{deontic} (from Greek
 \emph{deontos}: `of that which is binding').
+
+% Circumstancial modality
 
 Other statements about possibility and necessity are neither deontic nor
 epistemic. If I say that you can't travel from Auckland to Sydney by train, I
@@ -245,45 +292,78 @@ circumstances are in play.
 % now", "I can pick you up from the station", "I can't stay", "I'll do it as
 % soon as possible", "the food is edible".
 
+% Flavoured logics
+
 Each of these flavours of modality corresponds to a branch of modal logic.
 \emph{Epistemic logic} formalizes reasoning about knowledge and information.
 \emph{Deontic logic} deals with norms, permissions, and obligations. A third
 branch of modal logic might be called \emph{circumstantial logic}, but nobody
 uses that label. Some authors speak of \emph{alethic modal logic} (from
-\emph{aletheia}: `truth'), but that label is also not used widely, and it is
+\emph{aletheia}: `truth'), but this label is also not used widely, and it is
 used for different things by different authors.
 
 % The division into epistemic, deontic, and alethic logic was made popular in \cite{wright51essay}
 
+% Metaphysical modality
+
 Confusingly, some philosophers use `modal logic' for the logic of a certain
-sub-flavour of circumstantial modality known as \emph{metaphysical} modality.
+sub-flavour of circumstantial modality, known as \emph{metaphysical} modality.
 Metaphysical modality is concerned with what is or isn't compatible with the
 nature of things. We will follow the more common practice of using `modal logic'
 as an umbrella term that covers all the applications I have mentioned, as well
 as many others.
 
-We will take a closer look at epistemic logic in chapter
-\ref{ch:epistemic} and at deontic logic in chapter \ref{ch:deontic}. In chapter
-\ref{ch:time} we will turn to a branch of modal logic called \emph{temporal
-  logic} that is concerned with reasoning about time. Chapter
-\ref{ch:conditionals} is on \emph{conditional logic}. Here we will introduce
-(non-truth-functional) two-place operators that are meant to formalise certain
-`if \ldots then \ldots' constructions in English. In chapter \ref{ch:proofs}, we
-will briefly look at \emph{provability logic}, which investigates formal
-properties of mathematical provability. What unifies the different branches of
-modal logic is not a particular subject matter, but a loosely defined collection
-of abstract ideas and techniques that turn out to be useful in all these
-applications.
+% Preview
 
-Let's return to English expressions for necessity and possibility. These often
-don't have the form of sentence operators. `Must', `might', and `can' are
-(auxiliary) verbs. We can also express necessity and possibility with adjectives
-like `feasible', `certain', or 'obligatory', or with adverbs like `possibly',
-`certainly', or `inevitably'.
+We will take a closer look at epistemic logic in chapter \ref{ch:epistemic} and
+at deontic logic in chapter \ref{ch:deontic}. In chapter \ref{ch:time} we are
+going to study a branch of modal logic called \emph{temporal logic} that is
+concerned with reasoning about time. Chapter \ref{ch:conditionals} is on
+\emph{conditional logic}. Here we will introduce (non-truth-functional)
+two-place operators that are meant to formalise certain `if \ldots then \ldots'
+constructions in English. In chapter \ref{ch:proofs}, we will briefly look at
+\emph{provability logic}, which investigates formal properties of mathematical
+provability. What unifies the different branches of modal logic is not a
+particular subject matter, but a loosely defined collection of abstract ideas
+and techniques that turn out to be useful in all these applications.
+
+% Boxes and diamonds
+
+When we study some flavour of possibility or necessity, the diamond $\Diamond$
+is generally used for the relevant kind of possibility and the box $\Box$ for
+the corresponding kind of necessity. In this context, you may pronounce the
+diamond `it is possible that' and the box `it is necessary that'. In general,
+however, I would recommend pronouncing the diamond `diamond' and the box `box'.
+
+% A variety of logics
+
+Different interpretations of the box and the diamond often motivate different
+rules for reasoning with these expressions. Consider, for example, the inference
+from $\Box p$ to $p$. If the box expresses a circumstantial kind of necessity,
+then this inference is plausibly valid: if the circumstances ensure that
+something is the case, then it really is the case. On a deontic reading of the
+box, by contrast, the inference is invalid. We can easily imagine scenarios in
+which, say, it is required that all library books are returned on time
+($\Box p$) and yet it is not the case that all library books are returned on
+time ($\neg p$).
+
+So we can't say, once and for all, whether $\Box p$ entails $p$. We will develop
+different ``logics'' or ``systems'' of modal logic. In some systems, the inference is
+valid, in others it is invalid.
+
+% English modals
+
+The diamond and the box are sentence operators. English expressions for
+necessity and possibility often don't have this form. We can talk about what's
+necessary or possible with `must', `might', or `can', which are (auxiliary)
+verbs. We can also use adjectives like `feasible', `certain', and 'obligatory',
+or adverbs like `possibly', `certainly', and `inevitably'.
+
+% Translating from English
 
 When translating from English into $\L_{M}$, it is often helpful to first
-paraphrase the English sentence in terms of `it is necessary that' and `it is
-possible that' (or other suitable sentence operators). For example,
+paraphrase the English sentence with `it is necessary that' and `it is possible
+that' (or other suitable sentence operators). For example,
 \begin{quote}
   You can't go from Auckland to Sydney by train
 \end{quote}
@@ -295,13 +375,6 @@ might be paraphrased as
 An adequate translation is $\neg\Diamond p$, where $p$ represents `you go from
 Auckland to Sydney by train' and the diamond represents the relevant kind of
 circumstantial possibility.
-
-The diamond is often used to represent some kind of possibility, and the box to
-represent a corresponding kind of necessity. In this context, you may pronounce
-the diamond as `it is possible that' and the box as `it is necessary that'.
-These same symbols, however, are also used to represent other concepts that
-merely share certain structural features of possibility and necessity. To be
-safe, it is best to pronounce the diamond as `diamond' and the box as `box'.
 
 \begin{exercise}
   Translate the following sentences, as well as possible, into $\L_{M}$,
@@ -341,17 +414,17 @@ safe, it is best to pronounce the diamond as `diamond' and the box as `box'.
   \item If you don't have a ticket, you must pay a fine.
   % This plausibly has two readings, one with an epistemic must, another with
   % the deontic must restricted by the conditional. How do they come apart?
-  % Imagine you are given a ticket as a mark that you don't need to pay a fine.
-  % But there is no rule that those without a ticket have to pay a fine. Then
-  % [](~t -> f) is plausibly false, but ~t -> []f is true.
-  % For the converse direction, normally we'd assume that it's a matter or law
-  % that whoever doesn't have a ticket must pay a fine. So [](~t -> f) would
-  % seem correct. In that case ~t -> []f often will also seem fine, because we
-  % are restricting the domain of relevant worlds by the facts about whether you
+  % Imagine everyone who doesn't have to pay a fine is handed a "ticket" for the
+  % no-fine queue. There is no rule that those without a ticket have to pay a
+  % fine. Then [](~t -> f) is plausibly false, but ~t -> []f is true. For the
+  % converse direction, normally we'd assume that it's a matter or law that
+  % whoever doesn't have a ticket must pay a fine. So [](~t -> f) would seem
+  % correct. In that case ~t -> []f often will also seem fine, because we are
+  % restricting the domain of relevant worlds by the facts about whether you
   % have a ticket: i.e., given that ~t is true, it is also true among the worlds
   % over which the box ranges, and so []f will be true. To make the narrow-scope
   % reading false, we'd have to imagine a scenario in which we don't hold fixed
-  % whether you have a ticket when we evaluate the modal. 
+  % whether you have a ticket when we evaluate the modal.
   % 
   % \item You need a special visa to enter Chukotka.
   \end{exlist}
@@ -395,227 +468,27 @@ safe, it is best to pronounce the diamond as `diamond' and the box as `box'.
   \end{sollist}
 \end{solution}
 
+% Conditionals
+
 Special care is required when translating English sentences that contain both
 modal expressions and an `if' clause. The surface form of English can be
 misleading. A good strategy is to first rephrase the English sentence so that it
-no longer contains any conditional expressions and then translate that
-paraphrase. The paraphrase, and therefore the translation, will often sound
-rather unlike the original sentence. That's OK. What's important is that it has
-the same truth-conditions. There should be no conceivable scenario in which the
-original sentence is true and the paraphrase (or translation) false, or the
-other way round.
-
-
-\section{Duality}%
-\label{sec:duality}
-
-We're in a murder investigation. `Susan can't be the murderer', I say, because
-she has a convincing alibi.
-
-My claim could be paraphrased as `it is not possible that Susan is the
-murderer'. This suggests that $\neg\Diamond p$ is an adequate translation (where
-$p$ expresses that Susan is the murderer). But my claim might also be
-paraphrased as `it is certain that Susan is not the murderer', which we might
-translate as $\Box\neg p$. 
-
-The two paraphrases are plausibly equivalent. In general, `it is not
-(epistemically) possible that $A$' seems to say the same as `it is certain that
-not $A$'. Similarly, `it is not certain that $A$' says the same as `it is
-possible that not $A$'. Accordingly, we will assume that for any
-$\L_{M}$-sentence $A$,
-%
-\begin{principles}
-\pri{Dual1}{\neg \Diamond A \text{ is equivalent to } \Box \neg A};\\
-\pri{Dual2}{\neg \Box A \text{ is equivalent to } \Diamond \neg A}.
-\end{principles}
-
-If two operators stand in the relationship expressed by \pr{Dual1} and
-\pr{Dual2}, they are called \textbf{duals} of each other. In modal logic,
-there is a convention to use the symbols $\Box$ and $\Diamond$ only for concepts
-that are duals of each other.
-
-\begin{exercise}
-  Find all pairs of duals among the following English expressions.
-  \begin{exlist}
-  \item It is necessary that \ldots
-  \item It is impossible that \ldots
-  \item It is possible that \ldots
-  \item It is possibly not the case that \ldots
-  % \item It is neither necessary nor impossible that \ldots
-  \item It was at some point the case that \ldots
-  \item It will at some point be the case that \ldots
-  \item It has always been the case that \ldots
-  \item It will always be the case that \ldots
-  \item The law requires that \ldots
-  \item The law does not require that \ldots
-  \item The law allows that \ldots
-  \item It is true that \ldots
-  \item It is false that \ldots
-  \end{exlist}
-\end{exercise}
-\begin{solution}
-  The following pairs are duals: (a) and (c), (b) and (d), (e) and
-  (g), (f) and (h), (i) and (k), (l) and (l), (m) and (m).
-\end{solution}
-
-\pr{Dual1} tells us that $\neg\Diamond\neg p$ is equivalent to $\Box\neg\neg p$.
-(Here I've chosen $\neg p$ as the sentence $A$.) More generally, it implies that
-for any $\L_{M}$-sentence $A$, $\neg\Diamond\neg A$ is equivalent to
-$\Box \neg\neg A$. Assuming that logically equivalent expressions can be freely
-replaced by one another, even in the scope of modal
-operators,\label{claim:replacement} we can cancel the double negation in
-$\Box \neg\neg A$. \pr{Dual1} then implies that for any $\L_{M}$-sentence $A$,
-\[
-   \Box A\text{ is equivalent to }\neg\Diamond\neg A.
-\]
-In the same manner, \pr{Dual2} implies that (for any $\L_{M}$-sentence $A$)
-\[
-   \Diamond A\text{ is equivalent to }\neg\Box\neg A.
-\]
-
-This shows that the box and the diamond can be defined in terms of one another.
-We could have used a language whose only primitive modal operator is the box,
-and read $\Diamond A$ as an abbreviation of $\neg\Box\neg A$. Alternatively, we
-could have used the diamond as the only primitive modal operator and read
-$\Box A$ as an abbreviation of $\neg\Diamond\neg A$.
-
-\begin{exercise}
-  Which of these sentences are equivalent to $\Diamond\Diamond \neg p$? (a)
-  $\Diamond \neg \Diamond p$, (b) $\Diamond\neg \Box p$, (c)
-  $\neg\Box\Diamond p$, (d) $\neg\Diamond\Box p$, (e) $\neg\Box\Box p$
-\end{exercise}
-\begin{solution}
-  (b) and (e) are equivalent to $\Diamond\Diamond \neg p$, (a), (c), and (d) are
-  not.
-  
-  As a rule, you can always replace a modal operator by its dual, insert a
-  negation on both sides, and remove any double negations to get an equivalent
-  sentence.
-\end{solution}
-
-You might think that there is another connection between `possible' and
-`necessary'. When we say that something is possible, we often convey that it is
-not necessary. But this leads to a puzzle. If $\Diamond p$ entails
-$\neg \Box p$, and is equivalent to $\neg \Box \neg p$, we're forced to conclude
-that $\neg\Box\neg p$ entails $\neg\Box p$ -- and thus, by contraposition, that
-$\Box p$ entails $\Box \neg p$. But `it is certain that $p$' surely doesn't entail `it is certain that not-$p$'.
-
-The apparent entailment from `possible' to `not necessary' can be explained as a
-pragmatic effect -- as a \emph{scalar implicature}, to be precise. Scalar
-implicatures often arise when a speaker utters a logically weaker sentence and
-thereby conveys that a stronger sentence is false. By uttering `some students
-passed the test', for example, you can convey that not all students passed the
-test. A popular explanation of this effect is that we generally assume that
-speakers are cooperative and well-informed about the relevant subject matter. If
-you knew that all students passed the test then it would be more informative to
-say `all students passed' rather than `some students passed', even though both
-sentences would be true. Your choice of the less informative (weaker) sentence
-`some students passed' therefore reveals that the stronger sentence (`all
-students passed') is false. Its falsehood is entailed not by what you said, but
-by what you said together with the assumption that you are well-informed and
-cooperative. The same can be said about the apparent entailment from `possible'
-to `not necessary'. If you say that Bob might be at the library, we can infer
-that you're not sure that he is there. For if you were, you should have simply
-said that he \emph{is} at the library.
-
-The concept of duality can be extended from operators to sentences and sentence
-schemas. A \textbf{schema} is an $\L_{M}$-sentence in which some or all
-sub-sentences have been replaced by schematic variables $A,B,C,$ etc. $\Box A$
-and $\Box(\Box A \to B) \to \Box A$ are schemas.
-
-Schemas are useful when we want to talk about all $\L_{M}$-sentences of a
-certain form. A schema effectively specifies the relevant form. Every
-$\L_{M}$-sentence that results from a schema by uniformly replacing the
-schematic variables with object-language sentences is called an
-\textbf{instance} of the schema. $\Box p$, $\Box \neg p$, and
-$\Box \Box\Box\Box(p\to p)$, for example, are instances of $\Box A$.
-(``Uniformly'' means that the same schematic variable is always replaced by the
-same object-language sentence: $p \to q$ is not an instance of $A \to A$.
-Different schematic variables may however be replaced by the same
-object-language sentence: $p \to p$ is an instance of $A \to B$.)
-
-\begin{exercise}
-  Which of the following expressions are instances of
-  $\Box(A\to \Diamond (A \land B))$?
-  \begin{exlist}
-  \item $\Box(p \to \Diamond (q\land r))$
-  \item $\Box(\Diamond p \to \Diamond (\Diamond p\land p))$
-  \item $\Box\Box(p \to \Diamond (p \land q))$
-  \item $\Box((p \to \Diamond (p \land q)) \to \Diamond((p \to \Diamond (p \land q)) \land \Diamond p))$
-  \item $\Box((A\land C) \to \Diamond ((A\land C) \land (B\land C)))$
-  \end{exlist}
-\end{exercise}
-\begin{solution}
-  (b) and (d)
-\end{solution}
-
-Now compare the schemas $\Box A \to A$ and $A \to \Diamond A$. (You may, if you
-want, informally read the first as saying that whatever is necessary is the case
-and the second as saying that whatever is the case is possible.) Given the
-duality of the box and the diamond, and our assumption that replacing logically
-equivalent expressions never changes the meaning of a sentence, we can show that
-every instance of one of them is equivalent to an instance of the other. In that
-sense, the two schemas are considered equivalent. And because their equivalence
-relies on the duality of the box and the diamond, the two schemas are called
-duals of one another.
-
-To see why every instance of $\Box A \to A$ is equivalent to an instance of
-$A \to \Diamond A$, take a simple example: $\Box p \to p$. By the truth-table
-for the arrow, this is equivalent to $\neg p \to \neg \Box p$. By
-\pr{Dual2}, $\neg \Box p$ is equivalent to $\Diamond \neg p$. So
-$\neg p \to \neg \Box p$ is equivalent to $\neg p \to \Diamond \neg p$. And this
-is an instance of $A \to \Diamond A$. The same line of reasoning obviously works
-for any other sentence in place of $p$, and a very similar line of reasoning
-shows the converse, that every instance of $A \to \Diamond A$ is equivalent to
-an instance of $\Box A \to A$.
-
-This observation can be generalised. Any schema with the arrow $\to$ (or
-$\leftrightarrow$) as the only truth-functional operator can be converted into
-an equivalent schema -- its \textbf{dual} -- by swapping antecedent and
-consequent and replacing every box with a diamond and every diamond with a box.
-
-% More generally, the dual of a schema with -> as its main connective and no
-% other -> is the schema in which antecedent and consequent are interchanged and
-% & and v and [] and <> are swapped by one another. (To find the dual of e.g. GL
-% first replace an embedded -> by not or.)
-
-\begin{exercise}
- Find the duals of (a) $\Box A \to \Box\Box A$, (b) $\Diamond A \to \Box\Diamond A$, (c) $\Box A \to \Diamond A$.
-\end{exercise}
-\begin{solution}
-  (a) $\Diamond\Diamond A \to \Diamond A$, (b) $\Diamond\Box A \to \Box A$, (c)
-  $\Box A \to \Diamond A$.
-\end{solution}
-
-\begin{exercise}
-  A proposition is \emph{contingent} if it neither necessary nor impossible. Let
-  $\nabla$ be a sentence operator for `it is contingent that'. Reading the box as `it is necessary that' and the diamond as `it is possible that', try to find
-  \begin{exlist}
-    \item a sentence whose only modal operator is $\Box$ that is equivalent to
-    $\nabla p$;
-    \item a sentence whose only modal operator is $\Diamond$ that is equivalent to
-    $\nabla p$;
-    \item a sentence whose only modal operator is $\nabla$ that is equivalent to $\Box p$.
-  \end{exlist}
-\end{exercise}
-\begin{solution}
-  (a) $\neg \Box p \land \neg\Box\neg p$; (b)
-  $\Diamond p \land \Diamond \neg p$; (c) $\neg\nabla p \land p$. The last
-  answer assumes that every necessary proposition is true. Without that
-  assumption there is no answer to (c). % as shown in \cite{cresswell1988necessity}
-\end{solution}
-
+no longer contains any conditional expression, then translate that paraphrase.
+The paraphrase, and therefore the translation, will often sound rather unlike
+the original sentence, but that's OK. What's important is that it has the same
+truth-conditions. There should be no conceivable scenario in which the original
+sentence is true and the paraphrase (or translation) false, or the other way
+round.
 
 \section{The turnstile}
 \label{sec:turnstile}
 
-So far, I have rather informally talked about validity, entailment, and
-equivalence. In section \ref{sec:intro}, I said that an argument is valid if
-there is no conceivable scenario in which the premises are true and the
-conclusion is false. An argument is logically valid, I said, if it is valid ``in
-virtue of its logical form''. What does that mean?
+In section \ref{sec:intro}, I said that an argument is valid if there is no
+conceivable scenario in which the premises are true and the conclusion is false.
+An argument is logically valid, I said, if it is valid ``in virtue of its
+logical form''. Can we make this more precise?
 
-Consider this argument.
+Consider this English argument.
 %
 \begin{quote}
   Some cats are black.\\
@@ -623,7 +496,7 @@ Consider this argument.
 \end{quote}
 %
 The argument is valid, but not logically valid. Its validity turns on the
-meaning of `cat', which we don't count as a logical expression.
+meaning of `cat', which we don't consider a logical expression.
 
 To bring out how the argument's validity depends on the meaning of `cat', we can
 imagine a language that is much like English except that `cat' means
@@ -639,14 +512,15 @@ and the conclusion is false, \emph{no matter what meaning we assign to the
   non-logical expressions}.
 
 The concept of validity for arguments is closely related to that of entailment.
-If an argument is valid then we say that the premises entail the conclusion. If
-an argument is \emph{logically} valid then the premises \emph{logically} entail
-the conclusion. We therefore adopt the following definition.
+If an argument is valid, we say that the premises entail the conclusion. If an
+argument is logically valid, we say that the premises logically entail the
+conclusion. In logic, we're interested in logical entailment. We adopt the
+following definition.
 
 \begin{definition}{}{entailment-informal}
   Some sentences $\Gamma$ ('gamma') \textbf{(logically) entail} a sentence $A$
   iff there is no conceivable scenario in which all sentences in $\Gamma$ are
-  all true and $A$ is false, under any interpretation of the non-logical
+  true and $A$ is false, under any interpretation of the non-logical
   expressions.
 \end{definition}
 
@@ -662,17 +536,18 @@ for example, could be expressed as
   \Box (p \to q), \Box p \models q.
 \end{equation*}
 
-The symbol `$\models$' is not part of $\L_M$, nor does $\L_M$ have a comma. The
-comma and the turnstile belong to the \textbf{meta-language} we use to talk
-about the \textbf{object language} $\L_M$. (The rest of our meta-language is
-mostly English.) We use the turnstile to express a certain relationship between
-$\L_M$-sentences, not to construct further $\L_{M}$-sentences.
+This is not a sentence of $\L_{M}$. The comma and the turnstile belong to
+the \textbf{meta-language} we use to talk about the \textbf{object language}
+$\L_M$. (The rest of our meta-language is mostly English.) We use the turnstile
+to express a certain relationship between $\L_M$-sentences, not to construct
+further $\L_{M}$-sentences.
 
 \begin{exercise}
-  If we are allowed to re-interpret the non-logical expressions, do we even need
-  to consider alternative scenarios? What do you think of this simpler
-  alternative to definition \ref{def:entailment-informal}? ``$\Gamma \models A$
-  iff there is no interpretation of non-logical expressions that renders all
+  % If we are allowed to re-interpret the non-logical expressions, do we even need
+  % to consider alternative scenarios? 
+  What do you think of this simpler alternative to definition
+  \ref{def:entailment-informal}? ``Sentences $\Gamma$ entail a sentence $A$ iff
+  there is no interpretation of non-logical expressions that renders all
   sentences in $\Gamma$ true and $A$ false.''
 \end{exercise}
 \begin{solution}
@@ -700,13 +575,14 @@ The following fact about logical consequence often proves useful.
 %
 \begin{proof}
   \emph{Proof}. Look at the statement on the right-hand side of the `iff'.
-  $\Gamma \models A \to B$ says that there is no conceivable scenario in which
+  `$\Gamma \models A \to B$' says that there is no conceivable scenario in which
   all sentences in $\Gamma$ are true while $A\to B$ is false, under any
   interpretation of the non-logical expressions. By the truth-table for `$\to$',
   $A\to B$ is false iff $A$ is true and $B$ is false. So we can rephrase the
   statement on the right-hand side as saying that there is no conceivable
-  scenario in which all sentences in $\Gamma$ are true and $A$ is true and $B$
-  is false. That's just what the statement on the left-hand side asserts. \qed
+  scenario and interpretation that makes all sentences in $\Gamma$ true and
+  $A$ true and $B$ false. That's just what the statement on the left-hand
+  side asserts. \qed
 \end{proof}
 
 Observation \ref{obs:semantic-deduction-theorem} tells us that if we start with
@@ -745,17 +621,16 @@ But it's worth making the definition more explicit.
 Make sure you don't confuse the arrow with the turnstile. It's not just that the
 two symbols belong to different languages -- one to $\L_{M}$, the other to our
 meta-language. They also have very different meanings. $p \to q$ is true iff
-either $p$ is false or $q$ is true (or both). By contrast, $p \models q$ is true
-iff there is no conceivable scenario in which $p$ is true and $q$ is false,
-under any interpretation of $p$ and $q$. Nonetheless, there is an important
-connection between the arrow and the turnstile: $A \models B$ is \emph{true} iff
-$A \to B$ is \emph{valid}.
+either $p$ is false or $q$ is true (or both). $p \models q$, on the other hand,
+is true iff there is no conceivable scenario in which $p$ is true and $q$ is
+false, under any interpretation of $p$ and $q$. Nonetheless, there is an
+important connection between the arrow and the turnstile: $A \models B$ is
+\emph{true} iff $A \to B$ is \emph{valid}.
 
 The definitions of this section are still somewhat imprecise. Eventually we will
 want to prove various claims about entailment and validity. To this end, we will
-need to say more about what counts as a conceivable scenario and as an
-interpretation of the non-logical expressions. Let's leave this task until the
-next chapter.
+need to give rigorous meanings to `conceivable scenario' and `interpretation of
+non-logical expressions'. Let's leave this task until the next chapter.
 
 % \begin{exercise}
 %   We can generalise our interpretation of the double-barred turnstile. Let's
@@ -767,38 +642,302 @@ next chapter.
 %   them are true?
 % \end{exercise}
 
-\section{Systems of modal logic}%
+\section{Duality}%
+\label{sec:duality}
+
+% Two translations
+
+`Neville can't be the murderer', says Watson. His claim could be paraphrased as
+`it is not possible that Neville is the murderer'. This suggests that
+$\neg\Diamond p$ is an adequate translation (where $p$ expresses that Neville is
+the murderer). But Watson's claim might also be paraphrased as `it is certain
+that Neville is not the murderer', which we might translate as $\Box\neg p$.
+
+% Equivalence
+
+The two paraphrases are plausibly equivalent. In general, `it is not
+(epistemically) possible that $A$' seems to say the same as `it is certain that
+not $A$'. Similarly, `it is not certain that $A$' arguably says the same as `it
+is possible that not $A$'.
+
+% Dual1 and Dual2
+
+Whether or not the equivalence holds in English, we stipulate that it holds in
+$\L_{M}$: for any $\L_{M}$-sentence $A$,
+%
+\begin{principles}
+\pri{Dual1}{\neg \Diamond A \text{ is equivalent to } \Box \neg A};\\
+\pri{Dual2}{\neg \Box A \text{ is equivalent to } \Diamond \neg A}.
+\end{principles}
+
+% Dual operators
+
+Operators that stand in the relationship expressed by \pr{Dual1} and \pr{Dual2}
+are called \textbf{duals} of each other. There is a convention in modal logic to
+use the symbols $\Box$ and $\Diamond$ only for concepts that are duals of each
+other.
+
+\begin{exercise}
+  Find all pairs of duals among the following English expressions.
+  \begin{exlist}
+  \item It is necessary that \ldots
+  \item It is impossible that \ldots
+  \item It is possible that \ldots
+  \item It is possibly not the case that \ldots
+  % \item It is neither necessary nor impossible that \ldots
+  \item It was at some point the case that \ldots
+  \item It will at some point be the case that \ldots
+  \item It has always been the case that \ldots
+  \item It will always be the case that \ldots
+  \item The law requires that \ldots
+  \item The law does not require that \ldots
+  \item The law allows that \ldots
+  \item It is true that \ldots
+  \item It is false that \ldots
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  The following pairs are duals: (a) and (c), (b) and (d), (e) and
+  (g), (f) and (h), (i) and (k), (l) and (l), (m) and (m).
+\end{solution}
+
+% An equivalence
+
+\pr{Dual1} implies that $\neg\Diamond\neg p$ is equivalent to $\Box\neg\neg p$,
+choosing $\neg p$ as the sentence $A$. In standard modal logic, logically
+equivalent expressions are interchangeable.\label{claim:replacement} So we can
+simplify $\Box \neg\neg p$ to $\Box p$, drawing on the equivalence between
+$\neg\neg p$ and $p$. We've shown that $\neg\Diamond\neg p$ is equivalent to
+$\Box p$.
+
+% Generalised equivalences
+
+The same reasoning could be applied to any other sentence $A$ in place of
+$p$. \pr{Dual1} therefore implies that for any sentence $A$,
+\[
+   \Box A\text{ is equivalent to }\neg\Diamond\neg A.
+\]
+In the same way, \pr{Dual2} implies that (for any sentence $A$)
+\[
+   \Diamond A\text{ is equivalent to }\neg\Box\neg A.
+\]
+
+% Redundancy
+
+This shows that the box and the diamond can be defined in terms of one another.
+We could have used a language whose only primitive modal operator is the box,
+and read $\Diamond A$ as an abbreviation of $\neg\Box\neg A$. Alternatively, we
+could have used the diamond as the only primitive modal operator and read
+$\Box A$ as an abbreviation of $\neg\Diamond\neg A$.
+
+\begin{exercise}
+  Which of these sentences are equivalent to $\Diamond\Diamond \neg p$? (a)
+  $\Diamond \neg \Diamond p$, (b) $\Diamond\neg \Box p$, (c)
+  $\neg\Box\Diamond p$, (d) $\neg\Diamond\Box p$, (e) $\neg\Box\Box p$
+\end{exercise}
+\begin{solution}
+  (b) and (e) are equivalent to $\Diamond\Diamond \neg p$, (a), (c), and (d) are
+  not.
+  
+  As a rule, you can always replace a modal operator by its dual, insert a
+  negation on both sides, and remove any double negations to get an equivalent
+  sentence.
+\end{solution}
+
+% Does 'possible' imply 'not necessary'?
+
+You might think that there is another connection between `possible' and
+`necessary'. When we say that something is possible (or that it might be the
+case), we often convey that it is not necessary (or not certain). This suggests
+that $\Diamond p$ entails $\neg \Box p$. We've just assumed, however, that
+$\Diamond p$ is equivalent to $\neg \Box \neg p$. If $\Diamond p$ entails
+$\neg \Box p$, we would have to conclude that $\neg\Box\neg p$ entails
+$\neg\Box p$. By contraposition, we could infer that $\Box p$ entails
+$\Box \neg p$. But `it is necessary that $P$' surely doesn't entail `it is
+necessary that not-$P$'!
+
+% A choice
+
+We have to reject either the duality of `possible' and `necessary' or the
+apparent entailment from `possible' to `not necessary'. On reflection, the case
+for duality is stronger. There is a good explanation of why `possible' often
+\emph{appears} to entail `not necessary' even if it actually doesn't.
+
+% An example.
+
+Take an example. Suppose Watson says `Neville might be the murderer'. Let's
+assume that `might' is the dual of `certain', so that `it might be that $P$' is
+equivalent to `it is not certain that not $P$'. On this interpretation, what
+Watson said -- that Neville might be the murderer -- is merely that it isn't
+certain that Neville is \emph{not} the murderer. It may well be certain that
+Neville \emph{is} the murderer. Why, then, does his statement convey that
+Neville's guilt is an open question?
+
+% A pragmatic explanation
+
+Well, suppose Watson had known that Neville is the murderer. In that case, he
+shouldn't have said `Neville might be the murderer'. These words would still
+have been true -- or so we assume -- but they would not have been helpful.
+Watson would have been in a position to say something more informative: that
+Neville is the murderer, or that he is known to be the murderer. We generally
+assume that speakers are trying to be helpful, that they are not hiding relevant
+information. Assuming that Watson is trying to be helpful, his \emph{statement}
+that Neville might be the murderer implies that he considers Neville's guilt an
+open question. This follows not from \emph{what he said}, but from the fact
+\emph{that he said it}, together with the assumption that he is trying to be
+helpful.
+
+% Scalar implicature
+
+This kind of effect is studied in the field of pragmatics, where it is known as
+a \emph{scalar implicature}. Scalar implicatures arise when an utterance of a
+logically weaker sentence conveys that a certain stronger sentence is false.
+`Some students passed the test', for example, conveys that not all students
+passed the test, although the statement would be true even if all students had
+passed. In that case, however, it would not have been helpful: the speaker
+should have used `all students passed'.
+
+% Schemas
+
+I want to say a little more about duality. To do so, I need to introduce the
+concept of a schema.
+
+% I already mentioned that I use upper-case letters $A,B,C,\ldots$ when I want to
+% talk about arbitrary $\L_{M}$-sentences. Above, for example, I said that we
+% could have read $\Diamond A$ as an abbreviation of $\neg\Box\neg A$. By this, I
+% mean that we could have read $\Diamond p$ as an abbreviation of
+% $\neg\Box\neg p$, $\Diamond (p \lor q)$ as an abbreviation of
+% $\neg\Box\neg (p \lor q)$, and so on, for all $\L_{M}$-sentences. The
+% expressions `$\Diamond A$' and `$\neg\Box\neg A$' are schemas.
+
+Formally, a \textbf{schema} (for $\L_{M}$-sentences) is simply an
+$\L_{M}$-sentence with upper-case schematic variables in place of sentence
+letters. Every $\L_{M}$-sentence that results from a schema by (uniformly)
+replacing the schematic variables with object-language sentences is called an
+\textbf{instance} of the schema.
+
+% An example
+
+$\Box A \to A$, for example, is a schema. Three of its instances are
+$\Box p \to p$ and $\Box (p \lor q) \to (p \lor q)$ and
+$\Box \Box p \to \Box p$. The sentence $\Box p \to q$ is not an instance: the
+same schematic variable must always be replaced by the same object-language
+sentence. (That's what I meant by ``uniformly''.)
+
+\begin{exercise}
+  Which of the following expressions are instances of
+  $\Box(A\to \Diamond (A \land B))$?
+  \begin{exlist}
+  \item $\Box(p \to \Diamond (q\land r))$
+  \item $\Box(\Diamond p \to \Diamond (\Diamond p\land p))$
+  \item $\Box\Box(p \to \Diamond (p \land q))$
+  \item $\Box((p \to \Diamond (p \land q)) \to \Diamond((p \to \Diamond (p \land q)) \land \Diamond p))$
+  \item $\Box((A\land C) \to \Diamond ((A\land C) \land (B\land C)))$
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  (b) and (d)
+\end{solution}
+
+% Use of schemas
+
+Schemas are useful when we want to talk about all $\L_{M}$-sentences of a
+certain form. In the next section, for example, we are going to define a system
+of modal logic by giving a list of schemas all instances of which are considered
+valid.
+
+% Dual schemas
+
+Now compare the schemas $\Box A \to A$ and $A \to \Diamond A$. Given the duality
+of the box and the diamond, and the fact that logically equivalent expressions
+can be freely exchanged for one another, we can show that \emph{every instance
+  of one of them is equivalent to an instance of the other}. In this sense, the
+two schemas are equivalent. And because their equivalence relies on the duality
+of the box and the diamond, the two schemas are called duals of one another.
+
+% Proof of duality
+
+To see why every instance of $\Box A \to A$ is equivalent to an instance of
+$A \to \Diamond A$, take a simple instance: $\Box p \to p$. By the truth-table
+for the arrow, this is equivalent to $\neg p \to \neg \Box p$. By \pr{Dual2},
+$\neg \Box p$ is equivalent to $\Diamond \neg p$. So $\neg p \to \neg \Box p$ is
+equivalent to $\neg p \to \Diamond \neg p$. And this is an instance of
+$A \to \Diamond A$. The same line of reasoning obviously works for any other
+sentence in place of $p$, and a similar line of reasoning shows the converse,
+that every instance of $A \to \Diamond A$ is equivalent to an instance of
+$\Box A \to A$.
+
+% Instances not equivalent
+
+It's crucial that we're talking about schemas here. We have not shown that the
+\emph{sentence} $\Box p \to p$ is equivalent to $p \to \Diamond p$. In fact, the
+duality principles and the replacement of equivalents don't suffice to show that
+these sentences are equivalent.
+
+% Equivalence of axioms
+
+The equivalence of the \emph{schemas}, however, is enough to show that it
+doesn't matter which of them we use when we list schemas to define a logic. We
+can say that all instances of $\Box A \to A$ are valid in a certain logic, or we
+can say that all instances of $A \to \Diamond A$ are valid -- it amounts to the
+same thing, because every instance of either schema is equivalent to an instance
+of the other.
+
+% Generalising 
+
+The equivalence between $\Box A \to A$ and $A \to \Diamond A$ is an example of
+a more general pattern. Any schema with an arrow ($\to$ or $\leftrightarrow$) as
+the only truth-functional operator can be converted into an equivalent schema --
+its \textbf{dual} -- by swapping antecedent and consequent and replacing every
+box with a diamond and every diamond with a box. 
+
+% More generally, the dual of a schema with -> as its main connective and no
+% other -> is the schema in which antecedent and consequent are interchanged and
+% & and v and [] and <> are swapped by one another. (To find the dual of e.g. GL
+% first replace an embedded -> by not or.)
+
+\begin{exercise}
+ Find the duals of (a) $\Box A \to \Box\Box A$, (b) $\Diamond A \to \Box\Diamond A$, (c) $\Box A \to \Diamond A$.
+\end{exercise}
+\begin{solution}
+  (a) $\Diamond\Diamond A \to \Diamond A$, (b) $\Diamond\Box A \to \Box A$, (c)
+  $\Box A \to \Diamond A$.
+\end{solution}
+
+\begin{exercise}
+  A proposition is \emph{contingent} if it neither necessary nor impossible. Let
+  $\nabla$ be a sentence operator for `it is contingent that'. Reading the box as `it is necessary that' and the diamond as `it is possible that', try to find
+  \begin{exlist}
+    \item a sentence whose only modal operator is $\Box$ that is equivalent to
+    $\nabla p$;
+    \item a sentence whose only modal operator is $\Diamond$ that is equivalent to
+    $\nabla p$;
+    \item a sentence whose only modal operator is $\nabla$ that is equivalent to $\Box p$.
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  (a) $\neg \Box p \land \neg\Box\neg p$; (b)
+  $\Diamond p \land \Diamond \neg p$; (c) $\neg\nabla p \land p$. The last
+  answer assumes that every necessary proposition is true. Without that
+  assumption there is no answer to (c). % as shown in \cite{cresswell1988necessity}
+\end{solution}
+
+\section{A system of modal logic}%
 \label{sec:systems}
 
 Whether a sentence is logically valid, or logically entailed by other sentences,
 never depends on the meaning of the non-logical expressions. But it may well
-depend on the meaning of the logical expressions. This is relevant to modal
-logic because the meaning of the box and the diamond -- which are treated as
-logical expressions -- varies from application to application. Sometimes the box
-means epistemic necessity. Sometimes it means deontic necessity. Sometimes it
-means circumstantial necessity. Sometimes it means yet other things.
+depend on the meaning of the logical expressions. In modal logic, the box and
+the diamond are treated as logical expressions, but their interpretation varies
+from application to application. Sometimes the box means epistemic necessity,
+sometimes it means deontic necessity, sometimes it means something else. As I
+mentioned in section \ref{sec:flavours}, this has the consequence that we need
+to distinguish different ``systems of modal logic''. In some applications, we
+want $\Box p$ to entail $p$, in others we don't.
 
-As a result, we often can't say, once and for all, whether a certain
-$\L_{M}$-sentence is logically valid, or logically entailed by other
-$\L_{M}$-sentences. Consider, for example, the hypothesis that $\Box p$ entails
-$p$:
-\[
-  \Box p \models p.
-\]
-The hypothesis is plausible if the box expresses some kind of circumstantial
-necessity. It is implausible if the box expresses deontic necessity. We can
-easily imagine scenarios in which, say, it is required that all library books
-are returned on time ($\Box p$) and yet it is not the case that all library
-books are returned on time ($\neg p$).
-
-To avoid confusion, we can put subscripts on the turnstile, so that
-$\Box p \models_{c} p$ says that $\Box p$ entails $p$ in the logic of
-circumstantial necessity, while $\Box p \models_{d} p$ says (falsely) that
-$\Box p$ entails $p$ in the logic of deontic necessity.
-
-Suppose, now, that we want to fully spell one of these ``logics''. We want to
-completely specify which $\L_{M}$-sentences are valid, and which are entailed by
-which others, on a particular understanding of the modal operators.
+Suppose, now, that we want to fully spell out one of these ``systems''. We want
+to completely specify which $\L_{M}$-sentences are valid, and which are entailed
+by which others, on a particular understanding of the modal operators.
 
 There are many ways of approaching this task. We could, for example, define
 precise notions of conceivable scenarios and interpretations and apply the
@@ -809,41 +948,34 @@ and interpretations. Assume, then, that we simply start with direct judgements
 about entailment and validity.
 
 We still face a problem. There are infinitely many $\L_{M}$-sentences. We can't
-look at every sentence and argument one by one. We'll need to find some
+look at every sentence and argument one by one. We need to find some
 shortcuts.
 
 We can begin by drawing on a consequence of observation
-\ref{obs:semantic-deduction-theorem}. Above I said that we need to specify (i)
-which $\L_{M}$-sentences are valid and (ii) which $\L_{M}$-sentences are
-entailed by which others. Observations \ref{obs:semantic-deduction-theorem}
-implies that we can ignore part (ii) of the task. Once we have settled which
-sentences are valid, we have implicitly also settled which sentences entail
-which others. If, for example, we decide that $\Box p \to p$ is valid, we have
-also decided that $\Box p$ entails $p$.
+\ref{obs:semantic-deduction-theorem}. Above I said that in order to spell out a
+system of modal logic, we need to specify (i) which $\L_{M}$-sentences are valid
+and (ii) which $\L_{M}$-sentences are entailed by which others. Observation
+\ref{obs:semantic-deduction-theorem} tells us that we can ignore part (ii) of
+the task. Once we have settled which sentences are valid, we have implicitly
+also settled which sentences entail which others. If, for example, we decide
+that $\Box p \to p$ is valid, we have also decided that $\Box p$ entails $p$.
 
-Our task of spelling out a particular logic -- a particular consequence relation
--- therefore reduces to the task of specifying, for every $\L_{M}$-sentence,
-whether or not it is valid.
-
-In the following chapters, we will often talk about \textbf{systems of modal
-  logic}. Officially, a system of modal logic is simply a set of
-$\L_{M}$-sentences. These sets are of interest because they implicitly define a
-consequence relation, by assuming that all and only the members of the set are
-valid and using observation \ref{obs:semantic-deduction-theorem} to convert
-claims about validity into claims about entailment.
+Our task of spelling out a system of modal logic therefore reduces to
+the task of specifying which $\L_{M}$-sentences are valid. That's why a
+\textbf{system of modal logic} is usually defined simply as a set of
+$\L_{M}$-sentences.
 
 To make this more concrete, let's look at a particular sub-flavour of
-circumstantial necessity, sometimes called \emph{historical necessity}, that was
-a popular object of debate in ancient Greece. Something is historically
-necessary if it is ``settled'': it is true and there is nothing anyone can do
-about it. Facts about the past are plausibly settled. Nothing we can do is going
-to make a difference to what happened yesterday. By contrast, some facts about
-the future are intuitively ``open''.
+circumstantial necessity, sometimes called \emph{historical necessity}.
+Something is historically necessary if it is ``settled'': it is true and there
+is nothing anyone can do about it. Facts about the past are plausibly settled.
+Nothing we can do is going to make a difference to what happened yesterday. By
+contrast, some facts about the future are intuitively ``open''.
 
-Let's use the box to formalise this (admittedly somewhat vague) concept of
-historical necessity. So $\Box p$ says that $p$ is settled. Since the diamond is
-the dual of the box, $\Diamond p$ expresses that it not settled that $p$ is
-false. In other words, $p$ is either open or settled as true.
+Let's use the box to formalise this (admittedly vague) concept of historical
+necessity. So $\Box p$ says that $p$ is settled. Since the diamond is the dual
+of the box, $\Diamond p$ expresses that it not settled that $p$ is false. In
+other words, $p$ is either open or settled as true.
 
 % Don't say: <>p means that p is open: otherwise []p -> <>p looks implausible.
 % 'open' conveys 'could be made true and could be made false'.
@@ -857,6 +989,8 @@ for short, which sentences are ``in'' -- and which are not.
 If the box expresses historical necessity then $\Box p$ clearly entails $p$. So
 $\Box p \to p$ is in. There is nothing special here about the sentence $p$.
 Whatever is settled is true. Every instance of the schema $\Box A \to A$ is in.
+(As mentioned in section \ref{sec:duality}, it follows that every instance of
+$A \to \Diamond A$ is in as well.)
 
 In the same vein, we may now look at other schemas. Arguably, all instances of
 the following schemas -- listed here with their conventional names -- are valid,
@@ -923,9 +1057,11 @@ follows from a valid sentence by classical (non-modal) propositional logic is
 itself valid. Since we've decided that $\Box p \to p$ is valid (in the logic of
 historical necessity), we can, for example, infer that $(\Box p \to p) \lor q$
 is also valid, because $A \lor B$ follows from $A$ in classical propositional
-logic. By adopting this rule, we effectively assume that (i) the meaning of the
-truth-functional connectives is given by their standard truth tables, and that
-(ii) every sentence is either true or false and not both. Our system of modal
+logic.
+% By adopting this rule, we effectively assume that (i) the meaning of the
+% truth-functional connectives is given by their standard truth tables, and that
+% (ii) every sentence is either true or false and not both.
+Our system of modal
 logic thereby becomes an \textbf{extension} of classical propositional
 logic. \label{claim:extension}
 
@@ -956,18 +1092,18 @@ sentence $A$,
 
 And now we're done. I claim -- and this may seem rather mysterious at the moment
 -- that there is a natural understanding of historical necessity (of `settled')
-on which every sentence that is valid in the logic of historical necessity is
-either an instance of \pr{T}, \pr{K}, \pr{4}, \pr{5}, or \pr{Dual}, or can be
-generated from such instances by \pr{CPL} and \pr{Nec}. (In fact, \pr{4} is
+on which the sentences that are valid in the logic of historical necessity are
+precisely the sentences that can be generated from instances of \pr{T}, \pr{K},
+\pr{4}, \pr{5} and \pr{Dual} by \pr{CPL} and \pr{Nec}. (In fact, \pr{4} is
 redundant: any instance of \pr{4} can be derived from the remaining axioms and
 rules.)
 
-The system of modal logic defined by these schemas and two rules is perhaps the
+The system of modal logic defined by these schemas and  rules is perhaps the
 best known of all systems of modal logic. Its conventional name is `S5' because
 it was introduced as the fifth system in an influential list of systems
 published by C.I.\ Lewis and C.H.\ Langford in 1932.
 
-Other systems of modal logic can be defined by using different schemas or rules.
+Other systems of modal logic can be defined by different schemas or rules.
 Lewis and Langford's system S4, for example, is defined by \pr{T},
 \pr{K}, \pr{4}, \pr{Dual}, \pr{CPL} and \pr{Nec}, without
 \pr{5}. This system is adequate for other interpretations of the box and the
@@ -1028,12 +1164,11 @@ diamond, where we don't want to treat all instances of \pr{5} as valid.
 \end{sollist}
 \end{solution}
 
-Remember that a system of modal logic is just a set of $\L_{M}$-sentences that
-implicitly defines a consequence relation. I have defined the system S5 in terms
-of \pr{T}, \pr{K}, \pr{4}, \pr{5}, or \pr{Dual},
-\pr{CPL} and \pr{Nec}, but the same system can be defined by many other
-combinations of schemas and rules. (Lewis and Langford used a very different
-definition.)
+Remember that a system of modal logic is just a set of $\L_{M}$-sentences. I
+have defined the system S5 in terms of \pr{T}, \pr{K}, \pr{4}, \pr{5}, or
+\pr{Dual}, \pr{CPL} and \pr{Nec}, but the same system can be defined by many
+other combinations of schemas and rules. (Lewis and Langford used a very
+different definition.)
 
 The schemas and rules that I have chosen are called an \textbf{axiomatisation}
 of S5. The schemas -- or more precisely, their instances -- are called
@@ -1049,8 +1184,8 @@ $\Box(p \land q) \to \Box p$ is in S5 (that it is ``S5-valid''). The sentence is
 not an instance of any of the schemas I have listed. Instead, we may start with
 the non-modal sentence $(p \land q) \to p$. This is a propositional tautology,
 so \pr{CPL} tells us that it is in S5. By \pr{Nec}, it follows that
-$\Box((p \land q) \to p)$ is in S5 as well. We also know that all instance of
-\pr{K} are in S5. In particular, we have
+$\Box((p \land q) \to p)$ is in S5 as well. Since all instance of
+\pr{K} are in S5, the system contains
 \[
   \Box((p \land q) \to p) \to (\Box(p \land q) \to \Box p).
 \]
@@ -1068,7 +1203,7 @@ Here is a more streamlined presentation of this line of reasoning.
   4.\quad& \Box(p \land q) \to \Box p &\quad& \text{(2, 3, CPL)}
 \end{alignat*}
 
-And here is a line of reasoning in the streamlined format to show that
+We can use the same streamlined format to show that, say,
 $\Box p \to \Diamond p$ is S5-valid.
 %
 \begin{alignat*}{2}
@@ -1156,8 +1291,8 @@ They are added to help understand where the lines come from.)
 
 The axiomatic method is the oldest formal method of proof. It has many virtues,
 but user-friendliness is not among them. Even simple facts are often hard to
-prove in an axiomatic calculus. In the next chapter, I will introduce a very
-different method that is much easier to use.
+prove in an axiomatic calculus. In the next chapter, we will meet a different
+method that is much easier to use.
 
 
 % \begin{exercise}

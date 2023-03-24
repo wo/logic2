@@ -6,8 +6,8 @@ It is currently raining in Edinburgh. But it wasn't raining yesterday, and
 perhaps it won't rain tomorrow. Let's introduce some operators to formalize
 reasoning about the unfolding of events through time.
 
-If we read $r$ as `it is raining', we use $\tF r$ to express that is will be
-raining at some point in the future. We use $\tP r$ to express that it has been
+If we read $r$ as `it is raining', we will use $\tF\! r$ to express that is will be
+raining at some point in the future. We will use $\tP\! r$ to express that it has been
 raining at some point in the past. In general:
 %
 \begin{quote}
@@ -21,18 +21,17 @@ to rain, $\tP\tP r$ to say that there was a time before which it rained, and
 $\tF\tF r$ to say that there will come a time after which it will rain.
 
 Unlike $\Box$ and $\Diamond$, $\tF$ and $\tP$ are not duals of each other:
-$\neg \tP A$ is not equivalent to $\tF \neg A$, and $\neg \tF A$ is not
-equivalent to $\tP \neg A$. But it is useful to have duals of $\tF$ and $\tP$.
+$\neg \!\tP\! A$ is not equivalent to $\tF \!\neg A$, and $\neg \!\tF\! A$ is not
+equivalent to $\tP \!\neg A$. But it is useful to have duals of $\tF$ and $\tP$.
 We therefore introduce two more operators. $\tG$ will be the dual of $\tF$, and
-$\tH$ be the dual of $\tP$.
+$\tH$ the dual of $\tP$.
 
-Intuitively, $\tG A$ means that $A$ is always \emph{g}oing to be the case.
-(Hence the symbol `G'.) For example, if it is not the case that at some point in
-the future it will not rain ($\neg \tF \neg r$), then it is always going to be
-the case that it will rain ($\tG r$). Similarly, $\tH A$ means that $A$
-\emph{h}as always been the case. If it is not the case that at some point in the
-past it was not raining ($\neg \tP \neg r$), then it has always been raining
-($\tH r$).
+Intuitively, $\tG A$ means that $A$ is always \emph{going} to be the case.
+(Hence the symbol `G'.) If it is not the case that at some point in the future
+it will not rain ($\neg \!\tF\! \neg r$), then it is always going to be the case
+that it will rain ($\tG r$). Similarly, $\tH A$ means that $A$ \emph{has} always
+been the case. If it is not the case that at some point in the past it was not
+raining ($\neg \!\tP\! \neg r$), then it has always been raining ($\tH r$).
 
 We can state the truth-conditions of $\tG A$ and $\tH A$ in parallel to the
 above truth-conditions for $\tF A$ and $\tP A$:
@@ -65,7 +64,6 @@ will sometimes call it $\L_t$.
   \item If you haven't studied, you won't pass the exam. % -Ps -> -Fp
   \item I was having tea when the door bell rang. % P(t & r)
   \end{exlist}
-  \vspace{-2mm}
 \end{exercise}
 \begin{solution}
   \begin{sollist}
@@ -75,9 +73,9 @@ will sometimes call it $\L_t$.
     $p$: There is a sea battle\\[-2mm]
   \item $\neg \tF \tP p$ or, perhaps, $\tF\neg \tP p$\\
     $p$: There is a sea battle\\[-2mm]
-  \item  $\tF(p \lor \tP q)$\\
+  \item  $\tF(p \lor \tP q)$ or $\tF(\tF p \lor \tF\tP q)$\\
     $p$: It is warm\\[-2mm]
-  \item $\neg \tP p \to \neg \tF q$, or $\tG(\neg\tP p \to \neg q)$\\
+  \item $\neg \tP p \to \neg \tF q$ or $\tG(\neg\tP p \to \neg q)$\\
     $p$: You study, $q$: you pass the exam\\[-2mm]
   \item $\tP(p \land q)$\\
     $p$: I am having tea, $q$: the door bell rings
@@ -92,7 +90,8 @@ how they are ordered, and what is going on at each of them. We can represent
 such a scenario, together with an interpretation of $\L_{t}$'s non-logical
 vocabulary, by a structure that settles (a) what times there are, (b) which
 times come before or after which others, and (c) which sentence letters are true
-at which times. This is enough to determine, for $\L_{t}$-sentence and every time, whether the sentence is true at that time.
+at which times. This is enough to determine, for every $\L_{t}$-sentence and
+every time, whether the sentence is true at that time.
 
 \begin{definition}{Temporal Model}{temporalmodel}
   A \textbf{temporal model} consists of
@@ -158,8 +157,7 @@ $\tG$ and $\tH$, and two diamond-like operators $\tF$ and $\tP$. The language of
 basic temporal logic is bi-modal, with forward-looking operators ($\tF$ and
 $\tG$) and backward-looking operators ($\tP$ and $\tH$). Unlike ordinary models
 for multi-modal languages (definition \ref{def:multikripkemodel}), temporal
-models have only a single accessibility relation. That's because, even though
-forward and backward-looking operators can't be defined in terms of each other,
+models have only a single accessibility relation. That's because
 the accessibility relation for $\tP$ and $\tH$ is definable from the
 accessibility relation for $\tF$ and $\tG$: a time $s$ is earlier than a time
 $t$ iff $t$ is later than $s$.
@@ -202,14 +200,13 @@ figure out the following facts, among others.
   \item $M,0 \models \neg \tP(p \lor \neg p)$
   \item $M,0 \models \tH p$
   \end{exlist}
-  \vspace{-2mm}
 \end{exercise}
 \begin{solution}
   (a), (c), (f), (g), and (h) are true, (b), (d), and (e) are false. 
 \end{solution}
 
 Real times are, of course, not numbers. When I say that `it is raining' is true
-now, I don't mean that the sentence is true at a particular number. It isn't
+now, I don't mean that the sentence is true at a number. It isn't
 obvious what kinds of things times are. Fortunately, this doesn't matter for us,
 just as the nature of possible worlds doesn't matter for the logic of
 possibility and necessity. As long as the formal structure of the times in a
@@ -224,8 +221,8 @@ flow of time.
 
 In computer science, for example, the ``times'' $T$ are often understood as
 possible states of a computational process; the precedence relation holds
-between states $t$ and $s$ iff the relevant process can lead from $t$ to $s$. If
-the process is indeterministic, so that a given state can have different
+between states $t$ and $s$ iff the computation can lead from $t$ to $s$. If
+the computation is indeterministic, so that a given state can have different
 successors, the relevant flow of time will involve forks towards the future: we
 can have different ``times'' $s$ and $r$ such that $t<s$ and $t<r$ but neither
 $s<r$ nor $r<s$. Here the precedence relation cannot be modelled by the
@@ -234,7 +231,7 @@ less-than relation does not include forks.
 
 In other applications, we may be interested in how the weather changes from day
 to day. Here we might identify the relevant times with days and the precedence
-relation with the earlier-relation between days, even though intuitively a day
+relation with the earlier-relation between days -- even though intuitively a day
 is not a single time, but an interval comprising many times. For this
 application, the natural numbers might have the right formal structure.
 
@@ -286,7 +283,7 @@ precedence) relation:
 
 
   \tree{
-    \dotbelownode{12}{}{$\neg\tG A$}{\omega}{}\\
+    \dotbelownode{12}{}{$\neg\!\tG A$}{\omega}{}\\
     \\
     \nnode{12}{}{$\omega<\nu$}{}{}\\
     \nnode{12}{}{$\neg A$}{\nu}{}\\
@@ -307,7 +304,7 @@ precedence) relation:
 \vspace{8mm}
 
   \tree{
-    \nnode{12}{}{$\neg\tF A$}{\omega}{}\\
+    \nnode{12}{}{$\neg\!\tF A$}{\omega}{}\\
     \dotbelownode{12}{}{$\omega<\nu$}{}{}\\
     \\
     \nnode{12}{}{$\neg A$}{\nu}{}\\
@@ -329,7 +326,7 @@ precedence) relation:
 
 
 \tree{
-    \dotbelownode{12}{}{$\neg \tH A$}{\omega}{}\\
+    \dotbelownode{12}{}{$\neg\! \tH A$}{\omega}{}\\
     \\
     \nnode{12}{}{\color{red}{$\nu<\omega$}}{}{}\\
     \nnode{12}{}{$\neg A$}{\nu}{}\\
@@ -351,7 +348,7 @@ precedence) relation:
 \vspace{8mm}
 
 \tree{
-    \nnode{12}{}{$\neg\tP A$}{\omega}{}\\
+    \nnode{12}{}{$\neg\!\tP A$}{\omega}{}\\
     \dotbelownode{12}{}{\color{red}{$\nu<\omega$}}{}{}\\
     \\
     \nnode{12}{}{$\neg A$}{\nu}{}\\
@@ -485,8 +482,8 @@ restrictions on the relevant temporal models. For example, definition
 $t < r$. But if a time $t$ is earlier than $s$, and $s$ is earlier than $r$,
 then surely $t$ must be earlier than $r$. For almost every application of
 temporal logic, we assume that the precedence relation is transitive. This
-corresponds to the \pr{4}-schema for $\tG$, and also to the \pr{4}-schema for
-$\tH$.
+corresponds to the \pr{4}-schema for $\tG$. It also corresponds to the
+\pr{4}-schema for $\tH$.
 \begin{principles}
   \pri{4G}{\tG A \to \tG\tG A}\\
   \pri{4H}{\tH A \to \tH\tH A}
@@ -538,9 +535,10 @@ irreflexivity? The following observation reveals the answer: nothing.
   % 
   \begin{itemize}[leftmargin=10mm]
     \itemsep-1mm
-  \item $w'$ verifies the same sentence letters as $w$: for all $\rho$, $V'(\rho,w') = V'(\rho, w)$;
-  \item $w'$ can see the same worlds as $w$: whenever $wR'v$ then $w'R'v$; and
-  \item $w'$ can be seen from the same worlds as $w$: whenever $vR'w$ then $vR'w'$.
+    \item $w'$ verifies the same sentence letters as $w$: if $w \in V(P)$ then $w' \in V(P)$;
+    \item $w'$ can see the same worlds as $w$: whenever $wR'v$ then $w'R'v$; and
+    \item $w'$ can be seen from the same worlds as $w$: whenever $vR'w$ then
+          $vR'w'$.
   \end{itemize}
   % Since $w$ can see itself, this means that $wR'w'$ and $w'R'w$.
   Finally, we make $w$ inaccessible from itself in $M^i$. A simple proof
@@ -619,14 +617,14 @@ have $t<s$ and $t<r$ but neither $s<r$ nor $r<s$; in that case, $r$ and $s$ are
 not ordered by the precedence relation.
 
 We can rule out such cases by imposing the requirement of
-\textbf{connectedness}. This demands that for any points $t$ and $s$, either
-$t < s$ or $t=s$ or $s < t$. (Note that connectedness allows for cases where
-$t<s$ \emph{and} $s<t$.) An irreflexive, transitive, and connected relation is
-called a \textbf{(strict) linear order} (or a \emph{strict total order}).
+\textbf{connectedness}, also known as \emph{completeness} or \emph{totality}.
+This demands that for any points $t$ and $s$, either $t < s$ or $t=s$ or
+$s < t$.  An irreflexive, transitive, and connected relation is called a
+\textbf{(strict) linear order} (or a \emph{strict total order}).
 
 For some applications, we may want linearity in only one direction. Many
 philosophers have been attracted to a branching-future conception of time,
-wherein a point in time may have more than one future, but only one past. In
+where a point in time may have more than one future, but only one past. In
 such models, we would only require \textbf{left-linearity}: that \emph{if
   $s < t$ and $r < t$}, then either $s < r$ or $s=r$ or $r < s$.
 
@@ -794,7 +792,7 @@ A spacetime point $p_1$ can precede two points $p_2$ and $p_3$ neither of which
 precedes the other, but these two points will always precede a common later
 point $p_4$. Convergence corresponds to the \pr{G}-schema. In temporal
 logic, we have one \pr{G}-schema for future convergence and one for past
-convergence.
+convergence:
 %
 \begin{principles}
 \pri{FG}{\tF\tG A \to \tG\tF A}\\
@@ -816,7 +814,6 @@ convergence.
   \item There is a last time.
   \item There is a first time.
   \end{exlist}
-\vspace{-2mm}
 % HC 131 say that []<>p & []<>q -> <>(p v q) characterises the idea that time
 % has an end, or rather: that every point can see a final point. In the presence
 % of S4, they say this simplifies to the McKinsey axiom []<>p -> <>[]p.
@@ -845,7 +842,7 @@ convergence.
 \vspace{-2mm}
 
 \begin{exercise}
-  Can you show that the schema $\tF A \to \tF\tF A$ corresponds to density? (You
+  Show that the schema $\tF A \to \tF\tF A$ corresponds to density. (You
   have to show that (a) whenever a frame is dense then $\tF A \to \tF\tF A$ is
   valid on the frame, and (b) whenever $\tF A \to \tF\tF A$ is valid on a frame
   then the frame is dense.)
@@ -876,7 +873,7 @@ convergence.
 \begin{solution}
   Without assumptions about the flow of time there is no way to express in
   $\L_T$ that $p$ is true at all times (or at some time). In linear flows,
-  $p \land \tH p \land tG p$ does the job. 
+  $p \land \tH p \land \tG p$ does the job. 
   % Does $GA\land HGA$ work with negatively transitive time (no parallel lines)?
 \end{solution}
 
@@ -928,23 +925,27 @@ happened.
 \begin{exercise}
   Suppose we endorse all instances of the schema (S1) $\tP A \to \Box \tP A$.
   Suppose we also endorse all instances of (S2)
-  $\neg \tP A \to \Box \neg \tP A$, on the grounds that if something has failed to
-  happen then there is nothing we can do that would make it have happened.
-  Suppose also that settledness is closed under logical consequence, so that if
-  $\Box A_{1},\ldots \Box A_{n}$ are true and $A_{1},\ldots,A_{n}$ entail $B$,
-  then $\Box B$ is true as well. Finally, suppose the present time is not the
-  first. Show that we can then derive the fatalist conclusion that the future is
-  settled: $\tF A \to \Box \tF A$. (Hint: Suppose $\tF A$ is true at the present time $t$. Then $\tH \tF\tF A$ is true at $t$ as well. Now continue.)
+  $\neg \!\tP A \to \Box \neg \!\tP A$, on the grounds that if something has
+  failed to happen then there is nothing we can do that would make it have
+  happened. Let's also assume that the present time is not the first, and that
+  the box is closed under logical consequence, meaning that if $\Box A$ and
+  $\Box B$ are true at a time, and $C$ is entailed by $A$ and $B$, then $\Box C$
+  is true (at the time) as well. Show that we can then derive the fatalist
+  conclusion that anything that never actually happen is settled to never 
+  happen: all instances of $(\neg A \land \neg \tP A \land \neg \\to \Box \neg \tF A$ are true. (Hint:
+  use instances of (S1) and (S2) in which $A$ is a statement about the future.)
 \end{exercise}
 \begin{solution}
-  Suppose some instance of $\tF A$ is true at the present time $t$. Then
-  $\tH \tF \tF A$ is true at $t$ as well. Since $\tH \tF \tF A$ is equivalent to
-  $\neg \tP \neg \tF \tF A$, it follows by (S2) that $\Box \tH \tF \tF A$ is
-  true at $t$. Since $t$ is not the first point in time, we also have
-  $\tP(A \lor \neg A)$ at $t$. By (S1), we get $\Box \tP(A \lor \neg A)$. Now
-  $\tH \tF \tF A$ and $\tP(A \lor \neg A)$ together $K_{t}$-entail $\tF A$.
-  Assuming that the box is closed under logical consequence, we can infer that
-  $\Box \tF A$ is true at $t$.
+  Suppose $\neg \tP A \land \neg A \land \neg \tF A$ is true at the present time
+  $t$. Then $\neg \tP\tF A$ is true (at $t$). By (S2), we can infer
+  $\Box \neg \tP\tF A$. But $\neg \tP\tF A$ $K_{t}$-entails
+  $\neg(\tF A \land \tP(A \lor \neg A))$. Since the box is closed under logical
+  consequence, this means that $\Box \neg(\tF A \land \tP(A \lor \neg A))$ is
+  true at $t$. Since $t$ is not the first time, $\tP(A \lor \neg A)$ is true at
+  $t$, and so $\Box \tP(A \lor \neg A)$ is true at $t$ as well, by (S1). have
+  $\neg(\tF A \land \tP(A \lor \neg A))$ and $\tP(A \lor \neg A)$ together
+  entail have $\neg \tF A$. Since the box is closed under logical consequence,
+  it follows that $\Box \tF A$ is true at $t$.
 \end{solution}
 
 % Exercise: multi-modal time travel -- can we change the past? Can you kill your
@@ -952,14 +953,13 @@ happened.
 % not your grandfather. Calling the person your grandfather is smuggling in facts
 % about the future.
 
-Still, there are good reasons to consider branching models of time. I already
-mentioned that branching time models are widely used in computer science, where
+There are nonetheless good reasons to consider branching models of time. I already
+mentioned that such models are widely used in computer science, where
 the ``times'' represent states of a computational process and the precedence
 relation has a semi-modal interpretation, holding between two states iff the
 first can lead to the second.
 % (The relevant logics of branching time are called ``computational tree
 % logics'').
-
 I also mentioned that the precedence relation in relativistic spacetime allows
 for branching, although diverging spacetime branches ultimately reconverge. A
 more classical form of branching (without reconvergence) has been argued to
@@ -1030,10 +1030,10 @@ history is a collection of times $H$ such that
 The model (or rather, frame) depicted on the right contains two
 histories: $\{ t_1, t_2, t_3 \}$ and $\{ t_1, t_2, t_4 \}$.
 
-Second, if $t$ is any time in any model, then any maximal linearly ordered set
-of times \emph{later than $t$} will be called a \textbf{future of $t$}. In the
-model on the right, $t_1$ has two futures: $\{ t_2, t_3 \}$ and
-$\{ t_2, t_4 \}$.
+For the second piece of terminology, let $t$ be any time in any model. Any
+maximal linearly ordered set of times \emph{later than $t$} will be called a
+\textbf{future of $t$}. In the model on the right, $t_1$ has two futures:
+$\{ t_2, t_3 \}$ and $\{ t_2, t_4 \}$.
 
 If you look back at definition \ref{def:temporalsemantics}, you can see that in
 the standard semantics for temporal logic, $\tG p$ is true at $t$ iff $p$ is
@@ -1084,8 +1084,8 @@ definition, so the problems raised by multiple futures disappear. To say that
 $p$ is the case in \emph{some} history, or in \emph{all} histories, Ockhamists
 add new operators $\Diamond$ and $\Box$ that quantify over histories. The
 Peircean $\tF$ operator is equivalent to $\Box \tF$ in Ockhamism. $\Box \tF p$
-says that every future holds a time at which $p$ is true; $\Diamond Fp$, by
-contrast, would say that some future holds a time which $p$ is true.
+says that every future contains a time at which $p$ is true; $\Diamond Fp$, by
+contrast, would say that some future contains a time which $p$ is true.
 
 Here is the full Ockhamist semantics.
 
@@ -1159,8 +1159,8 @@ false relative to a model and a time \emph{and a history}. A branching-time
 scenario, however, does not fix a particular history. We'd like to know which
 sentences are true today if there are multiple futures. Ockhamism only tells us
 which sentences are true relative to each of the different futures. Relative to
-a history that contains a sea battle $\tF p$ is true, relative to other
-histories $\tF p$ is false.
+a history that contains a sea battle, $\tF p$ is true. Relative to other
+histories, $\tF p$ is false.
 
 % In almost every approach to modal semantics, sentences are evaluated as true
 % or false relative to a model and a certain \textbf{evaluation point} taken
@@ -1207,8 +1207,8 @@ Supervaluationist accounts tend to have some non-classical features. Suppose we
 live in a branching world in which one future contains a sea battle and another
 doesn't. Let $p$ express that a sea battle takes place. According to
 supervaluationist Ockhamism, neither $\tF p$ nor $\neg \tF p$ is true in that
-scenario. Both are true relative to some but not relative to all histories, and
-that means that neither is simply true. Assuming that a sentence is \emph{false}
+scenario. Both are true relative to some but not relative to all histories.
+So neither is simply true. Assuming that a sentence is \emph{false}
 if its negation is true, $\tF p$ is neither true nor false!
 
 Logics in which a sentence can have a third status besides (mere) truth and
@@ -1226,13 +1226,13 @@ indeterminate, then their conjunction $A \land B$, disjunction $A \lor B$, and
 negations $\neg A, \neg B$ are also indeterminate.
 
 In the sea battle scenario, \polishL{}ukasiewicz's account renders
-$\tF s \lor \neg \tF s$ indeterminate, assuming $\tF s$ is indeterminate. This
+$\tF s \,\lor \neg\! \tF s$ indeterminate, assuming $\tF s$ is indeterminate. This
 is often regarded as problematic: even if we shouldn't assert that there will be
 a sea battle, it is argued that we are justified to assert that there either
 will or there won't be a sea battle. The supervaluationist form of Ockhamism,
 while also three-valued, avoids this problem. On the supervaluationist
-interpretation, $\tF s$ and $\neg \tF s$ are neither true nor false in the sea
-battle scenario, but $\tF s \lor \neg \tF s$ is true.
+interpretation, $\tF s$ and $\neg \!\tF s$ are neither true nor false in the sea
+battle scenario, but $\tF s \,\lor \neg \!\tF s$ is true.
 
 \begin{exercise}
   Let's say that a sentence is \emph{super-valid} if it is true at all times in
@@ -1299,7 +1299,7 @@ is true at the next point in time. Formally:
 \begin{align*}
 \hspace{-17mm}
   M,t \models \tX A \;\text{iff} & \;\text{$M,s \models A$ for some $s$ such that (i) $t<s$ and (ii) $s<r$ for all $r$}\\[-0.5mm]
-  & \;\text{such that $t\not=s$ and $t<r$.}
+  & \;\text{such that $r\not=s$ and $t<r$.}
 \end{align*}
 
 With the help of $\tX$, we can also say that $A$ is true in two units of time
@@ -1333,9 +1333,9 @@ M,t \models A \tU B \;\text{iff} &\; \text{there is some $s$ with $t < s$ for wh
   &\;\text{with $t < r < s$, we have $M, r \models A$.}
 \end{align*}
 
-If we have $\tS$ and $\tU$, we don't actually need $\tF, \tG,\tP,$ and $\tH$,
-because these can be defined in terms of $\tS$ and $\tU$: $\tP A$ is equivalent
-to $(p\lor \neg p)\tS A$; $\tF A$ is equivalent to $(p \lor \neg p)\tU A$.
+The operators $\tF, \tG,\tP,$ and $\tH$ can all be defined in terms of $\tS$ and
+$\tU$. For example, $\tP A$ is equivalent to $(p\lor \neg p)\tS A$. And $\tF A$
+is equivalent to $(p \lor \neg p)\tU A$.
 
 \begin{exercise}
   Define $\tX A$ in terms of $\tU$.
@@ -1418,14 +1418,14 @@ fixed.
 
 Like the Ockhamist semantics from the previous section, this semantics has an
 extra parameter. An ordinary scenario is represented by a single time in a
-model, not by a pair of two times. So we still need to specify under what
-conditions a sentence is true at a single time. Here, the standard approach is
+model, not by a pair of times. So we need to specify under what
+conditions a sentence is true at a (single) time. Here, the standard approach is
 not supervaluation but ``diagonalization'':
 \begin{align*}
   M,t \models A & \;\text{iff $M,t,t \models A$}.
 \end{align*}
 
-Here is why $\tP\tN p$ entails $p$.
+This ``two-dimensional'' semantics correctly predicts that $\tP\tN p$ entails $p$.
 \begin{enumerate}[leftmargin=10mm]
   \itemsep-1mm
 \item Assume $M,t \models \tP\tN p$.

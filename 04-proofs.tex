@@ -88,16 +88,17 @@ not a proof of a given target sentence.
     $\Box(A \lor \neg A)$ is a proof of itself. Nothing else is a proof in
     method B.
     \item In \emph{method C}, a proof of a sentence $A$ is a list of
-    $\L_{M}$-sentences ending in $A$ all elements of which occur in some
-    textbook on modal logic.
+    $\L_{M}$-sentences terminating with $A$ and in which every sentence occurs
+    in some logic textbook.
   \end{exlist}
+  \medskip%
+  
   Which of these qualify as genuine proof methods by the criterion I have
   described?
 \end{exercise}
 \begin{solution}
   Methods A and B are genuine proof methods. Method C is not because there is no
-  simple mechanical check of whether an arbitrary sentence occurs in some logic
-  textbook.
+  simple mechanical check of whether a sentence occurs in some logic textbook.
 \end{solution}
 
 \begin{exercise}\label{ex:sillyproofmethod}
@@ -114,7 +115,7 @@ not a proof of a given target sentence.
   method B.
 
   Method C is neither sound nor complete. It is not sound because many K-invalid
-  sentences figure in modal logic textbooks. It is not complete because there
+  sentences figure in logic textbooks. It is not complete because there
   are infinitely many K-valid sentences almost all of which don't occur in any
   textbooks.
 \end{solution}
@@ -125,7 +126,7 @@ not a proof of a given target sentence.
 \section{Soundness for trees}%
 \label{sec:soundnesstrees}
 
-We are going to show that the tree method for K is sound -- that every sentence
+We are now going to show that the tree method for K is sound -- that every sentence
 that can be proved with the method is K-valid. A proof in the tree method is a
 tree in which all branches are closed. So this is what we have to show:
 %
@@ -280,8 +281,9 @@ With the help of this lemma, we can prove that the method of K-trees is sound.
   `$w$' to $w$. Since the tree is created from the first node by applying the
   K-rules, the Soundness Lemma implies that some branch $\beta$ on the tree
   correctly describes $M$: all nodes on the tree are correct statements about
-  $M$ under some function $f$. But the tree is closed. So $\beta$ contains
-  contradictory nodes of the form
+  $M$ under some function $f$. But the tree is closed. This means that $\beta$
+  contains contradictory nodes of the form
+  
   \begin{center}
     \tree{%
       \nnode{12}{n.}{$B$}{\upsilon}{}\\
@@ -320,9 +322,10 @@ With the help of this lemma, we can prove that the method of K-trees is sound.
 \end{solution}
 
 \begin{exercise}
-  The K-tree for (target sentence) $\Box p$ has a single open branch. Does this
-  branch correctly describe the Kripke model in which there is just one world
-  $w$, $w$ has access to itself, and all sentence letters are false at $w$?
+  Draw the K-tree for target sentence $\Box p$. The tree has a single open
+  branch. Does this branch correctly describe the Kripke model in which there is
+  just one world $w$, $w$ has access to itself, and all sentence letters are
+  false at $w$?
 \end{exercise}
 \begin{solution}
   Yes. The function $f$ can map both `$w$' and `$v$' to $w$.
@@ -356,15 +359,15 @@ correctly describes $M$. This is evidently the case.
 \section{Completeness for trees}%
 \label{sec:completenesstrees}
 
-Let's show that the tree rules for K are complete -- that whenever a sentence is
+Let's now show that the tree rules for K are complete -- that whenever a sentence is
 K-valid then there is a closed K-tree for that sentence. In fact, we will show
 something stronger:
 \begin{quote}
   If a sentence is K-valid, then every fully developed K-tree for the sentence is closed.
 \end{quote}
 By a \emph{fully developed} tree, I mean a tree on which every node on any open
-branch that can be expanded has been expanded. (A fully developed tree may be
-infinite, but it won't be infinite if it is closed.)
+branch that can be expanded (in any way) has been expanded (in this way). A
+fully developed tree may be infinite.
 
 We will prove the displayed sentence by proving its contraposition:
 \begin{quote}
@@ -491,8 +494,8 @@ more of them can be applied, then starting over with (i), and so on.
 \begin{proof}
   \emph{Proof:} When constructing a regular tree, every iteration of (i), (ii),
   and (iii) only allows expanding finitely many nodes. So every node on every
-  open branch that can be expanded is eventually expanded by some iteration of
-  (i), (ii), and (iii). \qed
+  open branch that can be expanded in any way is eventually expanded in this way
+  by some iteration of (i), (ii), and (iii). \qed
 \end{proof}
 
 Now we have all the ingredients to prove completeness.
@@ -626,7 +629,7 @@ $\omega$ on the branch.
 \begin{exercise}
   The S5 tree rules from chapter \ref{ch:worlds} are sound and complete for
   S5-validity: all and only the S5-valid sentences can be proven. Are the rules
-  sound for \emph{K-validity}? Are they complete for K-validity?
+  sound for K-validity? Are they complete for K-validity?
 \end{exercise}
 \begin{solution}
   The S5 rules are not sound with respect to K-validity. For example,
@@ -812,16 +815,16 @@ assumptions entails that I like all natural numbers.
 \section{Soundness and completeness for axiomatic calculi}
 \label{sec:scaxiomatic}
 
-We are now going to show that the axiomatic calculus for system K is sound and
-complete for K-validity. Here a proof is a list of sentences each of
-which is either an instance of \pr{Dual} or \pr{K} or can be derived from
-earlier sentences on the list by application of \pr{CPL} or \pr{Nec}. Expressed
-as a construction rule, \pr{Nec} says that whenever a list contains a sentence
-$A$ then one may append $\Box A$. \pr{CPL} says that one may append any
-truth-functional consequence of sentences that are already on the list. (This is
-an acceptable rule because there is a simple mechanical test -- the truth-table
-method -- for checking whether a sentence is a truth-functional consequence of
-finitely many other sentences.)
+Next, we are going to show that the axiomatic calculus for system K is sound and
+complete for K-validity. In the axiomatic calculus, a proof is a list of
+sentences each of which is either an instance of \pr{Dual} or \pr{K} or can be
+derived from earlier sentences on the list by application of \pr{CPL} or
+\pr{Nec}. Expressed as a construction rule, \pr{Nec} says that whenever a list
+contains a sentence $A$ then one may append $\Box A$. \pr{CPL} says that one may
+append any truth-functional consequence of sentences that are already on the
+list. (This is an acceptable rule because there is a simple mechanical test --
+the truth-table method -- for checking whether a sentence is a truth-functional
+consequence of finitely many other sentences.)
 
 Soundness is easy. We want to show that everything that is derivable from some
 instances of \pr{Dual} and \pr{K} by applications of \pr{CPL} and \pr{Nec} is
@@ -980,7 +983,7 @@ Now here's the canonical model for K.
 % Exercise: show that for any consistent normal modal logic, the canonical
 % accessibility relation R is such that wRv iff for all B\in v we have <>B\in w.
 
-So the ``worlds'' in the canonical model are sets of $\L_M$-sentences. The
+The ``worlds'' in the canonical model are sets of $\L_M$-sentences. The
 interpretation function makes a sentence letter true at a world iff the letter
 is a member of the world. As we are going to see, this generalizes to arbitrary
 sentences:
@@ -1095,7 +1098,7 @@ To prove fact (1), we need another observation, which relies on the presence of
   $(B_1\land\ldots\land B_n) \to A$. Another application of \pr{CPL} yields
   $\neg (\Box B_1\land\ldots\land \Box B_n \land \neg\Box A)$. So
   $\{\Box B_1,\ldots,\Box B_n, \neg \Box A\}$ is K-inconsistent. But
-  $\Box B_1,\ldots,\Box B_n$ are in $\Gamma^{-}$. And since $\Box A$ is not in
+  $\Box B_1,\ldots,\Box B_n$ are in $\Gamma$. And since $\Box A$ is not in
   $\Gamma$ and $\Gamma$ is maximal, $\neg \Box A$ is in $\Gamma$. So
   $\{\Box B_1,\ldots,\Box B_n, \neg \Box A\}$ is a subset of $\Gamma$. And so
   $\Gamma$ is K-inconsistent. \qed
@@ -1110,9 +1113,9 @@ Here, then, is fact (1):
 
 \begin{proof}
   \emph{Proof:} The proof is by induction on complexity of $A$. We first show
-  that the claim ($A$ is in $w$ iff $M_{K},w\models A$) holds for sentence
+  that the claim (that $A$ is in $w$ iff $M_{K},w\models A$) holds for sentence
   letters. Then we show that if the claim holds for the immediate parts of a
-  complex sentence (this is our \emph{induction hypothesis}, then the claim also
+  complex sentence (this is our induction hypothesis), then the claim also
   holds for the sentence itself.%
   \vspace{-1mm}
   \begin{itemize}
@@ -1360,9 +1363,9 @@ far encountered -- a sentence is entailed by infinitely many premises only if it
 is entailed by a finite subset of these premises. Logics with this property are
 called \textbf{compact}.
 
-To show that K is compact, let's say that a sentence $B$ is \emph{K-derivable}
-from a (possibly infinite) set of sentences $\Gamma$ if there are finitely many
-members $A_{1},\ldots,A_{n}$ of $\Gamma$ for which
+Let's show that K is compact. To this end, I'll say that a sentence $B$ is
+\emph{K-derivable} from a (possibly infinite) set of sentences $\Gamma$ if there
+are finitely many members $A_{1},\ldots,A_{n}$ of $\Gamma$ for which
 $(A_1 \land \ldots \land A_n) \to B$ is provable in the axiomatic calculus for
 K. Now we first show that whenever $\Gamma \models_{K} B$ then $B$ is
 K-derivable from $\Gamma$. This is called \emph{strong completeness} because it
@@ -1402,8 +1405,8 @@ Compactness is surprising. It is easy to think of cases in which a conclusion is
 entailed by infinitely many premises, but not by any finite subset of these
 premises. For example, suppose I like the number 0, I like the number 1, I like
 the number 2, and so on, for all natural numbers 0,1,2,3,\ldots. Together, these
-assumptions entail that I like all natural numbers. But no finite subset of the
-assumptions has this consequence. 
+assumptions entail that I like every natural number. But no finite subset of the
+assumptions has this consequence.
 
 \begin{exercise}
   A set of sentences $\Gamma$ is called \emph{K-satisfiable} if there is a world
@@ -1432,13 +1435,12 @@ assumptions has this consequence.
 
 Our proofs of soundness, completeness, compactness, etc.\ were informal. We have
 not translated the relevant claims into a formal language, nor have we used a
-formal proof method such a tree method or an axiomatic method. In principle,
-however, that could be done. All our proofs could be formalized in an axiomatic
-calculus for predicate logic with a few additional axioms about sets. A
-well-known calculus of that kind is ZFC (named after Ernst Zermelo, Abraham
-Fraenkel, and the Axiom of Choice). ZFC is strong enough to prove not just
-soundness and completeness in modal logic, but practically everything that can
-be proved in any branch of maths.
+formal method of proof. In principle, however, this can be done. All our
+proofs could be formalized in an axiomatic calculus for predicate logic with a
+few additional axioms about sets. A well-known calculus of that kind is ZFC
+(named after Ernst Zermelo, Abraham Fraenkel, and the Axiom of Choice). ZFC is
+strong enough to prove not just soundness and completeness in modal logic, but
+practically everything that can be proved in any branch of maths.
 
 An interesting feature of ZFC is that it can not only prove facts about what's
 provable in simpler axiomatic calculi; it can also prove facts about what's
@@ -1460,14 +1462,15 @@ it is ZFC-provable that the sentence is ZFC-provable. This gives us the
 
 You might expect that we also have the \pr{T}-schema $\Box A \to A$ or the
 \pr{D}-schema $\Box A \to \Diamond A$. The latter says that if something is
-provable then it's negation isn't provable (since $\Diamond A$ means
-$\neg\Box\neg A$). And surely ZFC can't prove both a sentence and its negation.
-That would make ZFC inconsistent. I say `surely', but can we prove (in ZFC) that
-ZFC is consistent? The answer is no. More precisely, one can prove that if one
-can prove that ZFC is consistent then ZFC is \emph{in}consistent. This bizarre
-fact is a consequence of \emph{G\"odel's second incompleteness theorem},
-established by Kurt G\"odel in 1931. It is reflected by the following schema
-(named after G\"odel and Martin L\"ob), all whose instances are provable in ZFC:
+provable then its negation isn't provable (since $\Diamond A$ means
+$\neg\Box\neg A$). And surely ZFC can't prove both a sentence and its negation
+-- which would make ZFC inconsistent. I say `surely', but can we
+prove (in ZFC) that ZFC is consistent? The answer is no. More precisely, one can
+prove that if one can prove that ZFC is consistent then ZFC is
+\emph{in}consistent. This bizarre fact is a consequence of \emph{G\"odel's
+  second incompleteness theorem}, established by Kurt G\"odel in 1931. It is
+reflected by the following schema (named after G\"odel and Martin L\"ob), all
+whose instances are provable in ZFC:
 %
 \principle{GL}{\Box(\Box A \to A) \to \Box A}
 %
@@ -1479,7 +1482,7 @@ isn't needed as a separate axiom schema because it can be derived.)%
 \begin{exercise}
   Suppose ZFC can prove its own consistency, so that there is a proof of
   $\neg \Box (p \land \neg p)$. Explain how this proof could be extended to a
-  proof of $\Box (p \land \neg p)$, showing that ZFC is inconsistent. You need
+  proof of $\Box (p \land \neg p)$. You need
   each of \pr{GL}, \pr{Nec}, and \pr{CPL}.
 \end{exercise}
 \begin{solution}

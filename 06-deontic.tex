@@ -18,7 +18,7 @@ or all of the others. Deontic logic is applicable to norms of all kinds. We do
 not have to settle whether $\Ob$ expresses legal obligation or moral obligation
 or some other kind of obligation. It is important, however, that we don't
 equivocate. If the law requires $q$ and morality $\neg q$, we should not
-formalize this as $\Ob q \land \Ob \neg q$. It would be better to use a
+formalize this as $\Ob q \land \Ob\! \neg q$. It would be better to use a
 multi-modal language with different operators for legal and moral obligation.
 
 % Humberstone 245 discusses the idea of using multi-relational frames in which
@@ -31,7 +31,7 @@ Obligations and permissions often vary from agent to agent. If it is your turn
 to cook dinner then you are obligated to cook dinner, but I am not. To capture
 this agent-relativity, we could add agent subscripts to the operators, as we did
 in epistemic logic. We could then express our different obligations as
-$\Ob_1 q \land \neg \Ob_2 q$. But what does the sentence letter $q$ stand for?
+$\Ob_1 \!q \land \neg \!\Ob_2 \!q$. But what does the sentence letter $q$ stand for?
 When I say that you are obligated to cook dinner, the object of the obligation
 appears to be a type of act: cooking dinner. In the language of modal
 propositional logic, $\Ob$ and $\Pe$ are sentence operators. Unless we want to
@@ -47,7 +47,7 @@ Consider sentence (1), which is arguably equivalent to (2).
 \item[(2)] You ought to see to it that you cook dinner.
 \end{itemize}
 In (2), the operator `you ought to see to it that' attaches to a sentence, `you
-cook dinner'. So we can translate (1) via (2) as $\Ob_1 q$, where $q$ translates
+cook dinner'. So we can translate (1) via (2) as $\Ob_1 \!q$, where $q$ translates
 `you cook dinner', and $\Ob_1$ corresponds to `you ought to see to it that'.
 
 The subject (you) is mentioned twice in (2). A common assumption in deontic
@@ -68,20 +68,20 @@ The impersonal `ought' also figures in statements like (4).
 When I say (4), I don't mean that nobody is obligated to die of hunger. Nor do I
 mean that everybody is obligated to not die of hunger. Rather, I mean that a
 certain state of affairs -- that nobody dies of hunger -- ought to be the case.
-By itself, this does not impose any obligations on anyone.
+Without further assumptions, this does not impose any obligations on anyone.
 
 % The reducibility of personal to impersonal ought was suggested by Meinong and
 % Chisholm, see Handbook of Modal Logic p 1204.
 
-On closer inspection, the equivalence between agent-relative `ought' statements
-like (2) and impersonal `ought' statements like (3) is questionable. Suppose Amy
-has promised to play with Betty. Then Amy is obligated to play with Betty. But
-Betty is not thereby obligated to play with Amy. Betty may even have promised
-not to play with Amy. It is hard to express these facts in terms of impersonal
-oughts. If we say that it ought to be the case that Amy plays with Betty, we're
-missing the fact that the obligation falls on Amy, not on Betty (who might be
-under a contrary obligation). So perhaps it would be better to keep the agent
-subscripts after all.
+There are reasons to question the equivalence between agent-relative `ought'
+statements like (2) and impersonal `ought' statements like (3).
+Suppose Amy has promised to play with Betty. Then Amy is obligated to play with
+Betty. But Betty is not thereby obligated to play with Amy. Betty may even have
+promised not to play with Amy. It is hard to express these facts in terms of
+impersonal oughts. If we say that it ought to be the case that Amy plays with
+Betty, we're missing the fact that the obligation falls on Amy, not on Betty
+(who might be under a contrary obligation). So perhaps it would be better to
+keep the agent subscripts after all.
 
 It can also be useful to make the `see to it that' component in statements like
 (2) explicit. That Amy ought to play with Betty could then be translated as
@@ -193,11 +193,12 @@ the non-logical vocabulary. A scenario for deontic logic has to specify the
 relevant norms. This can be done by specifying which worlds are acceptable
 relative to which other worlds.
 
-We can represent a scenario of this type together with an interpretation of the
-sentence letters by a Kripke model. A world $v$ in the model is accessible from
-a world $w$ if $v$ is acceptable relative to the norms at $w$ -- equivalently,
-if everything that ought to be the case at $w$ is the case at $v$. Worlds that
-are accessible from $w$ in this sense are called \textbf{ideal} relative to $w$.
+A Kripke model represents a scenario of this type, together with an
+interpretation of the sentence letters. In this application, a world $v$ in the
+model is accessible from a world $w$ if $v$ is acceptable relative to the norms
+at $w$ -- equivalently, if everything that ought to be the case at $w$ is the
+case at $v$. Worlds that are accessible from $w$ in this sense are called
+\textbf{ideal} relative to $w$.
 
 Our possible-worlds analysis of obligation and permission is reflected in
 definition \ref{def:kripkesemantics}, which settles under what conditions a
@@ -229,16 +230,17 @@ can see some world. This would validate principle \pr{D}:
 \principle{D}{\Ob A \to \Pe A}
 %
 Intuitively, \pr{D} says that the norms are consistent: if you're obligated to
-do $A$, then you can't also be obligated to do not-$A$. (Remember that $\Pe A$
-is equivalent to $\neg \Ob \neg A$.) Semantically, \pr{D} corresponds to the
+do $A$, then you are not obligated to do not-$A$. (Remember that $\Pe A$
+is equivalent to $\neg\! \Ob\! \neg A$.) Semantically, \pr{D} corresponds to the
 assumption that there is always at least one world at which all the norms are
 satisfied.
 
 Without seriality, we have to allow for worlds from which no world is
 accessible. At such a world, all sentences of the form $\Ob A$ are true, and all
 sentences of the form $\Pe A$ are false. Everything is obligatory, but nothing
-is allowed. That makes little sense. If we use Kripke semantics for deontic
-logic, we should rule out inconsistent norms and accept \pr{D} as valid.
+is allowed. It is hard to make sense of such a situation. If we use Kripke
+semantics for deontic logic, we should rule out inconsistent norms and accept
+\pr{D} as valid.
 
 Here it may be important to distinguish \emph{prima facie} obligations from
 \emph{actual}, or \emph{all-things-considered} obligations. If you've promised
@@ -271,11 +273,11 @@ The \pr{U} principle is entailed by an alternative way of formalizing obligation
 and permission that goes back to Leibniz. Let `$\OK$' be a propositional
 constant whose intended meaning is that all norms are satisfied, no obligations
 violated. Suppose we add this expression to $\L_M$, and we interpret the box of
-$\L_M$ as a suitable kind of circumstantial necessity. Arguably, $\Ob A$ is then
-definable as $\Box (\OK \to A)$: it ought to be that $A$ iff, necessarily, $A$
-is the case whenever all obligations are met. It is not hard to show that if the
-\pr{T}-schema is valid for the circumstantial box, and $\Ob A$ is defined as
-$\Box(\OK \to A)$, then the \pr{U}-schema is valid for $\Ob$.
+$\L_M$ as a suitable kind of circumstantial necessity. Leibniz's idea was that
+$\Ob A$ is definable as $\Box (\OK \to A)$: it ought to be that $A$ iff,
+necessarily, $A$ is the case whenever all obligations are met. It is not hard to
+show that if the \pr{T}-schema is valid for the circumstantial box, and $\Ob A$
+is defined as $\Box(\OK \to A)$, then the \pr{U}-schema is valid for $\Ob$.
 
 % Kanger uses 'Q' instead of '$\OK$'. Note that the same approach could be used
 % in other contexts, e.g. having 'Q' specify that the laws of nature are
@@ -343,9 +345,9 @@ To get a clearer grip on whether that is plausible, we need to clarify how
 obligations and permissions can vary from world to world.
 
 One obvious sense in which norms can vary across worlds is that people subscribe
-to different norms at different worlds. At our world, UK traffic law requires
-driving on the left and most people think it is morally wrong to torture
-animals for fun. At other worlds, the laws and attitudes are different.
+to different norms at different worlds. In our world, UK traffic law requires
+driving on the left, and most people think it is morally wrong to torture animals
+for fun. At other worlds, the laws and attitudes are different.
 
 Let $v$ be a world at which the traffic laws require driving on the right, and
 at which everyone thinks it is fine to torture animals. Suppose Norman at $v$ is
@@ -355,7 +357,7 @@ laws? The answer depends on whether we evaluate Norman's acts relative to our
 norms -- the norms at our world -- or relative to the norms at Norman's world.
 Both perspectives are intelligible. They lead to different deontic logics.
 
-On an \textbf{absolutist} conception, the norms do not vary from world to world.
+On an \textbf{absolutist} conception, the basic norms do not vary from world to world.
 Whichever world we look at, we always assess it relative to the same set of
 norms. On this conception, it is natural to assume that the very same worlds are
 ideal relative to any world: a world will be accessible from any world just in
@@ -391,12 +393,13 @@ obligation and permission is KD45.
 On a \textbf{relativist} conception of norms, we evaluate the events at other
 worlds relative to the norms at these worlds. Transitivity and euclidity now
 become implausible, as does shift reflexivity. To see why, add another world $u$
-to the Norman scenario. The laws at $u$ say that one must drive on the right but
-everyone nonetheless drives on the left. Nothing that happens at $u$, we may
-assume, violates the traffic laws of our world. So $u$ is deontically accessible
-from the actual world. But if we evaluate the events at $u$ relative to the laws
-at $u$, then much of what happens at $u$ violates the norms, so $u$ is not
-deontically accessible from itself. Shift reflexivity fails.
+to the Norman scenario. The laws at $u$ say that one must drive on the right.
+But the inhabitants of $u$ are rebellious: everyone at $u$ drives on the left.
+Nothing that happens at $u$, we may assume, violates the traffic laws of our
+world. So $u$ is deontically accessible from the actual world. But if we
+evaluate the events at $u$ relative to the laws at $u$, then much of what
+happens at $u$ violates the norms, so $u$ is not deontically accessible from
+itself. Shift reflexivity fails.
 
 \begin{exercise}
   Explain why deontic accessibility is neither transitive nor euclidean, on
@@ -552,8 +555,8 @@ which you are overseas and have no means to rescue the baby. These worlds need
 not involve any violations of norms.
 
 Whether something ought to be the case depends not just on the norms but also on
-the circumstances. Under circumstances in which you have the opportunity of
-saving a drowning baby, you ought to save it. Under other circumstances you do
+the circumstances. Under circumstances in which you have the opportunity to
+save a drowning baby, you ought to save it. Under other circumstances you do
 not.
 
 % The point also applies to impersonal oughts. In worlds where an increase of
@@ -601,7 +604,7 @@ a ``relevant circumstance'' that takes place at every world accessible from $w$.
 
 Clause (b) in the above definition assumes that no norms are violated at any
 accessible world. But if accessibility is restricted by circumstances, then this
-is implausible, as the relevant circumstances will often involve violations of
+is implausible because the relevant circumstances will often involve violations of
 norms.
 
 The problem is brought ought by Arthur Prior's ``Samaritan Paradox''.  Suppose
@@ -615,13 +618,13 @@ nobody would have been robbed and injured.
 
 In the Samaritan Paradox, the robbery is settled; it has happened at all worlds
 that are compatible with the ``relevant circumstances''. None of these worlds is
-ideal. Worlds at which Jones doesn't help the victim are even \emph{worse}, in
-terms of norm violations, than worlds at which he helps the victim. Both kinds
-of worlds are bad, because the victim got robbed. But our norms don't just
-divide the possible worlds into good and bad; they allow for finer distinctions
-between bad worlds and even worse worlds. Jones ought to help the victim because
-that's what he does in the \emph{best} worlds among those he can bring about,
-even though none of these worlds are ideal.
+ideal. Among these worlds, worlds at which Jones doesn't help the victim are
+even \emph{worse}, in terms of norm violations, than worlds at which he helps
+the victim. Both kinds of worlds are bad, because the victim got robbed. But our
+norms don't just divide the possible worlds into good and bad; they allow for
+finer distinctions between bad worlds and even worse worlds. Jones ought to help
+the victim because that's what he does in the \emph{best} worlds among those he
+can bring about, even though none of these worlds are ideal.
 
 % So we need a "better-than" ordering over the worlds, where a world is "better"
 % if the agent comes closer to satisfying her obligations. Naively, this might
@@ -665,7 +668,7 @@ So here is a second pass at the revised definition of deontic accessibility.
   A world $v$ is deontically accessible from a world $w$ iff (a) the relevant
   circumstances at $w$ are also the case at $v$, and (b) $v$ is one of the best
   worlds, by the norms at $w$, among worlds at which the relevant circumstances
-  from $w$ are held fixed.
+  from $w$ are the case.
 \end{quote}
 
 The revised accessibility relation combines circumstantial and purely deontic
@@ -676,8 +679,8 @@ to the norms at any given world (which may be the norms at every world, on an
 absolutist approach).
 
 Let `$u \prec_w v$' mean that world $u$ is better than world $v$ relative to the
-norms at $w$. (The symbol `$\prec$' hints at the idea that $u$ contains
-\emph{fewer} violations of norms than $v$.) We assume that for any world $w$,
+norms at $w$. The symbol `$\prec$' hints at the idea that $u$ contains
+\emph{fewer} violations of norms than $v$. We assume that for any world $w$,
 the relation $\prec_w$ is transitive. We also assume that it is asymmetric,
 meaning that if $u \prec_w v$ then it is not the case that $v \prec_w u$.
 Asymmetric and transitive relations are known as \textbf{strict partial orders}.
@@ -697,7 +700,7 @@ Asymmetric and transitive relations are known as \textbf{strict partial orders}.
 \end{definition}
 
 Now we need to say under what conditions a sentence of the form $\Ob A$ is true
-at a world in an ordering model. Informally, $\Ob A$ should be true at $w$ iff
+at a world in an ordering model. Informally, $\Ob A$ will be true at $w$ iff
 $A$ is true at the best worlds among those that are circumstantially accessible.
 Let's introduce one more piece of notation. For any set of worlds $S$ and any
 partial order $\prec$, let $\emph{Min}^{\prec}(S)$ be the set of $\prec$-minimal
@@ -712,10 +715,14 @@ $u$ of $S$ for which $u \prec v$.
 
 Here, then, are the truth-conditions for $\Ob A$ and $\Pe A$ in deontic ordering
 models:
-\begin{align*}
-  M,w \models \Ob A &\text{ \;iff\; $M,v \models A$ for all $v \in \emph{Min}^{\prec_w}(\{ u: wRu\})$}\\
-  M,w \models \Pe A &\text{ \;iff\; $M,v \models A$ for some $v \in \emph{Min}^{\prec_w}(\{ u: wRu\})$}
-\end{align*}
+
+
+\begin{definition}{Ordering semantics}{orderingsemantics}
+  If $M$ is a ordering model and $w$ a world in $M$, then\\[1mm]
+  $M,w \models \Ob A$ \text{ \;iff\; $M,v \models A$ for all $v \in \emph{Min}^{\prec_w}(\{ u: wRu\})$}\\
+  $M,w \models \Pe A$ \text{ \;iff\; $M,v \models A$ for some $v \in \emph{Min}^{\prec_w}(\{ u: wRu\})$}
+\end{definition}
+
 This is just a formal way of saying that $\Ob A$ is true at $w$ iff $A$ is true
 at the best worlds (by the norms at $w$) among the worlds that are circumstantially accessible at $w$.
 
@@ -723,14 +730,14 @@ If we want the \pr{D}-schema to be valid, we have to assume that there is always
 at least one best world among the circumstantially accessible worlds, so that
 $\emph{Min}^{\prec_w}(\{ u: wRu\})$ is never empty. Let's make this assumption.
 
-We could now study how the logic of obligation and permission depends on formal
-properties of the circumstantial accessibility relation $R$ and the deontic
-orderings $\prec_w$. In section \ref{sec:systems}, I argued that the logic of
-historical necessity (of what is settled and open) is S5. This suggests that in
-normal contexts, $R$ is an equivalence relation. If we adopt an absolutist
-approach, on which the orderings $\prec_{w}$ are the same for every world $w$, we
-then still get KD45. If we allow the orderings to vary from world to world, we
-still get D, unless we impose further restrictions on the orderings.
+The logic of obligation and permission now depends on formal properties of the
+circumstantial accessibility relation $R$ and the deontic orderings $\prec_w$.
+In section \ref{sec:systems}, I argued that the logic of historical necessity
+(of what is settled and open) is S5. This suggests that in normal contexts, $R$
+is an equivalence relation. If we adopt an absolutist approach, on which the
+orderings $\prec_{w}$ are the same for every world $w$, we then still get KD45.
+If we allow the orderings to vary from world to world, we still get D, unless we
+impose further restrictions on the orderings.
 
 % Why? If R is an equivalence relation then we can ignore the restriction to
 % R-accessible worlds: A is true at w in M iff A is true at w in M*, where W* =
@@ -749,7 +756,7 @@ still get D, unless we impose further restrictions on the orderings.
 \begin{solution}
   Since we assume that there is always at least one best world among the
   accessible worlds, and the accessible worlds comprise just one world, it
-  follows that $\Box A$ is true at $w$ iff $A$ is true at $w$. The logic we get
+  follows that $\Ob A$ is true at $w$ iff $A$ is true at $w$. The logic we get
   is the ``Triv'' logic that is axiomatized by adding the \pr{Triv}-schema
   $\Box A \leftrightarrow A$ to the standard axioms and rules for K. This logic
   is stronger than S5: all S5-valid sentences are Triv-valid. (We also have,
@@ -793,7 +800,7 @@ still get D, unless we impose further restrictions on the orderings.
 %   world?
 % \end{exercise}
 
-Ordering models can also help when we want to formalize statements containing
+Ordering models prove useful when we want to formalize statements with
 modal operators and if-clauses, like (1)--(3).
 
 \begin{itemize}[leftmargin=10mm]
@@ -803,7 +810,8 @@ modal operators and if-clauses, like (1)--(3).
 \item[(3)] If you have promised to call your parents then you must call them.
 \end{itemize}
 %
-With the resources of $\L_M$, we seem to face a choice between (W) and (N) for each of these sentences.
+How would you translate these into our language $\L_M$? We seem to face a choice
+between (W) and (N).
 \begin{itemize}[leftmargin=10mm]
 \itemsep-1mm
 \item[(W)] $\Ob(p \to q)$
@@ -831,8 +839,8 @@ can't infer that you do not in fact smoke.
 
 (W) is not much better. For one, in our Kripke-style semantics, $\Ob(p \to q)$
 is entailed by $\Ob(\neg p)$. But it is easy to imagine a scenario in which you
-must not smoke, or you must submit your tax return before the deadline, and yet
-(1) and (2) are false.
+must not smoke, or you must submit your tax return before the deadline, but in
+which (1) and (2) are false.
 
 % Suppose you should not have promised to call your parents: $\Ob \neg p$. On
 % the wide-scope approach, we could infer that if you promised to call your
@@ -849,7 +857,7 @@ form of ``strengthening the antecedent''. For example, they both suggest that
 \end{itemize}
 
 \begin{exercise}
-  Give a tree proof with the K-rules to show that $p \to \Ob r$ entails
+  Give tree proofs with the K-rules to show that $p \to \Ob r$ entails
   $(p \land q) \to \Ob r$, and that $\Ob (p \to r)$ entails
   $\Ob((p \land q) \to r)$.
 \end{exercise}
@@ -901,13 +909,13 @@ case if $A$ is the case.
 The formal truth-conditions for $\Ob(B/A)$ are much like those for $\Ob B$, except
 that we add the assumption $A$ to the circumstances that are held fixed:
 
-\bigskip
-
-\quad$M,w \models \Ob (B/A) \text{ iff $M,v \models B$ for all
+\begin{definition}{Ordering semantics for conditional obligation}{conditionalobligationsemantics}
+  If $M$ is a ordering model and $w$ a world in $M$, then\\[1mm]
+$M,w \models \Ob (B/A) \text{ iff $M,v \models B$ for all
   $v \in \emph{Min}^{\prec_w}(\{ u: wRu \text{ and } M,u\models A \})$}$.
-
-\bigskip\noindent%
+\end{definition}
 %
+\noindent%
 Here, $\{ u: wRu \text{ and } M,u\models A \}$ is the set of worlds $u$ that are
 circumstantially accessible from $w$ and at which $A$ is true.
 $\emph{Min}^{\prec_{w}}(\{ u: wRu \text{ and } M,u\models A \})$ is the set that
@@ -978,27 +986,27 @@ at all of the best $A$-worlds that are accessible at $w$.
     \item[(f)] Jones is not going to help his neighbours.
   \end{exlist}
   \medskip\noindent%
-  These four statements are intuitively consistent and independent: There are
-  conceivable scenarios in which all four are true, and none of them is entailed
-  by the others. Explain why your translations in exercise
-  \ref{ex:translate-sdl} violate either consistency or independence. (This puzzle is due to Roderick Chisholm.)
+  Intuitively, none of these four statements is entailed by one of the others.
+  Moreover, they don't impose contradictory requirements on Jones: it is easy to
+  think of a scenario in which they are all true and Jones is not obligated to
+  perform some act and also obligated to not perform the act. This shows that
+  your translations in exercise \ref{ex:translate-sdl} were incorrect. Explain.
+  (This puzzle is due to Roderick Chisholm.)
 \end{exercise}
 \begin{solution}
   (c) can obviously be translated as $\Ob p$, (f) as $\neg p$.
-  
-  If (d) is translated as $p \to \Ob q$ then it is entailed by (f). We would
-  violate independence. (More directly: the translation can't be right because
-  it is easy to think of a scenario in which (f) is true but (d) false.) Assume
-  then that (d) is translated as $\Ob(p \to q)$.
+
+  You probably translated (d) as either $p \to \Ob q$ or as $\Ob(p \to q)$.
+  $p \to \Ob q$ is entailed by (f). The translation can't be
+  right because it is easy to think of a scenario in which (f) is true but (d)
+  false. Assume then that (d) is translated as $\Ob(p \to q)$.
   % This is equivalent to $\Ob(q/p)$ in the presence of $\Ob(p)$ or even $\Pe(p)$. We only need the conditional operator to talk about what should be the case under non-ideal conditions.
 
-  If (e) is similarly translated as $\Ob(\neg p \to \neg q)$ then it is entailed
-  by (c). We would violate independence. (More directly: it is easy to think of
-  a scenario in which (c) is true but (e) false.) If (e) is translated as
-  $\neg p \to \Ob \neg q$ then (a)--(c) are logically inconsistent. To show
-  this, you can, for example, start a D-tree with the four assumptions $\Ob p$,
-  $\neg p$, $\Ob(p \to q)$, and $\neg p \to \Ob \neg q$, all at the same world
-  $w$. The tree will close.
+  The most obvious translations for (e) are $\neg p \to \Ob\neg q$ and
+  $\Ob(\neg p \to \neg q)$. The latter is entailed by (c). But it is easy to
+  think of a scenario in which (c) is true but (e) false. If (e) is translated
+  as $\neg p \to \Ob \neg q$, then (c)--(f) constitute a deontic dilemma: (e)
+  and (f) would entail $\Ob \neg t$, but (c) and (d) would entail $\Ob t$.
 \end{solution}
 
 % \begin{exercise}
@@ -1113,8 +1121,8 @@ An utterance of `it ought to be that $p$' is pragmatically appropriate only if
 $p$ could be false. This might explain why it sounds wrong to say that it ought
 to either rain or not rain.
 
-Note also that by duality, $\neg\Ob(p \lor \neg p)$ entails
-$\Pe \neg(p \lor \neg p)$. If we deny that it ought to either rain or not rain,
+Note also that by duality, $\neg\!\Ob(p \lor \neg p)$ entails
+$\Pe \!\neg(p \lor \neg p)$. If we deny that it ought to either rain or not rain,
 and we accept the duality of obligation and permission, we have to say that it
 is permissible that it neither rains nor doesn't rain. That sounds even worse.
 
@@ -1312,7 +1320,7 @@ necessary truth should be permitted. By the neighbourhood semantics for $\Pe$,
 $A$ is permitted at a world $w$ in a model $M$ iff $[\neg A]^M$ is not in
 $N(w)$. If $A$ is a logical truth, then $A$ is true at all worlds; in that case,
 $\neg A$ is true at no worlds, and $[\neg A]^M$ is the empty set. If we want
-logical truths to be permissible, we therefore have to stipulate that $N(w)$
+logical truths to be permitted, we therefore have to stipulate that $N(w)$
 never contains the empty set.
 
 In Kripke semantics, the assumption that logically necessary truths are
@@ -1357,7 +1365,8 @@ equivalent. The reason is that the modal operators in neighbourhood semantics
 operate on the set of worlds at which the embedded sentence is true. If $A$ and
 $B$ are logically equivalent, then in any model $M$, the set $[A]^M$ is the same
 set as $[B]^M$, and so $[A]^M$ is in $N(w)$ iff $[B]^M$ is in $N(w)$. Likewise,
-$[\neg A]^M$ is in $N(w)$ iff $[\neg B]^M$ is in $N(w)$. (That's why the RN rule preserves validity.)
+$[\neg A]^M$ is in $N(w)$ iff $[\neg B]^M$ is in $N(w)$.
+% (That's why the RN rule preserves validity.)
 
 Now any sentence $A$ is logically equivalent to
 $(A \land B) \lor (A \land \neg B)$, for any $B$. In the logic E, $\Pe A$
@@ -1384,16 +1393,16 @@ down the house'.
   Pr$(q)=0.94$, and Pr$(p \land q) = 0.95 \times 0.94 = 0.893$.
 \end{solution}
 
-\begin{exercise}
-  Some have argued that the logic of ability is weaker than K, on the grounds
-  that there are cases in which an agent is able to make $p \lor q$ true, but
-  not able to make $p$ true and not able to make $q$ true -- which would provide a counterexample to the K-valid schema $\Diamond(A \lor B) \to (\Diamond A \lor \Diamond B)$. Can you describe a case of this type?
-\end{exercise}
-\begin{solution}
-  A bad dart player may have the ability to hit the dart board but lack the
-  ability to hit the left half of the board and also the ability to hit the
-  right half of the board.  
-\end{solution}
+% \begin{exercise}
+%   Some have argued that the logic of ability is weaker than K, on the grounds
+%   that there are cases in which an agent is able to make $p \lor q$ true, but
+%   not able to make $p$ true and not able to make $q$ true -- which would provide a counterexample to the K-valid schema $\Diamond(A \lor B) \to (\Diamond A \lor \Diamond B)$. Can you describe a case of this type?
+% \end{exercise}
+% \begin{solution}
+%   A bad dart player may have the ability to hit the dart board but lack the
+%   ability to hit the left half of the board and also the ability to hit the
+%   right half of the board.  
+% \end{solution}
 
 
 

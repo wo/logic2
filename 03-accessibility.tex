@@ -47,7 +47,7 @@ compatible with our knowledge in \emph{these} worlds is different from what's
 compatible with our knowledge in the actual world.
 
 Let's assume, then, that for any world in any scenario there is a set of worlds
-that are possible \emph{relative to $w$}. $\Box p$ as true at $w$
+that are possible \emph{relative to $w$}. We assume that $\Box p$ as true at $w$
 iff $p$ is true at all worlds that are possible relative to $w$. If a world $v$
 is possible relative to $w$ we also say that $v$ is \textbf{accessible} from $w$,
 or (informally) that $w$ \emph{can see} $v$.
@@ -133,7 +133,7 @@ To see definition \ref{def:kripkesemantics} in action, consider a simple model
 with two worlds, $w$ and $v$. World $v$ is accessible from world $w$, but $v$ is
 not accessible from $w$. Neither world can access itself. The interpretation
 function assigns $\{ w \}$ to $p$ and the empty set $\emptyset$ to all other
-sentence letters. The model can be pictured like this, with an arrow
+sentence letters. The model can be pictured as follows, with an arrow
 representing accessibility:
 
 \begin{center}
@@ -158,10 +158,10 @@ are true at which worlds in the model. For example:
   because there is no world accessible from $v$ at which $\Diamond p$ is false.
 \end{itemize*}
 %
-Note that $\Diamond p$ and $\Box \Diamond p$ have different truth-values at both
-$w$ and $v$. In the new semantics, we can no longer ignore all but the last
-in a string of modal operators. Note also that $\Box p$ is true at $w$ even
-though $p$ is false; $\Box p \to p$ is no longer valid.
+Note that $\Diamond p$ and $\Box \Diamond p$ have different truth-values at $w$
+(and at $v$). In the new semantics, we can no longer ignore all but the last in a
+string of modal operators. Note also that $\Box p$ is true at $w$ even though
+$p$ is false; $\Box p \to p$ is no longer valid.
 
 \begin{exercise}
   Explain why every sentence of the form $\Box A$ is true at world $v$
@@ -304,7 +304,7 @@ Lewis's system S5.
 
 The same distinction applies to the concept of entailment. Entailment in the old
 sense (definition \ref{def:basicconsequence}) will henceforth be called
-\emph{S5-entailment}. Our new definitions of models and truth lead to the
+\emph{S5-entailment}. Our new definition of models and truth lead to the
 concept of \emph{K-entailment}.
 
 \begin{definition}{}{kconsequence}
@@ -374,7 +374,7 @@ five axiom schemas and two rules:
 \end{principles}
 %
 All instances of \pr{Dual}, \pr{K}, \pr{T}, \pr{4}, and \pr{5} are S5-valid, and
-all and only the S5-valid sentences can be derived from some of these instances
+all and only the S5-valid sentences can be derived from instances of these axioms
 by \pr{Nec} and \pr{CPL}.
 
 The system K can be axiomatized by dropping three of the axiom schemas: \pr{T},
@@ -450,7 +450,7 @@ system K!)
 For many applications of modal logic, we need a concept of validity that lies in
 between K-validity and S5-validity. Suppose, for example, we read the box as
 physical necessity and the diamond as physical possibility, understood as
-compatibility with the laws of nature. On a certain conception of what it means
+compatibility with the laws of nature. On a popular conception of what it means
 to be a law of nature, nothing that happens is ever incompatible with the laws
 of nature. Equivalently, anything that is physically necessary is actually the
 case. We therefore want $\Box A$ to entail $A$. On the other hand, it is not
@@ -643,7 +643,7 @@ Now let me explain why the above two characterisations of S5 are equivalent.
   equivalence relation, then $R$ is also not valid in the class of universal
   models. So assume $A$ is not valid in the class of models in which $R$ is an
   equivalence relation. Then there is some world $w$ in some such model
-  $M = \t{W,R,V}$ such that $M,w \not\models A$. Define the new model
+  $M = \t{W,R,V}$ such that $M,w \not\models A$. Define a new model
   $M' = \t{W',R',V'}$ as follows:
   \begin{quote}
     $W'$ is the class of worlds accessible in $M$ from $w$ (i.e., the
@@ -692,7 +692,7 @@ Now let me explain why the above two characterisations of S5 are equivalent.
     \item Suppose $R$ is symmetric and euclidean, and that $xRy$ and $yRz$. By
     symmetry, $yRx$. By euclidity, $xRz$.
     \item Suppose $R$ is reflexive and euclidean, and that $xRy$. By
-    reflexivity, $yRy$. By euclidity, $yRx$.
+    reflexivity, $xRx$. By euclidity, $yRx$.
   \end{sollist}
 \end{solution}
 
@@ -724,16 +724,15 @@ connection?
 You might think the connection between \pr{T} and reflexivity is this:
 \begin{quote}
   \begin{itemize}
-    \item[(?)] All instances of \pr{T} are valid in a class of models iff all
-    models in the class are reflexive.
+    \item[(?)] All instances of \pr{T} are valid in a models iff the model is reflexive.
   \end{itemize}
 \end{quote}
 %
-But that's false. We know (observation
-\ref{obs:treflexive}) that all \pr{T} instances are valid in the class of
-reflexive models. It follows that if all models in some class $C$ are reflexive,
-then all \pr{T} instances are valid in $C$. But the other direction fails. For a
-counterexample, consider the following model.
+But that's false. We know (observation \ref{obs:treflexive}) that all \pr{T}
+instances are valid in the class of reflexive models. It follows that all \pr{T}
+instances are valid in every reflexive model. But the other direction fails.
+There are non-reflexive models in which all \pr{T} instances are valid. The
+following model is an example.
 \begin{center}
   \begin{tikzpicture}[modal, world/.append style={minimum size=0.8cm}, node distance = 15mm]
     \node[world] (w1) [label=above:{$w$}] {$p$};
@@ -751,7 +750,7 @@ the one just described.
 
 To understand the connection between modal schemas and conditions on the
 accessibility relation, we need to talk about \emph{frames}. A frame is what you
-get if take a Kripke model and remove the interpretation function.
+get if take a model and remove the interpretation function.
 
 \begin{definition}{}{Kripke frame}
   A \textbf{Kripke frame} is a pair of a non-empty set $W$ and a relation $R$ on $W$.
@@ -999,8 +998,8 @@ following node.
 \end{center}
 Now we can infer that $p$ is true at $v$. So to expand a box node on a
 branch, there must be another node on the branch telling us that
-the world at which the boxed sentence is true has access to some
-other world.
+the world $w$ at which the boxed sentence is true has access to some
+world $v$.
 
 Here are diagrams of the new rules for the box and the diamond.
 
@@ -1253,7 +1252,7 @@ so far considered.
 \end{center}
 
 By selectively adding some of these rules to the K-rules, we get tree rules for
-a variety of modal logics, such as the following.  (Compare the table on p.\
+a variety of modal logics.  (Compare the table on p.\
 \pageref{table:systems}.)
 
 \bigskip

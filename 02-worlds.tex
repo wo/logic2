@@ -9,7 +9,7 @@ An important breakthrough in the history of modal logic was the development of
 % Kanger 1957, Hintikka 1957, 1961, Bayart 1958, 1959, Montague 1960, Kripke
 % 1959, 1963a, 1963b.
 %
-The central idea of possible-worlds semantics is to analyze modal notions in
+The core idea of possible-worlds semantics is to analyze modal notions in
 terms of truth at possible worlds. In its simplest form, the analysis goes like
 this:
 %
@@ -21,16 +21,14 @@ this:
 In philosophy jargon, a \textbf{possible world} is a maximally specific
 possibility. An example of a possible world is the \textbf{actual world} -- the
 totality of everything that is the case. In the actual world, light travels
-faster than sound and the Conservatives won the 2019 UK election. In other
-possible worlds, sound travels faster than light. In yet others, Labour won the
-election.
+faster than sound and the Conservatives are in government. In other possible
+worlds, sound travels faster than light and Labour is in government.
 
 The possible-worlds analysis translates modal statements into quantificational
 statements about possible worlds. You may feel uneasy about this. Talking about
-worlds other than the actual world may strike you as fanciful and unscientific.
-Besides, you may wonder if anything is really gained by the translation, since
-we now face the question of what sorts of worlds should be classified as
-``possible''.
+merely possible worlds may strike you as fanciful and unscientific. Besides, you
+may wonder if anything is really gained by the translation, since we now face
+the question what sorts of worlds should be classified as ``possible''.
 
 Remember that there are different flavours of modality. A proposition might be
 epistemically possible, historically possible, metaphysically possible, and so
@@ -87,17 +85,15 @@ true, under a given interpretation of $p$.
 
 The possible-worlds analysis can help clear things up. By the possible-worlds
 analysis, $\Box \Diamond \Box p$ says that $\Diamond \Box p$ is true at every
-possible world. Since we want to know in which scenarios $\Box \Diamond\Box p$
-is true, we will assume that every scenario contains a whole range of possible
-worlds. The hypothesis that $\Box \Diamond \Box p$ is true in a scenario now
-reduces to the hypothesis that $\Diamond \Box p$ is true at every world in the
-scenario. $\Diamond\Box p$ says that $\Box p$ is true at some world. So if
-$\Diamond\Box p$ is true at every world in a scenario then $\Box p$ is true at
-some world in the scenario. And if $\Box p$ is true at some world in a scenario
-then $p$ is true at every world in the scenario. This is just what $\Box p$
-says. So whenever $\Box \Diamond\Box p$ is true in a scenario (under some
-interpretation of $p$), then $\Box p$ is true in that scenario (under that
-interpretation). That is, $\Box\Diamond\Box p$ entails $\Box p$.
+possible world. The hypothesis that $\Box \Diamond \Box p$ is true in a scenario
+therefore reduces to the hypothesis that $\Diamond \Box p$ is true at every
+world in the scenario. $\Diamond\Box p$ says that $\Box p$ is true at some
+world. So if $\Diamond\Box p$ is true at every world in a scenario then $\Box p$
+is true at some world in the scenario. And if $\Box p$ is true at some world in
+a scenario then $p$ is true at every world in the scenario. This is just what
+$\Box p$ says. So whenever $\Box \Diamond\Box p$ is true in a scenario (under
+some interpretation of $p$), then $\Box p$ is true in that scenario (under that
+interpretation). We've shown that $\Box\Diamond\Box p$ entails $\Box p$.
 
 \begin{exercise}
   Explain, in the same informal manner, why $\Diamond p$ does not entail
@@ -146,10 +142,10 @@ of the sentence letters.
 \end{quote}
 
 This tells you almost nothing about what the scenario looks like. You don't know
-if $w_{1}$ is a world at which it is currently raining, or who won which
-elections at $w_{2}$. You also don't know what the sentence letters mean under
-my interpretation. Does $p$ mean that it is raining? That Labour won the
-2019 election? I haven't told you. Yet the sparse information I have given is
+if $w_{1}$ is a world at which it is currently raining. You don't know who is in
+government at $w_{2}$. You also don't know what the sentence letters mean under
+my interpretation. Does $p$ mean that it is raining? That Labour is in
+government? I haven't told you. Yet the sparse information I have given is
 enough to determine the truth-value of every $\L_{M}$-sentence at every world.
 
 \begin{exercise}
@@ -160,7 +156,7 @@ enough to determine the truth-value of every $\L_{M}$-sentence at every world.
   \item $\neg p \to \Box p$ % true
   \item $\Box p$ % false
   \item $\Diamond\Box p$ % false
-  \item $\Diamond \Diamond p \lor \Diamond \Box p$ % false
+  \item $\Diamond \Diamond p \lor \Diamond \Box p$ % true
   \item $\Box (\Box p \to p)$ % true
   \end{exlist}
 \end{exercise}
@@ -176,11 +172,12 @@ models in logic leave out many important aspects of the scenarios and
 interpretations they represent.
 
 Adopting the simple possible-worlds analysis of the box and the diamond, we can
-define a model for $\L_{M}$ as consisting of two parts. First, there is a set of
-things we call ``worlds''. They don't need to be genuine worlds. They can be
-arbitrary (usually not further specified) objects whose job is to represent
-genuine worlds. Second, there is an ``interpretation function'' that tells us
-for each sentence letter at which of the worlds it is true.
+define a model for $\L_{M}$ as consisting of two parts. First, a model must
+specify a set of things we call ``worlds''. They don't need to be genuine
+worlds. They can be arbitrary (usually not further specified) objects whose job
+is to represent genuine worlds. Second, a model must specify an ``interpretation
+function'' that tells us for each sentence letter at which of the worlds it is
+true.
 
 \begin{definition}{}{basicmodel}
   A \textbf{basic model} of $\L_M$ is a pair $\t{W,V}$ of%
@@ -196,7 +193,7 @@ In the next chapter, we will replace this definition by a slightly more
 complicated definition. That's why I've called models of the present kind
 `basic'.
 
-If you are not familiar with elementary concepts of set theory: A \emph{set} is
+You should be familiar with elementary concepts of set theory. A \emph{set} is
 a collection of objects, called the \emph{members} or \emph{elements} of the
 set. Sets can be defined by listing their members enclosed in curly braces:
 `$\{ a, b, c \}$'. The \emph{empty set}, with no members, is denoted by
@@ -230,6 +227,7 @@ as shorthand for
   \text{$A$ is true at world $w$ in model $M$}.
 \]
 I use `$M,w \not\models A$' for the negation of `$M,w \models A$'.
+I use `$M,w \notmodels A$' for the negation of `$M,w \models A$'.
 
 Yes, it's the same turnstile that we use for entailment and validity. This
 should cause no confusion because it is usually clear if the things to the left
@@ -346,7 +344,7 @@ parts of the sentence.
 Using the concept of a model, we can sharpen the hand-wavy definitions of
 entailment and validity from section \ref{sec:turnstile}.
 
-Imagine a list of all conceivable scenarios and all possible interpretation of
+Imagine a list of all conceivable scenarios and all possible interpretations of
 the sentence letters. By definition \ref{def:valid-informal}, a sentence is
 valid iff it is true in all of these scenarios under each of these
 interpretations. Every combination of a scenario $S$ and an interpretation $I$
@@ -362,7 +360,7 @@ worlds, $W = \{ w_{1}, w_{2} \}$, and assume that $V(p) = \{ w_{1} \}$. Is $p$
 true in this model? We can't say. Definition \ref{def:basicsemantics} only
 specifies under what conditions a sentence is true \emph{at a world in a model}.
 We have not defined what it means for a sentence to be true in a model. So we
-can hardly say that a sentence is valid iff it is true in all models.
+can't say that a sentence is valid iff it is true in all models.
 
 There are two ways to fix this. The conceptually cleaner response is to change
 the definition of a model. Intuitively, the worlds in a scenario are not all on
@@ -386,8 +384,7 @@ entail a sentence $A$ iff $A$ is true at every world in every model at which all
 members of $\Gamma$ are true.
 
 The two responses amount to the same thing. Since every world in every basic
-(un-pointed) model could be chosen as the designated world in a corresponding
-pointed model, a sentence is true at all worlds in all basic models just in case
+(un-pointed) model could be chosen as the designated world, a sentence is true at all worlds in all basic models just in case
 it is true in all pointed models. The response we adopt has the minor advantage
 of keeping models slightly simpler, and logicians want their models to be as
 simple as possible.
@@ -445,20 +442,20 @@ model is; definition \ref{def:basicsemantics} specifies the truth-value of any
 sentence at any world in any model. Together, these definitions settle which
 sentences are valid.
 
-Take, for instance, $\Box p \to p$. This turns out to be valid. To see why, let
-$w$ be an arbitrary world in an arbitrary model $M$. Either $p$ is true at $w$
-or not. If $p$ is true at $w$, then by clause (e) of definition
+Take, for instance, $\Box p \to p$. This is valid on our definitions. To see
+why, let $w$ be an arbitrary world in an arbitrary model $M$. Either $p$ is true
+at $w$ or not. If $p$ is true at $w$, then by clause (e) of definition
 \ref{def:basicsemantics}, $\Box p \to p$ is also true at $w$. If $p$ is not true
 at $w$, then by clause (g) of definition \ref{def:basicsemantics}, $\Box p$ is
-not true at $w$ in $M$ either, and then $\Box p \to p$ is true at $w$ by clause
+not true at $w$ in $M$, and then $\Box p \to p$ is true at $w$ by clause
 (e). Either way, $\Box p \to p$ is true at $w$. Since $w$ and $M$ were chosen
 arbitrarily, this shows that every instance of $\Box p \to p$ is true at every
 world in every model.
 
-(In the last section of the previous chapter, I mentioned that for some
-applications of modal logic, we don't want $\Box p \to p$ to be valid. In the
-next chapter, we will see how this can be achieved by a slight tweak to the
-definitions of the present chapter.)
+(In the previous chapter, I mentioned that for some applications of modal logic,
+we don't want $\Box p \to p$ to be valid. In the next chapter, we will see how
+this can be achieved, by adding a slight tweak to the definitions of the present
+chapter.)
 
 How about, say, $\Box p \to \Box \Box p$? If something is necessary, is it
 necessarily necessary? Our semantics says yes. Let $w$ be an arbitrary world in
@@ -490,7 +487,7 @@ operator, then its truth-value never varies from world to world. For example, if
 $\Diamond p$ is true at some world $w$ in some model, then $\Diamond p$ is true
 at all worlds in the model. It follows that if a sentence starts with a modal
 operator, then its truth-value doesn't change if you stack further modal
-operators in front. If $\Diamond p$ is true at a worlds in a model, then so
+operators in front. If $\Diamond p$ is true at a world in a model, then so
 are $\Box\Diamond p$ and $\Diamond \Diamond p$.
 
 This means that any sentence that begins with a sequence of modal operators is
@@ -584,12 +581,12 @@ true, because it doesn't matter.
 
 Earlier in this section, I showed that $\Box p \to p$ and
 $\Box p \to \Box\Box p$ are valid. The arguments I gave easily generalise to
-other sentences in place of $p$. All instances of $\Box A \to A$ and
-$\Box A \to \Box\Box A$ are valid.
+other sentences in place of $p$. So all instances of the following schemas are
+valid: $\Box A \to A$ and $\Box A \to \Box\Box A$.
 
-You may remember these schemas from section \ref{sec:systems}. There I defined
-the system S5 by stipulating that it contains all instances of the following
-schemas:
+You may remember these schemas as the schemas (T) and (4) from section
+\ref{sec:systems}. You may also remember that I defined the system S5 by
+stipulating that it contains all instances of the following schemas:
 %
 \begin{principles}
   \pri{Dual}{\neg\Diamond A \leftrightarrow \Box\neg A}\\
@@ -599,8 +596,8 @@ schemas:
   \pri{5}{\Diamond A \to \Box \Diamond A}
 \end{principles}
 %
-All instances of these schemas are valid by the definitions of the present
-chapter.
+You can check that all instances of these schemas are valid by the definitions of
+the present chapter.
 
 % \begin{exercise}
 %   Show that all instances of the \textbf{D}-schema $\Box A \to \Diamond A$ are
@@ -626,14 +623,27 @@ I also specified two rules for S5. The first says that any truth-functional
 consequence of any sentences in S5 is itself in S5. The second says that
 whenever a sentence $A$ is in S5, then so is $\Box A$. As we will show chapter
 \ref{ch:proofs}, these rules preserve validity (as defined in the previous
-section). Indeed, you will learn how to show that the sentences that come out as
+section). Indeed, you will learn how to show that the sentences that are
 valid by our present definitions are precisely the sentences in S5.
 
-You may pause a moment to ponder how this could be done. In the meantime, let's
-prove a simpler fact to which I have appealed above (as well as on page
-\pageref{claim:replacement} in the previous chapter): that replacing logically
-equivalent sentences inside a larger sentence never affects the larger
-sentence's truth-value at any world.
+In the meantime, let's prove a simpler fact to which I have appealed above (as
+well as on page \pageref{claim:replacement} in the previous chapter): that
+replacing logically equivalent sentences inside a larger sentence never affects
+the larger sentence's truth-value at any world.
+
+To show this, I am going to use a technique called \textbf{induction on
+  complexity}. It works like this. Suppose we want to show that every sentence
+of a language has a certain property. To do so, we first show that all simple,
+atomic sentences of the language have the property. The atomic sentences of
+$\L_{M}$ are the sentence letters. In a second step, we then show that the
+logical operators preserve the property, meaning that if an operator (like
+`$\land$' or `$\Box$') is applied to one or more sentences, and these sentences
+have the property, then the resulting sentence (that we get by applying the
+operator) still has the property. In this second step, we therefore
+\emph{assume} that the sentences to which the operator is applied have the
+property. This is called the \emph{induction hypothesis}. Based on this
+assumption, we show that the more complex resulting sentence still has the
+property.
 
 \begin{observation}{replacement-theorem}
   If $A$ is an $\L_{M}$-sentence and $A'$ results from $A$ by replacing a
@@ -647,30 +657,26 @@ sentence's truth-value at any world.
 
   Now let $A$ be an arbitrary $\L_{M}$-sentence and assume that $A'$ results
   from $A$ by replacing a subsentence of $A$ with a logically equivalent
-  sentence. To show that $A$ and $A'$ are equivalent, we first show that this
-  holds for the special case where $A$ is a sentence letter. Then we consider
-  different ways in which $A$ might be built up from simpler sentences and show
-  that \emph{if the observation holds for those simpler sentences}, then it also
-  holds for $A$ itself.
+  sentence. To show that $A$ and $A'$ are equivalent, we first consider the case
+  where $A$ is a sentence letter. In this case, $A$ has no sentences as proper
+  parts. The observation is vacuously true. (There is no way of turning $p$ into
+  a non-equivalent sentence by replacing a subsentence within $p$.)
 
-  So assume that $A$ is a sentence letter. In that case, $A$ has no sentences as
-  proper parts. The observation is vacuously true. (There is no way of turning
-  $p$ into a non-equivalent sentence by replacing a subsentence within $p$.)
+  Next we consider the case where $A$ is a complex sentence that results by
+  applying some logical operator to one or more simpler sentences. We assume (as
+  our induction hypothesis) that the observation holds for the simpler
+  sentences.
 
-  Next we assume that $A$ is a complex sentence and that the observation holds
-  for all simpler sentences.
-
-  To begin, assume that $A$ is the negation of another sentence $B$. So $A$ is
-  $\neg B$ and $A'$ is $\neg B'$ for some sentence $B'$ that is either
-  equivalent to $B$ (if $B$ is the subsentence of $A$ that has been replaced to
-  yield $A'$) or that results from $B$ by replacing a subsentence within $B$ by
-  an equivalent sentence (if the subsentence of $A$ that has been replaced to
-  yield $A'$ isn't $B$). In the latter case, our assumption that the observation
-  holds for sentences simpler than $A$ implies that $B$ and $B'$ are equivalent.
-  Either way, then, $B$ and $B'$ are logically equivalent: they are true at the
-  same worlds in every model. By clause (b) of definition
-  \ref{def:basicsemantics}, it follows that $A$ and $A'$ are also true at the
-  same worlds in every model.
+  Assume that $A$ is the negation of another sentence $B$. So $A$ is $\neg B$
+  and $A'$ is $\neg B'$ for some sentence $B'$ that is either equivalent to $B$
+  (if $B$ is the subsentence of $A$ that has been replaced to yield $A'$) or
+  that results from $B$ by replacing a subsentence within $B$ by an equivalent
+  sentence (if the subsentence of $A$ that has been replaced to yield $A'$ isn't
+  $B$). In the latter case, our assumption that the observation holds for
+  sentences simpler than $A$ implies that $B$ and $B'$ are equivalent. Either
+  way, then, $B$ and $B'$ are logically equivalent: they are true at the same
+  worlds in every model. By clause (b) of definition \ref{def:basicsemantics},
+  it follows that $A$ and $A'$ are also true at the same worlds in every model.
 
   Essentially the same reasoning applies in the case where $A$ is a conjunction
   $B \land C$, a disjunction $B \lor C$, a conditional $B \to C$, a
@@ -685,31 +691,20 @@ sentence's truth-value at any world.
 
 \end{proof}
 
-The style of proof I have used here is called an \textbf{induction on
-  complexity}. It is widely used when reasoning about formal languages. In
-general, if you want to show that every sentence of a language has a certain
-property, it suffices to show that (i) all atomic sentences in the language have
-the property, and (ii) \emph{if} all sentences that are simpler than a sentence
-have the property then so does the sentence itself. (In this context, the
-assumption that all simpler sentences have the property is called the
-\emph{induction hypothesis}.)
-
 
 \section{Trees}\label{sec:trees}
 
 I will now introduce a streamlined method for working through definition
 \ref{def:basicsemantics} to check whether a sentence is valid: the method of
 \textbf{analytic tableau} or \textbf{tree proofs}. (You may be familiar with
-this method for non-modal logic. If so, good. If not, no problem.)
+this method for non-modal logic. If so, good. If not, no problem.) It best
+introduced by example.
 
-The tree method is a method not just for proving validity, but also for finding
-countermodels. It is best introduced by example.
-
-Let's try to find a countermodel for $\Diamond p \to \Box p$. That is, we want
-to construct a model in which there is some world $w$ at which
-$\Diamond p\to \Box p$ is false. We start our search by assuming that the
-\emph{negation} of $\Diamond p \to \Box p$ is \emph{true} at $w$. We write this
-down as follows.
+Let's check if $\Diamond p \to \Box p$ is valid. We do this by trying to
+construct a countermodel. A countermodel for $\Diamond p \to \Box p$ is a model
+in which there is some world $w$ at which $\Diamond p\to \Box p$ is false. We
+start our construction by assuming that the \emph{negation} of
+$\Diamond p \to \Box p$ is \emph{true} at $w$. We write this down as follows.
 
 \begin{center}
   \Tree{%
@@ -718,7 +713,7 @@ down as follows.
 \end{center}
 %
 `1.' and `(Ass.)' are for book-keeping; `Ass.'\ is short for `Assumption', since
-we're \emph{assuming} that $\neg(\Diamond p \to \Box p)$ is true at $w$. Now we
+we're assuming that $\neg(\Diamond p \to \Box p)$ is true at $w$. Now we
 unfold this assumption in accordance with definition \ref{def:basicsemantics}.
 The definition tells us that a conditional $A\to B$ is false at a world $w$ iff
 the antecedent $A$ is true at $w$ and the consequent $B$ is false at $w$. So the
@@ -735,7 +730,7 @@ is false at $w$. We expand our ``tree'' (or ``tableau'') by adding these consequ
 %
 I have ticked off line 1 (with `$\checkmark$') to mark that we won't need to
 look at it again. All the information in line 1 is contained in lines 2 and 3.
-The parenthetical `(1)' at lines 2 and 3 reminds us that these assumptions are
+The parenthetical `(1)' at lines 2 and 3 reminds us that these lines are
 derived from line 1.
 
 We continue drawing out further consequences. What does the truth of
@@ -767,7 +762,7 @@ Let's introduce such a world, naming it $u$. Our tree looks as follows.
   }
 \end{center}
 
-Now the only unprocessed lines are assumptions about sentence letters and
+Now the only unprocessed lines are hypotheses about sentence letters and
 negations of sentence letters. Sentence letters don't have (non-trivial)
 subsentences, so we can't use definition \ref{def:basicsemantics} to further
 break down 4 or 5. The tree is complete. We have found a countermodel for
@@ -790,7 +785,7 @@ so we begin as before.
     & \nnode{32}{3.}{$\neg(p \to \Box q)$}{w}{(1)} && \\
   }
 \end{center}
-%
+
 Line 1 assumes that the negation of the conditional is true at some world $w$.
 Lines 2 and 3 break down this assumption, using the fact that $\neg (A \to B)$
 is true (at a world) iff $A$ is true and $B$ false. We could deal with line 2
@@ -861,15 +856,16 @@ both of which contain 8 nodes.
 
 What does this tree tell us? Remember that our aim is to construct a model in
 which the sentence at node 1 is true at world $w$. At this stage, the tree tells
-us that there are two worlds $w$ and $v$ in the model; nodes 4 and 5 tell us
-something about the interpretation function in the model: $p$ is true at $w$,
-$q$ is false at $v$. After node 7, the tree branches, meaning that there are two
+us that this model contains two worlds $w$ and $v$; nodes 4 and 6 tell us
+something about the model's interpretation function: $p$ is true at $w$, $q$ is
+false at $v$. After node 7, the tree branches. This means that there are two
 ways of extending the model we have construed so far. On the left branch, we
-assume that $p$ is false at $w$. On the right branch, we assume that $q$ is true
-at $w$. But hold on. We already know that $p$ is true at $w$ (from node 4).
-There's no model in which $p$ is both true and false at $w$. So the possibility
-explored on the left branch is a dead-end. it doesn't lead to a countermodel.
-That's why I've \emph{closed} the left branch by drawing a cross below node 8.
+explore an extension of the model in which $p$ is false at $w$. On the right
+branch, we explore an extension in which $q$ is true at $w$. But hold on. We
+already know that $p$ is true at $w$ (from node 4). There's no model in which
+$p$ is both true and false at $w$. So the possibility explored on the left
+branch is a dead-end. it doesn't lead to a countermodel. That's why I've
+\emph{closed} the left branch by drawing a cross below node 8.
 
 We continue on the right-hand branch. Here we expand node 2 again, this time for
 world $v$, which leads to another branching.
@@ -893,13 +889,13 @@ world $v$, which leads to another branching.
 %
 On the right-most branch, $q$ is true at $v$ (by node 12) but also false at $v$
 (by node 6), so that branch is closed. But the middle possibility is still open,
-and there are no more assumptions to unfold. We have found a countermodel.
+and there are no more nodes to unfold. We have found a countermodel.
 
-The countermodel is given by all the assumptions \emph{on the middle branch},
+The countermodel is given by all the nodes \emph{on the middle branch},
 the one that remained open. (The other branches were dead-ends and can be
 ignored.) We have two worlds, $W = \{ w,v \}$. The interpretation function $V$
 makes $p$ true at $w$ (node 4) and false at $v$ (node 11); $q$ is also true at
-$w$ (node 9) and false at $v$ (node ). Again, you may verify that the sentence
+$w$ (node 9) and false at $v$ (node 6). Again, you may verify that the sentence
 on node 1 is true at world $w$ in this model.
 
 Now for the general rules.
@@ -914,10 +910,10 @@ world $w$:
     }
 \end{center}
 %
-You then expand this node, and every new node that appears on the tree, until no
-more nodes can be expanded.
+You then expand this node, and you continue expanding new nodes that appear on
+the tree, until no more nodes can be expanded.
 
-To expand a node with a non-negated sentence, you consider what the truth of the
+To expand a node with a \emph{non-negated sentence}, you consider what the truth of that
 sentence at the node's world implies for the truth-value of the sentence's
 immediate parts. The result may be added to the end of any open branch
 containing the node.
@@ -932,6 +928,8 @@ $A$. The result may again be added to the end of any open branch containing the
 node.
 
 The following diagrams summarize how the different kinds of nodes are expanded.
+I use `$\omega$' and `$\nu$' as placeholders for arbitrary world variables.
+
 
 \bigskip
 
@@ -1067,15 +1065,13 @@ If a branch of a tree contains a sentence $A$ as well as its negation $\neg A$,
 for the same world $\omega$, then the branch is \emph{closed} with an {\sffamily
   x} at the bottom.
 
-I've used `$\omega$' and `$\nu$' as placeholders for arbitrary world variables.
-
 The rule for $\Box A$ says that from the assumption that $\Box A$ is true at a
-world $\omega$ you may infer that $A$ is true at any world $\nu$ \emph{that
-  already occurs on the branch to which the new node is added}. You're not
-allowed to introduce a new world variable (`$v$', `$u$', etc.) when expanding
-$\Box A$ nodes. The same is true for $\neg \Diamond A$ nodes (which by duality
-means the same as $\Box \neg A$). When you expand a $\Diamond A$ node (or a
-$\neg \Box A$ node), by contrast, you must introduce a new world variable.
+world $\omega$ you may infer that $A$ is true at any ``old'' world $\nu$, by
+which I mean any world \emph{that already occurs on the branch to which you want to add a node}. You're not allowed to introduce a new world variable (`$v$',
+`$u$', etc.) when expanding $\Box A$ nodes. The same is true for
+$\neg \Diamond A$ nodes (which by duality means the same as $\Box \neg A$). When
+you expand a $\Diamond A$ node (or a $\neg \Box A$ node), by contrast, you must
+introduce a new world variable.
 
 Nodes of type $\Box A$ and $\neg \Diamond A$ can be expanded several times, once
 for every world variable on any branch containing the node.
@@ -1083,7 +1079,7 @@ for every world variable on any branch containing the node.
 If you have expanded a node that is not of type $\Box A$ or $\neg \Diamond A$,
 and you have added the new nodes to every open branch containing the node, then
 you can tick off the node. You don't need to look at it again. Nodes of type
-$\Box A$ and $\neg \Diamond A$ nodes are never ticked off.
+$\Box A$ and $\neg \Diamond A$ are never ticked off.
 
 If no more rules can be applied, the tree is complete. Any open branch on a
 complete tree defines a countermodel for the target sentence.
@@ -1196,7 +1192,7 @@ complete tree defines a countermodel for the target sentence.
 
 What if all branches on a tree close? Then there is no countermodel for the
 target sentence. If there is no countermodel for a sentence, then the sentence
-is valid. This is how the tree method is used to show that sentences are valid.
+is valid. This is how the tree method is used to show that a sentence is valid.
 
 The following tree shows that
 $\Diamond \neg p \leftrightarrow \neg \Box p$ is valid. Make sure you understand
@@ -1241,15 +1237,15 @@ instead of sentence letters.
   After entering a formula, tick the checkbox for `universal (S5)'.
   Alternatively, follow these links:
   \href{https://www.umsu.de/trees/#~8(A~5B)~5(~8A~5~8B)||universality}{\pr{K}}, \href{https://www.umsu.de/trees/#~8A~5A||universality}{\pr{T}},
-  \href{https://www.umsu.de/trees/#~8A~5~9A||universality}{\pr{D}},
+  % \href{https://www.umsu.de/trees/#~8A~5~9A||universality}{\pr{D}},
   \href{https://www.umsu.de/trees/#~8A~5~8~8A||universality}{\pr{4}},
   \href{https://www.umsu.de/trees/#~9A~5~8~9A||universality}{\pr{5}},
-  \href{https://www.umsu.de/trees/#~9~8A~5~8~9A||universality}{\pr{G}}.
+  % \href{https://www.umsu.de/trees/#~9~8A~5~8~9A||universality}{\pr{G}}.
 \end{solution}
 
 \begin{exercise}
   For each of the following sentences, either show that it is valid or
-  give a countermodel to show that it is invalid:
+  give a countermodel to show that it is invalid, using the tree method.
   \begin{exlist}
   \item $p \to \Box\Diamond p$
   \item $\Diamond\Diamond p \to \Diamond p$
@@ -1263,7 +1259,7 @@ instead of sentence letters.
   \end{exlist}
 \end{exercise}
 \begin{solution}
-  (a), (b), (c), (e), and (g) are valid. You can find the trees at
+  (a), (b), (c) and (e) are valid. You can find the trees at
   \href{https://www.umsu.de/trees/}{umsu.de/trees} (Remember to tick the checkbox for `universal (S5)') or by following these links:
   \href{https://www.umsu.de/trees/#p~5~8~9p||universality}{(a)},
 \href{https://www.umsu.de/trees/#~9~9p~5~9p||universality}{(b)},

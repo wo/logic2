@@ -12,9 +12,9 @@ in epistemic logic.
 
 Standard epistemic logic relies heavily on the possible-worlds semantics
 introduced in chapters \ref{ch:worlds} and \ref{ch:accessibility}. The guiding
-idea is that information rules out possibilities. Suppose, for example, we are
+idea is that \emph{information rules out possibilities}. Imagine we are
 investigating a crime. There are three suspects: the gardener, the butler, and
-the cook. A credible eye-witness tells us that the gardener was out of town at
+the cook. Now a credible eye-witness tells us that the gardener was out of town at
 the time of the crime. This allows us to rule out the previously open
 possibility that the gardener is the culprit. When we gain information, the
 space of open possibilities shrinks.
@@ -28,8 +28,8 @@ space of open possibilities shrinks.
 Let's say that a world is \emph{epistemically accessible} for an agent if it is
 compatible with the agent's knowledge. Recall that a world is a maximally
 specific possibility. For any such possibility, we may ask whether it might be
-the actual world. If your information allows you to give a negative answer then
-the world is not epistemically possible for you -- it is epistemically
+the actual world. If our information allows us to give a negative answer then
+the world is not epistemically possible for us -- it is epistemically
 inaccessible. Before we learned that the gardener was out of town, our
 epistemically accessible worlds included worlds at which the gardener committed
 the crime. When we received the eye-witness report, these worlds became
@@ -44,7 +44,7 @@ inaccessible.
 \end{solution}
 
 We will interpret the box and the diamond in terms of epistemic accessibility.
-In this context, the box is usually written `$\Kn$', which for once doesn't
+In this context, the box is usually written `$\Kn$'. For once, this doesn't
 stand for Kripke but for knowledge. I will use `$\Mi$' (`might') for the
 diamond. So $\Kn A$ means that $A$ is true at all epistemically accessible
 worlds, while $\Mi A$ means that $A$ is true at some epistemically accessible
@@ -110,7 +110,7 @@ does.
     $r$: It is raining; $s$: It is snowing\\[-2mm]
   \item $\Kn r \lor \Kn \neg r$\\
     $r$: It is raining\\[-2mm]
-  \item This sentence is ambiguous. On one reading, it could be translated as $\Mi g\to Kn g$, on the other as $\Kn(\Mi g \to g)$\\
+  \item This sentence is ambiguous. On one reading, it could be translated as $\Mi g\to \Kn g$, on the other as $\Kn(\Mi g \to g)$\\
     $g$: You are guilty
   \end{sollist}
 \end{solution}
@@ -218,7 +218,7 @@ that they know $\neg p$. Let's also assume that their beliefs are consistent, so
 they don't believe that they \emph{don't} know $\neg p$. Since they don't
 believe this proposition (that they don't know $\neg p$) they don't know it
 either: they don't know that they don't know $\neg p$. So we have a scenario in
-which $p$ is true but $\Kn \neg \Kn \neg p$ false.
+which $p$ is true but $\Kn\!\neg\!\Kn\!\neg p$ false.
 
 Can you see what this has to do with symmetry? In section \ref{sec:frames} I
 mentioned that symmetry corresponds to the schema
@@ -273,7 +273,7 @@ the KK principle. For example, some have argued that an agent knows $p$
 \end{quote}
 % 
 We can formalize this concept in modal logic. Let $N$ mean that conditions are
-normal (whatever exactly that means), and let $\Box$ be a non-epistemic operator
+normal (whatever exactly this means), and let $\Box$ be a non-epistemic operator
 that formalizes `at all worlds'. $\Box(N \to A)$ then means that $A$ is true at
 all world at which conditions are normal. According to the definition I just
 gave, a belief state $s$ indicates $p$ iff
@@ -296,7 +296,7 @@ automatically constitutes knowledge of knowledge: the \pr{4} schema is valid.
 \begin{solution}
   You can use
   \href{https://www.umsu.de/trees/}{umsu.de/trees/} to
-  see the tree proof. We can assume S5 for the box because quantifies
+  create the tree proof. We can assume S5 for the box because it quantifies
   unrestrictedly over all worlds (as in chapter \ref{ch:worlds}).
 \end{solution}
 
@@ -318,8 +318,8 @@ We can also give a more direct argument against negative introspection. Consider
 again a scenario in which someone has misleading evidence that some proposition
 $p$ is false. Since $p$ is actually true, the agent doesn't know $\neg p$. But
 the agent might not know that they don't know $\neg p$. (On the contrary, they
-might believe that they do know $\neg p$.) In that scenario, $\neg\Kn \neg p$ is
-true but $\Kn \neg \Kn \neg p$ is false.
+might believe that they do know $\neg p$.) In that scenario, $\neg\!\Kn\!\neg p$ is
+true but $\Kn\!\neg\!\Kn\!\neg p$ is false.
 
 Here it is important to not be misled by a curiosity of ordinary language. When
 we say that someone doesn't know $p$, this seems to imply that $p$ is true. If I
@@ -327,9 +327,9 @@ told you that my neighbour doesn't know that I have a pet aardvark, you could
 reasonably infer that I have a pet aardvark. You might therefore be tempted to
 regard all instances of the following schema as valid:
 %
-\principle{NT}{\neg \Kn A \to A}
+\principle{NT}{\neg\!\Kn A \to A}
 %
-On reflection, however, \pr{NT} is unacceptable. If $\neg \Kn A$ entails $A$,
+On reflection, however, \pr{NT} is unacceptable. If $\neg\! \Kn A$ entails $A$,
 then by contraposition $\neg A$ entails $\Kn A$: everything that is false would
 be known! Indeed, if I \emph{don't} have a pet aardvark then surely my neighbour
 does not know that I have one. We shall therefore not regard the inference from
@@ -405,17 +405,17 @@ all instances of \pr{T}, \pr{4}, \pr{B}, and \pr{5} valid. If we drop \pr{B} and
 \pr{5} but keep \pr{T} and \pr{4}, we get S4. If we also drop \pr{4}, we get
 system T.
 
-We might, however, look at further schemas, corresponding to further conditions
-on the accessibility relation. For example, some have argued that we should
-adopt a weakened form of negative introspection. The above counterexample to
-negative introspection -- schema \pr{5} -- involved an agent who doesn't know
-that they don't know a certain proposition because they don't know that the
-proposition is false. This kind of counterexample can't arise if the relevant
-proposition is true. One might therefore suggest that if an agent doesn't know a
-proposition $p$ \emph{and $p$ is true}, then the agent always knows that they
-don't know $p$. This would give us a schema known as 0.4:
+But we might look at other schemas, corresponding to further conditions on the
+accessibility relation. For example, some have argued that we should adopt a
+weakened form of negative introspection. The above counterexample to negative
+introspection -- schema \pr{5} -- involved an agent who doesn't know that they
+don't know a certain proposition because they don't know that the proposition is
+false. This kind of counterexample can't arise if the relevant proposition is
+true. One might therefore suggest that if an agent doesn't know a proposition
+$p$ \emph{and $p$ is true}, then the agent always knows that they don't know
+$p$. This would give us a schema known as 0.4:
 %
-\principle{0.4}{(\neg \Kn A\land A) \to \Kn \neg \Kn A}
+\principle{0.4}{(\neg\!\Kn A\land A) \to \Kn\! \neg\! \Kn A}
 %
 All instances of \pr{0.4} are S5-valid, but not all of them are S4-valid. Adding
 the schema to S4 leads to a system known as S4.4.
@@ -466,7 +466,7 @@ We will meet an argument in favour of \pr{G} in section \ref{sec:kb}.
   \href{https://www.umsu.de/trees/}{umsu.de/trees/} if
   you write $\Kn$ as a box and $\Mi$ as a diamond. Here is a tree for (f):
   \begin{center}
-  \tree{
+  \tree[3]{
    & \nnode{35}{1.}{$\neg((\Mi\Kn p \land \Mi\Kn q) \to \Mi \Kn(p \land q))$}{w}{(Ass.)} & \\
     & \nnode{35}{2.}{$\Mi\Kn p \land \Mi\Kn q$}{w}{(1)} & \\
     & \nnode{35}{3.}{$\neg\Mi \Kn(p \land q)$}{w}{(1)} & \\
@@ -514,8 +514,8 @@ interpreted in multi-modal Kripke models.
   \end{itemize*}
 \end{definition}
 %
-In our present application, every accessibility relation $R_i$ represents the
-information available to a particular agent. A world $v$ is $R_i$-accessible
+In our present application, every accessibility relation $R_i$ represents what
+information is available to a particular agent. A world $v$ is $R_i$-accessible
 from $w$ iff $v$ is compatible with the information agent $i$ has at world $w$.
 
 The definition of truth at a world in a Kripke model (definition
@@ -536,19 +536,20 @@ puzzle.
 
 \begin{quote}
   Three (intelligent) children have been playing outside. They can't see or feel
-  if their own face is muddy, but they can see who of the others has mud on
-  their face. Coming inside, mother tells them: `At least one of you has mud on
+  if their own face is muddy, but they can see who of the others have mud on
+  their face. As they come inside, mother tells them: `At least one of you has mud on
   their face'. She then asks, `Do you know if you have mud on your face?''.
   All three children say that they don't know. Mother asks again, `Do you know
   if you have mud on your face?'. This time, two children say that they know.
-  How many children have mud on their face? And what happens when the mother
+  Do you know many children have mud on their face? What happens when the mother
   asks her question a third time?
 \end{quote}
 
-We begin by drawing a model. I'll call the three children Alice, Bob, and Carol,
-and I'll use $m_a, m_b, m_c$ as sentence letters expressing, respectively, that
-Alice/Bob/Carol is muddy; $c_a, c_b, c_c$ mean that Alice/Bob/Carol is clean.
-Before the mother's first announcement, there are eight relevant possibilities.
+To answer these questions, we can begin by drawing a model. I'll call the three
+children Alice, Bob, and Carol, and I'll use $m_a, m_b, m_c$ as sentence letters
+expressing, respectively, that Alice/Bob/Carol is muddy; $c_a, c_b, c_c$ mean
+that Alice/Bob/Carol is clean. Before the mother's first announcement, there are
+eight relevant possibilities.
 
 \begin{center}
   \resizebox{ 8.5cm}{!}{%
@@ -579,12 +580,12 @@ Before the mother's first announcement, there are eight relevant possibilities.
 %
 Since we have three epistemic agents, we have three accessibility relations, one
 for Alice (drawn in red), one for Bob (green), and one for Carol (blue). To
-remove clutter, I have left out the three times eight arrows leading from each
+remove clutter, I have left out the ($3\times 8$) arrows leading from each
 world to itself, but we should keep in mind that every world is also accessible
 from itself, for each agent.
 
 Don't confuse an arrow in the diagram of a model with an accessibility relation.
-We have three accessiblity relations, but more than three arrows. All the red
+We have three accessibility relations, but more than three arrows. All the red
 arrows in the picture represent one and the same accessibility relation. The
 accessibility relation for Alice holds between a world and another whenever a
 red arrow leads from the first world to the second.
@@ -806,7 +807,7 @@ that $R_{2}$ is reflexive. \bigskip
   We could add a few more applications of Reflexivity, but the tree would remain
   open. It also gives us a countermodel: let $W$ = $\{ w,v,u \}$; $w$ has
   1-access to $v$ and $u$; each world has 1- and 2-access to itself;
-  $V(p,v) = 1$ and $V(p,u) = 0$. In this model, at world $w$, $\Mi_1\Kn_2 p$ is
+  $V(p) = \{ v \}$. In this model, at world $w$, $\Mi_1\Kn_2 p$ is
   true while $\Mi_2\Kn_1 p$ is false.
 
   Cases (b) and (d) are similar.
@@ -822,8 +823,8 @@ of the group. So we can't say anything new with the help of $\EKn_G$ (at least
 for finite groups). But it can be instructive to see how $\EKn_G$ behaves
 depending on the behaviour of the underlying operators $\Kn_1,\Kn_2,$ etc. For
 example, if each individual knowledge operator validates the \pr{T}-schema, then
-so does $\EKn_G$; but if each $\Kn_i$ validates \pr{4} (positive introspection),
-it does not follow that $\EKn_G$ validates \pr{4}. As a counterexample, consider
+so does $\EKn_G$; but if each $\Kn_i$ validates \pr{4},
+it does not follow that $\EKn_G$ validates \pr{4}. For a counterexample, consider
 a group of two agents; both know $p$, and both know of themselves that they know
 $p$, but agent 1 does not know that agent 2 knows $p$. Then $\EKn_G p$ but
 $\neg \EKn_G \EKn_G p$.
@@ -910,7 +911,7 @@ acquire further beliefs, the space of doxastically accessible worlds becomes
 smaller and smaller.
 
 We interpret $\Bel p$ as saying that $p$ is true at all doxastically accessible
-worlds (for whatever agent we have in mind). Since we won't spend a lot of time
+worlds (for the agent we have in mind). Since we won't spend a lot of time
 with this operator, we will simply write its dual as $\neg\Bel\neg$.
 
 The logic of $\Bel$ is different from the logic of $\Kn$, if only because
@@ -999,31 +1000,31 @@ Here is how we can get from $\Bel A$ to $\Mi\Kn A$.
   \itemsep-1mm
 \item Suppose $\Bel A$.
 \item By \pr{SB}, it follows that $\Bel \Kn A$.
-\item By \pr{D}, it follows that $\neg \Bel \neg \Kn A$.
-\item By \pr{KB}, it follows that $\neg \Kn \neg \Kn A$, and so that $\Mi\Kn A$.
+\item By \pr{D}, it follows that $\neg\! \Bel\! \neg\! \Kn A$.
+\item By \pr{KB}, it follows that $\neg\! \Kn \!\neg\! \Kn A$, and so that $\Mi\Kn A$.
 \end{enumerate}
 
-To show that $\Mi\Kn A$ entails $\Bel A$, I'll show that $\neg \Bel A$
-entails $\neg \Mi\Kn A$.
+To show that $\Mi\Kn A$ entails $\Bel A$, I'll show that $\neg\! \Bel A$
+entails $\neg\! \Mi\Kn A$.
 %
 \begin{enumerate}[leftmargin=10mm]
   \itemsep-1mm
-\item By \pr{KB}, $\neg \Bel A \to \neg \Kn A$ is a logical truth.
-\item Since logical truths are true at every world, we have $\Kn(\neg \Bel A \to \neg \Kn A)$.
-\item By the \pr{K}-schema, it follows that $\Kn\neg \Bel A \to \Kn \neg \Kn A$.
-\item Now suppose $\neg \Bel A$.
-\item By \pr{NI}, it follows that $\Kn \neg \Bel A$.
-\item By 3 above, it follows that $\Kn \neg \Kn A$, which is equivalent to $\neg \Mi\Kn A$.
+\item By \pr{KB}, $\neg\! \Bel A \to \neg\! \Kn A$ is a logical truth.
+\item Since logical truths are true at every world, we have $\Kn(\neg\! \Bel A \to \neg\! \Kn A)$.
+\item By the \pr{K}-schema, it follows that $\Kn\!\neg\! \Bel A \to \Kn \!\neg\! \Kn A$.
+\item Now suppose $\neg\! \Bel A$.
+\item By \pr{NI}, it follows that $\Kn \!\neg\! \Bel A$.
+\item By 3 above, it follows that $\Kn\! \neg\! \Kn A$, which is equivalent to $\neg\! \Mi\Kn A$.
 \end{enumerate}
 
 Given the equivalence between $\Bel A$ and $\Mi\Kn A$, the \pr{D}-schema for
 belief
 \[
-  \Bel A \to \neg \Bel\neg A
+  \Bel A \to \neg\! \Bel\!\neg A
 \]
 is equivalent to
 \[
-  \Mi \Kn A \to \neg\Mi\Kn \neg A
+  \Mi \Kn A \to \neg\!\Mi\Kn\! \neg A
 \]
 which in turn is equivalent to
 \[
@@ -1040,7 +1041,7 @@ for $\Kn$.)
 
 \begin{exercise}
   Show that the interaction principles entail principles \pr{4} and \pr{5} for
-  belief: $\Bel A \to \Bel\Bel A$ and $\neg\Bel\neg A \to \Bel\neg\Bel\neg A$.
+  belief: $\Bel A \to \Bel\Bel A$ and $\neg\!\Bel\!\neg A \to \Bel\!\neg\!\Bel\!\neg A$.
 \end{exercise}
 \begin{solution}
   Let $A$ be an arbitrary proposition.
@@ -1064,9 +1065,10 @@ for $\Kn$.)
 \begin{solution}
   The left-to-right direction is \pr{KB}. For the right-to-left direction, let
   $A$ be an arbitrary proposition. By \pr{SB}, $\Bel A \to \Bel\Kn A$ is valid.
-  By \pr{D} for belief, $\Bel \Kn A \to \neg\Bel \neg \Kn A$ is valid. \pr{KB}
-  gives us $\neg \Bel \neg \Kn A \to \neg\Kn\neg\Kn A$. Finally, \pr{5} for
-  knowledge yields $\neg \Kn\neg A \to \Kn A$. The target proposition
+  By \pr{D} for belief, $\Bel \Kn A \to \neg\Bel \neg \Kn A$ is valid. The
+  contraposition of \pr{KB} gives us
+  $\neg \Bel \neg \Kn A \to \neg\Kn\neg\Kn A$. Finally, the contraposition of
+  \pr{5} for knowledge yields $\neg \Kn\neg A \to \Kn A$. The target proposition
   $\Bel A \to \Kn A$ is a truth-functional consequence of these four
   propositions.
   % BA -> BKA (SB)
@@ -1113,14 +1115,14 @@ The principle is refuted by the following argument, due to Alonzo Church.
   \itemsep-1mm
   \item Let $p$ be any unknown truth. (Nobody thinks all truths are actually
         known.)
-  \item So we have $p \land \neg \Kn p$.
+  \item So we have $p \land \neg\! \Kn p$.
   \item In any logic that extends the minimal system K,
-        $\Kn(p \land \neg \Kn p)$ entails $\Kn p \land \Kn \neg \Kn p$.
-  \item By the \pr{T}-schema for knowledge, $\Kn \neg \Kn p$ entails
-        $\neg \Kn p$.
-  \item So $\Kn(p \land \neg \Kn p)$ entails both $\Kn p$ and $\neg \Kn p$.
-  \item So the hypothesis $\Kn(p \land \neg \Kn p)$ is inconsistent.
-  \item So $\neg \Diamond \Kn(p \land \neg \Kn p)$.
+        $\Kn(p \land \neg\! \Kn p)$ entails $\Kn p \land \Kn\! \neg \!\Kn p$.
+  \item By the \pr{T}-schema for knowledge, $\Kn\! \neg \!\Kn p$ entails
+        $\neg\! \Kn p$.
+  \item So $\Kn(p \land \neg\! \Kn p)$ entails both $\Kn p$ and $\neg\! \Kn p$.
+  \item So the hypothesis $\Kn(p \land \neg\! \Kn p)$ is inconsistent.
+  \item So $\neg \Diamond \Kn(p \land \neg\! \Kn p)$.
   \item Lines 2 and 7 together provide a counterexample to the Knowability
         principle.
 \end{enumerate}

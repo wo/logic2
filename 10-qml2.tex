@@ -12,25 +12,23 @@ whose meaning depends on the application. If we want to reason about knowledge,
 a world $v$ might be accessible from a world $w$ iff $v$ is compatible with what
 is known at $w$. If we're interested in metaphysical modality then a world $v$
 might be accessible from a world $w$ iff it is compatible with the nature of
-things at $w$. And so on. On the metaphysical interpretation, we might read
-$\Diamond Fa$ as saying that Aristotle could have been a sailor, assuming that
-$a$ picks out Aristotle and $F$ the property of being a sailor.
+things at $w$. Here we might, for example, read $\Diamond Fa$ as saying that
+Aristotle could have been a sailor, assuming that $a$ picks out Aristotle and
+$F$ the property of being a sailor.
 
 Our topic in logic is not whether a particular claim about Aristotle is true. We
 want to know which statements are \emph{logically true} or \emph{valid}, meaning
 that they are true in any conceivable scenario, under any interpretation of the
 non-logical expressions (but holding fixed the meaning of the modal operators).
-Settling which sentences are valid will also settle which are entailed by which
-others.
 
 As always, we use models to represent a scenario together with an interpretation
-of the non-logical vocabulary. A model for $\L_{M\!P}$ will contain just enough
+of the non-logical vocabulary. A model for $\L_{M\!P}$ contains just enough
 information about a scenario and an interpretation to determine, for every
 $\L_{M\!P}$-sentence and every world, whether the sentence is true at that
 world.
 
 The non-logical vocabulary of $\L_{M\!P}$ are the names and the predicates (with
-the exception of the identity predicate `='). Let's assume for now that the
+the exception of the identity predicate `='). Let's assume, for now, that the
 purpose of a name is simply to pick out an individual. Intuitively, a predicate
 picks out a property or relation. In non-modal predicate logic, we could
 represent these properties or relations by their extension -- by the sets of
@@ -76,7 +74,7 @@ $\L_{M\!P}$ also specifies a domain of individuals.
   \medskip
   \begin{compactenum}
     \item a non-empty set $W$ (the ``worlds''),
-    \item an accessibility relation $R$ on $W$,
+    \item a binary (``accessibility'') relation $R$ on $W$,
     \item a non-empty set $D$ (of ``individuals''), and
     \item an interpretation function $V$ that assigns%
     \vspace{-1mm}
@@ -131,10 +129,10 @@ $M = \t{D,W,R,V}$ and an assignment function $g$:
     (k) & $M,w,g \models \Diamond A$ &iff $M,v,g \models A$ for some $v\in W$ such that $wRv$.
   \end{tabular}
 
-\end{definition}
+  $A$ is \textbf{true at $w$ in $M$} iff $M,w,g \models A$ for
+  every assignment function $g$ for $M$.
 
-We say that a sentence is \textbf{true at a world $w$ in a model $M$} iff it
-is true at $w$ in $M$ relative to every assignment function $g$ for $M$. 
+\end{definition}
 
 Let's return to the model from above, and let's add the information that the
 domain of individuals consists of just Aristotle and Boethius. That is, let $M$
@@ -154,15 +152,15 @@ meaning to names and predicates other than $a$ and $F$, but we have enough
 information to determine the truth-value of any $\L_{M\!P}$-sentence whose only
 non-logical vocabulary are $a$ and $F$.
 
-We can, for example, verify that $Fa$ is true at $w$ in $M$. We know that
-sentence is true at $w$ in $M$ iff it is true at $w$ in $M$ relative to every
-assignment function $g$. By clause (a) of definition
-\ref{def:constantdomainsemantics}, $Fa$ is true at $w$ in $M$ relative to $g$
-iff $[a]^{M,g}$ is a member of $V(F,w)$. Since $a$ is a name, $[a]^{M,g}$ is
-$V(a)$. And $V(a)$ is Aristotle. So $Fa$ is true at $w$ relative to $g$ iff
-Aristotle is a member of $V(F,w)$. We know that $V(F,w)$ is $\{ \text{Aristotle,
-  Boethius} \}$. Aristotle evidently is a member of $\{ \text{Aristotle,
-  Boethius} \}$. So $Fa$ is true at $w$ in $M$, relative to any assignment $g$.
+We can, for example, verify that $Fa$ is true at $w$ in $M$. A sentence is true
+at $w$ in $M$ iff it is true at $w$ in $M$ relative to every assignment function
+$g$. By clause (a) of definition \ref{def:constantdomainsemantics}, $Fa$ is true
+at $w$ in $M$ relative to $g$ iff $[a]^{M,g}$ is a member of $V(F,w)$. Since $a$
+is a name, $[a]^{M,g}$ is $V(a)$. And $V(a)$ is Aristotle. So $Fa$ is true at
+$w$ relative to $g$ iff Aristotle is a member of $V(F,w)$. We know that $V(F,w)$
+is $\{ \text{Aristotle, Boethius} \}$. Aristotle evidently is a member of
+$\{ \text{Aristotle, Boethius} \}$. So $Fa$ is true at $w$ in $M$, relative to
+any assignment $g$.
 
 We can also verify that $\Box Fa$ is false at $w$. By clause (j) of definition
 \ref{def:constantdomainsemantics}, $\Box Fa$ is true at $w$ (in $M$ relative to
@@ -228,12 +226,12 @@ $w$. And $Fa$ is false at $v$ because Aristotle is not a member of $\{ \text{Boe
   (a), (b), (d), and (f) are true; (c) and (e) are false.
 \end{solution}
 
-We define validity as truth at all worlds in all models of a certain kind. A
-sentence is \textbf{CK-valid} iff it is true at all worlds in all
-constant-domain Kripke models. `C' comes from `constant domains'; `K' indicates
-that we have put no constraints on the accessibility relation. We get stronger
-concepts of validity -- stronger logics -- if we require the accessibility
-relation to be reflexive, or transitive, or euclidean, etc.
+Validity is truth at all worlds in all models of a certain kind. A sentence is
+\textbf{CK-valid} iff it is true at all worlds in all constant-domain Kripke
+models. `C' comes from `constant domains'; `K' indicates that we have put no
+constraints on the accessibility relation. We get stronger concepts of validity
+-- stronger logics -- if we require the accessibility relation to be reflexive,
+or transitive, or euclidean, etc.
 
 It is not hard to see that every sentence that is valid in classical predicate
 logic is CK-valid. Similarly, every K-valid sentence is CK-valid. We also get
@@ -448,7 +446,7 @@ schemas: the Barcan Formula \pr{BF} and the ``necessity of distinctness'',
 % \end{solution}
 
 As I mentioned above, stronger logics can be defined by putting constraints on
-the accessibility relation. We can define a system \textbf{CT} as the set of
+the accessibility relation. For example, the system \textbf{CT} is the set of
 $\L_{M\!P}$-sentences that are valid in the class of constant-domain Kripke
 models with a reflexive accessibility relation. \textbf{CS4} is the set of
 $\L_{M\!P}$-sentences that are valid in the class of constant-domain Kripke
@@ -514,7 +512,7 @@ If we use $b$ as a name for Loafy, we can arguably express Loafy's existence as
 \[
   \exists x \,x\!=\!b.
 \]
-Why does this express that Loafy exists? Consider a scenario in which Loafy does
+Why might this express that Loafy exists? Consider a scenario in which Loafy does
 exist. In that scenario, there is some thing $x$ which is identical to Loafy
 (namely, Loafy). Conversely, consider a scenario in which Loafy does not exist.
 In that scenario, there is no thing $x$ which is identical to Loafy. So
@@ -620,7 +618,7 @@ A different response is to break the link between quantification and
 existence. $\exists x$ is traditionally called an ``existential'' quantifier,
 and pronounced `there is an $x$' or `there exists an $x$'. But $\L_{M\!P}$ is a
 made-up language. We can make its symbols mean whatever we want. We can give a
-different interpretation of $\exists x$ on which `Loafy exists' can't be
+different interpretation of $\exists x$ so that `Loafy exists' can't be
 translated as $\exists x\, x\!=\!b$.
 
 One alternative to the standard interpretation of quantifiers is associated with
@@ -638,7 +636,7 @@ called \emph{Meinongian}. If the $\L_{M\!P}$-quantifiers are Meinongian, then
 clearly $\exists x\, x\!=\!b$ does not translate `Loafy exists'.
 
 Meinong's postulation of non-existent individuals is widely rejected as
-incoherent. It certainly raises some difficult questions. Suppose you are
+incoherent. It certainly raises difficult questions. Suppose you are
 searching for a golden mountain. You probably don't have any firm views about
 the mountain's height. You are not looking for a mountain that is exactly 2000
 meters tall, nor are you looking for a mountain that is exactly 2100 meters
@@ -735,7 +733,7 @@ Here is our revised definition of an $\L_{M\!P}$-model.
   \medskip
   \begin{compactenum}
   \item a non-empty set $W$ (the ``worlds''),
-  \item an accessibility relation $R$ on $W$,
+  \item a binary (``accessibility'') relation $R$ on $W$,
   \item for each world $w$, a non-empty set $D_w$ (of ``individuals''), and
   \item an interpretation function $V$ that assigns
     \vspace{-1mm}
@@ -761,7 +759,7 @@ interpreted at a world (here, $v$) where the thing that's picked out by the name
 doesn't exist.
 
 In the case of $\neg \exists x\, x\!=\!b$, the sentence should come out true.
-Other cases are less clear. What about $b=b$? Is Loafy identical to Loafy at
+Other cases are less clear. What about $b\!=\!b$? Is Loafy identical to Loafy at
 $v$, where Loafy doesn't exist? What about $Fb$, $\neg Fb$, or
 $Fb \lor \neg Fb$? Is Loafy delicious at $v$? Is Loafy not delicious at $v$? Is
 Loafy either delicious or not delicious at $v$?
@@ -771,10 +769,10 @@ non-modal logic called \textbf{free logic}. Free logic differs from classical
 predicate logic by dropping the assumption that every name has a referent. The
 assumption is, after all, not true for names in natural language.
 
-Consider the story of `Vulcan'. Astronomers of the 19th century found that
+Consider the story of `Vulcan'. In the 19th century, it was observed that
 Mercury's path around the Sun conforms to Newton's laws only if there is
 another, smaller planet between Mercury and the Sun. With the help of Newton's
-laws, they calculated the size and position of that planet, and called it
+laws, astronomers calculated the size and position of that planet, and called it
 Vulcan. But Vulcan was never discovered. Eventually, Mercury's path was
 explained by Einstein's theory of relativity, without assuming any new planets.
 The name `Vulcan' turned out to be \emph{empty}: it doesn't refer to anything.
@@ -855,11 +853,11 @@ true.
     (j) & $M,w,g \models \Box A$ &iff $M,v,g \models A$ for all $v\in W$ such that $wRv$.\\
     (k) & $M,w,g \models \Diamond A$ &iff $M,v,g \models A$ for some $v\in W$ such that $wRv$.
   \end{tabular}
+  $A$ is \textbf{true at $w$ in $M$} iff $M,w,g \models A$ for all assignments
+  $g$ for $M$.
 \end{definition}
 
-As in constant-domain semantics, we say that a sentence $A$ is \textbf{true at a
-  world $w$} in a model $M$ iff $M,w,g \models A$ for all assignments $g$. A
-sentence is \textbf{VK-valid} (`V' for `variable-domain') iff it is true at all
+A sentence is \textbf{VK-valid} (`V' for `variable-domain') iff it is true at all
 worlds in all variable-domain models.
 
 The system VK is weaker than classical predicate logic. Not everything
@@ -978,7 +976,7 @@ We keep the rule for Leibniz's Law. But we replace the Self-Identity and Identit
 \bigskip
 
 The Existence rule reflects our assumption that the domain of individuals is
-never empty. The last rule is a rule for expanding atomic nodes. From the
+never empty. The unnamed last rule is a rule for expanding atomic nodes. From the
 assumption that $Fb$ is true at a world, for example, the rule allows us to
 infer that $b$ exists at that world, which can be expressed as $b\!=\!b$. We
 then don't need a separate rule of Self-Identity.
@@ -1076,9 +1074,9 @@ then don't need a separate rule of Self-Identity.
 % because we don't have the BF which allows us to construct maximally consistent
 % and witnessed sets.
 
-It is easy to check that the Barcan Formula
-$\forall x \Box A \to \Box \forall x A$ and its converse
-$\Box \forall x A \to \forall x \Box A$ are invalid in variable-domain
+It is easy to check that the Barcan Formula,
+$\forall x \Box A \to \Box \forall x A$, and its converse,
+$\Box \forall x A \to \forall x \Box A$, are invalid in variable-domain
 semantics. (By this I mean that not all their instances are valid.) In fact, we
 can now prove that the Barcan formula corresponds to the assumption that
 whatever exists at an accessible world also exists at the original world, while
@@ -1258,10 +1256,10 @@ is \textbf{rigid} if it picks out the same individual relative to any possible
 world. Earlier, we assumed that no matter at which world the sentence $Fa$ is
 interpreted, the name $a$ always picks out the same individual, $V(a)$. A name
 like `Julius', however, seems to be non-rigid. It picks out different
-individuals relative to different (epistemically) possible worlds. When we
-consider a world where Benjamin Franklin invented the zip, we use `Julius' to
-pick out Benjamin Franklin. When we consider a world where Whitcomb L.\ Judson
-invented the zip, the name picks out Whitcomb L.\ Judson.
+individuals relative to different (epistemically) possible worlds. Relative to a
+world where Benjamin Franklin invented the zip, `Julius' picks out Benjamin
+Franklin. Relative to a world where Whitcomb L.\ Judson invented the zip, the
+name picks out Whitcomb L.\ Judson.
 
 Let's assume, then, that a model's interpretation function assigns an individual
 to each name \emph{relative to each world}. This is equivalent to assuming that
@@ -1296,7 +1294,7 @@ individual. For Lois Lane's belief worlds, they return different individuals.
 \end{solution}
 
 We can easily convert our earlier constant-domain and variable-domain semantics
-into an individual concept semantics. We first need change the definition of a
+into an individual concept semantics. We first need  to change the definition of a
 model, so that $V$ assigns individual concepts to names. In variable-domain
 semantics, we might stipulate that an individual concept never maps a world to
 an individual that doesn't exist at the world. We might also want to allow for

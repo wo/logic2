@@ -1,8 +1,9 @@
+% XeLaTex!
 \documentclass{logic2}
 
 \newif\ifcompilesolutions
 \compilesolutionsfalse
-% \compilesolutionstrue
+\compilesolutionstrue
 
 \definecolor{commentcol}{rgb}{0.0, 0.2, 0.1}
 %\newcommand{\cmnt}[1]{{\small\color{commentcol}#1}}
@@ -19,14 +20,14 @@
 \include{00-preface}
 \include{01-operators}
 \include{02-worlds}
-% \include{03-accessibility}
-% \include{04-proofs}
-% \include{05-epistemic}
-% \include{06-deontic}
-% \include{07-time}
-% \include{08-conditionals}
-% \include{09-qml}
-% \include{10-qml2}
+\include{03-accessibility}
+\include{04-proofs}
+\include{05-epistemic}
+\include{06-deontic}
+\include{07-time}
+\include{08-conditionals}
+\include{09-qml}
+\include{10-qml2}
 
 \ifcompilesolutions
 \include{answers}
