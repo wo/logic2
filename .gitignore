@@ -7,3 +7,8 @@ logic2-exercise-*.tex
 *.toc
 *.xsim
 *.synctex.gz
+*-exercise-*
+/._old_git/
+/.auctex-auto/
+answers-*
+ml-*.pdf
