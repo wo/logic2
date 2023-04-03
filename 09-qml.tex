@@ -815,7 +815,10 @@ second \emph{de dicto}.
     Close but incorrect (and \emph{de re}): $\forall x \Box(Fx \to Gx)$.\\[-2mm] 
     
   \item $\forall x (Fx \to \Diamond Gx)$ \\ $F$: -- is a day, $G$: -- is our last day.\\[1mm]
-    This is \emph{de re}. The English sentence could also be understood \emph{de dicto}, as 
+  Better:
+  $\forall x (Fx \to \Diamond (Hx \land \neg \exists y(Fy \land Lyx \land Hy)))$ \\ $F$: -- is a day, $L$: -- is later than --, $H$: We are alive on --.
+  
+    Both \emph{de re}. The English sentence could also be understood \emph{de dicto}, as 
     $\Diamond \forall x (Fx \to Gx)$, but that would be a very strange
     thing to say.\\[-2mm]
     
@@ -890,8 +893,7 @@ not to arise. But we will return to the matter in section \ref{sec:twi}.
 In applications of modal and non-modal predicate logic, it is often useful to
 have a special predicate for identity. Let's assume that $\L_P$ and $\L_{M\!P}$
 have the two-place predicate `='. The identity predicate is conventionally
-placed between its two arguments: we write `$a=b$', not `$=\!ab$'. We also write
-`$a\not=b$' instead of `$\neg(a\!=\!b)$'.
+placed between its two arguments: we write `$a=b$', not `$=\!ab$'. We also sometimes abbreviate `$\neg a\!=\!b$' as `$a\not=b$'. 
 
 Unlike the other predicates of $\L_P$ and $\L_{M\!P}$, the identity predicate
 counts as a logical symbol. Its meaning is held fixed. In any model, $a=b$

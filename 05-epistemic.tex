@@ -546,34 +546,32 @@ puzzle.
 \end{quote}
 
 To answer these questions, we can begin by drawing a model. I'll call the three
-children Alice, Bob, and Carol, and I'll use $m_a, m_b, m_c$ as sentence letters
-expressing, respectively, that Alice/Bob/Carol is muddy; $c_a, c_b, c_c$ mean
-that Alice/Bob/Carol is clean. Before the mother's first announcement, there are
-eight relevant possibilities.
+children Alice, Bob, and Carol, and I'll use $a,b,c$ as sentence letters
+expressing, respectively, that Alice/Bob/Carol is muddy. Before the mother's first announcement, there are eight relevant possibilities.
 
 \begin{center}
   \resizebox{ 8.5cm}{!}{%
-  \begin{tikzpicture}[modal, world/.append style={minimum size=1.7cm}]
-    \node[world] (w1) {$c_am_b\newline m_c$};
-    \node[world] (w2) [above right=of w1] {$c_am_bc_c$};
-    \node[world] (w3) [below=3cm of w1] {$c_ac_bm_c$};
-    \node[world] (w4) [above right=of w3] {$c_ac_bc_c$};
-    \draw[<->, rblue] (w1) -- (w2) node[midway,above left]{$c$};
-    \draw[<->, rblue] (w3) -- (w4) node[midway,above left]{$c$};
-    \draw[<->, rgreen] (w1) -- (w3) node[midway,left]{$b$};
-    \draw[<->, rgreen] (w2) -- (w4) node[near end,left]{$b$};
-    \node[world] (w5) [right=3cm of w1]{$m_am_bm_c$};
-    \node[world] (w6) [above right=of w5] {$m_am_bc_c$};
-    \node[world] (w7) [below=3cm of w5] {$m_ac_bm_c$};
-    \node[world] (w8) [above right=of w7] {$m_ac_bc_c$};
-    \draw[<->, rblue] (w5) -- (w6) node[midway,above left]{$c$};
-    \draw[<->, rblue] (w7) -- (w8) node[midway,above left]{$c$};
-    \draw[<->, rgreen] (w5) -- (w7) node[near end,left]{$b$};
-    \draw[<->, rgreen] (w6) -- (w8) node[midway,left]{$b$};
-    \draw[<->, rred] (w1) -- (w5) node[near end,above]{$a$};
-    \draw[<->, rred] (w2) -- (w6) node[midway,above]{$a$};
-    \draw[<->, rred] (w3) -- (w7) node[midway,above]{$a$};
-    \draw[<->, rred] (w4) -- (w8) node[near start,above]{$a$};
+  \begin{tikzpicture}[modal, world/.append style={minimum size=1.2cm}]
+    \node[world] (w1) {$b,c$};
+    \node[world] (w2) [above right=of w1] {$b$};
+    \node[world] (w3) [below=3cm of w1] {$c$};
+    \node[world] (w4) [above right=of w3] {};
+    \draw[<->, rblue] (w1) -- (w2) node[midway,above left]{$C$};
+    \draw[<->, rblue] (w3) -- (w4) node[midway,above left]{$C$};
+    \draw[<->, rgreen] (w1) -- (w3) node[midway,left]{$B$};
+    \draw[<->, rgreen] (w2) -- (w4) node[near end,left]{$B$};
+    \node[world] (w5) [right=3cm of w1]{$a,b,c$};
+    \node[world] (w6) [above right=of w5] {$a,b$};
+    \node[world] (w7) [below=3cm of w5] {$a,c$};
+    \node[world] (w8) [above right=of w7] {$a$};
+    \draw[<->, rblue] (w5) -- (w6) node[midway,above left]{$C$};
+    \draw[<->, rblue] (w7) -- (w8) node[midway,above left]{$C$};
+    \draw[<->, rgreen] (w5) -- (w7) node[near end,left]{$B$};
+    \draw[<->, rgreen] (w6) -- (w8) node[midway,left]{$B$};
+    \draw[<->, rred] (w1) -- (w5) node[near end,above]{$A$};
+    \draw[<->, rred] (w2) -- (w6) node[midway,above]{$A$};
+    \draw[<->, rred] (w3) -- (w7) node[midway,above]{$A$};
+    \draw[<->, rred] (w4) -- (w8) node[near start,above]{$A$};
   \end{tikzpicture}
   }%
 \end{center}
@@ -591,39 +589,38 @@ accessibility relation for Alice holds between a world and another whenever a
 red arrow leads from the first world to the second.
 
 Notice how the fact that every child can see the others is reflected in the
-diagram. For example, at the top left world ($c_am_bc_c$), Alice sees that Bob
+diagram. For example, at the top left world, where only Bob is muddy ($b$), Alice sees that Bob
 is muddy and that Carol is clean; the only epistemic possibilities for Alice at
-that world are the two worlds at the top: $c_am_bc_c$ itself and $m_am_bc_c$. In
+that world are the two worlds at the top: the $b$ world itself and the $a,b$ world to the right. In
 general, the only accessible worlds for a given child at a given world $w$ are
 worlds at which the other children's state of muddiness is the same as at $w$.
 
 What changes through the mother's first announcement, `At least one child has
 mud on their face'? The announcement tells \emph{us} that we're not in the
-$c_ac_bc_c$ world. More importantly, it allows \emph{each child} to rule out the
-$c_ac_bc_c$ world (since they all hear and accept the announcement).
+world where $a,b,$ and $c$ are all false. More importantly, it allows \emph{each child} to rule out the this world (since they all hear and accept the announcement).
 
 \begin{center}
   \resizebox{ 8.5cm}{!}{%
-  \begin{tikzpicture}[modal, world/.append style={minimum size=1.7cm}]
-    \node[world] (w1) {$c_am_bm_c$};
-    \node[world] (w2) [above right=of w1] {$c_am_bc_c$};
-    \node[world] (w3) [below=3cm of w1] {$c_ac_bm_c$};
-    \node[world] (w4) [above right=of w3, opacity=0.4] {$c_ac_bc_c$};
-    \draw[<->, rblue] (w1) -- (w2) node[midway,above left]{$c$};
+  \begin{tikzpicture}[modal, world/.append style={minimum size=1.2cm}]
+    \node[world] (w1) {$b,c$};
+    \node[world] (w2) [above right=of w1] {$b$};
+    \node[world] (w3) [below=3cm of w1] {$c$};
+    \node[world] (w4) [above right=of w3, opacity=0.4] {};
+    \draw[<->, rblue] (w1) -- (w2) node[midway,above left]{$C$};
     %\draw[<->, rblue] (w3) -- (w4) node[midway,above left]{$c$};
-    \draw[<->, rgreen] (w1) -- (w3) node[midway,left]{$b$};
+    \draw[<->, rgreen] (w1) -- (w3) node[midway,left]{$B$};
     %\draw[<->, rgreen] (w2) -- (w4) node[near end,left]{$b$};
-    \node[world] (w5) [right=3cm of w1]{$m_am_bm_c$};
-    \node[world] (w6) [above right=of w5] {$m_am_bc_c$};
-    \node[world] (w7) [below=3cm of w5] {$m_ac_bm_c$};
-    \node[world] (w8) [above right=of w7] {$m_ac_bc_c$};
-    \draw[<->, rblue] (w5) -- (w6) node[midway,above left]{$c$};
-    \draw[<->, rblue] (w7) -- (w8) node[midway,above left]{$c$};
-    \draw[<->, rgreen] (w5) -- (w7) node[near end,left]{$b$};
-    \draw[<->, rgreen] (w6) -- (w8) node[midway,left]{$b$};
-    \draw[<->, rred] (w1) -- (w5) node[near end,above]{$a$};
-    \draw[<->, rred] (w2) -- (w6) node[midway,above]{$a$};
-    \draw[<->, rred] (w3) -- (w7) node[midway,above]{$a$};
+    \node[world] (w5) [right=3cm of w1]{$a,b,c$};
+    \node[world] (w6) [above right=of w5] {$a,b$};
+    \node[world] (w7) [below=3cm of w5] {$a,c$};
+    \node[world] (w8) [above right=of w7] {$a$};
+    \draw[<->, rblue] (w5) -- (w6) node[midway,above left]{$C$};
+    \draw[<->, rblue] (w7) -- (w8) node[midway,above left]{$C$};
+    \draw[<->, rgreen] (w5) -- (w7) node[near end,left]{$B$};
+    \draw[<->, rgreen] (w6) -- (w8) node[midway,left]{$B$};
+    \draw[<->, rred] (w1) -- (w5) node[near end,above]{$A$};
+    \draw[<->, rred] (w2) -- (w6) node[midway,above]{$A$};
+    \draw[<->, rred] (w3) -- (w7) node[midway,above]{$A$};
     %\draw[<->, rred] (w4) -- (w8) node[near start,above]{$a$};
   \end{tikzpicture}
   }%
@@ -633,10 +630,10 @@ Next, the mother asks if anyone knows whether they are muddy. No child says yes.
 So no-one knows whether they are muddy. And everyone now knows that no-one knows
 whether they are muddy. We can go through the above seven possibilities to see
 if at any of them, anyone knows whether they are muddy. At the top left world
-($c_am_bc_c$) Alice doesn't know whether she is muddy, because the $m_am_bc_c$
-world (top right) is $a$-accessible; nor does Carol know whether she is muddy,
-because $c_am_bm_c$ is $c$-accessible. But Bob knows that he is muddy: no other
-world is $b$-accessible. Intuitively, at the $c_am_bc_c$ world, Bob sees two
+($b$) Alice doesn't know whether she is muddy, because the $a,b$
+world (top right) is $A$-accessible; nor does Carol know whether she is muddy,
+because the $b,c$ world is $C$-accessible. But Bob knows that he is muddy: no other
+world is $B$-accessible. Intuitively, at the $b$ world, Bob sees two
 clean children (Alice and Carol), and he has just been told that not all
 children are clean. So he can infer that he is muddy. But we know that Bob
 didn't say that he knows whether he is muddy. So we (and all the children) can
@@ -647,24 +644,24 @@ worlds can be eliminated at this stage.
 
 \begin{center}
   \resizebox{ 8.5cm}{!}{%
-  \begin{tikzpicture}[modal, world/.append style={minimum size=1.7cm}]
-    \node[world] (w1) {$c_am_bm_c$};
-    \node[world] (w2) [above right=of w1, opacity=0.4] {$c_am_bc_c$};
-    \node[world] (w3) [below=3cm of w1, opacity=0.4] {$c_ac_bm_c$};
-    \node[world] (w4) [above right=of w3, opacity=0.4] {$c_ac_bc_c$};
+  \begin{tikzpicture}[modal, world/.append style={minimum size=1.2cm}]
+    \node[world] (w1) {$b,c$};
+    \node[world] (w2) [above right=of w1, opacity=0.4] {$b$};
+    \node[world] (w3) [below=3cm of w1, opacity=0.4] {$c$};
+    \node[world] (w4) [above right=of w3, opacity=0.4] {};
     %\draw[<->, rblue] (w1) -- (w2) node[midway,above left]{$c$};
     %\draw[<->, rblue] (w3) -- (w4) node[midway,above left]{$c$};
     %\draw[<->, rgreen] (w1) -- (w3) node[midway,left]{$b$};
     %\draw[<->, rgreen] (w2) -- (w4) node[near end,left]{$b$};
-    \node[world] (w5) [right=3cm of w1]{$m_am_bm_c$};
-    \node[world] (w6) [above right=of w5] {$m_am_bc_c$};
-    \node[world] (w7) [below=3cm of w5] {$m_ac_bm_c$};
-    \node[world] (w8) [above right=of w7, opacity=0.4] {$m_ac_bc_c$};
-    \draw[<->, rblue] (w5) -- (w6) node[midway,above left]{$c$};
+    \node[world] (w5) [right=3cm of w1]{$a,b,c$};
+    \node[world] (w6) [above right=of w5] {$a,b$};
+    \node[world] (w7) [below=3cm of w5] {$a,c$};
+    \node[world] (w8) [above right=of w7, opacity=0.4] {$a$};
+    \draw[<->, rblue] (w5) -- (w6) node[midway,above left]{$C$};
     %\draw[<->, rblue] (w7) -- (w8) node[midway,above left]{$c$};
-    \draw[<->, rgreen] (w5) -- (w7) node[midway,left]{$b$};
+    \draw[<->, rgreen] (w5) -- (w7) node[midway,left]{$B$};
     %\draw[<->, rgreen] (w6) -- (w8) node[midway,left]{$b$};
-    \draw[<->, rred] (w1) -- (w5) node[midway,above]{$a$};
+    \draw[<->, rred] (w1) -- (w5) node[midway,above]{$A$};
     %\draw[<->, rred] (w2) -- (w6) node[midway,above]{$a$};
     %\draw[<->, rred] (w3) -- (w7) node[midway,above]{$a$};
     %\draw[<->, rred] (w4) -- (w8) node[near start,above]{$a$};
@@ -674,10 +671,10 @@ worlds can be eliminated at this stage.
 
 When the mother asks again if anyone knows whether they are muddy, two children
 say `yes'. So everyone comes to know that two children know whether they are
-muddy. In the middle world of the above model ($m_am_bm_c$), however, no child
+muddy. In the middle world of the above model ($a,b,c$), however, no child
 knows whether they are muddy. That world is not actual, and it is no longer
-accessible for anyone. The remaining open possibilities are $c_am_bm_c$,
-$m_ac_bm_c$, and $m_am_bc_c$, each of which is only accessible from itself.
+accessible for anyone. The remaining open possibilities are the $b,c$ world, the
+$a,c$ world, and the $a,b$ world, each of which is only accessible from itself.
 
 Now we can answer the questions. In the three remaining worlds, every child
 knows who is muddy and who is clean. If the mother asks her question for the
