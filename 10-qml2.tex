@@ -353,7 +353,7 @@ And here is a proof of $\forall x \forall y(x\!=\!y \to \Box\, x\!=\!y)$, the
     \nnode{30}{3.}{$\neg(a\!=\!b \to \Box \,a\!=\!b)$}{w}{(2)}\\
     \nnode{30}{4.}{$a=b$}{w}{(3)}\\
     \nnode{30}{5.}{$\neg \Box \,a\!=\!b$}{w}{(3)}\\
-    \nnode{30}{6.}{$\neg \Box \,b\!=\!b)$}{w}{\qquad(4, 5, LL)}\\
+    \nnode{30}{6.}{$\neg \Box \,b\!=\!b$}{w}{\qquad(4, 5, LL)}\\
     \nnode{30}{7.}{$wRv$}{}{(6)}\\
     \nnode{30}{8.}{$b\not=b$}{v}{(6)}\\
     \nnodeclosed{30}{9.}{$b=b$}{v}{(SI)}
@@ -468,6 +468,8 @@ Reflexivity rule to the tree rules for CK. To test for CS4-validity, we would
 add the Reflexivity and Transitivity rules. We can get an axiomatic calculus for
 CT by adding the \pr{T}-schema to the calculus for CK; for CS4, we can add
 \pr{T} and \pr{4}. And so on for other systems.
+
+% A nice example: □∀x□∀y(□Fx∨□Gy)→(□∀x□Fx∨□∀x□Gx) is S4-valid.
 
 But there are exceptions. Remember S4.2 -- the set of $\L_M$-sentences valid in
 the class of reflexive, transitive, and convergent Kripke models. Reflexivity
@@ -587,6 +589,7 @@ And all instances of the Barcan Formula are valid in constant-domain semantics.
   validity of (3) rules out scenarios in which individuals at one world may fail
   to exist at an accessible world.
   % (3) isn't equivalent to CBF though: (3) can be valid even without increasing domains, provided that everything at w exists at /some/ accessible world.
+  % --- Is this true? Not sure. 
 \end{solution}  
   
 % \begin{exercise}
@@ -1225,8 +1228,8 @@ not $\Box \neg Bl$, even though $l\!=\!g$.
 \end{exercise}
 \begin{solution}
   In the Superman case, Clark Kent and Superman are the same person, but Lois
-  Lane doesn't know that they are. So we appear to have $s\!=\!c$ but not
-  $\Box\, s\!=\!c$. Similarly, in the Julius case, Julius and Whitcomb L.\ Judson
+  Lane doesn't know that they are. So we appear to have $c\!=\!s$ but not
+  $\Box\, c\!=\!s$. Similarly, in the Julius case, Julius and Whitcomb L.\ Judson
   are the same person, but one may well not know that they are. In the Goliath
   case, we have Lumpl = Goliath without it being metaphysically necessary that
   Lumpl = Goliath, as there are worlds in which Lumpl is a bowl and Goliath is
@@ -1364,9 +1367,10 @@ complete proof methods become available.
   convincing?
 \end{exercise}
 \begin{solution}
-  The premises are $\Box \exists x\, x\!=\!i$ and
-  $\neg\Box \exists x\, x\!=\!b$. The conclusion is $i\!\not=\!b$. The argument
+  If we treat 'my body' as a name, the premises are $\Box \exists x\, x\!=\!i$ and
+  $\neg\Box \exists x\, x\!=\!b$. The conclusion is $i\!\not=\!b$. This argument
   is CK-valid and VK-valid. (It is not valid in individual concept semantics.)
+  It might be better to translate 'my body' as a description. This would make the argument CK-invalid and VK-invalid. 
 \end{solution}
 
 \begin{exercise}
