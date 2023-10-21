@@ -4,7 +4,7 @@
 
 In the previous chapter, we read $\Box A$ as saying that $A$ is true at every
 possible world. We might hope to allow for different flavours of modality by
-letting each flavour select different kinds of worlds as possible. If the box
+associating each flavour with a different space of worlds. If the box
 represents epistemic necessity, a possible world would be a world that is
 compatible with the available information. If the box represents historical
 necessity, a possible world would be one that can be brought about. If the box
@@ -12,7 +12,7 @@ represents obligation, a possible world would be a world in which all relevant
 norms are respected. (These worlds are more commonly called \emph{ideal}.)
 
 But there is a problem. The semantics from the previous chapter determines a
-particular logic: S5. And that logic is not appropriate for every application of
+particular logic: S5. This logic is not appropriate for every application of
 modal logic. In deontic logic, for example, we don't want the schema
 %
 \begin{principles}
@@ -56,7 +56,7 @@ Accessibility means different things in different applications. In epistemic
 logic, a world $v$ is accessible from $w$ iff $v$ is compatible with what is
 known at $w$. In the logic of historical necessity, $v$ is accessible from $w$
 iff $v$ can be brought about at $w$. And so on. We can still allow for scenarios
-in which every worlds is accessible from every world, so that the box and the
+in which every world is accessible from every world, so that the box and the
 diamond are unrestricted quantifiers over all worlds in the scenario, as in the
 previous chapter.
 
@@ -130,8 +130,8 @@ understood in accordance with definition \ref{def:kripkesemantics}. Definition
 \ref{def:basicsemantics} defines truth at a world in a basic model.
 
 To see definition \ref{def:kripkesemantics} in action, consider a simple model
-with two worlds, $w$ and $v$. World $v$ is accessible from world $w$, but $v$ is
-not accessible from $w$. Neither world can access itself. The interpretation
+with two worlds, $w$ and $v$. World $v$ is accessible from world $w$, but $w$ is
+not accessible from $v$. Neither world can access itself. The interpretation
 function assigns $\{ v \}$ to $p$ and the empty set $\emptyset$ to all other
 sentence letters. The model can be pictured as follows, with an arrow
 representing accessibility:
@@ -144,7 +144,7 @@ representing accessibility:
   \end{tikzpicture}
 \end{center}
 %
-Using definition \ref{def:kripkesemantics}, we can figure which $\L_M$-sentences
+Using definition \ref{def:kripkesemantics}, we can figure out which $\L_M$-sentences
 are true at which worlds in the model. For example:
 
 \begin{itemize*}
@@ -495,7 +495,7 @@ become valid.
 
 A relation $R$ on a set $W$ is called \textbf{reflexive} if each member of $W$
 is $R$-related to itself. If the accessibility relation in a Kripke model is
-reflexive, we'll also call the model itself reflexive. Observation
+reflexive, we also call the model itself reflexive. Observation
 \ref{obs:treflexive} therefore states that all instances of \pr{T}
 are valid in the class of reflexive Kripke models.
 
@@ -662,9 +662,10 @@ Now let me explain why the above two characterisations of S5 are equivalent.
     it is true at $w$ in $M'$.} This could be shown by induction, but I hope you
   see intuitively why it is the case.
 
-  Granting the italicized sentence, the assumption that $A$ is false at some model
-  whose accessibility relation is an equivalence relation entails that $A$ is
-  false in some model whose accessibility relation is universal. \qed
+  Granting the italicized sentence, the assumption that $A$ is false at some
+  world in some model whose accessibility relation is an equivalence relation
+  entails that $A$ is false at some world in some model whose accessibility
+  relation is universal. \qed
 \end{proof}
 
 \begin{exercise}
@@ -718,13 +719,13 @@ Now let me explain why the above two characterisations of S5 are equivalent.
 
 There is a close connection between conditions on the accessibility relation in
 Kripke models and modal schemas -- between reflexivity and the \pr{T}-schema,
-between transitivity and the \pr{4}-schema, and so on. What exactly is that
+between transitivity and the \pr{4}-schema, and so on. What exactly is the
 connection?
 
 You might think the connection between \pr{T} and reflexivity is this:
 \begin{quote}
   \begin{itemize}
-    \item[(?)] All instances of \pr{T} are valid in a models iff the model is reflexive.
+    \item[(?)] All instances of \pr{T} are valid in a model iff the model is reflexive.
   \end{itemize}
 \end{quote}
 %
@@ -781,7 +782,7 @@ validity by reference to a class of Kripke models, the constraints we impose on
 the models in the class should be constraints on the frame of the models, not on
 the interpretation function.
 
-To see why, suppose I suggested that a sentence is ``$X$-valid'' iff it is true
+To see the point, suppose I suggested that a sentence is ``$X$-valid'' iff it is true
 at all worlds in all Kripke model whose interpretation function assigns the
 empty set to the sentence letter $p$. So $\Box \neg p$ is $X$-valid, while
 $\Box \neg q$ is $X$-invalid. But $\Box \neg p$ and $\Box \neg q$ have the same
@@ -998,7 +999,7 @@ following node.
 \end{center}
 Now we can infer that $p$ is true at $v$. So to expand a box node on a
 branch, there must be another node on the branch telling us that
-the world $w$ at which the boxed sentence is true has access to some
+the world $w$ at which the box sentence is true has access to some
 world $v$.
 
 Here are diagrams of the new rules for the box and the diamond.
@@ -1284,6 +1285,7 @@ a variety of modal logics.  (Compare the table on p.\
     \item $\models_{B} \Diamond p \to \Box\Diamond p$.
     \item $\models_{T} (\Diamond\Box(p \to q) \land \Box p) \to \Diamond q$.
     \item $\models_{T} \Diamond (p \to \Box \Diamond p)$.
+    \item $\models_{S4} \Diamond\Box(\Diamond p \to \Box\Diamond p)$. 
   \end{exlist}
 \end{exercise}
 \begin{solution}
@@ -1292,8 +1294,6 @@ a variety of modal logics.  (Compare the table on p.\
   test for K4-validity, check the `transitive' box. To test for D-validity, check `serial'. To test for B-validity, check `symmetric'. To test for T-validity, check `reflexive'.
 \end{solution}
 
-
-% A nice hard exercise is to prove <>[]5 in S4 (or K4).
 
 % Should I introduce some jargon? A logic S is /determined by/ a class of frames
 % if S is sound and complete wrt the class (i.e. iff its theorems are exactly

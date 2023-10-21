@@ -166,8 +166,8 @@ The meaning of $\land$ can be given by a \emph{truth table}:
   \end{tabular}
 \end{center}
 This tells us how the truth-value of $A \land B$ depends on the truth-value of
-$A$ and $B$: the compound sentences is true iff (if and only if) both of its
-parts are true. If you know this, you know all there is to know about the
+$A$ and $B$: the compound sentence is true iff (if and only if) both of its
+subsentences are true. If you know this, you know all there is to know about the
 meaning of $\land$. (You can see, for example, that $A \land B$ does not imply
 anything about the temporal order of $A$ and $B$.)
 
@@ -355,7 +355,7 @@ valid, in others it is invalid.
 
 The diamond and the box are sentence operators. English expressions for
 necessity and possibility often don't have this form. We can talk about what's
-necessary or possible with `must', `might', or `can', which are (auxiliary)
+necessary or possible using `must', `might', or `can', which are (auxiliary)
 verbs. We can also use adjectives like `feasible', `certain', and 'obligatory',
 or adverbs like `possibly', `certainly', and `inevitably'.
 
@@ -557,9 +557,11 @@ further $\L_{M}$-sentences.
   logic. If we treat the identity symbol as logical, this sentence contains no
   non-logical expressions at all. And the sentence is true, because there is in
   fact more than one object. So the sentence is true under any interpretation of
-  its non-logical vocabulary. But it's not logically true; it doesn’t logically
+  its non-logical vocabulary. But it's not logically true; it doesn't logically
   follow from any premises whatsoever. The sentence is false in any scenario in
   which there is only one object.
+  % For another example, if there is actually just one object, then the proposed
+  % definition would imply that Fa entails Fb. 
 \end{solution}
 
 The following fact about logical consequence often proves useful.
@@ -707,7 +709,7 @@ other.
 choosing $\neg p$ as the sentence $A$. In standard modal logic, logically
 equivalent expressions are interchangeable.\label{claim:replacement} So we can
 simplify $\Box \neg\neg p$ to $\Box p$, drawing on the equivalence between
-$\neg\neg p$ and $p$. We've shown that $\neg\Diamond\neg p$ is equivalent to
+$\neg\neg p$ and $p$. So $\neg\Diamond\neg p$ is equivalent to
 $\Box p$.
 
 % Generalised equivalences
@@ -746,7 +748,7 @@ $\Box A$ as an abbreviation of $\neg\Diamond\neg A$.
 
 % Does 'possible' imply 'not necessary'?
 
-You might think that there is another connection between `possible' and
+A digression: you might think that there is another connection between `possible' and
 `necessary'. When we say that something is possible (or that it might be the
 case), we often convey that it is not necessary (or not certain). This suggests
 that $\Diamond p$ entails $\neg \Box p$. We've just assumed, however, that
@@ -796,6 +798,7 @@ logically weaker sentence conveys that a certain stronger sentence is false.
 passed the test, although the statement would be true even if all students had
 passed. In that case, however, it would not have been helpful: the speaker
 should have used `all students passed'.
+End of digression.
 
 % Schemas
 
@@ -828,7 +831,7 @@ sentence. (That's what I meant by ``uniformly''.)
   Which of the following expressions are instances of
   $\Box(A\to \Diamond (A \land B))$?
   \begin{exlist}
-  \item $\Box(p \to \Diamond (q\land r))$
+  \item $\Box(p \to \Diamond (q\land p))$
   \item $\Box(\Diamond p \to \Diamond (\Diamond p\land p))$
   \item $\Box\Box(p \to \Diamond (p \land q))$
   \item $\Box((p \to \Diamond (p \land q)) \to \Diamond((p \to \Diamond (p \land q)) \land \Diamond p))$
@@ -1110,14 +1113,15 @@ Lewis and Langford's system S4, for example, is defined by \pr{T},
 diamond, where we don't want to treat all instances of \pr{5} as valid.
 
 \begin{exercise}
-  Which of the schemas and rules I have listed are plausible for the following
-  interpretations of the box (with the diamond defined as the box's dual):
+  Instead of reading the box as `it is settled that', we might give it one of these interpretations (with the diamond defined as the box's dual):
   \begin{exlist}
     \item it is true that
     \item it is false that
     \item it is either true or false that
     \item it is logically true that
   \end{exlist}
+  \medskip\noindent%
+  For each of these interpretations, evaluate whether the schemas \pr{T}, \pr{K}, \pr{4}, \pr{5}, and the rules \pr{CPL} and \pr{Nec} are plausible. 
 \end{exercise}
 \begin{solution}
   \begin{sollist}

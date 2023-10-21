@@ -292,7 +292,7 @@ Consider, for example, the following model $M$:
   V(P) = \emptyset \text{ for all other sentence letters $P$ }
 \end{gather*}
 This model contains only two worlds, $w_{1}$ and $w_{2}$. The interpretation
-function $V$ indicates that $p$ is true at both worlds, $q$ is true at $w_{1}$,
+function $V$ says that $p$ is true at both worlds, $q$ is true at $w_{1}$,
 and all other sentence letters are true nowhere. With the help of definition
 \ref{def:basicsemantics}, we can figure out at which of the two worlds, say,
 $\Box\Diamond(\Box q \to \Diamond\Box p)$ is true. We start with the smallest
@@ -384,7 +384,7 @@ entail a sentence $A$ iff $A$ is true at every world in every model at which all
 members of $\Gamma$ are true.
 
 The two responses amount to the same thing. Since every world in every basic
-(un-pointed) model could be chosen as the designated world, a sentence is true at all worlds in all basic models just in case
+(un-pointed) model could be chosen as the designated world, a sentence is true at all worlds in all basic models iff
 it is true in all pointed models. The response we adopt has the minor advantage
 of keeping models slightly simpler, and logicians want their models to be as
 simple as possible.
@@ -449,7 +449,7 @@ at $w$ or not. If $p$ is true at $w$, then by clause (e) of definition
 at $w$, then by clause (g) of definition \ref{def:basicsemantics}, $\Box p$ is
 not true at $w$ in $M$, and then $\Box p \to p$ is true at $w$ by clause
 (e). Either way, $\Box p \to p$ is true at $w$. Since $w$ and $M$ were chosen
-arbitrarily, this shows that every instance of $\Box p \to p$ is true at every
+arbitrarily, this shows that $\Box p \to p$ is true at every
 world in every model.
 
 (In the previous chapter, I mentioned that for some applications of modal logic,
@@ -500,7 +500,7 @@ obviously valid.
 
 Do not conflate the concepts of necessity and validity. Necessity means truth at
 all worlds (or so we currently assume). Validity means truth at all worlds
-\emph{in all models}. Whether an $\L_M$ sentence is necessary generally varies
+\emph{in all models}. Whether an $\L_M$-sentence is necessary generally varies
 from model to model. In a model whose interpretation function makes $p$ true at
 all worlds, $p$ is necessary insofar as $\Box p$ is true at all worlds. In a
 model whose interpretation function makes $p$ false at some world, $\Box p$ is
@@ -659,12 +659,12 @@ property.
   from $A$ by replacing a subsentence of $A$ with a logically equivalent
   sentence. To show that $A$ and $A'$ are equivalent, we first consider the case
   where $A$ is a sentence letter. In this case, $A$ has no sentences as proper
-  parts. The observation is vacuously true. (There is no way of turning $p$ into
-  a non-equivalent sentence by replacing a subsentence within $p$.)
+  parts and the target hypothesis is vacuously true: there is no way of turning
+  $p$ into a non-equivalent sentence by replacing a subsentence within $p$.
 
   Next we consider the case where $A$ is a complex sentence that results by
   applying some logical operator to one or more simpler sentences. We assume (as
-  our induction hypothesis) that the observation holds for the simpler
+  our induction hypothesis) that the target hypothesis holds for the simpler
   sentences.
 
   Assume that $A$ is the negation of another sentence $B$. So $A$ is $\neg B$
@@ -697,7 +697,7 @@ property.
 I will now introduce a streamlined method for working through definition
 \ref{def:basicsemantics} to check whether a sentence is valid: the method of
 \textbf{analytic tableau} or \textbf{tree proofs}. (You may be familiar with
-this method for non-modal logic. If so, good. If not, no problem.) It best
+this method for non-modal logic. If so, good. If not, no problem.) It is best
 introduced by example.
 
 Let's check if $\Diamond p \to \Box p$ is valid. We do this by trying to
