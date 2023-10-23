@@ -910,7 +910,7 @@ the box and the diamond:
 \end{minipage}
 \begin{minipage}{0.24\textwidth}\centering
 \tree{
-  \dotbelownode{8}{}{$\Diamond A$}{\omega}{}\\
+  \dotbelownode{8}{}{$\Diamond A$}{\omega}{$\!\!\!\!\!\!\checkmark$}\\
   \\
   \nnode{8}{}{$A$}{\nu}{}\\
   \Kk[8]{0}{\color{red}$\uparrow$}\\
@@ -919,7 +919,7 @@ the box and the diamond:
 \end{minipage}
 \begin{minipage}{0.24\textwidth}\centering
 \tree{
-  \dotbelownode{10}{}{$\neg \Box A$}{\omega}{}\\
+  \dotbelownode{10}{}{$\neg \Box A$}{\omega}{$\!\!\!\!\!\!\checkmark$}\\
   \\
   \nnode{10}{}{$\neg A$}{\nu}{}\\
   \Kk[10]{0}{\color{red}$\uparrow$}\\
@@ -1004,8 +1004,7 @@ world $v$.
 
 Here are diagrams of the new rules for the box and the diamond.
 
-\bigskip
-
+\bigskip\noindent%
 \begin{minipage}{0.24\textwidth} \centering
 \tree{
   \nnode{12}{}{$\Box A$}{\omega}{}\\
@@ -1016,9 +1015,9 @@ Here are diagrams of the new rules for the box and the diamond.
   \Kk[12]{0}{}
 }
 \end{minipage}
-\begin{minipage}{0.24\textwidth}\centering
+\begin{minipage}{0.26\textwidth}\centering
 \tree{
-  \dotbelownode{12}{}{$\Diamond A$}{\omega}{}\\
+  \dotbelownode{12}{}{$\Diamond A$}{\omega}{$\!\!\!\!\!\!\checkmark$}\\
   \\
   \nnode{12}{}{$\omega R \nu$}{}{}\\
   \nnode{12}{}{$A$}{\nu}{}\\
@@ -1026,9 +1025,9 @@ Here are diagrams of the new rules for the box and the diamond.
   \Kk[12]{0}{\color{red}\small new}
 }
 \end{minipage}
-\begin{minipage}{0.24\textwidth}\centering
+\begin{minipage}{0.26\textwidth}\centering
 \tree{
-  \dotbelownode{12}{}{$\neg \Box  A$}{\omega}{}\\
+  \dotbelownode{12}{}{$\neg \Box  A$}{\omega}{$\!\!\!\!\!\!\checkmark$}\\
   \\
   \nnode{12}{}{$\omega R \nu$}{}{}\\
   \nnode{12}{}{$\neg A$}{\nu}{}\\
@@ -1051,6 +1050,9 @@ Here are diagrams of the new rules for the box and the diamond.
 If two nodes occur above the dotted line in a rule, as in the rule for $\Box A$,
 this means that the rule can only be applied if both nodes already occur on the
 relevant branch (in any order, and not necessarily adjacent to each other).
+
+As before, the checkmark next to the rules for $\Diamond A$ and $\neg \Box A$
+indicates that these nodes can only be expanded once on each branch.
 
 The rules for negated boxes and diamonds are what you would expect from
 the duality of the box and the diamond. Note that only nodes of type

@@ -931,8 +931,7 @@ The following diagrams summarize how the different kinds of nodes are expanded.
 I use `$\omega$' and `$\nu$' as placeholders for arbitrary world variables.
 
 
-\bigskip
-
+\bigskip\noindent%
 % Perhaps I shouldn't use 'nu' and 'omega' in the schematic tree rules? students
 % just thought they mean w and v, and asked if the box rule can be applied with
 % an old world other than v. Also might need to clarify that v can be the same
@@ -962,8 +961,7 @@ I use `$\omega$' and `$\nu$' as placeholders for arbitrary world variables.
 }
 \end{minipage}
 
-\vspace{10mm}
-
+\vspace{10mm}\noindent%
 \begin{minipage}{0.33\textwidth}\centering
 \tree{
   & \dotbelowbnode{12}{}{$A \leftrightarrow B$}{\omega}{} & \\
@@ -984,7 +982,7 @@ I use `$\omega$' and `$\nu$' as placeholders for arbitrary world variables.
 \end{minipage}
 \begin{minipage}{0.33\textwidth}\centering
 \tree{
-  \dotbelownode{8}{}{$\Diamond A$}{\omega}{}\\
+  \dotbelownode{8}{}{$\Diamond A$}{\omega}{$\!\!\!\!\!\!\checkmark$}\\
   \\
   \nnode{8}{}{$A$}{\nu}{}\\
   \Kk[8]{0}{\color{red}$\uparrow$}\\
@@ -992,8 +990,7 @@ I use `$\omega$' and `$\nu$' as placeholders for arbitrary world variables.
 }
 \end{minipage}
 
-\vspace{10mm}
-
+\vspace{10mm}\noindent%
 \begin{minipage}{0.33\textwidth}\centering
 \tree{
   & \dotbelowbnode{15}{}{$\neg(A \land B)$}{\omega}{} &\\
@@ -1019,8 +1016,7 @@ I use `$\omega$' and `$\nu$' as placeholders for arbitrary world variables.
 }
 \end{minipage}
 
-\vspace{10mm}
-
+\vspace{10mm}\noindent%
 \begin{minipage}{0.33\textwidth}\centering
 \tree{
   & \dotbelowbnode{15}{}{$\neg(A \leftrightarrow B)$}{\omega}{} & \\
@@ -1032,7 +1028,7 @@ I use `$\omega$' and `$\nu$' as placeholders for arbitrary world variables.
 \end{minipage}
 \begin{minipage}{0.33\textwidth}\centering
 \tree{
-  \dotbelownode{10}{}{$\neg \Box A$}{\omega}{}\\
+  \dotbelownode{10}{}{$\neg \Box A$}{\omega}{$\!\!\!\!\!\!\checkmark$}\\
   \\
   \nnode{10}{}{$\neg A$}{\nu}{}\\
   \Kk[10]{0}{\color{red}$\uparrow$}\\
@@ -1049,8 +1045,7 @@ I use `$\omega$' and `$\nu$' as placeholders for arbitrary world variables.
 }
 \end{minipage}
 
-\vspace{10mm}
-
+\vspace{10mm}\noindent%
 \begin{minipage}{0.33\textwidth}\centering
 \tree{%
   \dotbelownode{12}{}{$\neg\neg A$}{\omega}{}\\
@@ -1080,6 +1075,12 @@ If you have expanded a node that is not of type $\Box A$ or $\neg \Diamond A$,
 and you have added the new nodes to every open branch containing the node, then
 you can tick off the node. You don't need to look at it again. Nodes of type
 $\Box A$ and $\neg \Diamond A$ are never ticked off.
+
+I have added a checkmark next to the rules for $\Diamond A$ and $\neg \Box A$ as
+a reminder that these rules can only applied once on each open branch. If you've
+already introduced a new world by expanding a $\Diamond A$ or $\neg \Box A$
+node, you're not allowed to introduce further new worlds on the same branch by
+expanding the same node again.
 
 If no more rules can be applied, the tree is complete. Any open branch on a
 complete tree defines a countermodel for the target sentence.
