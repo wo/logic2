@@ -62,14 +62,14 @@ The tree method is not the only method for showing that a sentence is K-valid
 (or T-valid, or S5-valid). Instead of constructing a K-tree, you could construct
 an axiomatic proof, trying to derive the target sentence from some instances of
 \pr{Dual} and \pr{K} by \pr{Nec} and \pr{CPL}. This, too, can be done as a
-purely syntactic exercise, without attending to the meaning of the relevant
-sentences. In section \ref{sec:scaxiomatic}, we will show that the axiomatic
-calculus for K is indeed sound and complete for K-validity: all and only the
-K-valid sentences can be derived from \pr{Dual} and \pr{K} by \pr{Nec} and
-\pr{CPL}. The `all' part is completeness, the `only' part soundness. Having
-shown soundness and completeness for both the tree method and the axiomatic
-method, we will have shown that the two methods are equivalent. Anything that
-can be shown with one method can also be shown with the other.
+purely syntactic exercise, without thinking about models and worlds. In section
+\ref{sec:scaxiomatic}, we will show that the axiomatic calculus for K is indeed
+sound and complete for K-validity: all and only the K-valid sentences can be
+derived from \pr{Dual} and \pr{K} by \pr{Nec} and \pr{CPL}. The `all' part is
+completeness, the `only' part soundness. Having shown soundness and completeness
+for both the tree method and the axiomatic method, we will have shown that the
+two methods are equivalent. Anything that can be shown with one method can also
+be shown with the other.
 
 There are other styles of proof besides the axiomatic and the tree format. Two
 famous styles that we won't cover are ``natural deduction'' methods and
@@ -173,7 +173,7 @@ Let's fill in the details. We first define precisely what it means for the
 nodes on a tree branch to be correct statements about a model.
 
 \begin{definition}{}{correctstatement}
-  A tree node is an \textbf{correct statement about} a Kripke model
+  A tree node is a \textbf{correct statement about} a Kripke model
   $M = \t{M,R,V}$ \textbf{under} a function $f$ that maps world variables to
   members of $W$ iff either the node has the form $\omega R \upsilon$ and
   $f(\omega)Rf(\upsilon)$, or the node has the form $A\; (\omega)$ and $A$ is
@@ -418,10 +418,10 @@ correct statements about the Kripke model induced by the branch.
           definition \ref{def:inducedmodel} and clause (a) of definition
           \ref{def:kripkesemantics}.
 
-    \item If $A$ is the negation of a sentence letter $B$, then $B\; (\omega)$
+    \item If $A$ is the negation of a sentence letter $\rho$, then $rho\; (\omega)$
           does not occur on $\beta$, otherwise $\beta$ would be closed. By
           clause (c) of definition \ref{def:inducedmodel}, it follows that
-          $\omega$ is not in $V(B)$, and so $M, \omega \models A$ by clauses (a)
+          $\omega$ is not in $V(\rho)$, and so $M, \omega \models A$ by clauses (a)
           and (b) of definition \ref{def:kripkesemantics}.
           
     \item If $A$ is a doubly negated sentence $\neg\neg B$, then $\beta$
@@ -449,7 +449,7 @@ correct statements about the Kripke model induced by the branch.
     
   \end{itemize} 
   
-  I will skip the cases where $A$ is a disjunction, a conditional, a
+  I skip the cases where $A$ is a disjunction, a conditional, a
   biconditional, or a negated disjunction, conditional, or biconditional. The
   proofs are similar to one (or both) of the previous two cases.
 
@@ -575,7 +575,7 @@ $\omega$ on the branch.
   that allow adding a node $\omega R \upsilon$ to a branch of a K-tree are the
   rules for expanding $\Diamond A$ and $\neg\Box A$ nodes. In both cases, the
   rule requires that the relevant world variable $\upsilon$ is new on the
-  branch. (Call this the \emph{novelty requirement}. Now suppose the
+  branch. (Call this the \emph{novelty requirement}.) Now suppose the
   accessibility relation in $M$ has a cycle $\omega_{1} R \omega_{2}$,
   $\omega_{2} R \omega_{3}$, \ldots, $\omega_{n-1} R \omega_{n}$,
   $\omega_{n} R \omega_{1}$. Each of these facts about $R$ must correspond to a
@@ -852,7 +852,7 @@ is K-valid, and (2) every sentence that is derived from K-valid sentences by
     \item \pr{K} is the schema $\Box(A \to B) \to (\Box A \to \Box B)$. By
           clause (e) of definition \ref{def:kripkesemantics}, a sentence
           $\Box(A\to B) \to (\Box A \to \Box B)$ is false at a world $w$ in a
-          Kripke model $M$ only if $\Box(A \to B)$ and $\Box A$ are both true at
+          Kripke model only if $\Box(A \to B)$ and $\Box A$ are both true at
           $w$ while $B$ is false. By clause (g) of definition
           \ref{def:kripkesemantics}, $\Box B$ is false at $w$ only if $B$ is
           false at some world $v$ accessible from $w$. But if $\Box(A \to B)$
@@ -1056,8 +1056,8 @@ Now we can prove fact (2).
   K-consistent, in which case $S_{i+1} = S_i \cup \{ A_i \}$ is K-consistent, or
   $S_i \cup \{ A_i \}$ is not K-consistent, in which case $S_{i+1}$ is
   $S_i \cup \{ \neg A_i \}$, which is K-consistent by observation
-  \ref{obs:extensionconsistency}. So if any set in the list is consistent, then
-  the next set in the list is also consistent. It follows that
+  \ref{obs:extensionconsistency}. So if any set in the list is K-consistent, then
+  the next set in the list is also K-consistent. It follows that
   $S_0,S_1,S_2,\ldots$ are all K-consistent.
 
   Now let $S$ be the set of sentences that occur in at least one of the sets
@@ -1268,10 +1268,10 @@ chapter.) Completeness must then be established by some other means.
   it follows from the Canonical Model Lemma that $M_{S5},\Gamma \models \neg A$.
   So $M_{S5},S \not\models A$.
 
-  It remains to show that the accessibility relation in $M_{S5}$ is reflexive,
-  transitive, and symmetric (for every such relation is an equivalence relation,
-  and a sentence is S5-validity iff it is valid in the class of Kripke models
-  whose accessibility relation is an equivalence relation).
+  It remains to show that the accessibility relation in $M_{S5}$ has the right
+  formal properties. We know that a sentence is S5-validity iff it is valid in
+  the class of Kripke models whose accessibility relation is an equivalence
+  relation. So we will show that the accessibility relation in $M_{S5}$ is reflexive, transitive, and symmetric.
 
   By definition, a world $v$ in a canonical model is accessible from $w$ iff
   whenever $\Box A \in w$ then $A \in v$. Since the worlds in $M_{S5}$ are
@@ -1415,7 +1415,7 @@ assumptions has this consequence.
   $\Gamma$ is K-satisfiable.
 \end{exercise}
 \begin{solution}
-  Let $\Gamma$ is an infinite set of $\L_{M}$-sentences. If $\Gamma$ is
+  Let $\Gamma$ be an infinite set of $\L_{M}$-sentences. If $\Gamma$ is
   K-satisfiable then obviously every finite subset of $\Gamma$ is satisfiable as
   well. For the converse direction, assume $\Gamma$ is not K-satisfiable: There
   is no world in any Kripke model at which all members of $\Gamma$ are true.
@@ -1432,6 +1432,9 @@ assumptions has this consequence.
   Conversely, if every finite subset of $\Gamma$ is K-satisfiable then $\Gamma$
   is K-satisfiable.
 \end{solution}
+
+To conclude this chapter, I want to take a quick look at the logic of
+mathematical provability.
 
 Our proofs of soundness, completeness, compactness, etc.\ were informal. We have
 not translated the relevant claims into a formal language, nor have we used a

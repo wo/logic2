@@ -824,9 +824,7 @@ convergence:
     % Suppose there's a last time $t$. Let $p$ be true there. Then $\tG p \to \tF p$ is false at $g$. Conversely, suppose there's no last time and $\tG A$ is true at some time. Then $\tF A$ is true there as well.
   \item For example, $\tH A \to \tP A$.
   \item No schema corresponds to the class of frames with a last time. If we
-  also assume transitivity and quasi-connected (see page
-  \pageref{quasiconnected}), then
-  $\tG(A \land \neg A) \lor \tF\tG(A \land \neg A)$ works.
+  also assume linearity,  $\tG(A \land \neg A) \lor \tF\tG(A \land \neg A)$ works.
   % Mueller and Garanko and Humberstone say this. (But why does Garanko say
   % "assuming irreflexivity"?) Girle says FA -> F-FA = GA v FGA. But that
   % doesn't seem right. Without transitivity, there can be a last time, but
@@ -835,7 +833,7 @@ convergence:
   % frame with one eternal time and a disconnected lonely further time t. Here
   % we have a last time, but $G\bot v FG\bot$ is false at all times on the line.
   \item No schema corresponds to the class of frames with a first time. If we
-    also assume transitivity and quasi-connectedness, then
+    assume linearity, then
     $\tH(A \land \neg A) \lor \tP\tH(A \land \neg A)$ works.
   \end{sollist}
 \end{solution}
@@ -927,13 +925,15 @@ happened.
   Suppose we also endorse all instances of (S2)
   $\neg \!\tP A \to \Box \neg \!\tP A$, on the grounds that if something has
   failed to happen then there is nothing we can do that would make it have
-  happened. Let's also assume that the present time is not the first, and that
-  the box is closed under logical consequence, meaning that if $\Box A$ and
-  $\Box B$ are true at a time, and $C$ is entailed by $A$ and $B$, then $\Box C$
-  is true (at the time) as well. Show that we can then derive the fatalist
-  conclusion that anything that never actually happen is settled to never 
-  happen: all instances of $(\neg A \land \neg \tP A \land \neg \\to \Box \neg \tF A$ are true. (Hint:
-  use instances of (S1) and (S2) in which $A$ is a statement about the future.)
+  happened. Let's further assume that the present time is not the first, and
+  that the box is closed under logical consequence, meaning that if
+  $\Box A_{1},\ldots,\Box A_{n}$ are true at a time, and $B$ is entailed by
+  $A_{1},\ldots,A_{n}$, then $\Box B$ is true (at the time) as well. Show that
+  we can then derive the fatalist conclusion that anything that never actually
+  happen is settled to never happen: all instances of
+  $(\neg \tP A \land \neg A \land \neg \tF A) \to \Box \neg \tF A$ are true.
+  (Hint: use instances of (S1) and (S2) in which $A$ is a statement about the
+  future.)
 \end{exercise}
 \begin{solution}
   Suppose $\neg \tP A \land \neg A \land \neg \tF A$ is true at the present time
@@ -942,9 +942,9 @@ happened.
   $\neg(\tF A \land \tP(A \lor \neg A))$. Since the box is closed under logical
   consequence, this means that $\Box \neg(\tF A \land \tP(A \lor \neg A))$ is
   true at $t$. Since $t$ is not the first time, $\tP(A \lor \neg A)$ is true at
-  $t$, and so $\Box \tP(A \lor \neg A)$ is true at $t$ as well, by (S1). have
+  $t$, and so $\Box \tP(A \lor \neg A)$ is true at $t$ as well, by (S1). 
   $\neg(\tF A \land \tP(A \lor \neg A))$ and $\tP(A \lor \neg A)$ together
-  entail have $\neg \tF A$. Since the box is closed under logical consequence,
+  entail $\neg \tF A$. Since the box is closed under logical consequence,
   it follows that $\Box \tF A$ is true at $t$.
 \end{solution}
 
@@ -963,9 +963,9 @@ first can lead to the second.
 I also mentioned that the precedence relation in relativistic spacetime allows
 for branching, although diverging spacetime branches ultimately reconverge. A
 more classical form of branching (without reconvergence) has been argued to
-follow from the so-called ``Everett interpretation'' of quantum physics. On this
-interpretation, what are normally understood to be chance events are really
-branching events in which all possible outcomes actually take place.
+follow from a certain interpretation of quantum physics. On this interpretation,
+what are normally understood to be chance events are really branching events in
+which all possible outcomes actually take place.
 
 Another way to motivate a branching conception of time arises from a
 metaphysical view called \emph{presentism}. According to presentism, only the
@@ -988,17 +988,17 @@ futures as equally actual.
 Let's assume, then, that we want to reason about branching time. This is less
 straightforward than it might at first appear.
 
-The models we are interested in are not right-linear. I will, however, assume
-that they satisfy the following weaker property of
-\textbf{quasi-connectedness}:\label{quasiconnected}
-\[
-  \text{if $t < s$ then for any $r$, either $t < r$ or $r<s$}.
-\]
-% I've made up that label.
-Quasi-connectedness is more often called \emph{negative transitivity}, because
-it is equivalent to the assumption that if $t \not< s$ and $s\not<r$ then
-$t\not<r$. It slightly simplifies our models, for example by ruling out entirely
-disconnected parallel time lines.
+% The models we are interested in are not right-linear. I will, however, assume
+% that they satisfy the following weaker property of
+% \textbf{quasi-connectedness}:\label{quasiconnected}
+% \[
+%   \text{if $t < s$ then for any $r$, either $t < r$ or $r<s$}.
+% \]
+% % I've made up that label.
+% Quasi-connectedness is more often called \emph{negative transitivity}, because
+% it is equivalent to the assumption that if $t \not< s$ and $s\not<r$ then
+% $t\not<r$. It slightly simplifies our models, for example by ruling out entirely
+% disconnected parallel time lines.
 
 Two pieces of terminology will be useful. First, let's define a \textbf{history}
 in a model $\t{T,<,V}$ as a maximal linearly ordered subset of $T$. That is, a

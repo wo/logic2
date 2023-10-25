@@ -407,7 +407,7 @@ system K!)
 \end{solution}
 
 \begin{exercise}
-  Can you find an instance of the \pr{T}-schema that is K-valid?
+  Can you find an instance of the \pr{T}-schema $\Box A \to A$ that is K-valid?
 \end{exercise}
 \begin{solution}
   For example: $\Box(p \lor \neg p) \to (p \lor \neg p)$.
@@ -1276,8 +1276,12 @@ a variety of modal logics.  (Compare the table on p.\
 \end{tabular}
 \bigskip
 
-% seriality tree rule should only be allowed for w if there's not already a node
-% wRv on the tree. (Priest.)
+% Seriality tree rule should only be allowed for w if there's not already a node
+% wRv on the tree? (Priest.)
+
+% Seriality messes things up anyway: serial trees grow forever, and you can
+% never read off a countermodel from a truncated initial part of an open branch,
+% because that part won't be serial. Mention in deontic chapter?
 
 \begin{exercise}
   Use the tree method to check the following claims.
@@ -1295,15 +1299,6 @@ a variety of modal logics.  (Compare the table on p.\
   \href{https://www.umsu.de/trees/}{umsu.de/trees}. To
   test for K4-validity, check the `transitive' box. To test for D-validity, check `serial'. To test for B-validity, check `symmetric'. To test for T-validity, check `reflexive'.
 \end{solution}
-
-
-% Should I introduce some jargon? A logic S is /determined by/ a class of frames
-% if S is sound and complete wrt the class (i.e. iff its theorems are exactly
-% the formulas valid over the class).
-
-% Also point out: a logic S is determined by (sound and complete wrt) any class
-% of frames iff it is determined by the class of frames for S.
-
 
 
 %%% Local Variables: 
