@@ -405,7 +405,7 @@ all instances of \pr{T}, \pr{4}, \pr{B}, and \pr{5} valid. If we drop \pr{B} and
 \pr{5} but keep \pr{T} and \pr{4}, we get S4. If we also drop \pr{4}, we get
 system T.
 
-But we might look at other schemas, corresponding to further conditions on the
+We might look at other schemas, corresponding to further conditions on the
 accessibility relation. For example, some have argued that we should adopt a
 weakened form of negative introspection. The above counterexample to negative
 introspection -- schema \pr{5} -- involved an agent who doesn't know that they
@@ -418,7 +418,7 @@ $p$. This would give us a schema known as 0.4:
 \principle{0.4}{(\neg\!\Kn A\land A) \to \Kn\! \neg\! \Kn A}
 %
 All instances of \pr{0.4} are S5-valid, but not all of them are S4-valid. Adding
-the schema to S4 leads to a system known as S4.4.
+the \pr{0.4} schema to S4 leads to a system known as S4.4.
 
 % .4 corresponds to xRy & xRz -> (yRz v x=z)
 
@@ -521,7 +521,7 @@ from $w$ iff $v$ is compatible with the information agent $i$ has at world $w$.
 The definition of truth at a world in a Kripke model (definition
 \ref{def:kripkesemantics}) is easily extended to multi-modal Kripke models.
 Instead of clauses (g) and (h), we have the following conditions, for each pair
-of a modal operator $\Kn_i$/$\Mi_i$ and the corresponding accessibility
+of a modal operator ($\Kn_i$ or $\Mi_i$) and the corresponding accessibility
 relation $R_i$:
 
 \bigskip
@@ -531,7 +531,7 @@ relation $R_i$:
 \end{tabular}
 \bigskip
 
-As an application of this machinery, let's look at the \emph{Muddy Children}
+For an application of this machinery, let's look at the \emph{Muddy Children}
 puzzle.
 
 \begin{quote}
@@ -541,7 +541,7 @@ puzzle.
   their face'. She then asks, `Do you know if you have mud on your face?''.
   All three children say that they don't know. Mother asks again, `Do you know
   if you have mud on your face?'. This time, two children say that they know.
-  Do you know many children have mud on their face? What happens when the mother
+  How many children have mud on their face? What happens if the mother
   asks her question a third time?
 \end{quote}
 
@@ -589,13 +589,13 @@ accessibility relation for Alice holds between a world and another whenever a
 red arrow leads from the first world to the second.
 
 Notice how the fact that every child can see the others is reflected in the
-diagram. For example, at the top left world, where only Bob is muddy ($b$), Alice sees that Bob
+diagram. For example, at the top left world, where only Bob is muddy, Alice sees that Bob
 is muddy and that Carol is clean; the only epistemic possibilities for Alice at
 that world are the two worlds at the top: the $b$ world itself and the $a,b$ world to the right. In
 general, the only accessible worlds for a given child at a given world $w$ are
 worlds at which the other children's state of muddiness is the same as at $w$.
 
-What changes through the mother's first announcement, `At least one child has
+What changes through the mother's first announcement, `At least one of you has
 mud on their face'? The announcement tells \emph{us} that we're not in the
 world where $a,b,$ and $c$ are all false. More importantly, it allows \emph{each child} to rule out the this world (since they all hear and accept the announcement).
 
@@ -630,7 +630,7 @@ Next, the mother asks if anyone knows whether they are muddy. No child says yes.
 So no-one knows whether they are muddy. And everyone now knows that no-one knows
 whether they are muddy. We can go through the above seven possibilities to see
 if at any of them, anyone knows whether they are muddy. At the top left world
-($b$) Alice doesn't know whether she is muddy, because the $a,b$
+Alice doesn't know whether she is muddy, because the $a,b$
 world (top right) is $A$-accessible; nor does Carol know whether she is muddy,
 because the $b,c$ world is $C$-accessible. But Bob knows that he is muddy: no other
 world is $B$-accessible. Intuitively, at the $b$ world, Bob sees two
@@ -716,7 +716,7 @@ We plausibly want all instances of the following to come out valid:
   \Kn_1 \Kn_2 A \to \Kn_1 A.
 \]
 If I know that you know that it's raining, then I (implicitly) also know that
-it's raining. Principles like this, containing multiple modal operators that are
+it's raining. Schemas like this, with multiple modal operators that are
 not definable in terms of each other, are called \textbf{interaction
   principles}.
 
@@ -949,7 +949,7 @@ axiomatic basis for K is known as KD45.
   corresponds to symmetry) are valid in KD45.
 \end{solution}
 
-\begin{exercise}
+\begin{exercise}\label{ex:KD45U}
   Show (in any way you like) that $\Bel(\Bel A \to A)$ is valid if the logic of
   belief is KD45.
 \end{exercise}
@@ -1089,7 +1089,7 @@ for $\Kn$.)
 \end{solution}
 
 It can also be instructive to combine epistemic with non-epistemic operators.
-Philosophers have often been interested not just in what we \emph{do} know, but
+Phi\-losophers have often been interested not just in what we \emph{do} know, but
 also in what we \emph{can} know. Various skeptical arguments, for example,
 suggest that we \emph{cannot know} that we have hands. For another example, the
 ``verificationist'' movement in the early 20th century assumed that a sentence

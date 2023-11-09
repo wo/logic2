@@ -1,5 +1,10 @@
 \chapter{Temporal Logic}\label{ch:time}
 
+% TODO: I should probably change 'right-linearity' to 'forward-linearity'.
+% Mueller also uses 'right', but more people seem to use 'forward', and
+% 'forward' doesn't rely on a somewhat arbitrary LTR convention for representing
+% times.
+
 \section{Reasoning about time}\label{sec:time-intro}
 
 It is currently raining in Edinburgh. But it wasn't raining yesterday, and
@@ -7,7 +12,7 @@ perhaps it won't rain tomorrow. Let's introduce some operators to formalize
 reasoning about the unfolding of events through time.
 
 If we read $r$ as `it is raining', we will use $\tF\! r$ to express that is will be
-raining at some point in the future. We will use $\tP\! r$ to express that it has been
+raining at some point in the future. We use $\tP\! r$ to express that it has been
 raining at some point in the past. In general:
 %
 \begin{quote}
@@ -167,10 +172,10 @@ $t$ iff $t$ is later than $s$.
 
 Let's look at an example of a temporal model. For the set of times $T$, we use
 the set of natural numbers 0,1,2, etc. Let's say that the precedence relation
-$<$ holds between $t$ and $s$ iff $t$ is smaller than $s$. So $0<1$ and
+$<$ holds between $t$ and $s$ iff $t$ is less than $s$. So $0<1$ and
 $1 < 25$. (We could just as well have stipulated that $<$ holds between $t$ and
 $s$ iff $t$ is greater than $s$; we would then have $1<0$ and $25<1$. In
-temporal logic, the symbol `$<$' means `earlier than', not `smaller than'.)
+temporal logic, the symbol `$<$' means `earlier than', not `less than'.)
 Finally, let's say that the interpretation function assigns to $p$ the set of
 all even numbers.
 
@@ -186,8 +191,8 @@ figure out the following facts, among others.
 
 \begin{exercise}
   Now let $M$ be the following model. As before, $T$ is the set of natural
-  numbers $\{ 0,1,2,\ldots \}$, and $t < s$ iff $t$ is smaller than $s$. This
-  time, $V(p)$ is the set of numbers smaller than 10. Which of the following
+  numbers $\{ 0,1,2,\ldots \}$, and $t < s$ iff $t$ is less than $s$. This
+  time, $V(p)$ is the set of numbers less than 10. Which of the following
   statements are true?
   \begin{exlist}
   %\item $M,0 \models \tF (p \land \neg p)$
@@ -231,14 +236,14 @@ less-than relation does not include forks.
 
 In other applications, we may be interested in how the weather changes from day
 to day. Here we might identify the relevant times with days and the precedence
-relation with the earlier-relation between days -- even though intuitively a day
+relation with the earlier-later relation between days -- even though intuitively a day
 is not a single time, but an interval comprising many times. For this
 application, the natural numbers might have the right formal structure.
 
 For yet other applications, we may want to assume that time is \textbf{dense},
-meaning that whenever $t < s$ then there is another point of time lying in
+meaning that whenever $t < s$ then there is another point of time lying 
 between $t$ and $s$. This assumption is common in physics. The natural numbers,
-by contrast, have a \textbf{discrete} structure. There is no natural number in
+by contrast, have a \textbf{discrete} structure. There is no natural number
 between 2 and 3. For dense models, we could use real or rational numbers
 (fractions) instead of natural numbers.
 
@@ -719,11 +724,12 @@ these rules are called `Identity'.%
   \item $\tP\tH p \to \tH p$
   \item $\tF\tG p \to \tG\tF p$
   \item $\tF (\tG q \land \neg p) \to \tG(p \to (\tG p \to q))$ 
-  % \item $(\tF p \land \tF q) \to (\tF(p \land q) \lor (\tF (p \land \tF q) \lor \tF(\tF p \land q)))$ % add
+  % \item $(\tF p \land \tF q) \to (\tF(p \land q) \lor (\tF (p \land \tF q) \lor \tF(\tF p \land q)))$ % add?
+  \item $(\tP(q \land \tH q) \land \tP\tG q) \to \tH q$
   \end{exlist}
 \end{exercise}
 \begin{solution}
-  (a), (d), and (e) are invalid. Here are trees for (b), (c), and (f):
+  (a), (d), and (e) are invalid. Here are trees for (b), (c), and (f). I can't typeset the one for (g).
 
   \bigskip
   \begin{sollist}
@@ -825,13 +831,15 @@ convergence:
   \item For example, $\tH A \to \tP A$.
   \item No schema corresponds to the class of frames with a last time. If we
   also assume linearity,  $\tG(A \land \neg A) \lor \tF\tG(A \land \neg A)$ works.
-  % Mueller and Garanko and Humberstone say this. (But why does Garanko say
-  % "assuming irreflexivity"?) Girle says FA -> F-FA = GA v FGA. But that
-  % doesn't seem right. Without transitivity, there can be a last time, but
-  % $G\bot v FG\bot$ is false at any world that's at least two steps away from a
-  % last time. Transitivity gets around this. But it's not enough: consider a
-  % frame with one eternal time and a disconnected lonely further time t. Here
-  % we have a last time, but $G\bot v FG\bot$ is false at all times on the line.
+  % Mueller and Garanko and Humberstone say this. (But why does Garanko only say
+  % "assuming irreflexivity"? Surely we need some kind of connectedness to rule
+  % out a last time on a disconnected branch; and surely we need transitivity.)
+  % Girle says FA -> F-FA = GA v FGA. But that doesn't seem right. Without
+  % transitivity, there can be a last time, but $G\bot v FG\bot$ is false at any
+  % world that's at least two steps away from a last time. Transitivity gets
+  % around this. But it's not enough: consider a frame with one eternal time and
+  % a disconnected lonely further time t. Here we have a last time, but
+  % $G\bot v FG\bot$ is false at all times on the line.
   \item No schema corresponds to the class of frames with a first time. If we
     assume linearity, then
     $\tH(A \land \neg A) \lor \tP\tH(A \land \neg A)$ works.
@@ -896,9 +904,9 @@ convergence:
 \section{Branching time}\label{sec:branching}
 
 In section \ref{sec:systems} we looked at the idea that the future is ``open''
-while the past is ``settled'', insofar as we can still influence (say)
-whether we will exercise tomorrow, but not whether we have exercised
-yesterday. Some have argued that this calls for a non-linear model of time, with
+while the past is ``settled''. We can still influence (say) whether we will
+exercise tomorrow, but not whether we have exercised yesterday. Some have argued
+that the openness of the future calls for a non-linear model of time, with
 multiple branches into the future. On one branch, we would exercise tomorrow, on
 another we would not.
 
@@ -912,41 +920,41 @@ actual world.
 If we want to make explicit the connections between settledness and time, it is
 better to use a multi-modal language with circumstantial operators for
 settledness and openness in addition to the purely temporal operators
-$\tF, \tG, \tP, \tH$. We could then say things like $\tP p \to \Box \tP p$ to
-formalize the claim that if $p$ has happened then it is settled that $p$ has
+$\tF, \tG, \tP, \tH$. We could then say things like $\tP A \to \Box \tP A$ to
+formalize the claim that if $A$ has happened then it is settled that $A$ has
 happened.
 
 % The accessibility relation for the box would have to hold fixed the past, so
 % that a world $v$ is accessible from a world $w$ only if the past of $v$
 % coincides with the past of $w$.
 
-\begin{exercise}
-  Suppose we endorse all instances of the schema (S1) $\tP A \to \Box \tP A$.
-  Suppose we also endorse all instances of (S2)
-  $\neg \!\tP A \to \Box \neg \!\tP A$, on the grounds that if something has
-  failed to happen then there is nothing we can do that would make it have
-  happened. Let's further assume that the present time is not the first, and
-  that the box is closed under logical consequence, meaning that if
-  $\Box A_{1},\ldots,\Box A_{n}$ are true at a time, and $B$ is entailed by
-  $A_{1},\ldots,A_{n}$, then $\Box B$ is true (at the time) as well. Show that
-  we can then derive the fatalist conclusion that anything that never actually
-  happen is settled to never happen: all instances of
-  $(\neg \tP A \land \neg A \land \neg \tF A) \to \Box \neg \tF A$ are true.
-  (Hint: use instances of (S1) and (S2) in which $A$ is a statement about the
-  future.)
-\end{exercise}
-\begin{solution}
-  Suppose $\neg \tP A \land \neg A \land \neg \tF A$ is true at the present time
-  $t$. Then $\neg \tP\tF A$ is true (at $t$). By (S2), we can infer
-  $\Box \neg \tP\tF A$. But $\neg \tP\tF A$ $K_{t}$-entails
-  $\neg(\tF A \land \tP(A \lor \neg A))$. Since the box is closed under logical
-  consequence, this means that $\Box \neg(\tF A \land \tP(A \lor \neg A))$ is
-  true at $t$. Since $t$ is not the first time, $\tP(A \lor \neg A)$ is true at
-  $t$, and so $\Box \tP(A \lor \neg A)$ is true at $t$ as well, by (S1). 
-  $\neg(\tF A \land \tP(A \lor \neg A))$ and $\tP(A \lor \neg A)$ together
-  entail $\neg \tF A$. Since the box is closed under logical consequence,
-  it follows that $\Box \tF A$ is true at $t$.
-\end{solution}
+% \begin{exercise}
+%   Suppose we endorse all instances of the schema (S1) $\tP A \to \Box \tP A$.
+%   Suppose we also endorse all instances of (S2)
+%   $\neg \!\tP A \to \Box \neg \!\tP A$, on the grounds that if something has
+%   failed to happen then there is nothing we can do that would make it have
+%   happened. Let's further assume that the present time is not the first, and
+%   that the box is closed under logical consequence, meaning that if
+%   $\Box A_{1},\ldots,\Box A_{n}$ are true at a time, and $B$ is entailed by
+%   $A_{1},\ldots,A_{n}$, then $\Box B$ is true (at the time) as well. Show that
+%   we can then derive the fatalist conclusion that anything that never actually
+%   happen is settled to never happen: all instances of
+%   $(\neg \tP A \land \neg A \land \neg \tF A) \to \Box \neg \tF A$ are true.
+%   (Hint: use instances of (S1) and (S2) in which $A$ is a statement about the
+%   future.)
+% \end{exercise}
+% \begin{solution}
+%   Suppose $\neg \tP A \land \neg A \land \neg \tF A$ is true at the present time
+%   $t$. Then $\neg \tP\tF A$ is true (at $t$). By (S2), we can infer
+%   $\Box \neg \tP\tF A$. But $\neg \tP\tF A$ $K_{t}$-entails
+%   $\neg(\tF A \land \tP(A \lor \neg A))$. Since the box is closed under logical
+%   consequence, this means that $\Box \neg(\tF A \land \tP(A \lor \neg A))$ is
+%   true at $t$. Since $t$ is not the first time, $\tP(A \lor \neg A)$ is true at
+%   $t$, and so $\Box \tP(A \lor \neg A)$ is true at $t$ as well, by (S1). 
+%   $\neg(\tF A \land \tP(A \lor \neg A))$ and $\tP(A \lor \neg A)$ together
+%   entail $\neg \tF A$. Since the box is closed under logical consequence,
+%   it follows that $\Box \tF A$ is true at $t$.
+% \end{solution}
 
 % Exercise: multi-modal time travel -- can we change the past? Can you kill your
 % Grandfather? We'll see that in the worlds where you do, the person you kill is
@@ -974,10 +982,9 @@ more fundamental truths about the present. If, for example, it is true that
 there was a sea battle yesterday, then according to presentism this must
 ultimately be explained by what is true \emph{now}; there must be facts about
 the present state of the world that entail (and explain) yesterday's sea battle.
-Different forms of presentism disagree over what the relevant facts about the
-present might be. On one view, they are particular facts about the distribution
+Perhaps the relevant facts about the present specify the distribution
 of physical particles and fields etc.\ together with the general laws of nature.
-If the laws of nature are deterministic, then the complete truth about the
+If the laws are deterministic, then the complete truth about the
 present distribution of particles and fields etc.\ together with the laws fixes
 all truths about the past and about the future. But suppose the laws are
 indeterministic towards the future: they merely settle that if the present
@@ -1072,11 +1079,11 @@ is \emph{some} future in which $A$ is always true.
   Consider a model with three times ordered by $s<t$ and $s<r$. Assume $p$ is true at $t$ and not at $r$. Then $p \to \tH\tF p$ is false on the Peircean interpretation.
 \end{solution}
 
-A rather different approach is taken by (what Prior called) the
-\textbf{Ockhamist} approach. According to Ockhamism, if there are several
-futures then it doesn't make sense to say -- without qualification -- that $p$
-will be the case, or that $p$ won't be case. To talk about what will or won't be
-the case we must specify which future we have in mind.
+A different line is taken by (what Prior called) the \textbf{Ockhamist}
+approach. According to Ockhamism, if there are several futures then it doesn't
+make sense to say -- without qualification -- that $p$ will be the case, or that
+$p$ won't be case. To talk about what will or won't be the case we must specify
+which future we have in mind.
 
 Formally, in Ockhamist semantics, the truth-value of every sentence is evaluated
 at a pair consisting at a time and a history. Histories are linear by
@@ -1085,7 +1092,7 @@ $p$ is the case in \emph{some} history, or in \emph{all} histories, Ockhamists
 add new operators $\Diamond$ and $\Box$ that quantify over histories. The
 Peircean $\tF$ operator is equivalent to $\Box \tF$ in Ockhamism. $\Box \tF p$
 says that every future contains a time at which $p$ is true; $\Diamond Fp$, by
-contrast, would say that some future contains a time which $p$ is true.
+contrast, would say that some future contains a time where $p$ is true.
 
 Here is the full Ockhamist semantics.
 
@@ -1142,8 +1149,8 @@ constraints on the precedence relation.
   (repeatedly) use definition \ref{def:ockhamistsemantics} to derive a
   contradiction.
 
-  For (e), consider a model with three times $t,s,r$ such that $s\prec t$,
-  $r\prec t$, and neither $s \prec r$ nor $r\prec s$. Let $q$ be true at $s$ and
+  For (e), consider a model with three times $t,s,r$ such that $s < t$,
+  $r< t$, and neither $s < r$ nor $r< s$. Let $q$ be true at $s$ and
   false at the other two times. $\tP q \to \Box \tP \Diamond q$ is false at $t$
   on the history $\t{s,t}$.
 \end{solution}
@@ -1190,7 +1197,7 @@ This is known as a \textbf{supervaluationist} semantics.
 
 Supervaluationism is often used when a formal semantics defines truth relative
 to an ``extra'' parameter that doesn't correspond to any feature of a
-conceivable scenario. In Ockhamist semantics, that parameter is $H$. For a
+conceivable scenario. In Ockhamist semantics, that parameter is the history $H$. For a
 different application, consider vagueness. If $p$ translates `it is warm', and
 the temperature is borderline warm, it is not clear what we should say about the
 truth-value of $p$, and about various complex sentences containing $p$. One

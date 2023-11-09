@@ -1060,6 +1060,10 @@ If a branch of a tree contains a sentence $A$ as well as its negation $\neg A$,
 for the same world $\omega$, then the branch is \emph{closed} with an {\sffamily
   x} at the bottom.
 
+% NB: By this I mean that the branch /must/ be marked as closed. You're not
+% allowed to keep expanding -- otherwise there could be a fully expanded open
+% branch that does not yield a countermodel.
+
 The rule for $\Box A$ says that from the assumption that $\Box A$ is true at a
 world $\omega$ you may infer that $A$ is true at any ``old'' world $\nu$, by
 which I mean any world \emph{that already occurs on the branch to which you want to add a node}. You're not allowed to introduce a new world variable (`$v$',
