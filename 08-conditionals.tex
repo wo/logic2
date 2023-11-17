@@ -18,8 +18,8 @@ the antecedent $A$ is false or the consequent $B$ is true. This would make `if
 $A$ then $B$' equivalent to `not $A$ or $B$'. Conditionals with these
 truth-conditions are called \textbf{material conditionals}.
 
-The ``conditionals'' $A \to B$ of classical logic are material. $A \to B$ is
-equivalent to $\neg A \lor B$. The ``attractively simple'' view that English
+The conditionals $A \to B$ of classical logic are material. $A \to B$ is
+equivalent to $\neg A \lor B$. The attractively simple view that English
 conditionals are material conditionals would mean that we can faithfully
 translate English conditionals into $\L_{M}$-sentences of the form $A \to B$. Is
 this correct?
@@ -42,10 +42,13 @@ corresponding conditional `if not-$A$ then $B$'. (This is sometimes called the
 in Paris. Trusting me, you can infer that if she's not in Rome then she's in
 Paris. Now we can reason as follows.
 
-If $A$ is true and $B$ is false, then the conditional `if $A$ then $B$' is
-clearly false. Suppose, alternatively, that $A$ is false or $B$ is true. Then
-`not-$A$ or $B$' is true. By or-to-if, we can infer that `if $A$ then $B$' is
-true as well. Thus `if $A$ then $B$' is true iff $A$ is false or $B$ is true.
+To begin, suppose that $A$ and `if $A$ then $B$' are both true. Plausibly, we
+can infer that $B$ is true as well: \emph{modus ponens} is valid for English
+conditionals. \label{p:mp} This means that if $A$ is true and $B$ is false, then
+`if $A$ then $B$' is false. Now suppose, alternatively, that $A$ is false or $B$
+is true. Then `not-$A$ or $B$' is true. By or-to-if, we can infer that `if $A$
+then $B$' is true as well. Thus `if $A$ then $B$' is true iff $A$ is false or
+$B$ is true.
 
 Despite these arguments, most philosophers and linguists don't think that
 English conditionals are material conditionals. Consider these facts about
@@ -189,9 +192,9 @@ truth-conditions for strict conditionals.
 \end{definition}
 
 \begin{exercise}
-  $A \strictif B$ is equivalent to $\Box(A \to B)$. Can you find a sentence
-  schema with $\strictif$ as the only non-truth-functional operator that is
-  equivalent (in Kripke semantics) to $\Box A$?
+  $A \strictif B$ is equivalent to $\Box(A \to B)$. Can you fill the blank in:
+  `$\Box A$ is equivalent to ---', using no modal operator other than
+  $\strictif$?
 \end{exercise}
 \begin{solution}
   For example: $\neg A \strictif A$ or $(A\lor \neg A) \strictif A$.
@@ -236,10 +239,9 @@ If we assume that the accessibility relation is reflexive, the tree closes:
 
 It is not hard to show that \emph{modus ponens} for $\strictif$ is valid on all
 and only the reflexive frames. Reflexivity is precisely what we need to render
-\emph{modus ponens} valid. And we probably want \emph{modus ponens} to be valid
-for English conditionals. If $A$ is true and $B$ false, then the conditional `if
-$A$ then $B$' seems clearly false. So we'll want the relevant Kripke models to
-be reflexive.
+\emph{modus ponens} valid. Since \emph{modus ponens} looks plausible for English
+conditionals (as I've argued on p.~\pageref{p:mp}), we'll probably want the
+relevant Kripke models to be reflexive.
 
 \begin{exercise}\label{ex:sda-import}
   Using the tree method, and translating $A \strictif B$ into $\Box(A \to B)$, confirm that following claims hold, for all $A,B,C$.
@@ -257,7 +259,7 @@ be reflexive.
   \end{exlist}
   \medskip
 
-  Which of these do you think are plausible if we
+  Which of these schemas do you think should be valid if we
   assume that $A \strictif B$ translates indicative conditionals `if $A$ then $B$'?
 \end{exercise}
 \begin{solution}
@@ -357,7 +359,7 @@ This is one problem for the strict analysis of natural-language conditionals.
 Another problem lies in the logic of strict conditionals. Remember (E1)--(E5)
 from page \pageref{paradoxes-mat-imp}. If English conditionals are strict
 conditionals, then (E1)--(E3) are invalid. For example, while $q$ entails
-$p \to q$, it does not entail $p \strictif q$. But the strict analogues of
+$p \to q$, it does not entail $p \strictif q$. But the strict analogs of
 \pr{M4} and \pr{M5} still hold, no matter what we say about accessibility (see
 exercise \ref{ex:sda-import}):
 \begin{gather*}
@@ -580,9 +582,7 @@ $A$-worlds, with no world being maximally close.
   it is not the case that $u \prec_{w} v$). Informally, $v \preceq_w u$ means
   that $v$ is at least as similar to $w$ in the relevant respects as $u$. Many
   authors use $\preceq$ rather than $\prec$ as their basic notion. Can you
-  express the above three conditions on $\prec$ in terms of $\preceq$? (For
-  example, Asymmetry turns into the assumption that for all $w,v,u$, either
-  $u \preceq_{w} v$ or $v \preceq_{w} u$.)
+  express the above three conditions on $\prec$ in terms of $\preceq$?
 \end{exercise}
 \begin{solution}
   We have the following equivalences (using `$\Leftrightarrow$' to mean that the

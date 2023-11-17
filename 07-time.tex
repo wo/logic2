@@ -1,10 +1,5 @@
 \chapter{Temporal Logic}\label{ch:time}
 
-% TODO: I should probably change 'right-linearity' to 'forward-linearity'.
-% Mueller also uses 'right', but more people seem to use 'forward', and
-% 'forward' doesn't rely on a somewhat arbitrary LTR convention for representing
-% times.
-
 \section{Reasoning about time}\label{sec:time-intro}
 
 It is currently raining in Edinburgh. But it wasn't raining yesterday, and
@@ -630,23 +625,23 @@ $s < t$.  An irreflexive, transitive, and connected relation is called a
 For some applications, we may want linearity in only one direction. Many
 philosophers have been attracted to a branching-future conception of time,
 where a point in time may have more than one future, but only one past. In
-such models, we would only require \textbf{left-linearity}: that \emph{if
+such models, we would only require \textbf{backward-linearity}: that \emph{if
   $s < t$ and $r < t$}, then either $s < r$ or $s=r$ or $r < s$.
 
-An axiom schema corresponding to left-linearity is \pr{LL}:
+An axiom schema corresponding to backward-linearity is \pr{BL}:
 %
-\principle{LL}{\tF\tP A \to (\tF A \lor A \lor \tP A)}
+\principle{BL}{\tF\tP A \to (\tF A \lor A \lor \tP A)}
 %
-Right-linearity -- the assumption that if $t < s$ and $t < r$, then either
-$s < r$ or $s=r$ or $r < s$ -- corresponds to \pr{RL}:
+Forward-linearity -- the assumption that if $t < s$ and $t < r$, then either
+$s < r$ or $s=r$ or $r < s$ -- corresponds to \pr{FL}:
 %
-\principle{RL}{\tP\tF A \to (\tP A \lor A \lor \tF A)}
+\principle{FL}{\tP\tF A \to (\tP A \lor A \lor \tF A)}
 %
 % These are from Mueller, p.333. HC (143) use
 % $\tG((A \land \tG A) \to B) \lor \tG((B \land \tG B) \to A)$, which looks like
 % a redundant disjunction; but apparently this really is the axiom Lem_0.
 %
-The conjunction of \pr{LL} and \pr{RL} is valid on a frame iff the frame's
+The conjunction of \pr{BL} and \pr{FL} is valid on a frame iff the frame's
 precedence relation does not branch in either direction. This is not quite the
 same as connectedness, because it allows for frames with parallel time lines.
 There is no schema that corresponds to connectedness.
@@ -656,41 +651,41 @@ There is no schema that corresponds to connectedness.
 % and connected frames. .3 is []([]A & A) -> B) v []([]B->A). Humberstone 195
 % says this disallows branching.
 
-The tree rules for left-linearity and right-linearity directly reflect the
+The tree rules for backward-linearity and forward-linearity directly reflect the
 definition of the two properties.
 % These rules are from Priest. Girle's rules are wrong.
 \bigskip
 \begin{center}
 
   \begin{minipage}[t]{0.4\textwidth} \centering
-    Left-Linearity
+    Backward-Linearity
     
     \tree[2]{
       & \barenode{$\nu < \omega$} & \\
       & \dotbelowbaretribnode{$\upsilon < \omega$} & \\
       && \\
       && \\
-      \barenode{$\nu < \upsilon$} & \barenode{$\nu = \upsilon$} & \barenode{$\upsilon < \nu $}
+      \barenode{$\nu < \upsilon$} & \barenode{$\nu = \upsilon$} & \barenode{$\upsilon < \nu$}
     }
   \end{minipage}
   \begin{minipage}[t]{0.4\textwidth} \centering
-    Right-Linearity
+    Forward-Linearity
 
     \tree[2]{
       & \barenode{$\omega < \nu$} & \\
       & \dotbelowbaretribnode{$\omega < \upsilon$} & \\
       && \\
       && \\
-      \barenode{$\nu < \upsilon$} & \barenode{$\nu = \upsilon$} & \barenode{$\upsilon < \nu $}
+      \barenode{$\nu < \upsilon$} & \barenode{$\nu = \upsilon$} & \barenode{$\upsilon < \nu$}
     }
   \end{minipage}
 \end{center}
 \bigskip%
-These rules create \emph{three} branches. They also create ``identity nodes'' of
-the form $\nu = \upsilon$, stating that two world/time labels refer to the same
-thing. (This must be taken into account when we read off a countermodel from an
-open branch.) We need two further rules to deal with identity nodes. Both of
-these rules are called `Identity'.%
+These rules create \emph{three} branches. The ``identity nodes''
+$\nu = \upsilon$ on the middle branch state that two world/time labels refer to
+the same thing. (This must be taken into account when reading off countermodels
+from open branches.) We need two further rules to deal with identity nodes. Both
+of these rules are called `Identity'.%
 \bigskip
 \begin{center}
   \begin{minipage}[t]{0.3\textwidth} \centering
@@ -715,14 +710,19 @@ these rules are called `Identity'.%
 
 \begin{exercise}
   Use the tree method to check which of the following sentences are valid,
-  assuming time is linear (i.e., using the Transitivity, Left-Linearity,
-  Right-Linearity, and Identity rules).
+  assuming time is linear (i.e., using the Transitivity, Backward-Linearity,
+  Forward-Linearity, and Identity rules).
   \begin{exlist}
   \item $(\tF p \land \tF q) \to \tF(p \land q)$
   \item $\tP\tG\tG p \to \tG\tG p$
   \item $\tP\tF p \to (\tP p \lor (p \lor \tF p))$
   \item $\tP\tH p \to \tH p$
   \item $\tF\tG p \to \tG\tF p$
+  % Note: We have t<r and t<s. By forward-linearity, we add r<s, s<r, and s=r.
+  % On the first of these sub-branches, we now have t<s and r<s, so we can apply
+  % backward-linearity, adding t<r, r<t, and r=t. All these branches remain
+  % open. We get countermodels in which, e.g., t<r and r<t and r<s. This doesn't
+  % look linear! But it's forward-linear and backward-linear.
   \item $\tF (\tG q \land \neg p) \to \tG(p \to (\tG p \to q))$ 
   % \item $(\tF p \land \tF q) \to (\tF(p \land q) \lor (\tF (p \land \tF q) \lor \tF(\tF p \land q)))$ % add?
   \item $(\tP(q \land \tH q) \land \tP\tG q) \to \tH q$
@@ -789,8 +789,8 @@ these rules are called `Identity'.%
 
 % While we can define non-branchingness, we can't define branchingness.
 
-The precedence relation in relativistic spacetime is neither left-linear nor
-right-linear. But it has a weaker property: convergence.
+The precedence relation in relativistic spacetime is neither backward-linear nor
+forward-linear. But it has a weaker property: convergence.
 %
 % Haven't really talked about convergence so far. Draw picture like in HC 134?
 %
@@ -883,7 +883,7 @@ convergence:
   % Does $GA\land HGA$ work with negatively transitive time (no parallel lines)?
 \end{solution}
 
-% Adding \pr{LL} and \pr{RL} yields a sound and complete logic of linear time.
+% Adding \pr{BL} and \pr{FL} yields a sound and complete logic of linear time.
 % The completeness proof is non-trivial because the canonical model is not
 % linear. We need techniques such as bulldozing. See Venema p.10f.
 
@@ -995,7 +995,7 @@ futures as equally actual.
 Let's assume, then, that we want to reason about branching time. This is less
 straightforward than it might at first appear.
 
-% The models we are interested in are not right-linear. I will, however, assume
+% The models we are interested in are not forward-linear. I will, however, assume
 % that they satisfy the following weaker property of
 % \textbf{quasi-connectedness}:\label{quasiconnected}
 % \[
