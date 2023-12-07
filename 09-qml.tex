@@ -265,11 +265,11 @@ $g$ for $M$.
 
 Finally, we say that an $\L_P$-sentence is \textbf{valid} (in classical
 first-order logic) iff it is true in all (classical, first-order)
-models. Equivalently: An $\L_P$ sentence is valid iff it is true in all models
+models. Equivalently: An $\L_P$-sentence is valid iff it is true in all models
 relative to all assignment functions.
 
 On the present definition, $Fx \to Fx$ is valid, even though it does not make a
-complete statement, due to the free variable $x$. To avoid this, many authors
+complete statement, due to the free variable $x$. To avoid this, some authors
 restrict the concept of validity to closed sentences.
 
 % We will do so below, because our tree rules don't allow proving Fx v ~Fx. But
@@ -403,7 +403,7 @@ for example, is not Kripke semantics, but neighbourhood semantics. The language
 of modal propositional logic is neutral on this disagreement. Or think of
 provability logic, where the box formalizes mathematical provability. As it
 turns out, one can give a Kripke semantics for provability, but nobody thinks
-this somehow reveals what provability really means. In provability logic,
+that this somehow reveals what provability really means. In provability logic,
 $\Box A$ means that $A$ is derivable from the axioms and rules of (say) ZFC; it
 would not be illuminating to write this as $\forall y(Rxy \to Ay)$.
 
@@ -426,8 +426,8 @@ name. We can then say $Pa$. In modal logic, we can simply say $p$ to express
 that the internal point from which we're looking at the model has the relevant
 property.
 
-For many applications, this internal perspective is very natural. If we think
-about what is possible or about what the future will bring, our thinking takes
+For many applications, this internal perspective is natural. If we think
+about what is possible or  what the future will bring, our thinking takes
 place at a particular time, in a particular world. We are looking at the
 structure of times and worlds from the inside. When I say that it is raining, I
 mean that it is raining \emph{here and now}, in \emph{this world}. I don't need
@@ -461,22 +461,22 @@ perspective on models.
 \begin{exercise}
   Since $\Box A \to A$ corresponds to reflexivity, one might think that
   $\Box p \to p$ is true at a world in a model iff the model's accessibility
-  relation is reflexive. (a) Explain why this is not correct. (b) Can you also
+  relation is reflexive. (a) Explain why this is not correct. (b) Can you 
   show that there is no $\L_{M}$-sentence that is true at a world in a model iff
   the model's accessibility is reflexive?
 \end{exercise}
 \begin{solution}
-  There are many non-reflexive models in which $\Box p \to p$ is true at some
+  (a) There are many non-reflexive models in which $\Box p \to p$ is true at some
   world -- for example, any non-reflexive model in which $p$ is false at all
   worlds.
 
-  For the more general question, let $M_1$ be a model with a single world that
-  can see itself. Let $M_{2}$ be a model with two worlds, each of which can see
-  the other but not itself. In both models, all sentence letters are false at
-  all worlds. The very same $\L_M$-sentences are true at all worlds in these
-  models (as a simple proof by induction shows). But the first model is
-  reflexive and the second isn't. So there is no $\L_{M}$-question that is true
-  at a world in a model iff the model's accessibility relation is reflexive.
+  (b) Let $M_1$ be a model with a single world that can see itself. Let $M_{2}$
+  be a model with two worlds, each of which can see the other but not itself. In
+  both models, all sentence letters are false at all worlds. The very same
+  $\L_M$-sentences are true at all worlds in these models (as a simple proof by
+  induction shows). But the first model is reflexive and the second isn't. So
+  there is no $\L_{M}$-question that is true at a world in a model iff the
+  model's accessibility relation is reflexive.
 \end{solution}
 
 % \begin{exercise}
@@ -495,7 +495,7 @@ perspective on models.
 
 \section{Predicate logic proofs}
 
-If we want to know whether a given $\L_{P}$-sentence is valid or invalid, we
+If we want to know whether an $\L_{P}$-sentence is valid or invalid, we
 could in principle work through definition \ref{def:predicatesemantics}. Various
 proof systems for classical predicate logic offer a more streamlined approach.
 
@@ -553,15 +553,14 @@ then, $Fx$ can't be true of $a$. So we add $\neg Fa$:
 The tree is closed because the sentence on node 7 is the negation of the
 sentence on node 5. The target sentence is valid.
 
-To state the general rules, we need some more notation. If $A$ is a sentence,
-$\chi$ is a variable, and $\eta$ is a name, let $A[\eta/\chi]$ be the sentence
-obtained from $A$ by replacing all free occurrences of $\chi$ with $\eta$. So
+To state the general rules, we need some more notation. If $A$ is a sentence and $\tau_{1}, \tau_{2}$ terms, let $A[\tau_{2}/\tau_{1}]$ be the sentence
+obtained from $A$ by replacing all free occurrences of $\tau_{1}$ with $\tau_{2}$. So
 $Fx[a/x]$ is $Fa$, but $\forall x Fx[a/x]$ is $\forall x Fx$ because this
 sentence contains no free occurrences of $x$.
 
 The general rule for expanding nodes of type $\exists \chi A$ is that you add a
 node $A[\eta/\chi]$, where $\eta$ is a ``new'' name that does not already occur
-on the relevant branch. If this node has been added to every open branch below
+on the relevant branch. If such a node has been added to every open branch below
 $\exists \chi A$ then the $\exists \chi A$ node can be ticked off.
 $\forall \chi A$ nodes can be expanded multiple times, once for each ``old''
 name. So if $\forall x A$ occurs on a branch, and the branch contains the names
@@ -614,6 +613,12 @@ first name on the branch.
 
 \medskip
 
+If you want to read off a countermodel from an open branch, you can simply take
+the domain $D$ to consist of all names that occur on the branch. For the
+interpretation function $V$, you then stipulate that each name picks out itself
+-- so that, for example, $V(a) = a$ -- and that a predicates $P$ applies to a
+tuple of names $\t{a,b,\ldots}$ iff $Pab\ldots$ occurs on the branch.
+
 \begin{exercise}
   Give tree proofs for the following sentences.
   \begin{exlist}
@@ -637,10 +642,10 @@ the following axiom schemas:
   \pri{DI}{\forall \chi (A \to B) \to (A \to \forall \chi B),\text{ if $\chi$ is not free in $A$}}
 \end{principles}
 %
-To these we would add the following rules. As in earlier chapters, $\Gamma \models_{P} A$ means that $A$ is a truth-functional consequence of (the sentences in) $\Gamma$.
+To these we would add the following rules. As in earlier chapters, $\Gamma \models_{0} A$ means that $A$ is a truth-functional consequence of (the sentences in) $\Gamma$.
 \begin{principles}
-  \pri{CPL}{\text{If }\Gamma \models_{P} A\text{ and all members of }\Gamma\text{ are on a proof, then one may add $A$.}}\\
-  \pri{Gen}{\text{If $A$ occurs on a proof, then one may add $\forall \chi A[\eta/\chi]$.}}
+  \pri{CPL}{\text{If }\Gamma \models_{0} A\text{ and all members of }\Gamma\text{ are on a proof, then one may add $A$.}}\\
+  \pri{Gen}{\text{If $A$ occurs on a proof, then one may add $\forall \chi A[\chi/\eta]$.}}
 \end{principles}
 
 % These are based on Bostock, pp.220f.. Bostock doesn't have the duality rule
@@ -717,7 +722,7 @@ diamond usually range over possible worlds or times, while the overt
 quantifiers range over things like people, rocks, ghosts, etc., which are
 assumed to inhabit the worlds or times.
 
-To illustrate, consider the following inference, in which I've written the box as `$\Kn$'.
+For example, consider the following inference, in which I've written the box as `$\Kn$'.
 
 \bigskip
 \begin{tabular}{ll}
@@ -823,10 +828,14 @@ second \emph{de dicto}.
     thing to say.\\[-2mm]
     
   \item %If anyone wants to leave early, they should do so quietly.
-    $\forall x \Ob(Fx \to Gx)$\\
+    I would translate this as $\forall x \Ob(Fx \to Gx)$\\
     $F$: -- wants to leave early, $G$: -- leaves quietly.\\[1mm]
-    Even better, if we can use the conditional obligation operator: $\forall x \Ob(Gx / Fx)$. These aren't too far off either:
-    $\forall x (Fx \to \Ob Gx)$, $\Ob\forall x(Fx \to Gx)$ .
+    Even better, if we can use the conditional obligation operator: $\forall x \Ob(Gx / Fx)$. Also defensible are
+    $\forall x (Fx \to \Ob Gx)$ and $\Ob\forall x(Fx \to Gx)$.
+    % One might think that the former is wrong because it is true in any situation
+    % where nobody wants to leave early, no matter the norms.
+    % But one could argue that the English sentence is also true in such a situation,
+    % because it is equivalent to 'Anyone who wants to leave early should do so quietly'.
 
     All of these are \emph{de re}. \\[-2mm]
     
@@ -862,7 +871,7 @@ second \emph{de dicto}.
 On some interpretations of the modal operators, one may question whether
 \emph{de re} sentences are intelligible. Suppose we interpret the box as `it is
 analytic that' or `it is provable that'. The things that are analytic or
-provable are sentences or propositions. That 2+2=4, for example, is provable in
+provable are sentences or propositions. 2+2=4, for example, is provable in
 ZFC, and `all vixens are female foxes' is analytic in English. (Remember that a
 sentence is analytic if it is true in virtue of its meaning.) It is not clear
 what it could mean to say that something is provable or analytic \emph{of} a
@@ -909,7 +918,7 @@ guaranteed to pick out the same individual. More interestingly, since the
 function of a name in classical predicate logic is just to pick out an
 individual, it never matters which of two names we use if they pick out the same
 individual. That is, if $a=b$ is true, then replacing some or all occurrences of
-$a$ in a sentence with $b$ never affects whether that sentence is true. This
+$a$ in a sentence with $b$ never affects whether the sentence is true. This
 principle is known as \textbf{Leibniz' Law}.
 
 To reflect these facts, the tree method for (non-modal) predicate logic must be
@@ -919,7 +928,7 @@ Second, if an identity statement $\eta_1=\eta_2$ occurs on a branch, and some
 sentence $A$ on the branch contains $\eta_1$, then we may add a new node with
 the same sentence $A$ except that one or more occurrences of $\eta_1$ in $A$ are
 replaced by $\eta_2$, or one or more occurrences of $\eta_2$ by $\eta_1$. Let
-$A[\eta_2//\eta_1]$ stand for any sentence that results from $A$ by replacing
+$A[\eta_2/\!/\eta_1]$ stand for any sentence that results from $A$ by replacing
 one or more occurrences of $\eta_1$ by $\eta_2$. The new rules can then be
 summarized as follows.
 
@@ -945,7 +954,7 @@ summarized as follows.
       \nnode{20}{}{$\eta_1=\eta_2$}{}{}\\
       \dotbelownode{20}{}{$A$}{}{}\\
       \\
-      \nnode{20}{}{$A[\eta_2//\eta_1]$}{}{}
+      \nnode{20}{}{$A[\eta_2/\!/\eta_1]$}{}{}
     }
   \end{minipage}
   \begin{minipage}[t]{0.3\textwidth} \centering
@@ -956,12 +965,13 @@ summarized as follows.
       \nnode{20}{}{$\eta_1=\eta_2$}{}{}\\
       \dotbelownode{20}{}{$A$}{}{}\\
       \\
-      \nnode{20}{}{$A[\eta_1//\eta_2]$}{}{}
+      \nnode{20}{}{$A[\eta_1/\!/\eta_2]$}{}{}
     }
   \end{minipage}
   
 \end{center}
 
+% Mention that the $A$ node should not be ticked off?
 
 \bigskip
 
@@ -979,6 +989,9 @@ Here is a tree for $(Raa \land a\!=\!b) \to Rab$, using Leibniz's Law.
   }
 \end{center}
 
+% When reading off countermodels from an open branch with an identity node $a=b$,
+% you ignore one of the names.
+
 \begin{exercise}
   Use the tree method to check which of the following sentences are valid.
   \begin{exlist}
@@ -986,7 +999,7 @@ Here is a tree for $(Raa \land a\!=\!b) \to Rab$, using Leibniz's Law.
   \item $\forall x \forall y(x\!=\!y \to y\!=\!x)$
   \item $(a=b \land b=c) \to a=c$
   \item $Rab \to \forall x(x=a \leftrightarrow Rxb)$
-  \item $\forall x \forall y\forall z(x\not= y \land y\not= z \to x \not= z)$
+  \item $\forall x \forall y\forall z((x\not= y \land y\not= z) \to x \not= z)$
   \end{exlist}
 \end{exercise}
 \begin{solution}
@@ -995,18 +1008,22 @@ Here is a tree for $(Raa \land a\!=\!b) \to Rab$, using Leibniz's Law.
 
 \begin{exercise}
   Show that the second version of the Leibniz' Law rule is redundant: we could
-  reach $A[\eta_1//\eta_2]$ from $\eta_1=\eta_2$ and $A$ with the other rules.
+  reach $A[\eta_1/\!/\eta_2]$ from $\eta_1=\eta_2$ and $A$ with the other rules.
 \end{exercise}
 \begin{solution}
-  We assume that some branch on a tree contains nodes $b=c$ and $A$. We have to
-  show that we can add $A[b//c]$ without using the second version of Leibniz'
+      % \nnode{20}{}{$\eta_1=\eta_2$}{}{}\\
+      % \dotbelownode{20}{}{$A$}{}{}\\
+      % \\
+      % \nnode{20}{}{$A[\eta_1/\!/\eta_2]$}{}{}
+  We assume that some branch on a tree contains nodes $\eta_1=\eta_2$ and $A$. We have to
+  show that we can add $A[\eta_1/\!/\eta_2]$ without using the second version of Leibniz'
   Law.
   \tree{
-    \nnode{15}{k.}{$b=c$}{}{}\\
+    \nnode{15}{k.}{$\eta_1=\eta_2$}{}{}\\
     \nnode{15}{n.}{$A$}{}{}\\ % e.g. Fc v Hcb, want to get Fb v Hcb
-    \nnode{15}{m.}{$b=b$}{}{(SI)}\\
-    \nnode{15}{m+1.}{$c=b$}{}{\hspace{32mm}(k, m, LL (first version))}\\
-    \nnode{15}{m+2.}{$A[b//c]$}{}{\hspace{32mm}(m+1, n, LL (first version))} }
+    \nnode{15}{m.}{$\eta_1=\eta_1$}{}{(SI)}\\
+    \nnode{15}{m+1.}{$\eta_2=\eta_1$}{}{\hspace{32mm}(k, m, LL (first version))}\\
+    \nnode{15}{m+2.}{$A[\eta_1/\!/\eta_2]$}{}{\hspace{32mm}(m+1, n, LL (first version))} }
 \end{solution}
 
 In the axiomatic approach, the two facts about identity are often represented by
@@ -1014,7 +1031,7 @@ the following axiom schemas:
 %
 \begin{principles}
   \pri{SI}{\eta=\eta}\\
-  \pri{LL}{\eta_1=\eta_2 \to (A \to A[\eta_2//\eta_1])}
+  \pri{LL}{\eta_1=\eta_2 \to (A \to A[\eta_2/\!/\eta_1])}
 \end{principles}
 
 Once we add boxes and diamonds to the language of predicate logic, the seemingly
@@ -1136,7 +1153,7 @@ $\L_{M\!P}$ if we translate `the Pope' as a name.
 
 A better translation for statements involving definite descriptions was proposed
 by Bertrand Russell in 1905. Russell argued that a statement of the form `the
-$F$ is $G$' is true just in case there is exactly one (relevant) $F$, and
+$F$ is $G$' is true iff there is exactly one (relevant) $F$, and
 this one $F$ is also $G$. If we have an identity predicate, we can easily
 express this in the language of predicate logic:
 \[

@@ -9,21 +9,25 @@ us which sentences and inferences in the language are valid.
 As in modal propositional logic, we will assume that the box and the diamond are
 quantifiers over accessible worlds, where ``accessibility'' is a placeholder
 whose meaning depends on the application. If we want to reason about knowledge,
-a world $v$ might be accessible from a world $w$ iff $v$ is compatible with what
-is known at $w$. If we're interested in metaphysical modality then a world $v$
-might be accessible from a world $w$ iff it is compatible with the nature of
-things at $w$. Here we might, for example, read $\Diamond Fa$ as saying that
-Aristotle could have been a sailor, assuming that $a$ picks out Aristotle and
-$F$ the property of being a sailor.
+a world $v$ would be accessible from a world $w$ iff $v$ is compatible with what
+is known at $w$. If we're interested in metaphysical modality, a world $v$
+would be accessible from a world $w$ iff it is compatible with the nature of
+things at $w$. And so on.
 
-Our topic in logic is not whether a particular claim about Aristotle is true. We
+In a typical application, we use the names of $\L_{M\!P}$ to pick out people or
+rocks or other things that might exist at a world. We use the predicates to
+express properties or relations. We might, for example, interpret $\Diamond Fa$
+as saying that Aristotle could have been a sailor, assuming that $a$ picks out
+Aristotle and $F$ the property of being a sailor.
+
+Our concern in logic is not whether a particular claim about Aristotle is true. We
 want to know which statements are \emph{logically true} or \emph{valid}, meaning
 that they are true in any conceivable scenario, under any interpretation of the
 non-logical expressions (but holding fixed the meaning of the modal operators).
 
-As always, we use models to represent a scenario together with an interpretation
-of the non-logical vocabulary. A model for $\L_{M\!P}$ contains just enough
-information about a scenario and an interpretation to determine, for every
+We use models to represent a scenario together with an interpretation of the
+non-logical vocabulary. A model for $\L_{M\!P}$ contains just enough information
+about a scenario and an interpretation to determine, for every
 $\L_{M\!P}$-sentence and every world, whether the sentence is true at that
 world.
 
@@ -33,7 +37,7 @@ purpose of a name is simply to pick out an individual. Intuitively, a predicate
 picks out a property or relation. In non-modal predicate logic, we could
 represent these properties or relations by their extension -- by the sets of
 individuals (or tuples of individuals) to which they apply. In modal predicate
-logic, however, we typically want to allow for scenarios in which an individual
+logic, we typically want to allow for scenarios in which an individual
 has different properties at different worlds. In one world, Aristotle might be a
 sailor, in another he might be a shoemaker. If $F$ expresses the property of
 being a sailor, then the set of individuals to whom $F$ applies will differ from
@@ -44,7 +48,7 @@ predicate \emph{relative to each world}.
 
 Consider a model with two worlds $w$ and $v$. Both worlds, let's assume, are
 accessible from $w$ and neither is accessible from $v$. The model's
-interpretation function tells us that the name $a$ picks out, say, Aristotle. It
+interpretation function tells us that the name $a$ picks out Aristotle. It
 also tells us that the predicate $F$ applies to Aristotle and Boethius at $w$
 and only to Boethius at $v$. We can write this as follows:
 %
@@ -268,7 +272,7 @@ Instead of working through definition \ref{def:constantdomainsemantics}, we can
 use trees to test if a sentence is CK-valid. The tree rules for CK are all the
 rules for K (from chapter 3) together with all the rules for standard predicate
 logic, with an added world parameter on each node that is held fixed when
-applying a rule from standard predicate logic. (In the predicate logic rules, a
+applying a rule from predicate logic. (In the predicate logic rules, a
 name counts as `old' if it already occurs on the relevant branch, no matter at which world.)
 
 To get a complete proof system, we need one further identity rule, reflecting
@@ -448,9 +452,9 @@ schemas: the Barcan Formula \pr{BF} and the ``necessity of distinctness'',
 
 As I mentioned above, stronger logics can be defined by putting constraints on
 the accessibility relation. For example, the system \textbf{CT} is the set of
-$\L_{M\!P}$-sentences that are valid in the class of constant-domain Kripke
+$\L_{M\!P}$-sentences that are valid in the class of constant-domain 
 models with a reflexive accessibility relation. \textbf{CS4} is the set of
-$\L_{M\!P}$-sentences that are valid in the class of constant-domain Kripke
+$\L_{M\!P}$-sentences that are valid in the class of constant-domain 
 models with a reflexive and transitive accessibility relation. And so on.
 
 Properties of the accessibility relation still correspond to modal schemas, just
@@ -471,14 +475,14 @@ CT by adding the \pr{T}-schema to the calculus for CK; for CS4, we can add
 
 % A nice example: □∀x□∀y(□Fx∨□Gy)→(□∀x□Fx∨□∀x□Gx) is S4-valid.
 
-But there are exceptions. Remember S4.2 -- the set of $\L_M$-sentences valid in
-the class of reflexive, transitive, and convergent Kripke models. Reflexivity
-corresponds to \pr{T}, transitivity to \pr{4}, and convergence to \pr{G}. If we
-add these schemas to the axiomatic calculus for system K, we get a sound and
-complete calculus for S4.2. But if we add the schemas to the calculus for CK,
-the resulting calculus is \emph{not} complete for CS4.2. There are
-$\L_{MP}$-sentences that are valid in the class of reflexive, transitive, and
-convergent constant-domain models that can't be derived.
+(Curiously, though, this doesn't always work. You may remember S4.2 as the set of
+$\L_M$-sentences that are valid in the class of reflexive, transitive, and
+convergent Kripke models. Reflexivity corresponds to \pr{T}, transitivity to
+\pr{4}, and convergence to \pr{G}. If we add these schemas to the axiomatic
+calculus for K, we get a sound and complete calculus for S4.2. But if we add the
+schemas to the calculus for CK, the resulting calculus is not complete for
+CS4.2. There are $\L_{MP}$-sentences that are valid in the class of reflexive,
+transitive, and convergent constant-domain models that can't be derived.)
 
 % In particular, we can't prove
 % $\neg(\Diamond(\exists x Ax \land \forall x(Ax \to \Box Bx) \land \Box \neg\forall x Bx) \,\land\, \Diamond\forall x(Ax \lor \Box Bx)\,\land\, \forall x (\Diamond Ax \to \Box (\exists x Ax \to Ax)))$.)
@@ -569,12 +573,12 @@ And all instances of the Barcan Formula are valid in constant-domain semantics.
     \itemsep-1mm
   \item[(1)] $\Diamond \exists x A \to \exists x \Diamond A$
   \item[(2)] $\Box \exists x A \to \exists x \Box A$
-  \item[(3)] $\exists x \Box A \to \Box \exists x A$
-  \item[(4)] $\exists x \Diamond A \to \Diamond \exists x A$
+  \item[(3)] $\exists x \Diamond A \to \Diamond \exists x A$
+  \item[(4)] $\exists x \Box A \to \Box \exists x A$
   \end{enumerate}
   \vspace{-3mm}
   \begin{exlist}
-    \item Are any of (1)--(4) equivalent to the Barcan Formula or the Converse
+    \item Are any of (1)--(4) (schematically) equivalent to the Barcan Formula or the Converse
     Barcan Formula (given the duality of $\Box$ and $\Diamond$, of $\forall x$
     and $\exists x$, and the standard truth-tables for propositional
     connectives)?
@@ -583,14 +587,43 @@ And all instances of the Barcan Formula are valid in constant-domain semantics.
   \end{exlist}
 \end{exercise}
 \begin{solution}
-  (1) is equivalent to the Barcan Formula, (4) to the Converse Barcan Formula.
-  (2) is highly implausible. (1) and (4) are often regarded as implausible, for
-  the reasons I discuss in the text. Like the Converse Barcan Formula, the
-  validity of (3) rules out scenarios in which individuals at one world may fail
+  (1) is equivalent to the Barcan Formula, (3) to the Converse Barcan Formula.
+  (2) is highly implausible. (1) and (3) are often regarded as implausible, for
+  the reasons I discuss in the text.
+
+  Curiously, (4) seems to be equivalent to the Converse Barcan Formula:
+  it, too, is valid on a frame iff the frame has increasing domains.
+  It also rules out scenarios in which individuals at one world may fail
   to exist at an accessible world.
-  % (3) isn't equivalent to CBF though: (3) can be valid even without increasing domains, provided that everything at w exists at /some/ accessible world.
-  % --- Is this true? Not sure. 
 \end{solution}  
+
+% I'm puzzled about (4). It's equivalent to <>(Ax)A -> (Ax)<>A.
+% It seems to correspond to increasing domains, like (CBF):
+%
+% Assume (4) is not valid on some frame F.
+% Then there is a model based on F with some world w s.t.
+%    (i) M,w |= <>(Ax)A and (ii) M,w |/= (Ax)<>A, for some sentence A.
+% By (ii), ex. d in D_w s.t. wRv => M,v |/= A[d/x].
+% By (i), ex. v s.t. wRv and M,v |= A[d'/x] for all d' in D_v.
+% So d in D_w and wRv and d not in D_v.
+%
+% Conversely, assume F is s.t. ex. w,v,d s.t. wRv and d in D_w and d not in D_v.
+% We show: F |/= <>(Ax)Px -> (Ax)<>Px.
+% Let V(P,v) = D_v and V(P,u) = {} for all u != v.
+% Then M,w |= <>(Ax)Px, by the first conditions,
+% but M,w |/= (Ax)<>Px because d doesn't satisfy Px anywhere.
+%
+% So is (4) schematically equivalent to (CBF)?
+%
+% I suspect the answer depends on the details of the semantics.
+% With constant domains, both are valid, and that's all there is to it.
+% With variable domains and a negative semantics,
+% both are valid iff we have increasing domains.
+% Perhaps they come apart in a positive semantics with variable domains?
+%
+% At any rate, one should be able to derive (4) from CBF, and vice versa,
+% in a complete negative variable-domain calculus. 
+
   
 % \begin{exercise}
 %   The \pr{K}-like principle
@@ -635,22 +668,21 @@ mountain are really searching for \emph{something}. That something is a golden
 mountain. But it is not an existent golden mountain. Meinong concluded that
 besides existent mountains, there are also non-existent mountains.
 
-Quantifiers that range over both existent and non-existent individuals are
+Quantifiers that range over both existent and non-existent individuals are sometimes
 called \emph{Meinongian}. If the $\L_{M\!P}$-quantifiers are Meinongian, then
 clearly $\exists x\, x\!=\!b$ does not translate `Loafy exists'.
 
-Meinong's postulation of non-existent individuals is widely rejected as
-incoherent. It certainly raises difficult questions. Suppose you are
-searching for a golden mountain. You probably don't have any firm views about
-the mountain's height. You are not looking for a mountain that is exactly 2000
-meters tall, nor are you looking for a mountain that is exactly 2100 meters
-tall. On the Meinongian account, there is a genuine mountain that you
-are looking for. It is a mountain that is not 2000 meters tall, not 2100 meters
-tall, and doesn't have any other particular height either. But how could there
-be a mountain without any particular height? Besides, it also doesn't seem right
-to say that you are looking for a peculiar ``mountain'' that doesn't have any
-height and doesn't exist. Intuitively, you are looking for an \emph{existent}
-mountain that \emph{does} have a height.
+Meinong's postulation of non-existent individuals raises difficult questions.
+Suppose you are searching for a golden mountain. You probably don't have any
+firm views about the mountain's height. You are not looking for a mountain that
+is exactly 2000 meters tall, nor are you looking for a mountain that is exactly
+2100 meters tall. On the Meinongian account, there is a genuine mountain that
+you are looking for. It is a mountain that is not 2000 meters tall, not 2100
+meters tall, and doesn't have any other particular height either. But how could
+there be a mountain without any particular height? Besides, it also doesn't seem
+right to say that you are looking for a peculiar ``mountain'' that doesn't have
+any height and doesn't exist. Intuitively, you are looking for an
+\emph{existent} mountain that \emph{does} have a height.
 
 % Even if we accept Meinongian quantification as coherent, it is not clear whether
 % it fully avoids the problem of constant domains. For example, couldn't I be
@@ -1186,9 +1218,9 @@ exists at all accessible worlds.
 
 In section \ref{sec:identity} I mentioned an apparent problem with Leibniz' Law.
 The Law allows us to reason from $\Box Fa$ and $a\!=\!b$ to $\Box Fb$. On some
-interpretations of the box, however, the inference looks problematic. In the
-Superman stories, Lois Lane knows that Superman can fly, and Superman is
-identical to Clark Kent. Can we infer that Lois knows that Clark Kent can fly?
+interpretations of the box, this inference looks problematic. In the Superman
+stories, Lois Lane knows that Superman can fly, and Superman is identical to
+Clark Kent. Can we infer that Lois knows that Clark Kent can fly?
 
 If we can, we would have to conclude that Lois Lane has inconsistent beliefs,
 since she also believes that Clark Kent \emph{cannot} fly. She would believe
@@ -1236,19 +1268,19 @@ not $\Box \neg Bl$, even though $l\!=\!g$.
   not.
 \end{solution}
 
-Semantically, Leibniz' Law corresponds to the assumption that names are
-\textbf{directly referential}, meaning that the only contribution a name makes
-to the truth-value of a sentence is its referent. If names are directly
-referential, and two names have the same referent, then it makes no difference
-which of them we use: replacing one by the other never affects the truth-value
-of a sentence.
+So perhaps we should give up Leibniz' Law. Semantically, the Law corresponds to
+the assumption that names are \textbf{directly referential}, meaning that the
+only contribution a name makes to the truth-value of a sentence is its referent.
+If names are directly referential, and two names have the same referent, then it
+makes no difference which of them we use: replacing one by the other never
+affects the truth-value of a sentence.
 
 So far, we have assumed direct reference in both constant-domain and
 variable-domain semantics. On either account, names are interpreted as simply
 picking out an individual. It is a matter of debate whether names in ordinary
 language are directly referential. Some hold that Lois Lane really has
 inconsistent beliefs. Others hold that Lois neither believes that Superman can
-fly nor that Clark Kent cannot fly, because the objects of belief or knowledge
+fly nor that Clark Kent can't fly, because the objects of belief or knowledge
 are never adequately represented by statements involving ordinary names. (This
 also gets around the Julius problem.) With respect to Lumpl and Goliath, some
 simply deny that Lumpl is identical to Goliath.
@@ -1269,11 +1301,11 @@ name picks out Whitcomb L.\ Judson.
 
 Let's assume, then, that a model's interpretation function assigns an individual
 to each name \emph{relative to each world}. This is equivalent to assuming that
-each name is interpreted as expressing a \emph{function from worlds to
-  individuals}, telling us which individual the name picks out relative to any
-given world. Functions from worlds to individuals are known as
-\textbf{individual concepts}, which is why the present approach is often called
-\textbf{individual concept semantics}.
+each name is interpreted as expressing a function from worlds to individuals,
+telling us which individual the name picks out relative to any given world.
+Functions from worlds to individuals are known as \textbf{individual concepts},
+which is why the present approach is often called \textbf{individual concept
+  semantics}.
 
 To motivate this label, return to Lois Lane. When Lois is thinking about
 Superman, she is thinking about the audacious hero whose superhuman powers she
@@ -1351,13 +1383,13 @@ method. One can prove that no such method exists.
 
 Both of these problems can be avoided by putting further constraints on models.
 We have assumed that any function from worlds to individuals is a candidate
-interpretation for a name or a variable. Relative to a given assignment
-function, a variable may pick out Donald Trump in one world, the Eiffel tower in
-another, a fried egg in a third, and so on. Ordinary concepts are not that
-gerrymandered. We might therefore identify a certain subset of all individual
-concepts as ``eligible'' for being expressed by names or variables. If this is
-done sensibly, $\Box \exists x A \to \exists x \Box A$ becomes invalid, and
-complete proof methods become available.
+interpretation for a name or a variable. Relative to an assignment function, a
+variable may pick out Donald Trump in one world, the Eiffel tower in another, a
+fried egg in a third, and so on. Ordinary concepts are not that gerrymandered.
+We might therefore identify a certain subset of all individual concepts as
+``eligible'' for being expressed by names or variables. If this is done
+sensibly, $\Box \exists x A \to \exists x \Box A$ becomes invalid, and complete
+proof methods become available.
 
 \begin{exercise}
   The following line of thought may be attributed to Descartes. ``I am certain
@@ -1399,8 +1431,8 @@ complete proof methods become available.
 \begin{solution}
   To render $\forall x \forall y (x\!=\!y \to \Box x\!=\!y)$ valid, we can
   restrict the eligible individual concepts in a model as follows. For any
-  individual concepts $f$ and $g$ and worlds $w$ and $v$, if $wRv$ and
-  $f(w)=g(w)$ then $f(v)=g(w)$. (We do not stipulate that if $wRv$ and
+  (eligible) individual concepts $f$ and $g$ and worlds $w$ and $v$, if $wRv$
+  and $f(w)=g(w)$ then $f(v)=g(w)$. (We do not stipulate that if $wRv$ and
   $f(v)=g(v)$ then $f(w)=g(w)$, which would render the necessity of distinctness
   valid.)
 \end{solution}

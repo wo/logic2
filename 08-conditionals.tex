@@ -549,6 +549,7 @@ $\prec$.
   % Kaufmann 2017 calls PLA.
 \end{enumerate}
 
+Asymmetric and quasi-connected relations are known as \textbf{weak orders}.
 Asymmetry is self-explanatory. Quasi-connectedness is more often called
 \emph{negative transitivity}, because it is equivalent to the assumption that if
 $t \not< s$ and $s\not<r$ then $t\not<r$. It ensures that the ``equidistance''
@@ -621,8 +622,8 @@ must contain closeness orderings $\prec$ on the set of worlds.
   \vspace{-3mm}
   \begin{itemize*}
   \item a non-empty set $W$,
-  \item for each $w$ in $W$ an asymmetric and quasi-connected order $\prec_w$
-  that satisfies the Limit Assumption, and
+  \item for each $w$ in $W$ a weak order $\prec_w$ that satisfies the Limit
+  Assumption, and
   \item a function $V$ that assigns to each sentence letter a subset of $W$.
   \end{itemize*}
   % Notice that this is a special kind of neighbourhood model: the propositions
@@ -747,7 +748,7 @@ give a countermodel with two worlds
     \node[circle, draw=gray, minimum size=50mm] at (w) (c) {};
     % \node[circle, draw=gray, minimum size=20mm] at (v) (c) {};
   \end{tikzpicture}
-  \vspace{-20mm}
+  \vspace{-10mm}
 \end{wrapfigure}
 $w$ and $v$; $p$ is true at both worlds, $q$
 is true only at $v$, and $r$ only at $w$; if $w$ is closer
