@@ -2,18 +2,58 @@
 
 \section{Variable modality}
 
-In the previous chapter, we read $\Box A$ as saying that $A$ is true at every
-possible world. We might hope to allow for different flavours of modality by
-associating each flavour with a different space of worlds. If the box
-represents epistemic necessity, a possible world would be a world that is
-compatible with the available information. If the box represents historical
-necessity, a possible world would be one that can be brought about. If the box
-represents obligation, a possible world would be a world in which all relevant
-norms are respected. (These worlds are more commonly called \emph{ideal}.)
+I have given two kinds of interpretation for the box and the diamond. First I
+said that we use $\Box A$ to express that $A$ is certain, or historically
+necessary, or obligatory, etc. Then I said that $\Box A$ means that $A$ is true
+at all possible worlds. These were not meant to be competing interpretations.
+Rather, I have assumed that the ordinary concepts of certainty, historical
+necessity, obligation, and so on, can be analysed -- at least to some
+approximation -- as universal quantifiers over possible worlds.
 
-But there is a problem. The semantics from the previous chapter determines a
-particular logic: S5. This logic is not appropriate for every application of
-modal logic. In deontic logic, for example, we don't want the schema
+Take historical necessity. Informally, $A$ is historically necessary if there is
+nothing we can do that might render $A$ false. Let's say that a world is
+\emph{open} if there is something we can do that might bring about that world
+(in the sense that if we were to perform the relevant action, then we might live
+in that world). Now, if you think about it, $A$ is historically necessary iff
+$A$ is true at all open worlds. So we can use $\Box A$ to mean both that $A$ is
+historically necessary and that $A$ is true at all possible worlds, where
+`possible' means `open'.
+
+Other flavours of modality are associated with other domains of worlds. Suppose
+the box formalizes `it is obligatory that'. To a first approximation, $A$ is
+obligatory (relative to some norms) iff it is true at all worlds at which the
+norms are respected. (Think about it!) These worlds are also called
+\emph{ideal}. So we can use $\Box A$ to mean both that $A$ is obligatory and
+that $A$ is true at all possible worlds, where `possible' now means `ideal'.
+
+\begin{exercise}
+  Try to analyse the following concepts in terms of universal quantification over possible worlds of a suitable kind.
+  \begin{exlist}
+    \item It is physically necessary that $A$.
+    \item We know that $A$.
+    \item It is true that $A$.
+  \end{exlist}
+\end{exercise}
+\begin{solution}
+  \begin{sollist}
+    \item One answer: $A$ is physically necessary iff $A$ is true at all worlds
+    that are compatible with the laws of physics. A possibly better answer: $A$
+    is physically necessary iff $A$ is true at all worlds that are compatible
+    with the laws of physics and the current state of the universe.
+    
+    \item A simple, if somewhat uninformative answer: We know that $A$ iff $A$
+    is true at all worlds that are compatible which our knowledge.
+
+    \item It is true that $A$ iff $A$ is true at all worlds that are identical
+    to the actual world.
+  \end{sollist}
+\end{solution}
+
+Unfortunately, there are good reasons to think that this approach won't always
+work. Remember that the possible-worlds semantics from the previous chapter
+determines a particular logic: S5. And this logic is not appropriate for every
+application of modal logic. In deontic logic, for example, we don't want the
+schema
 %
 \begin{principles}
   \pri{T}{\Box A \to A}
@@ -36,15 +76,15 @@ do the dishes, but not in worlds where you haven't made the promise. Worlds in
 which you don't do the dishes are then ideal relative to the second kind of
 world, but not relative to the first.
 
-This kind of variability is also needed for other flavours of modality. Suppose
+This type of variability is also needed for other flavours of modality. Suppose
 the box quantifies over all worlds that are compatible with our knowledge. Which
 worlds are compatible with our knowledge depends on what we know. But we don't
 always know what we know. Sometimes we believe that we know something, but don't
 actually know it because it is false. We don't know it, without knowing that we
 don't know it. \label{par:notB}Among the worlds compatible with our knowledge
-are then worlds in which we know more than we actually do. What's
-compatible with our knowledge in \emph{these} worlds is different from what's
-compatible with our knowledge in the actual world.
+are then worlds in which we know more than we actually do. What's compatible
+with our knowledge in \emph{these} worlds is different from what's compatible
+with our knowledge in the actual world.
 
 Let's assume, then, that for any world in any scenario there is a set of worlds
 that are possible \emph{relative to $w$}. We assume that $\Box p$ as true at $w$
@@ -55,10 +95,7 @@ or (informally) that $w$ \emph{can see} $v$.
 Accessibility means different things in different applications. In epistemic
 logic, a world $v$ is accessible from $w$ iff $v$ is compatible with what is
 known at $w$. In the logic of historical necessity, $v$ is accessible from $w$
-iff $v$ can be brought about at $w$. And so on. We can still allow for scenarios
-in which every world is accessible from every world, so that the box and the
-diamond are unrestricted quantifiers over all worlds in the scenario, as in the
-previous chapter.
+iff $v$ can be brought about at $w$. And so on.
 
 Since facts about accessibility matter to the truth-value of modal sentences,
 they must be represented by our models. From now on, a model for $\L_M$ will
