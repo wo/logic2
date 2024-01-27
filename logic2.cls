@@ -31,7 +31,6 @@
 \usepackage[table,xcdraw]{xcolor}
 \usepackage{tikz}
 \usepackage{scalerel} % \scaleto for tiny letters
-
 % ============= fonts ==============
 % 
 \usepackage{fontspec}

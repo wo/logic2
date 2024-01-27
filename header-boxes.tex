@@ -1,0 +1,189 @@
+
+\usepackage[most]{tcolorbox}
+\usepackage{xparse}
+
+%\definecolor{teal}{HTML}{ba5536}
+%\definecolor{terra}{HTML}{363237}
+\definecolor{teal}{HTML}{34675c}
+\definecolor{terra}{HTML}{324851}
+
+% plain box:
+\newtcolorbox{justabox}{
+  enhanced,
+  colback=terra!2!white,
+  colframe=terra!80!white,
+  boxrule=0.3mm,
+  drop small lifted shadow,
+  beforeafter skip=\baselineskip,
+}
+
+% Definition environment with counter:
+\newtcbtheorem[number within=chapter]{definition}{Definition}{%
+  enhanced,
+  breakable,
+  enhanced jigsaw,
+  colback=terra!2!white,
+  colframe=terra!80!white,
+  colbacktitle=terra!2!white,
+  boxrule=0.3mm,
+  drop small lifted shadow,
+  titlerule=-0.5mm,
+  toptitle=2mm,
+  beforeafter skip=\baselineskip,
+  fonttitle=\upshape\bfseries\sffamily,
+  coltitle=terra!90!black,
+  fontupper=\normalfont,
+  }{def}
+
+% Observation environment without title bar:
+\newtcbtheorem[number within=chapter]{obs}{Observation}{%
+  theorem style=plain,
+  enhanced,
+  colback=terra!2!white,
+  colframe=terra!80!white,
+  boxrule=0.3mm,
+  beforeafter skip=\baselineskip,
+  fonttitle=\upshape\bfseries\sffamily,
+  coltitle=terra!90!black,
+  fontupper=\normalfont,
+  drop small lifted shadow,
+  }{obs}
+\newenvironment{observation}[1]{\begin{obs}{}{#1}}{\end{obs}}
+
+% Theorem environment without 'Theorem' label:
+\newenvironment{theorem}[2]{%
+  \begin{tcolorbox}[%
+    enhanced,
+    title={#1},
+    colframe=terra!80,
+    colback=terra!2!white,
+    colframe=terra!80!white,
+    colbacktitle=terra!2!white,
+    coltitle=terra!90!black,
+    boxrule=0.3mm,
+    titlerule=-0.5mm,
+    toptitle=2mm,
+    fonttitle=\upshape\bfseries\sffamily,
+    drop small lifted shadow,
+    beforeafter skip=\baselineskip,
+    ]\label{thm:#2}%
+  }%
+  {\end{tcolorbox}}
+
+% Proof:
+\renewtcolorbox{proof}{
+  blanker,enforce breakable,left=3mm,
+  before skip=10pt,after skip=10pt,
+  parbox=false, % for paragraph indentation
+  borderline west={0.2mm}{0pt}{terra!60!white}
+}
+
+% semantics:
+
+\usepackage{wrapfig}
+\let\description=\eqlist
+\let\enddescription=\endeqlist
+\let\eqlistlabel\descriptionlabel
+\newenvironment{semantics}{\begin{description}}{\end{description}}
+
+
+% exercises and solutions:
+
+\ifcompilesolutions
+
+\usepackage[clear-aux]{xsim}
+\xsimsetup{
+  exercise/template=tcb,
+  exercise/within=chapter,
+  exercise/the-counter = \thechapter.\arabic{exercise},
+  solution/template=tcbsol,
+  solution/name=Exercise,
+  print-solutions/headings=false,
+}
+
+\DeclareExerciseEnvironmentTemplate{tcb} {%
+  \tcolorbox[
+  breakable,
+  enhanced jigsaw,
+  fonttitle=\sffamily\upshape\bfseries,
+  coltitle=teal!10!white,
+  colback=teal!02!white,
+  colbacktitle=teal,
+  colframe=teal!70!black,
+  boxrule=0.3mm,
+  attach boxed title to top left={yshift=-1mm, xshift=1mm},
+  beforeafter skip=.9\baselineskip,
+  title = Exercise~\GetExerciseProperty{counter}%
+        \GetExercisePropertyT{subtitle}{ \textit{\PropertyValue}}%
+        \IfInsideSolutionF{%
+            \GetExercisePropertyT{points}{ % notice the space
+                (%
+                \PropertyValue
+                \IfExerciseGoalSingularTF{points}
+                    {\XSIMtranslate{point}}
+                    {\XSIMtranslate{points}}%
+                )%
+            }%
+        }%
+    ]%
+    % \IfInsideSolutionT{%
+    %   \tcbsubtitle{Exercise}
+    %   \input{\jobname-\ExerciseType-\ExerciseID-exercise-body.tex}
+    %   \tcbsubtitle{Solution}
+    % }
+}{\endtcolorbox}
+
+% Solution headings:
+\DeclareExerciseEnvironmentTemplate{tcbsol}{%
+  \tcbox[
+  fontupper=\sffamily\upshape\bfseries,
+  coltext=teal!10!white,
+  colback=teal!80!white,
+  colframe=teal!50!white,
+  boxrule=0.3mm,
+  boxsep=-0.5mm,
+  before skip=\baselineskip,
+  after skip=0.5\baselineskip,
+  ]{Exercise~\GetExerciseProperty{counter}}
+  \noindent
+}
+
+\else
+
+\newtcolorbox[auto counter,number within=chapter]{exercise}{
+  breakable,
+  enhanced jigsaw,
+  fonttitle=\sffamily\upshape\bfseries,
+  coltitle=teal!10!white,
+  colback=teal!02!white,
+  colbacktitle=teal,
+  colframe=teal!70!black,
+  boxrule=0.3mm,
+  attach boxed title to top left={yshift=-1mm, xshift=1mm},
+  beforeafter skip=.9\baselineskip,
+  title=Exercise~\thetcbcounter,
+}
+\usepackage{comment}
+\excludecomment{solution}
+\newcommand{\printsolutions}{}
+
+\fi
+
+% \DeclareExerciseType{exercise}{
+%     exercise-env=ltxexercise,
+%     solution-env=ltxsolution,
+%     exercise-name=\XSIMtranslate{exercise},
+%     solution-name=\XSIMtranslate{solution},
+%     exercise-template=tcb,
+%     solution-template=tcb,
+%     within=chapter,
+% }
+
+% ========== custom list format in exercises ===========
+
+\usepackage[shortlabels]{enumitem} % begin{enumerate}[(a)] and itemsep
+\newenvironment{exlist}{\vspace{-2mm}\begin{enumerate}[(a)]\itemsep-1.5mm}{\end{enumerate}\vspace{-5mm}}
+\newenvironment{sollist}{\vspace{-5mm}\begin{enumerate}[(a)]\itemsep-1.5mm}{\end{enumerate}\vspace{-3mm}}
+\newcommand{\beginwithlist}{\vspace{1mm}}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
