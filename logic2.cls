@@ -5,7 +5,7 @@
 % parent class scrbook:
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 \ProcessOptions
-\LoadClass[12pt, twoside=false, a4paper, DIV=calc, headsepline, footnotes=multiple]{scrbook}
+\LoadClass[12pt, twoside=false, a4paper, DIV=10, headsepline, footnotes=multiple]{scrbook}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -39,8 +39,8 @@
 \setmainfont{TeX Gyre Termes}[Scale=1.0]
 \setmathfont{TeX Gyre Termes Math}
 \newfontfamily{\headerfont}{Utopia}
-\addtokomafont{chapter}{\headerfont\bfseries}
-\addtokomafont{section}{\headerfont\bfseries}
+\addtokomafont{chapter}{\headerfont\mdseries}
+\addtokomafont{section}{\headerfont\mdseries}
 
 % math packages:
 % \usepackage{amsthm}
