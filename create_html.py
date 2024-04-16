@@ -38,7 +38,6 @@ def main():
     fix_toc_links()
     fix_html()
     create_index()
-    print("Now upload with: scp -r html/* wo@umsu.de:/var/www/umsu.de/public_html/logic2/")
 
 
 def prepare_paths():
@@ -127,13 +126,6 @@ def prep_chapter(texfile):
     tex = fix_gather(tex)
     tex = escape_labeled_items(tex)
     tex = escape_intext_links(tex)
-
-    # def repl(match, count=[0]):
-    #     count[0] += 1
-    #     hrefdb['hrefdb_'+str(count[0])] = match.group(1)
-    #     return '\\href{hrefdb_'+str(count[0]) + "}"
-
-    # tex = re.sub('\\\\href{([^}]+)}', repl, tex)
     write_file(tmp_path + "/" + texfile, tex)
 
 
@@ -150,9 +142,6 @@ def fix_custom_commands(tex):
     tex = re.sub(r'\\t\{([^}]+)\}', r'\\langle \1 \\rangle', tex)
     tex = re.sub(r'\\notmodels', r'\\mathrel{|}\\joinrel\\not=', tex)
     tex = re.sub(r'\\principle\{([^}]+)\}\{([^}]+)\}', r'\\begin{equation}\\tag{\1}\2\\end{equation}', tex)
-    # tex = re.sub(r'\\begin{principles}', r'\\begin{flalign}', tex)
-    # tex = re.sub(r'\\end{principles}', r'\\end{flalign}', tex)
-    # tex = re.sub(r'\\pri\{([^}]+)\}\{(.+)\}', r'&\2 &\\tag{\1}', tex)
     tex = re.sub(r'\\begin{principles}', r'\\begin{enumerate}', tex)
     tex = re.sub(r'\\end{principles}', r'\\end{enumerate}', tex)
     tex = re.sub(r'\\pri\{([^}]+)\}\{(.+)\}', r'\\item[(\1)] $\2$', tex)
@@ -466,16 +455,6 @@ def read_toc():
     if len(toc) == 0:
         print("TOC not found in toc.html")
     return toc
-
-
-def fix_href(html):
-    """Fix hrefs in HTML file."""
-
-    def back_repl(match):
-        return hrefdb[match.group(0)]
-
-    # html = re.sub(r'hrefdb_\d+', back_repl, html)
-    return html
 
 
 def fix_item_labels(html):
