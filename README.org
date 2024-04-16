@@ -1,4 +1,5 @@
 
 This project contains the lecture notes for an intermediate logic course for
 philosophy students that I'm regularly teaching at the University of Edinburgh.
+You can find an online version of the notes at [[https://www.umsu.de/logic2][umsu.de/logic2]].
 
