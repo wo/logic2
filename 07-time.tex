@@ -270,7 +270,9 @@ $\tP$ as the diamond with a reversed perspective on the accessibility (or
 precedence) relation:
 
 \bigskip\hspace{-3mm}
-\begin{minipage}{0.26\textwidth} \centering
+\begin{minipage}{0.26\textwidth}
+  \centering
+  
   \tree{
     \nnode{12}{}{$\tG A$}{\omega}{}\\
     \dotbelownode{12}{}{$\omega<\nu$}{}{}\\
@@ -278,21 +280,11 @@ precedence) relation:
     \nnode{12}{}{$A$}{\nu}{}\\
     \Kk[12]{0}{}\\
     \Kk[12]{0}{}
-}
-\vspace{8mm}
-
+  }
+\end{minipage}
+\begin{minipage}{0.26\textwidth} \centering
 
   \tree{
-    \dotbelownode{12}{}{$\neg\!\tG A$}{\omega}{}\\
-    \\
-    \nnode{12}{}{$\omega<\nu$}{}{}\\
-    \nnode{12}{}{$\neg A$}{\nu}{}\\
-    \Kk[12]{0}{$\uparrow$}\\
-    \Kk[12]{0}{\small new}
-}
-\end{minipage}
-\begin{minipage}{0.26\textwidth}\centering
-\tree{
     \dotbelownode{12}{}{$\tF A$}{\omega}{}\\
     \\
     \nnode{12}{}{$\omega<\nu$}{}{}\\
@@ -301,19 +293,10 @@ precedence) relation:
     \Kk[12]{0}{\small new}
 }
 
-\vspace{8mm}
-
-  \tree{
-    \nnode{12}{}{$\neg\!\tF A$}{\omega}{}\\
-    \dotbelownode{12}{}{$\omega<\nu$}{}{}\\
-    \\
-    \nnode{12}{}{$\neg A$}{\nu}{}\\
-    \Kk[12]{0}{}\\
-    \Kk[12]{0}{}
-}
 \end{minipage}
 \begin{minipage}{0.26\textwidth} \centering
-\tree{
+
+  \tree{
     \nnode{12}{}{$\tH A$}{\omega}{}\\
     \dotbelownode{12}{}{\color{red}{$\nu<\omega$}}{}{}\\
     \\
@@ -322,11 +305,49 @@ precedence) relation:
     \Kk[12]{0}{}
 }
 
-\vspace{8mm}
+\end{minipage}
+\begin{minipage}{0.26\textwidth}\centering
 
+  \tree{
+    \dotbelownode{12}{}{$\tP A$}{\omega}{}\\
+    \\
+    \nnode{12}{}{\color{red}{$\nu<\omega$}}{}{}\\
+    \nnode{12}{}{$A$}{\nu}{}\\
+    \Kk[12]{0}{$\uparrow$}\\
+    \Kk[12]{0}{\small new}
+  }
+  
+\end{minipage}
+
+\vspace{10mm}\noindent%
+\begin{minipage}{0.26\textwidth}\centering
+
+  \tree{
+    \dotbelownode{12}{}{$\neg \tG A$}{\omega}{}\\
+    \\
+    \nnode{12}{}{$\omega<\nu$}{}{}\\
+    \nnode{12}{}{$\neg A$}{\nu}{}\\
+    \Kk[12]{0}{$\uparrow$}\\
+    \Kk[12]{0}{\small new}
+}
+
+\end{minipage}
+\begin{minipage}{0.26\textwidth}\centering
+
+  \tree{
+    \nnode{12}{}{$\neg\tF A$}{\omega}{}\\
+    \dotbelownode{12}{}{$\omega<\nu$}{}{}\\
+    \\
+    \nnode{12}{}{$\neg A$}{\nu}{}\\
+    \Kk[12]{0}{}\\
+    \Kk[12]{0}{}
+}
+
+\end{minipage}
+\begin{minipage}{0.26\textwidth}\centering
 
 \tree{
-    \dotbelownode{12}{}{$\neg\! \tH A$}{\omega}{}\\
+    \dotbelownode{12}{}{$\neg \tH A$}{\omega}{}\\
     \\
     \nnode{12}{}{\color{red}{$\nu<\omega$}}{}{}\\
     \nnode{12}{}{$\neg A$}{\nu}{}\\
@@ -336,19 +357,9 @@ precedence) relation:
   
 \end{minipage}
 \begin{minipage}{0.26\textwidth}\centering
-\tree{
-    \dotbelownode{12}{}{$\tP A$}{\omega}{}\\
-    \\
-    \nnode{12}{}{\color{red}{$\nu<\omega$}}{}{}\\
-    \nnode{12}{}{$A$}{\nu}{}\\
-    \Kk[12]{0}{$\uparrow$}\\
-    \Kk[12]{0}{\small new}
-  }
-  
-\vspace{8mm}
 
 \tree{
-    \nnode{12}{}{$\neg\!\tP A$}{\omega}{}\\
+    \nnode{12}{}{$\neg\tP A$}{\omega}{}\\
     \dotbelownode{12}{}{\color{red}{$\nu<\omega$}}{}{}\\
     \\
     \nnode{12}{}{$\neg A$}{\nu}{}\\

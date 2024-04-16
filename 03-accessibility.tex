@@ -386,6 +386,7 @@ Conversely, however, every K-valid sentence is S5-valid. Let's prove this.
     it is true at $w$ in the corresponding Kripke model $M^*$.
   \end{itemize}
   \end{quote}
+
   (A full proof of (*) would proceed by induction on complexity of the
   sentence.)
 
@@ -613,6 +614,7 @@ reference) the ones we already know. We will have a closer look at some of these
 systems in later chapters, when we turn to applications of modal logic.
 
 \bigskip
+\label{table:systems}
 \begin{tabular}{ll}
   \toprule
   \emph{System} & \emph{Constraint on $R$}\\
@@ -630,7 +632,7 @@ systems in later chapters, when we turn to applications of modal logic.
   S5 & $R$ is reflexive, transitive, and symmetric\\ 
   S5 & $R$ is \textbf{universal}: every world has access to every world\\
   \bottomrule
-\end{tabular}\label{table:systems}
+\end{tabular}
 
 \bigskip
 
@@ -790,7 +792,7 @@ To understand the connection between modal schemas and conditions on the
 accessibility relation, we need to talk about \emph{frames}. A frame is what you
 get if take a model and remove the interpretation function.
 
-\begin{definition}{}{Kripke frame}
+\begin{definition}{}{kripkeframe}
   A \textbf{Kripke frame} is a pair of a non-empty set $W$ and a relation $R$ on $W$.
 \end{definition}
 

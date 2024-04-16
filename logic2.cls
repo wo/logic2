@@ -209,9 +209,7 @@
 
 % define boxes and diamonds for specialist logics:
 \DeclareMathOperator{\Kn}{\mathsf{K}{}}
-\DeclareMathOperator{\Ind}{\mathsf{Ind}{}}
 \DeclareMathOperator{\Mi}{\mathsf{M}}
-\DeclareMathOperator{\Po}{\mathsf{P}}
 \DeclareMathOperator{\Bel}{\mathsf{B}}
 \DeclareMathOperator{\EKn}{\mathsf{E}}
 \DeclareMathOperator{\CKn}{\mathsf{C}}

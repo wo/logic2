@@ -54,7 +54,8 @@ Despite these arguments, most philosophers and linguists don't think that
 English conditionals are material conditionals. Consider these facts about
 logical consequence (in classical propositional logic).
 %
-\begin{principles}\label{paradoxes-mat-imp}
+\label{paradoxes-mat-imp}
+\begin{principles}
 \pri{M1}{B \models A \to B}\\
 \pri{M2}{\neg A \models A \to B}\\
 \pri{M3}{\neg (A \to B) \models A}\\
@@ -634,21 +635,21 @@ To formally state the semantics of $\boxright$, we can re-use a concept from
 section \ref{sec:oblig-circ}. Let $S$ be an arbitrary set of worlds, and let $w$
 be some world (that may or may nor be in $S$). It will be useful to have an
 expression that picks out the most similar worlds to $w$, among all the worlds in
-$S$. This expression is $\emph{Min}^{\prec_w}(S)$, which we have defined as follows in
+$S$. This expression is $\mathrm{Min}^{\prec_w}(S)$, which we have defined as follows in
 section \ref{sec:oblig-circ}:
 \[
-  \emph{Min}^{\prec_w}(S) =_\text{def} \{ v: v \in S \land \neg\exists u (u \in S \land u \prec_w v) \}.
+  \mathrm{Min}^{\prec_w}(S) =_\text{def} \{ v: v \in S \land \neg\exists u (u \in S \land u \prec_w v) \}.
 \]
 
 Now $\{ u : M,u\models A \}$ is the set of worlds (in model $M$) at which $A$ is
-true. So $\emph{Min}^{\prec_w}(\{ u : M,u\models A \})$ is the set of those
+true. So $\mathrm{Min}^{\prec_w}(\{ u : M,u\models A \})$ is the set of those
 $A$-worlds that are closest to $w$. We want $A \boxright B$ to be true at $w$
 iff $B$ is true at the closest $A$-worlds to $w$.
 
 \begin{definition}{Similarity semantics for $\boxright$}{similaritysemantics}
   If $M$ is a similarity model and $w$ a world in $M$, then\\[1mm]
   $M,w \models A \boxright B$ iff $M,v \models B$ for all
-  $v$ in $\emph{Min}^{\prec_w}(\{ u: M,u \models A \})$.
+  $v$ in $\mathrm{Min}^{\prec_w}(\{ u: M,u \models A \})$.
 \end{definition}
 
 You may notice that $A \boxright B$ works almost exactly like $\Ob(B/A)$ from
@@ -656,7 +657,7 @@ section \ref{sec:oblig-circ}. There, I said that for any world $w$ in any deonti
 ordering model $M$,
 
 \medskip
-\quad$M,w \models \Ob (B/A) \text{ iff } M,v \models B\text{ for all $v$ in $\emph{Min}^{\prec_w}(\{ u: wRu $ and $M,u\models A \})$}$.
+\quad$M,w \models \Ob (B/A) \text{ iff } M,v \models B\text{ for all $v$ in $\mathrm{Min}^{\prec_w}(\{ u: wRu $ and $M,u\models A \})$}$.
 
 \medskip \noindent%
 The main difference is that conditional obligation is sensitive to an
@@ -687,7 +688,7 @@ similarity model entails the truth of $B$.
 Assume that $A$ and $A \boxright B$ are true at a world $w$. By definition
 \ref{def:similaritysemantics}, the latter means that $B$ is true at all the
 closest $A$-worlds to $w$ (at all worlds in
-$\emph{Min}^{\prec_w}(\{u: M,u\models A\})$). The world $w$ itself is an
+$\mathrm{Min}^{\prec_w}(\{u: M,u\models A\})$). The world $w$ itself is an
 $A$-world. If we could show that $w$ is among the closest $A$-worlds to itself
 then we could infer that $A$ is true at $w$.
 
@@ -728,9 +729,9 @@ The logic we get if we impose this constraint is \textbf{system VC}.
   % This shows how we could define box A.
 \end{exercise}
 \begin{solution}
-  If $A$ is true at no worlds, then $\emph{Min}^{\prec_w}(\{u: M,u\models A\})$
+  If $A$ is true at no worlds, then $\mathrm{Min}^{\prec_w}(\{u: M,u\models A\})$
   is the empty set. So it is vacuously true that $M,v \models B$ for all
-  $v \in \emph{Min}^{\prec_w}(\{ u: M,u \models A \})$.
+  $v \in \mathrm{Min}^{\prec_w}(\{ u: M,u \models A \})$.
 \end{solution}
 
 None of the problematic inferences (E1)--(E5) are valid if the relevant
@@ -920,7 +921,7 @@ way. % (Lewis 1973, p.444).
 
 Let's say that for any sentence $A$, a world $v$ is \emph{$A$-accessible} from
 $w$ (for short, $wR_Av$) iff $v$ is one of the closest $A$-worlds to $w$; that
-is, iff $v \in \emph{Min}^{\prec_w}(\{u: M,u \models A\})$. Definition
+is, iff $v \in \mathrm{Min}^{\prec_w}(\{u: M,u \models A\})$. Definition
 \ref{def:similaritysemantics} then states that $A \boxright B$ is true at a
 world $w$ iff $B$ is true at all worlds $A$-accessible from $w$. These are the
 standard truth-conditions for the box, except that accessibility is relativised

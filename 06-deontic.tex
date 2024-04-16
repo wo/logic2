@@ -238,7 +238,7 @@ as valid.
 We might, however, impose the weaker condition of seriality. This would
 validate the \pr{D}-schema
 %
-\principle{D}{\Ob A \to \Pe A}.
+\principle{D}{\Ob A \to \Pe A.}
 %
 Intuitively, \pr{D} says that the norms are consistent: if you're obligated to
 do $A$, then you are not obligated to do not-$A$. (Remember that $\Pe A$ is
@@ -702,10 +702,10 @@ Now we need to say under what conditions a sentence of the form $\Ob A$ is true
 at a world in an ordering model. Informally, $\Ob A$ will be true at $w$ iff
 $A$ is true at the best worlds among those that are circumstantially accessible.
 Let's introduce one more piece of notation. For any set $S$ and any
-partial order $\prec$, let $\emph{Min}^{\prec}(S)$ be the set of $\prec$-minimal
+partial order $\prec$, let $\mathrm{Min}^{\prec}(S)$ be the set of $\prec$-minimal
 members of $S$:
 \[
-  \emph{Min}^{\prec}(S) =_\text{def} \{ v: v \in S \land \neg\exists u(u \in S \land u \prec v) \}.
+  \mathrm{Min}^{\prec}(S) =_\text{def} \{ v: v \in S \land \neg\exists u(u \in S \land u \prec v) \}.
 \]
 An expression of the form `$\{ x: \ldots x \ldots \}$' denotes the set of all
 things $x$ that satisfy the condition $\ldots x \ldots$. So $Min^{<}(S)$ is the
@@ -718,8 +718,8 @@ models:
 
 \begin{definition}{Ordering semantics}{orderingsemantics}
   If $M$ is a deontic ordering model and $w$ a world in $M$, then\\[1mm]
-  $M,w \models \Ob A$ \text{ \;iff\; $M,v \models A$ for all $v \in \emph{Min}^{\prec_w}(\{ u: wRu\})$}\\
-  $M,w \models \Pe A$ \text{ \;iff\; $M,v \models A$ for some $v \in \emph{Min}^{\prec_w}(\{ u: wRu\})$}
+  $M,w \models \Ob A$ \text{ \;iff\; $M,v \models A$ for all $v \in \mathrm{Min}^{\prec_w}(\{ u: wRu\})$}\\
+  $M,w \models \Pe A$ \text{ \;iff\; $M,v \models A$ for some $v \in \mathrm{Min}^{\prec_w}(\{ u: wRu\})$}
 \end{definition}
 \noindent%
 This is just a formal way of saying that $\Ob A$ is true at $w$ iff $A$ is true
@@ -727,7 +727,7 @@ at the best worlds (by the norms at $w$) among the worlds that are circumstantia
 
 If we want the \pr{D}-schema to be valid, we have to assume that there is always
 at least one best world among the circumstantially accessible worlds, so that
-$\emph{Min}^{\prec_w}(\{ u: wRu\})$ is never empty. Let's make this assumption.
+$\mathrm{Min}^{\prec_w}(\{ u: wRu\})$ is never empty. Let's make this assumption.
 
 The logic of obligation and permission now depends on formal properties of the
 circumstantial accessibility relation $R$ and the deontic orderings $\prec_w$.
@@ -937,13 +937,13 @@ that we add the assumption $A$ to the circumstances that are held fixed:
 \begin{definition}{Ordering semantics for conditional obligation}{conditionalobligationsemantics}
   If $M$ is a deontic ordering model and $w$ a world in $M$, then\\[1mm]
 $M,w \models \Ob (B/A) \text{ iff $M,v \models B$ for all
-  $v \in \emph{Min}^{\prec_w}(\{ u: wRu \text{ and } M,u\models A \})$}$.
+  $v \in \mathrm{Min}^{\prec_w}(\{ u: wRu \text{ and } M,u\models A \})$}$.
 \end{definition}
 %
 \noindent%
 Here, $\{ u: wRu \text{ and } M,u\models A \}$ is the set of worlds $u$ that are
 circumstantially accessible from $w$ and at which $A$ is true.
-$\emph{Min}^{\prec_{w}}(\{ u: wRu \text{ and } M,u\models A \})$ is the set that
+$\mathrm{Min}^{\prec_{w}}(\{ u: wRu \text{ and } M,u\models A \})$ is the set that
 comprises the best of these worlds. So $\Ob(B/A)$ is true at $w$ iff $B$ is true
 at all of the best $A$-worlds that are accessible at $w$.
 

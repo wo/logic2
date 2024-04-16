@@ -266,10 +266,10 @@ the KK principle. For example, some have argued that an agent knows $p$
 (roughly) iff the agent's belief state \emph{indicates} $p$, in the sense that
 %
 \begin{quote}
-\begin{enumerate*}
+\begin{enumerate}
 \item[(1)] under normal conditions, being in that state implies $p$, and
 \item[(2)] conditions are normal.
-\end{enumerate*}
+\end{enumerate}
 \end{quote}
 % 
 We can formalize this concept in modal logic. Let $N$ mean that conditions are
@@ -874,8 +874,8 @@ contain some non-trivial interaction principles, which are easiest to state in
 terms of $\EKn_G$:
 %
 \begin{principles}
-  \pri{CK1} \CKn_{G}A \leftrightarrow (A \land \EKn_{G}\CKn_{G} A)\\
-  \pri{CK2} (A \land \CKn_{G}(A \to \EKn_{G} A)) \to \CKn_{G} A
+  \pri{CK1}{\CKn_{G}A \leftrightarrow (A \land \EKn_{G}\CKn_{G} A)}\\
+  \pri{CK2}{(A \land \CKn_{G}(A \to \EKn_{G} A)) \to \CKn_{G} A}
 \end{principles}
 %
 You may want to confirm that these are valid. (They also provide a complete
@@ -967,10 +967,10 @@ interaction principles that might link the two concepts. Here is a list of
 popular principles that don't follow from the individual logics of knowledge and
 belief.
 \begin{principles}
-  \pri{KB} \Kn A \to \Bel A\\
-  \pri{PI} \Bel A \to \Kn\Bel A\\
-  \pri{NI} \neg \Bel A \to \Kn\neg \Bel A\\
-  \pri{SB} \Bel A \to \Bel \Kn A
+  \pri{KB}{\Kn A \to \Bel A}\\
+  \pri{PI}{\Bel A \to \Kn\Bel A}\\
+  \pri{NI}{\neg \Bel A \to \Kn\neg \Bel A}\\
+  \pri{SB}{\Bel A \to \Bel \Kn A}
 \end{principles}
 
 \pr{KB} assumes that knowledge implies belief. \pr{PI} and \pr{NI} strengthen
