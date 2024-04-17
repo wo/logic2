@@ -38,6 +38,7 @@ def main():
     fix_toc_links()
     fix_html()
     create_index()
+    check_links()
 
 
 def prepare_paths():
@@ -214,7 +215,7 @@ def escape_intext_links(tex):
     'on page \pageref{table:systems}' => 'PAGEREFtable:systemsENDPAGEREF' => <a...>here</a>
     'from page \pageref{table:systems}' => 'PAGEREFtable:systemsENDPAGEREF' => <a...>here</a>
     """
-    tex = re.sub(r'\\begin{definition}\{(.+)\}\{([^}]+)\}', r'\\begin{definition}{\1 ANCHORdef:\2ENDANCHOR}{\2}', tex)
+    tex = re.sub(r'\\begin{definition}\{(.*)\}\{([^}]+)\}', r'\\begin{definition}{\1 ANCHORdef:\2ENDANCHOR}{\2}', tex)
     tex = re.sub(r'\\ref\{def:([^}]+)\}', r'REFdef:\1ENDREF', tex)
     tex = re.sub(r'\\begin{observation}\{([^}]+)\}', r'\\begin{observation}{\1} ANCHORobs:\1ENDANCHOR', tex)
     tex = re.sub(r'\\ref\{obs:([^}]+)\}', r'REFobs:\1ENDREF', tex)
@@ -549,6 +550,14 @@ def create_index():
     html = re.sub(r'<h2.+?</h2>', '', html)
     shutil.copyfile('doclicense.png', html_path + '/doclicense.png')
     write_file(html_path + '/index.html', html)
+
+
+def check_links():
+    """Check for missing link targets ('??')."""
+    for htmlfile in html_files():
+        html = read_file(html_path + '/' + htmlfile)
+        if '??' in html:
+            print("Missing link targets in", htmlfile)
 
 
 def read_file(filename):
