@@ -340,15 +340,15 @@ however, I would recommend pronouncing the diamond `diamond' and the box `box'.
 Different interpretations of the box and the diamond often motivate different
 rules for reasoning with these expressions. Consider, for example, the inference
 from $\Box p$ to $p$. If the box expresses a circumstantial kind of necessity,
-then this inference is plausibly valid: if the circumstances ensure that
-something is the case, then it really is the case. On a deontic reading of the
+this inference is plausibly valid: from the asssumption that the circumstances ensure that
+something is the case one may infer that it really is the case. On a deontic reading of the
 box, by contrast, the inference is invalid. We can easily imagine scenarios in
 which, say, it is required that all library books are returned on time
 ($\Box p$) and yet it is not the case that all library books are returned on
 time ($\neg p$).
 
 So we can't say, once and for all, whether $\Box p$ entails $p$. We will develop
-different ``logics'' or ``systems'' of modal logic. In some systems, the inference is
+different ``systems'' of modal logic. In some systems, the inference is
 valid, in others it is invalid.
 
 % English modals
@@ -356,7 +356,7 @@ valid, in others it is invalid.
 The diamond and the box are sentence operators. English expressions for
 necessity and possibility often don't have this form. We can talk about what's
 necessary or possible using `must', `might', or `can', which are (auxiliary)
-verbs. We can also use adjectives like `feasible', `certain', and 'obligatory',
+verbs. We can also use adjectives like `feasible', `certain', and `obligatory',
 or adverbs like `possibly', `certainly', and `inevitably'.
 
 % Translating from English
@@ -404,7 +404,7 @@ circumstantial possibility.
 \end{solution}
 
 \begin{exercise}
-  Translate the following sentences, as well as possible, into $L_{M}$, assuming
+  Translate the following sentences, as well as possible, into $\L_{M}$, assuming
   that the diamond expresses deontic possibility (`it is permitted that') and
   the box deontic necessity (`it is obligatory that').
   \begin{exlist}
@@ -439,7 +439,7 @@ circumstantial possibility.
 \end{solution}
 
 \begin{exercise}
-  Translate the following sentences, as well as possible, into $L_{M}$, assuming
+  Translate the following sentences, as well as possible, into $\L_{M}$, assuming
   that the diamond expresses (some relevant sub-flavour of) circumstantial
   possibility and the box circumstantial necessity.
   \begin{exlist}
@@ -783,8 +783,8 @@ have been true -- or so we assume -- but they would not have been helpful.
 Watson would have been in a position to say something more informative: that
 Neville is the murderer, or that he is known to be the murderer. We generally
 assume that speakers are trying to be helpful, that they are not hiding relevant
-information. Assuming that Watson is trying to be helpful, his \emph{statement}
-that Neville might be the murderer implies that he considers Neville's guilt an
+information. Assuming that Watson is trying to be helpful, his \emph{assertion}
+of `Neville might be the murderer' implies that he considers Neville's guilt an
 open question. This follows not from \emph{what he said}, but from the fact
 \emph{that he said it}, together with the assumption that he is trying to be
 helpful.
@@ -975,10 +975,10 @@ is nothing anyone can do about it. Facts about the past are plausibly settled.
 Nothing we can do is going to make a difference to what happened yesterday. By
 contrast, some facts about the future are intuitively ``open''.
 
-Let's use the box to formalise this (admittedly vague) concept of historical
-necessity. So $\Box p$ says that $p$ is settled. Since the diamond is the dual
+Let's use the box to formalise this informal concept of historical
+necessity. $\Box p$ will say that $p$ is settled. Since the diamond is the dual
 of the box, $\Diamond p$ expresses that it not settled that $p$ is false. In
-other words, $p$ is either open or settled as true.
+other words, $\Diamond p$ says that $p$ is either open or settled as true.
 
 % Don't say: <>p means that p is open: otherwise []p -> <>p looks implausible.
 % 'open' conveys 'could be made true and could be made false'.
@@ -989,7 +989,7 @@ logic, a set of $\L_{M}$-sentences that are valid on a certain interpretation of
 the box and the diamond. We want to know which sentences are in the system --
 for short, which sentences are ``in'' -- and which are not.
 
-If the box expresses historical necessity then $\Box p$ clearly entails $p$. So
+On the proposed understanding of the box, $\Box p$ clearly entails $p$. So
 $\Box p \to p$ is in. There is nothing special here about the sentence $p$.
 Whatever is settled is true. Every instance of the schema $\Box A \to A$ is in.
 (As mentioned in section \ref{sec:duality}, it follows that every instance of
@@ -1107,7 +1107,7 @@ it was introduced as the fifth system in an influential list of systems
 published by C.I.\ Lewis and C.H.\ Langford in 1932.
 
 Other systems of modal logic can be defined by different schemas or rules.
-Lewis and Langford's system S4, for example, is defined by \pr{T},
+Lewis and Langford's system S4, for example, can be defined by \pr{T},
 \pr{K}, \pr{4}, \pr{Dual}, \pr{CPL} and \pr{Nec}, without
 \pr{5}. This system is adequate for other interpretations of the box and the
 diamond, where we don't want to treat all instances of \pr{5} as valid.
@@ -1169,7 +1169,7 @@ diamond, where we don't want to treat all instances of \pr{5} as valid.
 \end{solution}
 
 Remember that a system of modal logic is just a set of $\L_{M}$-sentences. I
-have defined the system S5 in terms of \pr{T}, \pr{K}, \pr{4}, \pr{5}, or
+have defined the system S5 in terms of \pr{T}, \pr{K}, \pr{4}, \pr{5},
 \pr{Dual}, \pr{CPL} and \pr{Nec}, but the same system can be defined by many
 other combinations of schemas and rules. (Lewis and Langford used a very
 different definition.)

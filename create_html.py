@@ -505,7 +505,7 @@ def fix_tcolorboxes(html, htmlfile):
 
     There are two problems.
 
-    First, "tcolorbox ducument" divs in the answers chapter aren't properly
+    First, "tcolorbox document" divs in the answers chapter aren't properly
     closed: there's neither a closing tag for the <div class="tcolorbox
     document"> nor for the embedded <div class="tcolorbox-content"> or
     even divs inside that!
