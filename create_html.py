@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """Create HTML version of textbook."""
 
 import os
@@ -8,6 +8,7 @@ import subprocess
 import argparse
 import datetime
 from bs4 import BeautifulSoup
+from html5lib import HTMLParser, constants
 
 tmp_path = "tmp"
 html_path = "html"
@@ -23,7 +24,7 @@ tex4ht_config = r"""
 def main():
     """Create HTML version of textbook."""
     argparser = argparse.ArgumentParser(description="Create HTML version")
-    argparser.add_argument('-f', '--fake', action='store_true', help="Use fake make4ht")
+    argparser.add_argument('-f', '--fake', action='store_true', help="Use previous make4ht output")
     argparser.add_argument('-v', '--verbose', action='store_true', help="Verbose output")
     args = argparser.parse_args()
 
@@ -78,6 +79,7 @@ def prepare_tex():
     prep_logic2_cls()
     shutil.copy('KMcalc.sty', tmp_path)
     shutil.copy('doclicense-CC-by-nc-sa.pdf', tmp_path)
+    shutil.copy('doclicense-CC-by-nc-sa.svg', tmp_path + '/doclicense-CC-by-nc-sa-88x31.svg')
     shutil.copy('logic2book.css', tmp_path)
 
 
@@ -132,7 +134,8 @@ def prep_chapter(texfile):
 
 def remove_noindent(tex):
     r"""Remove \noindent commands that prevent rendering text as p."""
-    return re.sub(r'\\noindent\s*%?', '', tex)
+    # Replace with a space to avoid joining adjacent words (e.g., \medskip\noindent\nNode)
+    return re.sub(r'\\noindent\s*%?', ' ', tex)
 
 
 def fix_custom_commands(tex):
@@ -140,7 +143,8 @@ def fix_custom_commands(tex):
     tex = re.sub(r'\\L', r'\\mathfrak{L}', tex)
     tex = re.sub(r'\\Cfr', r'\\mathfrak{C}', tex)
     tex = re.sub(r'\\Mfr', r'M', tex)
-    tex = re.sub(r'\\t\{([^}]+)\}', r'\\langle \1 \\rangle', tex)
+    # Handle \t{} tuples, including one level of nested braces like \t{[\tau]^{M,g}}
+    tex = re.sub(r'\\t\{((?:[^{}]|\{[^{}]*\})*)\}', r'\\langle \1 \\rangle', tex)
     tex = re.sub(r'\\notmodels', r'\\mathrel{|}\\joinrel\\not=', tex)
     tex = re.sub(r'\\principle\{([^}]+)\}\{([^}]+)\}', r'\\begin{equation}\\tag{\1}\2\\end{equation}', tex)
     tex = re.sub(r'\\begin{principles}', r'\\begin{enumerate}', tex)
@@ -169,8 +173,10 @@ def fix_custom_commands(tex):
     tex = re.sub(r'\\Mostly', r'\\mathsf{M}', tex)
     tex = re.sub(r'\\stit', r'\\mathsf{stit}', tex)
     tex = re.sub(r'\\OK', r'\\mathsf{N}', tex)
-    tex = re.sub(r'\\strictif', r'\,\\unicode{x297D}\,', tex)
+    # tex = re.sub(r'\\strictif', r'\,\\unicode{x297D}\,', tex)  # handled in mathjax now
     tex = re.sub(r'\\boxright', r'\\mathrel{\\mathop\\Box}\\mathrel{\\mkern-2.5mu}\\rightarrow', tex)
+    # Preserve \quad and \qquad spacing (outside math mode) by using a placeholder
+    tex = re.sub(r'\\q?quad\b', r'QUADSPACE', tex)
     return tex
 
 
@@ -371,23 +377,25 @@ def adjust_links(mapping):
         if not htmlfile.endswith('.html'):
             continue
         html = read_file(html_path + '/' + htmlfile)
-        for old, new in mapping.items():
+        # Sort by key length descending to avoid partial replacements
+        for old, new in sorted(mapping.items(), key=lambda x: len(x[0]), reverse=True):
             html = html.replace(old, new)
         write_file(html_path + '/' + htmlfile, html)
 
 
 def fix_toc_links():
     """Fix broken TOC links to chapter sections."""
-    # We also make the local link names nices. So we first extract all section headings from all chapters:
+    # We also make the local link names nicer. So we first extract all section headings from all chapters:
     mapping = {}
     for htmlfile in html_files():
         html = read_file(html_path + '/' + htmlfile)
-        # <h3 class="sectionHead"><span class="titlemark">1.1</span>  <a 
-        # id="x4-40001.1"></a>A new language</h3>
-        m = re.findall(r'<h3 class="sectionHead"><span.+?>(.+?)<.*?id="([^"]+)"></a>', html, re.DOTALL)
+        # <h3 class="sectionHead"><span class="titlemark">2.1</span><a id="x5-100002.1"></a>
+        # <h3 class="sectionHead"><span class="titlemark">2.1</span><a id="x5-100002.1"></a>The possible-worlds analysis of possibility and necessity</h3>
+        m = re.findall(r'<h3 class="sectionHead"><span[^>]*>([^<]+)</span>\s*<a\s+id="([^"]+)">', html)
         for num, old_id in m:
-            print("Replacing", old_id, "with", 'sec-' + num.replace('.', '-'))
-            mapping[old_id] = 'sec-' + num.replace('.', '-')
+            new_id = 'sec-' + num.strip().replace('.', '-')
+            print("Replacing", old_id, "with", new_id)
+            mapping[old_id] = new_id
         # fix toc links:
         # <span class='sectionToc'><span class='ec-lmr-10x-x-109'>1.4  </span><a href='logic2ch1.html#duality' id='QQ2-4-8'><span class='ec-lmr-10x-x-109'>Duality</span></a></span>
         m = re.findall(r"class='sectionToc'><span.+?>(.+?) +</span><a href='(.+?)#(.+?)'", html)
@@ -415,6 +423,7 @@ def fix_html():
         html = fix_tcolorboxes(html, htmlfile)
         html = fix_item_labels(html)
         html = fix_layout(html)
+        validate_html(html, htmlfile)
         write_file(html_path + '/' + htmlfile, html)
 
 
@@ -468,12 +477,16 @@ def fix_item_labels(html):
                   html, flags=re.DOTALL)
     # remove ITEMLABEL(*)ENDITEMLABEL accidentally inserted into other kinds of items:
     html = re.sub(r'ITEMLABEL.+?ENDITEMLABEL', '', html)
+    # remove orphaned </p> tags before </li> (left behind when opening <p> was removed above)
+    html = re.sub(r'\s*</p>\s*(</li>)', r'\1', html)
     return html
 
 
 def fix_layout(html):
     """Fix layout issues in HTML."""
     html = fix_mathjax_linebreaks(html)
+    # Convert QUADSPACE placeholder to em space:
+    html = re.sub(r'QUADSPACE', r'&emsp;', html)
     # remove anchors in lists that add a linebreak:
     html = re.sub(r'(<li class=.enumerate.[^>]*>)\s*<a\s+id=.[^\'"]+[\'"]></a>', r'\1', html)
     # remove whitespace before section titles:
@@ -499,6 +512,23 @@ def fix_mathjax_linebreaks(html):
     return html
 
 
+def validate_html(html, filename):
+    """Validate HTML5 structure using html5lib and report issues."""
+    parser = HTMLParser(namespaceHTMLElements=False)
+    parser.parse(html)
+
+    if parser.errors:
+        print(f"WARNING: Validation issues in {filename}:")
+        for (line, col), errorcode, datavars in parser.errors:
+            message = constants.E.get(errorcode, errorcode)
+            if isinstance(message, str) and datavars:
+                try:
+                    message = message % datavars
+                except (TypeError, KeyError):
+                    pass
+            print(f"  Line {line}, Col {col}: {message}")
+
+
 def fix_tcolorboxes(html, htmlfile):
     """
     Fix missing or excessive </div> closings in tcolorboxes.
@@ -509,39 +539,37 @@ def fix_tcolorboxes(html, htmlfile):
     closed: there's neither a closing tag for the <div class="tcolorbox
     document"> nor for the embedded <div class="tcolorbox-content"> or
     even divs inside that!
-    """
-    pattern = r'''
-        (<div\s+class=.tcolorbox\s+document.+?class=.tcolorbox-content.>.+?) # the box
-        \s*(?=<div\s+class=.tcolorbox|<h3) # something after the box
-        '''
 
-    def repl(match):
-        soup = BeautifulSoup(match.group(1), 'html.parser')
-        fixed = str(soup)
-        if fixed != match.group(1):
-            print("fixing tcolorbox", match.group(1)[:60], "in", htmlfile)
-            return fixed
-        return match.group(0)
-
-    html = re.sub(pattern, repl, html, flags=re.DOTALL|re.VERBOSE)
-    """
     Second, "tcolorbox proof" divs have an extra closing </div> at the end.
-    """
-    pattern = r'(<div class=.tcolorbox proof.+?class=.tcolorbox-content.>.+?)</div>\s*</div>\s*</div>'
 
-    def repl(match):
-        print("removing third closing div for", match.group(1)[:40], "in", htmlfile)
-        return match.group(1) + '</div></div>'
-
-    html = re.sub(pattern, repl, html, flags=re.DOTALL)
-    """
     Another minor issue, while we're here: the tcolorboxes for lemmas and
     theorems have class "tcolorbox tcolorbox", which makes them impossible to
     specifically style in the CSS. We change their class to "tcolorbox obs".
     """
-    html = re.sub("class=.tcolorbox tcolorbox", "class='tcolorbox obs'", html)
+    # Remove extra </div> after tcolorbox proof:
+    html = re.sub(r'(class="tcolorbox proof".*?</div>\s*</div>)\s*</div>', r'\1', html, flags=re.DOTALL)
 
-    return html
+    # Close unclosed tcolorbox document divs in answers.html:
+    if 'answers' in htmlfile:
+        # Add </div></div> before each tcolorbox document to close the previous one:
+        html = html.replace(
+            '<div class="tcolorbox document"',
+            '</div></div><div class="tcolorbox document"'
+        )
+        # Remove the first spurious </div></div> (the first tcolorbox has no previous to close):
+        html = html.replace('</div></div><div class="tcolorbox document"', '<div class="tcolorbox document"', 1)
+        # Close the last tcolorbox document before the footer:
+        html = html.replace('<footer>', '</div></div><footer>')
+
+    soup = BeautifulSoup(html, 'html.parser')  # auto-closes elements
+
+    # Fix duplicate class "tcolorbox tcolorbox" -> "tcolorbox obs":
+    for tbox in soup.find_all('div', class_='tcolorbox'):
+        classes = tbox.get('class', [])
+        if classes.count('tcolorbox') > 1:
+            tbox['class'] = ['tcolorbox', 'obs']
+
+    return str(soup)
 
 
 def create_index():
