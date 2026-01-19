@@ -9,7 +9,10 @@
     MathJax = {
         tex: {
             tags: "ams",
-            tagSide: "left"
+            tagSide: "left",
+            macros: {
+                strictif: "\\mathrel{\\unicode{x297D}}"
+            }
         },
         chtml: {
             displayAlign: 'left',
