@@ -136,17 +136,15 @@ Suppose I tell you the following about a scenario $S$ and an interpretation $I$
 of the sentence letters.
 
 \begin{quote}
-  There are three worlds in $S$, $w_{1}, w_{2}$, and $w_{3}$. Under the
+  There are three worlds in $S$: $w_{1}, w_{2}$, and $w_{3}$. Under the
   interpretation $I$, the sentence $p$ expresses a proposition that is true at
   $w_{1}$, false at $w_{2}$, and true at $w_{3}$. All other sentence letters
   express propositions that are false at all three worlds.
 \end{quote}
 
 This tells you almost nothing about what the scenario looks like. You don't know
-if $w_{1}$ is a world at which it is currently raining. You don't know who is in
-government at $w_{2}$. You also don't know what the sentence letters mean under
-my interpretation. Does $p$ mean that it is raining? That Labour is in
-government? I haven't told you. Yet the sparse information I have given is
+if $w_{1}$ is a world at which it is currently raining. You don't know if light travels faster than sound in $w_{2}$. You also don't know what the sentence letters mean under
+my interpretation. Does $p$ mean that it is raining? That light travels faster than sound? I haven't told you. Yet the sparse information I have given is
 enough to determine the truth-value of every $\L_{M}$-sentence at every world.
 
 \begin{exercise}
@@ -169,16 +167,15 @@ A joint representation of a scenario and an interpretation (of non-logical
 expressions) that contains just enough information to determine the truth-value
 of every sentence is called a \textbf{model}. Just as a model airplane often
 leaves out important aspects of a real airplane -- the motor, the seats, etc. --
-models in logic leave out many important aspects of the scenarios and
+models in logic leave out important aspects of the scenarios and
 interpretations they represent.
 
-Adopting the simple possible-worlds analysis of the box and the diamond, we can
-define a model for $\L_{M}$ as consisting of two parts. First, a model must
-specify a set of things we call ``worlds''. They don't need to be genuine
-worlds. They can be arbitrary (usually not further specified) objects whose job
-is to represent genuine worlds. Second, a model must specify an ``interpretation
-function'' that tells us for each sentence letter at which of the worlds it is
-true.
+Given the simple possible-worlds analysis of the box and the diamond, we can
+define a model for $\L_{M}$ as consisting of two parts. The first is a set of
+things that we call ``worlds''. They don't need to be genuine worlds. They can
+be arbitrary (usually not further specified) objects whose job is to represent
+genuine worlds. The second part of a model is an ``interpretation function''
+that tells us for each sentence letter at which of the worlds it is true.
 
 \begin{definition}{}{basicmodel}
   A \textbf{basic model} of $\L_M$ is a pair $\t{W,V}$ of%
@@ -194,13 +191,13 @@ In the next chapter, we will replace this definition by a slightly more
 complicated definition. That's why I've called models of the present kind
 `basic'.
 
-You should be familiar with elementary concepts of set theory. A \emph{set} is
+I assume that you are familiar with elementary concepts of set theory. A \emph{set} is
 a collection of objects, called the \emph{members} or \emph{elements} of the
 set. Sets can be defined by listing their members enclosed in curly braces:
 `$\{ a, b, c \}$'. The \emph{empty set}, with no members, is denoted by
 `$\emptyset$'. A \emph{subset} of a set $X$ is a set all whose members are
 members of $X$. A \emph{function} is a mapping -- a kind of abstract machine
-that takes objects of a certain kind as input and outputs objects of a possibly
+that takes objects of a certain kind as input and returns objects of a possibly
 different kind.
 
 The interpretation function $V$ in a model maps each sentence letter to the set
@@ -292,7 +289,7 @@ Consider, for example, the following model $M$:
   V(P) = \emptyset \text{ for all other sentence letters $P$ }
 \end{gather*}
 This model contains only two worlds, $w_{1}$ and $w_{2}$. The interpretation
-function $V$ says that $p$ is true at both worlds, $q$ is true at $w_{1}$,
+function $V$ tells us that $p$ is true at both worlds, $q$ is true at $w_{1}$,
 and all other sentence letters are true nowhere. With the help of definition
 \ref{def:basicsemantics}, we can figure out at which of the two worlds, say,
 $\Box\Diamond(\Box q \to \Diamond\Box p)$ is true. We start with the smallest
@@ -402,8 +399,8 @@ simple as possible.
 \begin{exercise}
   Call a sentence true \emph{throughout} a model iff it is true at every world
   in the model. What do you think of the following definition?
-  `$\Gamma \models A$ iff there is no model throughout which all sentences in 
-  $\Gamma$ are true and throughout which $A$ is false.' Is this equivalent to
+  \emph{$\Gamma \models A$ iff there is no model throughout which all sentences in 
+  $\Gamma$ are true and throughout which $A$ is false.} Is this equivalent to
   definition \ref{def:basicconsequence}? (Hint: consider the hypothesis that
   $p \models \Box p$.)
 \end{exercise}
@@ -621,9 +618,9 @@ the present chapter.
 
 I also specified two rules for S5. The first says that any truth-functional
 consequence of any sentences in S5 is itself in S5. The second says that
-whenever a sentence $A$ is in S5, then so is $\Box A$. As we will show chapter
+whenever a sentence $A$ is in S5, then so is $\Box A$. As we will show in chapter
 \ref{ch:proofs}, these rules preserve validity (as defined in the previous
-section). Indeed, you will learn how to show that the sentences that are
+section). Indeed, we will show that the sentences that are
 valid by our present definitions are precisely the sentences in S5.
 
 In the meantime, let's prove a simpler fact to which I have appealed above (as
@@ -651,13 +648,13 @@ property.
   logically equivalent.
 \end{observation}
 \begin{proof}
-  \emph{Proof.} Remember that two sentences are logically equivalent if each
-  entails the other. By definition \ref{def:basicconsequence}, this means that
-  the two sentences are true at the same worlds in every model.
+  \emph{Proof.} Remember that two sentences are logically equivalent iff each
+  entails the other. So, by definition \ref{def:basicconsequence}: two sentences
+  are equivalent iff they are true at the same worlds in every model.
 
   Now let $A$ be an arbitrary $\L_{M}$-sentence and assume that $A'$ results
   from $A$ by replacing a subsentence of $A$ with a logically equivalent
-  sentence. To show that $A$ and $A'$ are equivalent, we first consider the case
+  sentence. To show that $A$ and $A'$ are equivalent (our ``target hypothesis''), we first consider the case
   where $A$ is a sentence letter. In this case, $A$ has no sentences as proper
   parts and the target hypothesis is vacuously true: there is no way of turning
   $p$ into a non-equivalent sentence by replacing a subsentence within $p$.
@@ -672,7 +669,7 @@ property.
   (if $B$ is the subsentence of $A$ that has been replaced to yield $A'$) or
   that results from $B$ by replacing a subsentence within $B$ by an equivalent
   sentence (if the subsentence of $A$ that has been replaced to yield $A'$ isn't
-  $B$). In the latter case, our assumption that the observation holds for
+  $B$). In the latter case, our assumption that the target hypothesis holds for
   sentences simpler than $A$ implies that $B$ and $B'$ are equivalent. Either
   way, then, $B$ and $B'$ are logically equivalent: they are true at the same
   worlds in every model. By clause (b) of definition \ref{def:basicsemantics},
@@ -703,8 +700,8 @@ introduced by example.
 Let's check if $\Diamond p \to \Box p$ is valid. We do this by trying to
 construct a countermodel. A countermodel for $\Diamond p \to \Box p$ is a model
 in which there is some world $w$ at which $\Diamond p\to \Box p$ is false. We
-start our construction by assuming that the \emph{negation} of
-$\Diamond p \to \Box p$ is \emph{true} at $w$. We write this down as follows.
+therefore start our construction by assuming that the \emph{negation} of
+$\Diamond p \to \Box p$ is \emph{true} at some world $w$. We write this down as follows.
 
 \begin{center}
   \Tree{%
@@ -736,7 +733,7 @@ derived from line 1.
 We continue drawing out further consequences. What does the truth of
 $\Diamond p$ at $w$ imply for the subsentence $p$? By definition
 \ref{def:basicsemantics}, there must be some world -- let's call it $v$ -- at
-which $p$ is true.
+which $p$ is true. Let's write that down.
 
 \begin{center}
   \tree{%
@@ -922,7 +919,7 @@ containing the node.
 $A \to B$, or $A \leftrightarrow B$ are the corresponding sentences $A$ and $B$;
 the only immediate part of $\Box A$, $\Diamond A$, and $\neg A$ is $A$.)
 
-To expand a node with a negation $\neg A$, you consider what the falsity of the
+To expand a node with a \emph{negated sentence} $\neg A$, you consider what the falsity of the
 relevant sentence $A$ at the node's world implies for the immediate parts of
 $A$. The result may again be added to the end of any open branch containing the
 node.
@@ -1074,9 +1071,8 @@ introduce a new world variable.
 
 Nodes of type $\Box A$ and $\neg \Diamond A$ can be expanded several times, once
 for every world variable on any branch containing the node.
-
 If you have expanded a node that is not of type $\Box A$ or $\neg \Diamond A$,
-and you have added the new nodes to every open branch containing the node, then
+and you have added the new nodes to every open branch containing the node, 
 you can tick off the node. You don't need to look at it again. Nodes of type
 $\Box A$ and $\neg \Diamond A$ are never ticked off.
 
@@ -1196,7 +1192,7 @@ complete tree defines a countermodel for the target sentence.
 \end{solution}
 
 What if all branches on a tree close? Then there is no countermodel for the
-target sentence. If there is no countermodel for a sentence, then the sentence
+target sentence. If there is no countermodel for a sentence, the sentence
 is valid. This is how the tree method is used to show that a sentence is valid.
 
 The following tree shows that
@@ -1227,14 +1223,15 @@ instead of sentence letters.
 
 \begin{exercise}
   Use the tree method to show that all instances of the following schemas are valid.
-   \begin{exlist}
+  \par\nobreak % prevent excessive space.
+  \begin{exlist}
    \item[\pr{K}] $\Box (A \to B) \to (\Box A \to \Box B)$
    \item[\pr{T}] $\Box A \to A$
    % \item[\pr{D}] $\Box A \to \Diamond A$ 
    \item[\pr{4}] $\Box A \to \Box \Box A$
    \item[\pr{5}] $\Diamond A \to \Box \Diamond A$
    % \item[\pr{G}] $\Diamond\Box A \to \Box \Diamond A$ 
-   \end{exlist}
+  \end{exlist}
 \end{exercise}
 \begin{solution}
   You can enter the schemas at
