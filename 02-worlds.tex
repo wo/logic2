@@ -310,7 +310,7 @@ parts of the sentence.
   and clause (e) of definition \ref{def:basicsemantics}).
   \item $\Diamond(\Box q \to \Diamond\Box p)$ is true at $w_{1}$ and $w_{2}$ (by
   6 and clause (h) of definition \ref{def:basicsemantics}).
-  \item $\Box\Diamond(\Box q \to \Diamond\Box q)$ is true at $w_{1}$ and $w_{2}$ (by 7
+  \item $\Box\Diamond(\Box q \to \Diamond\Box p)$ is true at $w_{1}$ and $w_{2}$ (by 7
   and clause (g) of definition \ref{def:basicsemantics}).
 \end{enumerate*}
 
@@ -624,7 +624,7 @@ section). Indeed, we will show that the sentences that are
 valid by our present definitions are precisely the sentences in S5.
 
 In the meantime, let's prove a simpler fact to which I have appealed above (as
-well as on page \pageref{claim:replacement} in the previous chapter): that
+well as in section \ref{claim:replacement} in the previous chapter): that
 replacing logically equivalent sentences inside a larger sentence never affects
 the larger sentence's truth-value at any world.
 
@@ -766,7 +766,7 @@ break down 4 or 5. The tree is complete. We have found a countermodel for
 $\Diamond p \to \Box p$.
 
 Let's read off the countermodel. There are three worlds in our tree: $w$, $v$,
-and $u$. So $W = \{ w, u, v \}$. By line 4, $p$ is true at $v$. By line 5, $p$
+and $u$. So $W = \{ w, v, u \}$. By line 4, $p$ is true at $v$. By line 5, $p$
 is false at $u$. We don't know whether $p$ is true or false at $w$, and it
 doesn't matter -- otherwise the tree would say. Let's assume that
 $V(p) = \{ v \}$. As you can verify, $\Diamond p\to \Box p$ is indeed false at
@@ -1077,7 +1077,7 @@ you can tick off the node. You don't need to look at it again. Nodes of type
 $\Box A$ and $\neg \Diamond A$ are never ticked off.
 
 I have added a checkmark next to the rules for $\Diamond A$ and $\neg \Box A$ as
-a reminder that these rules can only applied once on each open branch. If you've
+a reminder that these rules can only be applied once on each open branch. If you've
 already introduced a new world by expanding a $\Diamond A$ or $\neg \Box A$
 node, you're not allowed to introduce further new worlds on the same branch by
 expanding the same node again.

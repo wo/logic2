@@ -49,8 +49,7 @@ that $A$ is true at all possible worlds, where `possible' now means `ideal'.
   \end{sollist}
 \end{solution}
 
-Unfortunately, there are good reasons to think that this approach won't always
-work. Remember that the possible-worlds semantics from the previous chapter
+But there is a problem. The possible-worlds semantics from the previous chapter
 determines a particular logic: S5. And this logic is not appropriate for every
 application of modal logic. In deontic logic, for example, we don't want the
 schema
@@ -59,43 +58,47 @@ schema
   \pri{T}{\Box A \to A}
 \end{principles}
 %
-to be valid. We can easily conceive of scenarios in which $\Box p$ is true (on
-some interpretation of $p$) even though $p$ is false.
+to be valid: we can easily conceive of scenarios in which some proposition is
+obligatory but false. Obligations can be violated.
 
-The semantics from the previous chapter renders the \pr{T}-schema valid.
-Whenever a sentence $\Box A$ is true at a world $w$ in a model then $A$ is true
-at $w$ as well, because the box quantifies over all worlds, including $w$. To
-make room for deontic logic, we need a semantics in which not all worlds in $W$
-are among the ``possible'' worlds over which the modal operators quantify. Not
-all worlds are ideal.
+Suppose we want to allow for worlds where an obligation is violated.
+Such worlds are not ``ideal'' in the above sense.
+According to the semantics from the previous chapter, however, the box quantifies over all worlds.
+If the box quantifies only over ideal worlds,
+and we allow for non-ideal worlds,
+we have to change the semantics.
+In the new semantics that we will develop in this chapter,
+the box may quantify only over a subset of all worlds.
 
-We might also want to allow that the worlds over which the modal operators
-quantify depend on the world at which the relevant sentence is evaluated.
+We allow this subset to depend on the world at which the relevant sentence is evaluated.
 Perhaps you are obligated to do the dishes in worlds where you have promised to
 do the dishes, but not in worlds where you haven't made the promise. Worlds in
-which you don't do the dishes are then ideal relative to the second kind of
+which you don't do the dishes may then be ideal relative to the second kind of
 world, but not relative to the first.
 
 This type of variability is also needed for other flavours of modality. Suppose
-the box quantifies over all worlds that are compatible with our knowledge. Which
-worlds are compatible with our knowledge depends on what we know. But we don't
-always know what we know. Sometimes we believe that we know something, but don't
-actually know it because it is false. We don't know it, without knowing that we
-don't know it. \label{par:notB}Among the worlds compatible with our knowledge
-are then worlds in which we know more than we actually do. What's compatible
-with our knowledge in \emph{these} worlds is different from what's compatible
-with our knowledge in the actual world.
+the box quantifies over all worlds that are compatible with our knowledge. Since
+what we know varies from world to world, $\Box p$ might be true at one world and
+false at another.
 
-Let's assume, then, that for any world in any scenario there is a set of worlds
-that are possible \emph{relative to $w$}. We assume that $\Box p$ as true at $w$
-iff $p$ is true at all worlds that are possible relative to $w$. If a world $v$
-is possible relative to $w$ we also say that $v$ is \textbf{accessible} from $w$,
+% But we don't always know what we know. Sometimes we believe that we know
+% something, but don't actually know it because it is false. We don't know it,
+% without knowing that we don't know it. \label{par:notB}Among the worlds
+% compatible with our knowledge are then worlds in which we know more than we
+% actually do. What's compatible with our knowledge in \emph{these} worlds is
+% different from what's compatible with our knowledge in the actual world.
+
+Let's assume, then, that for each world $w$ there is a set of
+worlds that are possible \emph{relative to $w$}. $\Box p$ is true at $w$ iff $p$
+is true at all worlds that are possible relative to $w$. If a world $v$ is
+possible relative to $w$ we also say that $v$ is \textbf{accessible} from $w$,
 or (informally) that $w$ \emph{can see} $v$.
 
 Accessibility means different things in different applications. In epistemic
 logic, a world $v$ is accessible from $w$ iff $v$ is compatible with what is
-known at $w$. In the logic of historical necessity, $v$ is accessible from $w$
-iff $v$ can be brought about at $w$. And so on.
+known at $w$. In deontic logic, $v$ is accessible from $w$ iff $v$ conforms to
+the requirements at $w$. In the logic of historical necessity, $v$ is accessible
+from $w$ iff $v$ can be brought about at $w$. And so on.
 
 Since facts about accessibility matter to the truth-value of modal sentences,
 they must be represented by our models. From now on, a model for $\L_M$ will
@@ -196,9 +199,9 @@ are true at which worlds in the model. For example:
 \end{itemize*}
 %
 Note that $\Diamond p$ and $\Box \Diamond p$ have different truth-values at $w$
-(and at $v$). In the new semantics, we can no longer ignore all but the last in a
-string of modal operators. Note also that $\Box p$ is true at $w$ even though
-$p$ is false; $\Box p \to p$ is no longer valid.
+(and at $v$). In the new semantics, we can no longer collapse strings of modal
+operators. Note also that $\Box p$ is true at $w$ even though $p$ is false;
+$\Box p \to p$ is no longer valid.
 
 \begin{exercise}
   Explain why every sentence of the form $\Box A$ is true at world $v$
@@ -353,9 +356,9 @@ concept of \emph{K-entailment}.
 The set of K-valid sentences is a system of modal logic. This system did
 not figure in C.I.\ Lewis's list of systems. It is known as \textbf{system K}.
 
-K is \textbf{weaker} than S5, by which we mean that not all S5-valid
-sentences are K-valid. $\Box p \to p$, for example, is S5-valid but not K-valid.
-Conversely, however, every K-valid sentence is S5-valid. Let's prove this.
+K is \textbf{weaker} than S5 in the sense that not all S5-valid sentences are
+K-valid. $\Box p \to p$, for example, is S5-valid but not K-valid. Conversely,
+however, every K-valid sentence is S5-valid. Let's prove this.
 
 \begin{observation}{kins5}
   Every K-valid sentence is S5-valid.
@@ -372,8 +375,8 @@ Conversely, however, every K-valid sentence is S5-valid. Let's prove this.
   $M = \langle W,V \rangle$, let $M^*$ be the Kripke model
   $\langle W,R,V \rangle$ with the same worlds $W$ and the same interpretation
   function $V$, and with an accessibility relation $R$ that holds between all
-  worlds in $W$. That is, every world in $M^*$ can see every other world as well
-  as itself. If every world can see every world, then it makes no difference
+  worlds in $W$. (So every world in $M^*$ can see every other world as well
+  as itself.) If every world can see every world, it makes no difference
   whether we use definition \ref{def:basicsemantics} or definition
   \ref{def:kripkesemantics} to evaluate the truth of sentences at a world.
   That's because the two definitions only differ for the case of the modal
@@ -426,6 +429,7 @@ remaining axiom schema is then \pr{K}. Don't confuse the schema \pr{K} with the
 system K!)
 
 \begin{exercise}
+  \vspace{3mm}
   \begin{exlist}
     \item Describe a Kripke model in which some instance of \pr{4} is false at
     some world.
@@ -483,7 +487,7 @@ system K!)
 %   the models are not isomorphic.
 % \end{exercise}
 
-\section{Some other normal systems}\label{sec:normalsystems}
+\section{Other systems}\label{sec:normalsystems}
 
 For many applications of modal logic, we need a concept of validity that lies in
 between K-validity and S5-validity. Suppose, for example, we read the box as
@@ -494,19 +498,19 @@ of nature. Equivalently, anything that is physically necessary is actually the
 case. We therefore want $\Box A$ to entail $A$. On the other hand, it is not
 clear if $\Box A$ should entail $\Box\Box A$: if $A$ is physically necessary,
 can we infer that it is physically necessary that $A$ is physically necessary?
-Below I will argue that we can't. If that is right, then the logic of physical
+Below I will argue that we can't. If that is right, the logic of physical
 necessity is neither K nor S5. We want a logic with \pr{T} ($\Box A \to A$)
 but without \pr{4} ($\Box A \to \Box\Box A$). S5 gives us both, K gives us
 neither.
 
-Our current semantics makes it easy to define systems in between K and S5 by
-putting restrictions on the accessibility relation in Kripke models.
+Fortunately, our new semantics makes it easy to define systems in between K and S5, by
+putting restrictions on the accessibility relation.
 
 Let's say that an $\L_M$-sentence is \textbf{valid in a class of Kripke models}
 iff the sentence is true at every world in every model that belongs to the
 class. K-validity is validity in the class of all Kripke models. S5-validity is
 validity in the class of Kripke models in which every world has access to every
-world (as mentioned earlier, in the proof of observation \ref{obs:kins5}).
+world (as mentioned in the proof of observation \ref{obs:kins5}).
 
 % Humberstone says valid "over" a class of frames or models
 
@@ -523,7 +527,7 @@ become valid.
 \begin{proof}
   \emph{Proof:} According to clause (e) of definition \ref{def:kripkesemantics},
   an instance of $\Box A \to A$ is false at a world $w$ only if $\Box A$ is true
-  at $w$ and $A$ is false; but if $\Box A$ is true at $w$ and $w$ has access to
+  at $w$ and $A$ is false at $w$; but if $\Box A$ is true at $w$ and $w$ has access to
   itself, then by clause (g) of definition \ref{def:kripkesemantics}, $A$ is
   true at $w$. So if $\Box A \to A$ is false at $w$, and $w$ is accessible from
   itself, then $A$ is both true and false at $w$, which is impossible. Hence
@@ -690,16 +694,16 @@ Now let me explain why the above two characterisations of S5 are equivalent.
 
     $R'$ is the universal relation on $W'$.
 
-    $V'$ is the restriction of $V$ to $W'$, so that for any sentence letter $B$,
-    $V'(B) = V'(B) \cap W'$.
+    $V'$ is the restriction of $V$ to $W'$, so that for any sentence letter $\rho$,
+    $V'(\rho) = V'(\rho) \cap W'$.
   \end{quote}
   (If $X$ and $Y$ are sets, then $X \cap Y$ -- the \emph{intersection} of $X$ and
-  $Y$ -- is the set of all things that are both in $X$ and in $Y$.)
+  $Y$ -- is the set of elements that are in both $X$ and $Y$.)
 
   $M'$ has a universal accessibility relation. But from the perspective of $w$,
-  $M$ and $M'$ are indistinguishable. \emph{Any sentence is true at $w$ in $M$ iff
-    it is true at $w$ in $M'$.} This could be shown by induction, but I hope you
-  see intuitively why it is the case.
+  $M$ and $M'$ are indistinguishable. \emph{Any sentence is true at $w$ in $M$
+    iff it is true at $w$ in $M'$.} This can be shown by induction on the
+  sentence's complexity, but I hope you see intuitively why it is the case.
 
   Granting the italicized sentence, the assumption that $A$ is false at some
   world in some model whose accessibility relation is an equivalence relation
@@ -771,8 +775,7 @@ You might think the connection between \pr{T} and reflexivity is this:
 But that's false. We know (observation \ref{obs:treflexive}) that all \pr{T}
 instances are valid in the class of reflexive models. It follows that all \pr{T}
 instances are valid in every reflexive model. But the other direction fails.
-There are non-reflexive models in which all \pr{T} instances are valid. The
-following model is an example.
+There are non-reflexive models in which all \pr{T} instances are valid. Here is an example.
 \begin{center}
   \begin{tikzpicture}[modal, world/.append style={minimum size=0.8cm}, node distance = 15mm]
     \node[world] (w1) [label=above:{$w$}] {$p$};
@@ -790,7 +793,7 @@ the one just described.
 
 To understand the connection between modal schemas and conditions on the
 accessibility relation, we need to talk about \emph{frames}. A frame is what you
-get if take a model and remove the interpretation function.
+get if you take a model and remove the interpretation function.
 
 \begin{definition}{}{kripkeframe}
   A \textbf{Kripke frame} is a pair of a non-empty set $W$ and a relation $R$ on $W$.
@@ -866,11 +869,11 @@ simply:
   $\Box p \to p$ is false at $w$. \qed
 \end{proof}
 
-If all instances of a schema are valid on all and only the frames whose
-accessibility relation satisfies a certain property, the schema is said to
-\textbf{correspond} to that property (and to \emph{define} the relevant class of
-frames). Observation \ref{obs:tcorrespondence} says that the \pr{T} schema
-corresponds to reflexivity.
+If all and only the frames whose accessibility relation has a certain property
+$P$ validate every instance of a schema, we say that the schema
+\textbf{corresponds} to $P$. (People also say that $P$ \emph{defines} the
+relevant class of frames). Observation \ref{obs:tcorrespondence} says that the
+\pr{T} schema corresponds to reflexivity.
 
 % More generally, a class of frames is /modally defined/ by a set of formulas
 % iff it is the class of frames for the set of formulas, i.e. the frames on
