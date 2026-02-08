@@ -10,8 +10,7 @@ We have introduced several kinds of validity: S5-validity, K-validity,
 T-validity, and so on. All of these are defined in terms of models. K-validity
 means truth at all worlds in all Kripke models. T-validity means truth at all
 worlds in all reflexive Kripke models. S5-validity means truth at all worlds in
-all universal Kripke models (equivalently, at all worlds in all ``basic''
-models). And so on.
+all universal Kripke models. And so on.
 
 If you want to show that a sentence is, say, K-valid, you could directly work
 through the clauses of definition \ref{def:kripkesemantics}, showing that there
@@ -73,7 +72,7 @@ be shown with the other.
 
 There are other styles of proof besides the axiomatic and the tree format. Two
 famous styles that we won't cover are ``natural deduction'' methods and
-``sequence calculi''. Logicians are liberal about what qualifies as a proof
+``sequent calculi''. Logicians are liberal about what qualifies as a proof
 method. The only non-negotiable condition is that there must be a mechanical way
 of checking whether something (usually, some configuration of symbols) is or is
 not a proof of a given target sentence.
@@ -174,7 +173,7 @@ nodes on a tree branch to be correct statements about a model.
 
 \begin{definition}{}{correctstatement}
   A tree node is a \textbf{correct statement about} a Kripke model
-  $M = \t{M,R,V}$ \textbf{under} a function $f$ that maps world variables to
+  $M = \t{W,R,V}$ \textbf{under} a function $f$ that maps world variables to
   members of $W$ iff either the node has the form $\omega R \upsilon$ and
   $f(\omega)Rf(\upsilon)$, or the node has the form $A\; (\omega)$ and $A$ is
   true at $f(\omega)$ in $M$.
@@ -280,7 +279,7 @@ With the help of this lemma, we can prove that the method of K-trees is sound.
   a correct statement about $M$ under the function that maps the world variable
   `$w$' to $w$. Since the tree is created from the first node by applying the
   K-rules, the Soundness Lemma implies that some branch $\beta$ on the tree
-  correctly describes $M$: all nodes on the tree are correct statements about
+  correctly describes $M$: all nodes on the branch are correct statements about
   $M$ under some function $f$. But the tree is closed. This means that $\beta$
   contains contradictory nodes of the form
   
@@ -390,8 +389,8 @@ first define the method more precisely.
     \item[(a)] $W$ is the set of world variables on the branch,
     \item[(b)] $\omega R \upsilon$ holds in the model iff a node
           $\omega R \upsilon$ occurs on the branch,
-    \item[(c)] for any sentence letter $P$, $V(P)$ is the set of world variables
-          $\omega$ for which a node $P \; (\omega)$ occurs on the branch.
+    \item[(c)] for any sentence letter $\rho$, $V(\rho)$ is the set of world variables
+          $\omega$ for which a node $\rho \; (\omega)$ occurs on the branch.
   \end{itemize}
 \end{definition}
 
@@ -406,6 +405,7 @@ correct statements about the Kripke model induced by the branch.
 \end{theorem}
 
 \begin{proof}
+  \emph{Proof:}
   We have to show that whenever $A\; (\omega)$ occurs on $\beta$ then
   $M,\omega \models A$. The proof is by induction on the length of $A$. We first
   show that the claim holds for sentence letters and negated sentence letters.
@@ -418,7 +418,7 @@ correct statements about the Kripke model induced by the branch.
           definition \ref{def:inducedmodel} and clause (a) of definition
           \ref{def:kripkesemantics}.
 
-    \item If $A$ is the negation of a sentence letter $\rho$, then $rho\; (\omega)$
+    \item If $A$ is the negation of a sentence letter $\rho$, then $\rho\; (\omega)$
           does not occur on $\beta$, otherwise $\beta$ would be closed. By
           clause (c) of definition \ref{def:inducedmodel}, it follows that
           $\omega$ is not in $V(\rho)$, and so $M, \omega \models A$ by clauses (a)
@@ -483,7 +483,7 @@ To establish completeness, we need to verify one more point: that one can always
 construct a fully developed tree for any invalid target sentence. Let's call a
 K-tree \emph{regular} if it is constructed by (i) first applying all rules for
 the truth-functional connectives until no more of them can be applied (without
-adding only nodes to a branch that are already on the branch), then (ii)
+merely adding nodes that are already on the branch), then (ii)
 applying the rules for $\Diamond$ and $\neg \Box$ until no more of them can be
 applied, then (iii) applying the rules for $\Box$ and $\neg \Diamond$ until no
 more of them can be applied, then starting over with (i), and so on.
@@ -853,7 +853,7 @@ is K-valid, and (2) every sentence that is derived from K-valid sentences by
           clause (e) of definition \ref{def:kripkesemantics}, a sentence
           $\Box(A\to B) \to (\Box A \to \Box B)$ is false at a world $w$ in a
           Kripke model only if $\Box(A \to B)$ and $\Box A$ are both true at
-          $w$ while $B$ is false. By clause (g) of definition
+          $w$ while $\Box B$ is false. By clause (g) of definition
           \ref{def:kripkesemantics}, $\Box B$ is false at $w$ only if $B$ is
           false at some world $v$ accessible from $w$. But if $\Box(A \to B)$
           and $\Box A$ are both true at $w$, then $A\to B$ and $A$ are true at
@@ -872,7 +872,7 @@ is K-valid, and (2) every sentence that is derived from K-valid sentences by
           of sentences that are true at a world are themselves true at that
           world. In particular, if some sentences are true at every world in
           every Kripke model, then any truth-functional consequence of these
-          sentences is also true at every world every Kripke model.
+          sentences is also true at every world in every Kripke model.
 
     \item Let $w$ be an arbitrary world in an arbitrary Kripke model. If $A$ is
           true at every world in every Kripke model, then $A$ is true at every
@@ -975,8 +975,8 @@ Now here's the canonical model for K.
     \item $W$ is the set of all maximal K-consistent sets of $\L_M$-sentences,
     \item $wRv$ iff $v$ contains every sentence $A$ for which $w$ contains
           $\Box A$,
-    \item for every sentence letter $P$, $V(P)$ is the set of all members of $W$
-          that contain $P$.
+    \item for every sentence letter $\rho$, $V(\rho)$ is the set of all members of $W$
+          that contain $\rho$.
   \end{itemize}
 \end{definition}
 
@@ -1042,8 +1042,8 @@ Now we can prove fact (2).
 %
 \begin{proof}
   \emph{Proof}: Let $S_0$ be some K-consistent set of sentences. Let
-  $A_1,A_2,\ldots$ be a list of all $\L_M$-sentences in some arbitrary
-  order. For every number $i\geq 0$, define
+  $A_0,A_1,\ldots$ be a list of all $\L_M$-sentences in some arbitrary
+  order. For every number $i\geq 1$, define
   \[
     S_{i+1} = \begin{cases} S_i \cup \{ A_i \} & \text{if $S_i \cup \{ A_i \}$ is K-consistent}\\
       S_i \cup \{ \neg A_i \} & \text{otherwise}.
@@ -1062,7 +1062,7 @@ Now we can prove fact (2).
 
   Now let $S$ be the set of sentences that occur in at least one of the sets
   $S_{0},S_1, S_2,S_3\ldots$. (That is, let $S$ be the union of
-  $S_{0},S_1,S_2,S_3,\ldots$.) Evidently, $S_0$ a subset of $S$. And $S$ is
+  $S_{0},S_1,S_2,S_3,\ldots$.) Evidently, $S_0$ is a subset of $S$. And $S$ is
   maximal. Moreover, $S$ is K-consistent. For if $S$ were not K-consistent, then
   it would contain some sentences $B_1,\ldots,B_n$ such that
   $\neg (B_1\land \ldots\land B_n)$ is K-provable. All of these sentences would
@@ -1381,7 +1381,7 @@ the previous section.
   is K-provable. This means that $\Gamma \cup \{ \neg B \}$ is K-consistent. By
   Lindenbaum's Lemma, it follows that $\Gamma \cup \{ \neg B \}$ is included in
   some maximal K-consistent set and thereby in some world in the canonical model
-  $M_{K}$ for K. (Lindenbaum's lemma says that every K-consistent set of
+  $M_{K}$ for K. (Lindenbaum's Lemma says that every K-consistent set of
   $\L_{M}$-sentences, even if it is infinite, is included in a maximal
   K-consistent set.) By the Canonical Model Lemma, $M_{K}, w \models_K A$ for
   all $A$ in $\Gamma$, and $M_{K}, w \not\models_K B$. Thus

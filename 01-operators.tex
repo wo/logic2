@@ -1125,47 +1125,47 @@ diamond, where we don't want to treat all instances of \pr{5} as valid.
 \end{exercise}
 \begin{solution}
   \begin{sollist}
-  \item All of them.
-  \item Only \pr{K} and \pr{CPL}.
-  \item All except \pr{T}.
-  \item All of them.
-  % This is discussed in Burgess 1999, Which modal logic is the right one. The
-  % idea goes back to Hallden 1963 and further to Carnap 1946.) See Schurz 2001
-  % for arguments that the logic of validity is much stronger than S5: see
-  % Kracht and Kutz 2007:964.
+    \item All of them.
+    \item Only \pr{K} and \pr{CPL}.
+    \item All except \pr{T}.
+    \item All of them.
+    % This is discussed in Burgess 1999, Which modal logic is the right one. The
+    % idea goes back to Hallden 1963 and further to Carnap 1946.) See Schurz 2001
+    % for arguments that the logic of validity is much stronger than S5: see
+    % Kracht and Kutz 2007:964.
 
-  % For (K): If a conditional $A \to B$ is true in virtue of its form, and so is
-  % $A$, we can conclude that $B$ is true in virtue of its form? Arguably yes.
-  % Intuitively, if $A$ is true in any conceivable scenario under any
-  % interpretation of the sentence letters, and $A\to B$ is true in any
-  % conceivable scenario under any interpretation of the sentence letters, then
-  % so is $B$ -- for $B$ is bound to be true in any scenario in which $A$ and
-  % $A \to B$ are both true.
+    % For (K): If a conditional $A \to B$ is true in virtue of its form, and so is
+    % $A$, we can conclude that $B$ is true in virtue of its form? Arguably yes.
+    % Intuitively, if $A$ is true in any conceivable scenario under any
+    % interpretation of the sentence letters, and $A\to B$ is true in any
+    % conceivable scenario under any interpretation of the sentence letters, then
+    % so is $B$ -- for $B$ is bound to be true in any scenario in which $A$ and
+    % $A \to B$ are both true.
 
-  % What about \pr{4}? Take an example. $p\lor \neg p$ is logically true; so
-  % $\Box (p \lor \neg p)$ is true. You don't need to know what $p$ means in
-  % order to see that $\Box (p\lor \neg p)$ is true, nor do you need to know any
-  % substantive facts about the world: the statement is true in virtue of its
-  % logical form. So $\Box\Box (p \lor \neg p)$ is true as well. In general, if
-  % $A$ is true in virtue of its form, then $\Box A$ is also true in virtue of
-  % its form. So $\Box A$ does entail $\Box\Box A$.
+    % What about \pr{4}? Take an example. $p\lor \neg p$ is logically true; so
+    % $\Box (p \lor \neg p)$ is true. You don't need to know what $p$ means in
+    % order to see that $\Box (p\lor \neg p)$ is true, nor do you need to know any
+    % substantive facts about the world: the statement is true in virtue of its
+    % logical form. So $\Box\Box (p \lor \neg p)$ is true as well. In general, if
+    % $A$ is true in virtue of its form, then $\Box A$ is also true in virtue of
+    % its form. So $\Box A$ does entail $\Box\Box A$.
 
-  % Next, \pr{5} says that if $\neg A$ is not true in virtue of its form, then
-  % it is true in virtue its form that $\neg A$ is not true in virtue of its
-  % form. This isn't easy to understand, but the following line of thought shows
-  % that it is plausible.
+    % Next, \pr{5} says that if $\neg A$ is not true in virtue of its form, then
+    % it is true in virtue its form that $\neg A$ is not true in virtue of its
+    % form. This isn't easy to understand, but the following line of thought shows
+    % that it is plausible.
 
-  % Suppose the antecedent of \pr{5} is true: $\neg A$ is not true in virtue of
-  % its form. If a sentence is not true in virtue of its form, then evidently
-  % any sentence of the same form also isn't true in virtue of its form. So,
-  % given that $\neg A$ is not true in virtue of its form, one can tell merely
-  % by the logical form of $\neg A$ that $\neg A$ is not true in virtue of its
-  % form -- in other words, that $\Box \neg A$ is false. So one can tell merely
-  % by the logical form of $\Box \neg A$ that it is false. And so one can tell
-  % merely by the logical form of $\neg \Box \neg A$ -- equivalently,
-  % $\Diamond A$ -- that it is true. So from the assumption $\Diamond A$ we can
-  % logically infer $\Box \Diamond A$. So \pr{5} is valid.
-\end{sollist}
+    % Suppose the antecedent of \pr{5} is true: $\neg A$ is not true in virtue of
+    % its form. If a sentence is not true in virtue of its form, then evidently
+    % any sentence of the same form also isn't true in virtue of its form. So,
+    % given that $\neg A$ is not true in virtue of its form, one can tell merely
+    % by the logical form of $\neg A$ that $\neg A$ is not true in virtue of its
+    % form -- in other words, that $\Box \neg A$ is false. So one can tell merely
+    % by the logical form of $\Box \neg A$ that it is false. And so one can tell
+    % merely by the logical form of $\neg \Box \neg A$ -- equivalently,
+    % $\Diamond A$ -- that it is true. So from the assumption $\Diamond A$ we can
+    % logically infer $\Box \Diamond A$. So \pr{5} is valid.
+  \end{sollist}
 \end{solution}
 
 Remember that a system of modal logic is just a set of $\L_{M}$-sentences. I
@@ -1225,6 +1225,12 @@ axiomatisation of a logical system defines a corresponding \textbf{axiomatic
 of which is either an axiom or follows from earlier sentences in the list by one
 of the rules. (The annotations on the right are not officially part of the proof.
 They are added to help understand where the lines come from.)
+
+In this context, it may help to re-state the rules Nec and CPL, as follows:
+\begin{principles}
+  \pri{Nec}{\text{If $A$ is on a proof, you may append }\Box A\text{ to the proof.}}\\
+  \pri{CPL}{\text{If }\Gamma \models_{0} A\text{ and all members of }\Gamma\text{ are on a proof, you may append }A.}
+\end{principles}
 
 \begin{exercise}
   Try to find axiomatic proofs showing that the following sentences are in S5.

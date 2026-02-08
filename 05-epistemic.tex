@@ -166,7 +166,7 @@ What is the logic of (implicit) knowledge? Which sentences in the language of
 epistemic logic are valid? Which are logical consequences of which others?
 
 The basic system K is arguably too weak. There are Kripke models in which
-$\Box p$ is true at some world while $p$ is false. But knowledge entails truth.
+$\Box p$ (i.e., $\Kn p$) is true at some world while $p$ is false. But knowledge entails truth.
 If $p$ is genuinely known (or entailed by what is known) then $p$ is true. In
 the logic of knowledge, all instance of the \pr{T}-schema are valid.
 %
@@ -202,12 +202,11 @@ world. Let's say we know that we have hands. Now consider a possible world in
 which we are brains in a vat, falsely believing that we have hands. In that
 world, we know very little. We don't know that we have hands, nor that we are
 handless brains in a vat. Perhaps we know that we are conscious, and what kinds
-of experiences we have. But since our experiences are the same in the vat world
+of experiences we have. Given that our experiences are the same in the vat world
 and in the actual world (let's assume), the actual world is compatible with what
 little we know in the vat world. So the actual world is accessible from the vat
 world. But the vat world is not accessible from the actual world -- otherwise we
-wouldn't know that we have hands. If the actual world is accessible from the vat
-world and the vat world is inaccessible from the actual world then the
+wouldn't know that we have hands. And so the epistemic
 accessibility relation isn't symmetric.
 
 My second argument starts with a scenario in which someone has misleading
@@ -226,7 +225,7 @@ mentioned that symmetry corresponds to the schema
 \principle{B}{A \to \Kn \Mi A.}
 %
 This means that all instances of \pr{B} are valid on a frame iff the frame is
-symmetric. If the epistemic accessibility relation were symmetric, then all
+symmetric. If the epistemic accessibility relation were symmetric, all
 instances of \pr{B} would be valid. But I've just described a scenario in which
 an instance of \pr{B} is false. So the epistemic accessibility relation isn't
 symmetric.
@@ -287,7 +286,7 @@ The state $s$ indicates that $s$ indicates $p$ iff
 A quick tree proof reveals that (*) entails (**). That is, whenever a state
 indicates $p$ then it also indicates that it indicates $p$. On the indication
 account of knowledge, a belief state that constitutes knowledge therefore
-automatically constitutes knowledge of knowledge: the \pr{4} schema is valid.
+automatically constitutes knowledge of knowledge: the \pr{4}-schema is valid.
 
 \begin{exercise}
   Give an S5 tree proof to show that (*) entails (**). Why can we
@@ -321,7 +320,7 @@ the agent might not know that they don't know $\neg p$. (On the contrary, they
 might believe that they do know $\neg p$.) In that scenario, $\neg\!\Kn\!\neg p$ is
 true but $\Kn\!\neg\!\Kn\!\neg p$ is false.
 
-Here it is important to not be misled by a curiosity of ordinary language. When
+Here it is important not to be misled by a curiosity of ordinary language. When
 we say that someone doesn't know $p$, this seems to imply that $p$ is true. If I
 told you that my neighbour doesn't know that I have a pet aardvark, you could
 reasonably infer that I have a pet aardvark. You might therefore be tempted to
@@ -397,7 +396,7 @@ $\neg \Kn A$ to $A$ as valid.
 % database says that $p_{1}$ is true, the agent can easily find out whether or
 % not they know $p_{1}$ by scanning their own database.
 
-We have looked at six schemas: \pr{T}, \pr{B}, \pr{4}, \pr{5}, and \pr{NT}.
+We have looked at five schemas: \pr{T}, \pr{B}, \pr{4}, \pr{5}, and \pr{NT}.
 Philosophers working in epistemic logic generally reject \pr{B}, \pr{5}, and
 \pr{NT}, accept \pr{T}, and are divided over \pr{4}. Theorists in other
 disciplines often assume that the logic of knowledge is S5, which would render
@@ -418,7 +417,7 @@ $p$. This would give us a schema known as 0.4:
 \principle{0.4}{(\neg\!\Kn A\land A) \to \Kn\! \neg\! \Kn A}
 %
 All instances of \pr{0.4} are S5-valid, but not all of them are S4-valid. Adding
-the \pr{0.4} schema to S4 leads to a system known as S4.4.
+the \pr{0.4}-schema to S4 leads to a system known as S4.4.
 
 % .4 corresponds to xRy & xRz -> (yRz v x=z)
 
@@ -639,7 +638,7 @@ children are clean. So he can infer that he is muddy. But we know that Bob
 didn't say that he knows whether he is muddy. So we (and all the children) can
 rule out the top left world as an open possibility.
 
-By the same reasoning, every world connected with only two arrows to other
+By the same reasoning, every world connected by only two arrows to other
 worlds can be eliminated at this stage.
 
 \begin{center}
