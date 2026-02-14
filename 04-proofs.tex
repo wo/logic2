@@ -172,13 +172,10 @@ Let's fill in the details. We first define precisely what it means for the
 nodes on a tree branch to be correct statements about a model.
 
 \begin{definition}{}{correctstatement}
-  A tree node is a \textbf{correct statement about} a Kripke model
-  $M = \t{W,R,V}$ \textbf{under} a function $f$ that maps world variables to
-  members of $W$ iff either the node has the form $\omega R \upsilon$ and
-  $f(\omega)Rf(\upsilon)$, or the node has the form $A\; (\omega)$ and $A$ is
-  true at $f(\omega)$ in $M$.
+  Let $M = \t{W,R,V}$ be a Kripke model, and let $f$ be a function that maps world variables on a tree to members of $W$.
+  A tree node of the form `$A \; (\omega)$' is a \textbf{correct statement about $M$ under $f$} iff $M, f(\omega) \models A$; a tree node of the form `$\omega R \upsilon$' is a correct statement about $M$ under $f$ iff the relation $R$ holds between $f(\omega)$ and $f(\upsilon)$.
 
-  A tree branch \textbf{correctly describes} a model $M$ iff there is a function
+  A tree branch \textbf{correctly describes} $M$ iff there is a function
   $f$ under which all nodes on the branch are correct statements about $M$.
 \end{definition}
 
@@ -382,7 +379,7 @@ to do is show that this method for generating countermodels really works. Let's
 first define the method more precisely.
 
 \begin{definition}{}{inducedmodel}
-  The model \textbf{induced by} a tree branch is the Kripke model $(W,R,V)$
+  The model \textbf{induced by} a tree branch is the Kripke model $\t{W,R,V}$
   where
   \begin{itemize}[leftmargin=12mm]
     \itemsep-1mm
@@ -531,7 +528,7 @@ Now we have all the ingredients to prove completeness.
   fully developed). By induction hypothesis, $M, \upsilon \models \neg B$, for
   each such $\upsilon$. By definition \ref{def:inducedmodel}, it follows that
   $M,\upsilon \models \neg B$ for all worlds $\upsilon$ such that
-  $\omega R \upsilon$. By clauses (b) and (g) of definition
+  $\omega R \upsilon$. By clauses (b) and (h) of definition
   \ref{def:kripkesemantics}, it follows that $M, \omega \models A$.
 \end{solution}
 
