@@ -12,8 +12,7 @@ We assume that obligation and permission are duals. You are not obligated to
 cook dinner iff you are permitted to not cook dinner; you are not permitted to
 cook dinner iff you are obligated to not cook dinner.
 
-There are many kinds of norms: legal norms, moral norms, prudential norms,
-social norms, and so on. There may also be overarching norms that combine some
+There are many kinds of norms: legal, moral, prudential, social, and so on. There may also be overarching norms that combine some
 or all of the others. Deontic logic is applicable to norms of all kinds. We do
 not have to settle whether $\Ob$ expresses legal obligation or moral obligation
 or some other kind of obligation. It is important, however, that we don't
@@ -31,7 +30,8 @@ Obligations and permissions often vary from agent to agent. If it is your turn
 to cook dinner then you are obligated to cook dinner, but I am not. To capture
 this agent-relativity, we could add agent subscripts to the operators, as we did
 in epistemic logic. We could then express our different obligations as
-$\Ob_1 \!q \land \neg \!\Ob_2 \!q$. But what does the sentence letter $q$ stand for?
+$\Ob_1 q \land \neg \!\Ob_2 q$. But what does the sentence letter $q$ stand for?
+
 When I say that you are obligated to cook dinner, the object of the obligation
 appears to be a type of act: cooking dinner. In the language of modal
 propositional logic, $\Ob$ and $\Pe$ are sentence operators. Unless we want to
@@ -47,10 +47,10 @@ Consider sentence (1), which is arguably equivalent to (2).
 \item[(2)] You ought to see to it that you cook dinner.
 \end{itemize}
 In (2), the operator `you ought to see to it that' attaches to a sentence, `you
-cook dinner'. So we can translate (1) via (2) as $\Ob_1 \!q$, where $q$ translates
+cook dinner'. So we can translate (1) via (2) as $\Ob_1 q$, where $q$ translates
 `you cook dinner', and $\Ob_1$ corresponds to `you ought to see to it that'.
 
-The subject (you) is mentioned twice in (2). A common assumption in deontic
+Now the subject (you) is mentioned twice in (2). A common assumption in deontic
 logic is that we can drop the agent subscripts from deontic operators, since the
 embedded proposition will tell us upon whom the obligation or permission falls.
 Informally, the idea is that (2) is equivalent to (3), with an impersonal
@@ -154,26 +154,25 @@ in mind.
 \section{Standard deontic logic}
 
 Think of a possible world as a history of events. For any such history, and any
-system of norms, we can ask whether the history conforms to the norms. Let's
-call a world \emph{ideal} (relative to some norms) if everything that happens at
+system of norms, we can ask whether the history conforms to certain norms. Let's
+call a world \emph{ideal}, relative to some norms, if everything that happens at
 the world conforms to the norms. In an ideal world, everyone does what they
 ought to do.
 
 How do the ideal worlds relate to permission and obligation? For a start,
-everything that happens at an ideal world is plausibly permitted, for we know
-that it conforms to the norms. The converse is plausible as well: whenever
-something is permitted then it happens at some ideal world. For suppose
-something doesn't happen at any ideal world. Then the event entails the
-violation of some norm: it is incompatible with the satisfaction of all norms.
-And then it can't be permitted.
+everything that happens at an ideal world is plausibly permitted: it conforms to
+the norms. The converse is plausible as well: whenever something is permitted
+then it happens at some ideal world. For suppose an event doesn't happen at any
+ideal world. Then the event entails the violation of some norm: it is
+incompatible with the satisfaction of all norms. And then it can't be permitted.
 
-We have a simple possible-worlds analysis of permission:
+All this suggests a simple possible-worlds analysis of permission:
 \begin{quote}
   $A$ is permitted (relative to some norms) iff $A$ is the case at some
   world that is ideal (relative to these norms).
 \end{quote}
 %
-Given the duality of permission and obligation, we also have a possible-worlds
+Given the duality of permission and obligation, we also get a possible-worlds
 analysis of obligation:
 %
 \begin{quote}
@@ -193,7 +192,7 @@ world, iff it is ideal. Then Kripke semantics implies that $\Diamond A$ is true
 at $w$ iff $A$ is true at some ideal world. That's what we want.
 
 The accessibility relation I've just defined is a little unusual: whether it
-holds between $w$ and $v$ does not at all depend on $w$. We have
+holds between $w$ and $v$ does not depend on $w$. We have
 \[
   wRv \text{ iff  $v$ is ideal.}
 \]
@@ -253,7 +252,7 @@ inconsistent norms and accept \pr{D} as valid.
 Here it may be important to distinguish \emph{prima facie} obligations from
 \emph{actual}, or \emph{all-things-considered} obligations. If you've promised
 to cook dinner, you are under a \emph{prima facie} obligation to cook dinner.
-But the obligation can be overridden by intervening circumstances or contrary
+But the obligation can be overridden by exceptional circumstances or contrary
 obligations. If your child has an accident and needs urgent medical care, the
 right thing to do may well be to not cook dinner and instead bring your child to
 the hospital. In a sense, you are under conflicting obligations: you ought to
@@ -263,18 +262,18 @@ counterexample to \pr{D}, if we understand $\Ob$ as all-things-considered
 obligation. You are \emph{prima facie} obligated to cook dinner, but all things
 considered, you should not cook dinner.
 
-Another weakening of reflexivity is ``shift reflexivity''. $R$ is \emph{shift
-  reflexive} if $wRv$ implies $vRv$: every world that can be seen can see
-itself. Shift reflexivity corresponds to the following schema \pr{U} (for
-``utopia'')
+Seriality is weaker than reflexivity. Another weakening of reflexivity is
+``shift-reflexivity''. $R$ is \emph{shift-reflexive} if $wRv$ implies $vRv$:
+every world that can be seen can see itself. Shift-reflexivity corresponds to
+the following schema \pr{U} (for ``utopia'')
 %
 \principle{U}{\Ob(\Ob A \to A)}
 %
 In words: it ought to be the case that whatever ought to be the case is the
-case. Shift reflexivity is entailed by euclidity, so our logic validates \pr{U}.
+case. Shift-reflexivity is entailed by euclidity, so our logic validates \pr{U}.
 
 \begin{exercise}\label{ex:shiftref}
-  Explain why euclidity entails shift reflexivity.
+  Explain why euclidity entails shift-reflexivity.
   % This is important for applying the euclidity rule for trees.
 \end{exercise}
 \begin{solution}
@@ -297,13 +296,14 @@ world.
 
 Suppose, for example, that we want to reason about what is required by the
 traffic laws. The traffic laws evidently vary from world to world. Consider a
-world at which cyclists are required to wear top hats. Norman is cycling in this
-world, without a top hat. Is he violating the traffic laws? He is violating the
-laws of \emph{his} world, but not the laws of \emph{our} world. On an absolutist
-approach, we interpret $\Ob$ and $\Pe$ as always referring to the laws of our
-world, no matter what world is under consideration: $\Ob p$ is true at $w$ iff
-$p$ is required by the laws of our world. On a relativist approach, we instead
-assume that $\Ob p$ is true at $w$ iff $p$ is required by the laws \emph{at $w$}.
+world $w$ at which cyclists are required to wear top hats. Norman is cycling in
+$w$, without a top hat. Is he violating the traffic laws? Well, he is violating
+the laws of \emph{his} world, but not the laws of \emph{our} world. On an
+absolutist approach, we interpret $\Ob$ and $\Pe$ as always referring to the
+laws of our world (or some other fixed laws), no matter what world is under
+consideration: $\Ob p$ is true at $w$ iff $p$ is required by the laws of our
+world. On a relativist approach, we instead assume that $\Ob p$ is true at $w$
+iff $p$ is required by the laws \emph{at $w$}.
 
 On the relativist approach, a world $v$ is accessible from a world $v$ iff
 everything that happens at $v$ conforms to the (relevant) norms at $w$.
@@ -377,8 +377,7 @@ serial, making the system D the complete logic of obligation and permission.
 
 The absolutist logic KD45 and the relativist logic D can be shown to disagree
 only about sentences in which a deontic operator occurs in the scope of another
-deontic operator. Any sentence that does not contain an $\Ob$ or $\Pe$ operator
-embedded under another $\Ob$ or $\Pe$ operator is D-valid iff it is KD45-valid.
+deontic operator. Any sentence that does not contain an occurrence of $\Ob$ or $\Pe$ embedded under another occurrence of $\Ob$ or $\Pe$ is D-valid iff it is KD45-valid.
 
 % Proof: Clearly everything that's D-valid is KD45-valid, so we need to show
 % that if a degree-1 sentence A is KD45-valid, then A is also D-valid. By
@@ -485,14 +484,15 @@ on what consequences the available options would have.
 % to be reduced; in worlds where greenhouse gases never increased, there is no
 % imperative for reduction.
 
-We can account for this dependence on the circumstances by changing our
-interpretation of the accessibility relation. Previously, we assumed that a
-world $v$ is accessible from $w$ iff all the norms (or all the norms at $w$) are
-respected at $v$. Let's add another condition: relevant circumstances at $w$
-must also obtain at $v$. For example, if $w$ is a world at which you come across
-a drowning baby then any accessible world must also be a world at which you come
-across a drowning baby. In all ideal worlds \emph{among these}, you rescue the
-baby.
+How could we account for this dependence on the circumstances? We can do so by
+changing our interpretation of the accessibility relation.
+
+Previously, we assumed that a world $v$ is accessible from $w$ iff all the norms
+(or all the norms at $w$) are respected at $v$. Let's add another condition:
+relevant circumstances at $w$ must also obtain at $v$. For example, if $w$ is a
+world at which you come across a drowning baby then any accessible world must
+also be a world at which you come across a drowning baby. In all ideal worlds
+\emph{among these}, you rescue the baby.
 
 Here is the redefined accessibility relation, in terms of which we might try to
 analyse $\Ob$ and $\Pe$:
@@ -515,10 +515,10 @@ comprise everything that is \emph{settled}, in the sense of section
 fallen into the pond at $w$, then there is nothing anyone can do to undo the
 falling; the falling is a ``relevant circumstance'' that takes place at every
 world accessible from $w$. Arguably, however, there are cases in which we treat
-worlds as accessible that aren't open. `Jones ought to be here', for example,
-can be true even if it's settled that Jones is somewhere else. Perhaps the
-circumstantial accessibility relation that figures in clause (a) varies with
-conversational context.
+worlds as accessible that differ from the actual world in matters that are
+already settled. `Jones ought to be here', for example, can be true even if it's
+settled that Jones is somewhere else. Perhaps the circumstantial accessibility
+relation that figures in clause (a) varies with conversational context.
 
 % Humberstone 238 mentions that an example due to Aqvist reveals that the
 % circumstances that are held fixed can't be defined temporally. This point is
@@ -582,39 +582,47 @@ goes back to Leibniz.
 % \end{exercise}
 
 Whichever language we use to express it, our revised concept of obligation has a
-serious problem. It assumes that the circumstantially accessible worlds include
-ideal worlds, at which no norms are violated. For suppose there are no such
-worlds. Then no world is deontically accessible! We would have to say that
-everything is required and nothing permitted (because all instances of $\Ob A$
-are true and all instances of $\Pe A$ false at worlds that can't access
-anything).
+serious problem. It presupposes that the circumstantially accessible worlds
+include ideal worlds at which no norms are violated. For suppose there are no
+ideal worlds among the circumstantially accessible worlds. Then no world is
+deontically accessible! We would have to conclude that everything is required
+and nothing permitted. ($\Ob A$ is always true and $\Pe A$ false at worlds that
+can't access anything.)
 
-Now remember that we don't assume that all worlds are ideal. If a world is not
-ideal, then it is hard to see why the worlds that are circumstantially
-accessible from it should always include ideal worlds. Couldn't the ``relevant
-circumstances'' that are held fixed include some norm violations?
+This is a serious problem because it is quite implausible that the
+circumstantially accessible worlds always include ideal worlds. Suppose the
+actual world is not ideal: it contains some norm violations. And suppose this is
+settled: there's nothing anyone can do about it. Then we would expect that
+all the circumstantially accessible worlds also contain some norm violations.
+None of them is ideal.
 
-The problem is brought ought by Arthur Prior's \emph{Samaritan Paradox}. Suppose
-someone (Smith) has been injured in a robbery, and Jones has the opportunity to
-help. We want to say that Jones ought to help the victim: he helps the victim at
-all deontically accessible worlds. But then the robbery must have taken place at
-all these worlds. (In a world without a robbery, there is no victim to help.)
-Here, the circumstantially accessible worlds all contain a violation of norms.
-In a truly ideal world, nobody would have been robbed and nobody would be in
-need of help.
+% The problem is brought out by Arthur Prior's \emph{Samaritan Paradox}. Jones
+% comes across a person who has been injured in a robbery. We want to say that
+% Jones ought to help the injured victim: he does so in all deontically accessible
+% worlds. But then the robbery must have taken place in all these worlds. (In a
+% world without a robbery, there is no injured victim to help.)
 
-We need to adjust our revised definition of deontic accessibility. How could we
-do that?
+% In Prior's example, it is settled that the robbery took place. All
+% circumstantially accessible worlds contain the robbery. In a truly ideal world,
+% nobody would have been robbed and nobody would be in need of help.
 
-In the Samaritan Paradox, the robbery is settled; it has happened at all worlds
-that are compatible with the ``relevant circumstances''. None of these worlds
-are ideal. Crucially, however, worlds at which Jones doesn't help the victim are
-even \emph{worse}, in terms of norm violations, than worlds at which he helps
-the victim. Both kinds of worlds are non-ideal, because the victim got robbed.
-But our norms don't just divide the possible worlds into ideal and non-ideal;
-they allow for finer distinctions among non-ideal worlds. Jones ought to help
-the victim because that's what he does in the \emph{best} worlds among those he
-can bring about.
+We need to revise our already-revised definition of deontic accessibility. How
+could we do that?
+
+Consider a concrete example, made famous by Arthur Prior. Jones comes across
+Smith,q who has been injured in a robbery. We want to say that Jones ought to
+help Smith: he does so in all deontically accessible worlds. But then the
+robbery (or some analogous event) must have taken place in all these worlds.
+Without the robbery, Smith wouldn't need help. When we say that Jones ought to
+help Smith, we take the robbery as given; the robbery took place in all worlds
+that are compatible with the ``relevant circumstances''. It follows that none of
+these worlds are ideal. (In an ideal world, there are no robberies.) Crucially,
+however, worlds where Jones doesn't help Smith are even \emph{worse}, in terms
+of norm violations, than worlds where he helps. Both kinds of worlds are
+non-ideal, because they both include the robbery. But our norms don't just
+divide the possible worlds into ideal and non-ideal; they allow for finer
+distinctions among non-ideal worlds. Jones ought to help the victim because
+that's what he does in the \emph{best} worlds among those he can bring about.
 
 % So we need a "better-than" ordering over the worlds, where a world is "better"
 % if the agent comes closer to satisfying her obligations. Naively, this might
@@ -673,7 +681,7 @@ definition of a model.
 Let's define a new type of model. Instead of a deontic accessibility relation,
 we have two ingredients besides the worlds $W$ and the interpretation
 function $V$. One is a circumstantial accessibility relation. The other is a
-world-relative ``order'' that tells us which worlds are better than others,
+world-relative \emph{ordering} that tells us which worlds are better than others,
 relative to the norms at any given world (which may be the norms at every world,
 on an absolutist approach).
 
@@ -716,7 +724,7 @@ Here, then, are the truth-conditions for $\Ob A$ and $\Pe A$ in deontic ordering
 models:
 
 
-\begin{definition}{Ordering semantics}{orderingsemantics}
+\begin{definition}{Ordering Semantics}{orderingsemantics}
   If $M$ is a deontic ordering model and $w$ a world in $M$, then\\[1mm]
   $M,w \models \Ob A$ \text{ \;iff\; $M,v \models A$ for all $v \in \mathrm{Min}^{\prec_w}(\{ u: wRu\})$}\\
   $M,w \models \Pe A$ \text{ \;iff\; $M,v \models A$ for some $v \in \mathrm{Min}^{\prec_w}(\{ u: wRu\})$}
@@ -831,12 +839,12 @@ modal operators and if-clauses, like (1)--(3).
 
 \begin{itemize}[leftmargin=10mm]
 \itemsep-1mm
-\item[(1)] If you smoke then you must smoke outside.
-\item[(2)] If you miss the deadline for tax returns then you must pay a fine.
-\item[(3)] If you have promised to call your parents then you must call them.
+\item[(1)] If you smoke, you must smoke outside.
+\item[(2)] If you miss the deadline for tax returns, you must pay a fine.
+\item[(3)] If you have promised to call your parents, you must call them.
 \end{itemize}
 %
-How would you translate these into our language $\L_M$? You seem to face a choice
+How could we translate these into our language $\L_M$? We seem to face a choice
 between (W) and (N).
 \begin{itemize}[leftmargin=10mm]
 \itemsep-1mm
@@ -849,7 +857,7 @@ applies to the entire conditional $p \to q$. In (N), the operator has
 
 On reflection, neither translation is satisfactory. Starting with (N), note that
 $p \to \Ob q$ and $\neg \Ob q$ together entail $\neg p$. But from (1), together
-with the assumption that you are not required to smoke ($\neg \Ob q$), we surely
+with the assumption that you are not required to smoke outside ($\neg \Ob q$), we surely
 can't infer that you do not in fact smoke.
 
 % Also, consider (3*) "If you have promised to call your parents then you must
@@ -864,7 +872,7 @@ can't infer that you do not in fact smoke.
 % your child needs urgent medical care then you ought to cook dinner.
 
 (W) is not much better. For one, in our Kripke-style semantics, $\Ob(p \to q)$
-is entailed by $\Ob(\neg p)$. But it is easy to imagine a scenario in which you
+is entailed by $\Ob\neg p$. But it is easy to imagine a scenario in which you
 must not smoke, or you must submit your tax return before the deadline, but in
 which (1) and (2) are false.
 
@@ -912,7 +920,7 @@ $q$ is true at the best of the open worlds \emph{at which $p$ is true}.
 There is no way to express these truth-conditions with the resources of $\L_M$.
 But we can introduce a new, binary operator for \textbf{conditional obligation}.
 The operator is often written `$\Ob(\cdot/\cdot)$', with a slash separating the
-two argument places. Intuitively, $\Ob(B/A)$ means that $B$ ought to be the
+two argument places. Informally, $\Ob(B/A)$ means that $B$ ought to be the
 case if $A$ is the case.
 
 % The precise semantics of $\Ob(\cdot/\cdot)$ is a matter of debate; I will
@@ -1011,8 +1019,8 @@ at all of the best $A$-worlds that are accessible at $w$.
     \item[(f)] Jones is not going to help his neighbours.
   \end{exlist}
   \medskip\noindent%
-  Intuitively, none of these four statements is entailed by one of the others.
-  Moreover, they don't impose contradictory requirements on Jones. This shows
+  Intuitively, none of these four statements is entailed by the others,
+  and they don't impose contradictory requirements on Jones. This shows
   that your translations in exercise \ref{ex:translate-sdl} were incorrect.
   Explain. (This puzzle is due to Roderick Chisholm.)
 \end{exercise}
@@ -1100,7 +1108,7 @@ binary $\Ob(\cdot/\cdot)$ operator. There are, however, other problems and
 ``paradoxes'' for which this move doesn't help. I will mention three.
 
 First, we already saw that standard deontic logic does not allow for conflicting
-obligations. Suppose you have promised your family to be home for dinner and
+obligations. Suppose you have promised your family to be home for dinner, and
 your friends to join them at the pub. You are under conflicting \emph{prima
   facie} obligations. It is not clear that one of them overrides the other.
 Legal systems can also contain contradictory rules, without any higher-level
@@ -1148,25 +1156,24 @@ and we accept the duality of obligation and permission, we have to say that it
 is permissible that it neither rains nor doesn't rain. That sounds even worse.
 
 The problem of closure under entailment has special bite when obligation
-statements are restricted by circumstances. Return to the Samaritan
-puzzle. Suppose the victim is bleeding, and Jones ought to stop the blood
-flow. It is logically impossible to stop a blood flow if no blood is flowing. In
-all the deontic logics we have so far considered, the claim that Jones ought to
-stop the victim's blood flow therefore entails that the victim ought to be
-bleeding. But wouldn't it be better if the victim weren't bleeding?
+statements are restricted by circumstances. Return to Prior's example of Smith
+and Jones. Smith is injured, Jones ought to tend to his injuries. It is
+logically impossible to tend to injuries if there are no injuries. In all the
+deontic logics we have so far considered, the claim that Jones ought to tend to
+Smith's injuries therefore entails that Smith ought to be injured. But this
+sounds wrong (as Prior pointed out).
 
 Here, too, one might appeal to a pragmatic explanation. When we say that Jones
-ought to stop the blood flow, we take for granted that the victim is bleeding.
-We are interested in what should be done \emph{given} the state in which Jones
-found the victim. Worlds where the victim isn't injured are set aside; they are
-not circumstantially accessible. But circumstantial accessibility can shift with
-conversational context. The claim that the victim ought to be bleeding is
-pointless if we hold fixed the victim's state of injury. So when we evaluate
-\emph{this} claim, we naturally assume that the relevant circumstantial
-accessibility relation does not hold fixed the injuries. Intuitively, we are no
-longer considering what should be done given the state in which Jones found the
-victim, but whether that state itself should have obtained. Worlds in which
-the state doesn't obtain become circumstantially accessible.
+ought to tend to Smith's injuries, we take the injuries as fixed. We are
+interested in what should be done \emph{given} the state in which Jones found
+Smith. Worlds where Smith isn't injured are set aside; they are not
+circumstantially accessible. But the criteria for circumstantial accessibility
+can shift with conversational context. In particular, when we consider the claim
+that Smith ought to be injured, we no longer hold fixed his injuries, as that
+would make the claim pointless. We are no longer considering what should be done
+given the state in which Jones found Smith, but whether that state itself should
+have obtained. Worlds in which the state doesn't obtain become circumstantially
+accessible.
 
 % Similarly: $OK_ap$ entails $Op$ by factivity of K. If Gladys ought
 % to know that there's a fire then there ought to be a fire. (Aqvist 1967)
@@ -1249,7 +1256,7 @@ may have wine'.
 
 In reaction to apparent problems for standard deontic logic, some have argued
 that we should not interpret obligation and permission in terms of
-quantification over possible worlds. If we give up this core tenet of Kripke
+quantification over possible worlds. By dropping this core tenet of Kripke
 semantics, we can define ``non-normal'' logics weaker than K. (A \textbf{normal}
 modal logic is a modal logic that can be defined in terms of classes of Kripke
 frames.)
@@ -1257,7 +1264,7 @@ frames.)
 % In C.I.\ Lewis's 1932 list of modal logics, S4 and S5 were normal, but S1--S3
 % were non-normal.
 
-A popular alternative to Kripke semantic is \textbf{neighbourhood semantics},
+A popular alternative to Kripke semantics is \textbf{neighbourhood semantics},
 also known as Scott-Montague semantics, after its inventors Dana Scott and
 Richard Montague.
 
@@ -1272,7 +1279,7 @@ Formally, the accessibility relation in Kripke models is replaced by a
 \textbf{neighbourhood function} $N$ that associates each world in a model with
 the propositions that are necessary relative to $w$. Propositions are identified
 with sets of possible worlds. Thus $N(w)$ is a set of sets of worlds. Each set
-of world in $N(w)$ is necessary at $w$.
+of worlds in $N(w)$ is necessary at $w$.
 
 % We could equivalently think of N as a relation relating each world to the
 % propositions in its neighbourhood.
@@ -1292,23 +1299,25 @@ of world in $N(w)$ is necessary at $w$.
 The interpretation of non-modal sentences at neighbourhood models works just as
 in Kripke semantics (definition \ref{def:kripkesemantics}). To state the
 semantics for modal sentences, let $[A]^M$ be the set of worlds in model $M$ at
-which $A$ is true. This is our proxy for the proposition expressed by $A$. Then:
+which $A$ is true. This is our proxy for the proposition expressed by $A$. We then revise the clauses for the box and the diamond as follows.
 %
-\begin{align*}
-  M,w \models \Box A &\text{ \;iff\; $[A]^M$ is in $N(w)$}.\\
-  M,w \models \Diamond A &\text{ \;iff\; $[\neg A]^M$ is not in $N(w)$.}
-\end{align*}
 %
+\begin{definition}{Neighbourhood Semantics}{neighbourhoodsemantics}
+    If $\Mfr = \t{W,N,V}$ is a neighbourhood model and $w$ is a member of $W$, then\\[1mm]
+    $M,w \models \Box A \text{ \;iff\; $[A]^M$ is in $N(w)$}$;\\
+    $M,w \models \Diamond A \text{ \;iff\; $[\neg A]^M$ is not in $N(w)$}$.
+\end{definition}
+
 Intuitively, the clause for the box says that $\Box A$ is true at $w$ iff the
 proposition expressed by $A$ is one of those that are necessary at $w$. The
 clause for the diamond ensures that the box and the diamond are duals.
 
 In neighbourhood semantics, the modal operators are not closed under logical
 consequence. The neighbourhood function $N$ can easily make $p$ necessary at a
-world without making $p\lor q$ necessary, even thought $p$ entails $p \lor q$.
+world without making $p\lor q$ necessary, even though $p$ entails $p \lor q$.
 If we interpret $\Ob$ and $\Pe$ as the box and the diamond in neighbourhood
-semantics, we can therefore say that Jones ought to tend to the victim's
-injuries even thought it is not the case that someone ought to be injured.
+semantics, we can therefore easily say that Jones ought to tend to Smith's
+injuries even though it is not the case that Smith ought to be injured.
 
 % \begin{exercise}
 %   What formal condition on the neighbourhood function would ensure that $\Box$
@@ -1329,11 +1338,11 @@ that the wide-scope translation $\Ob(A \to B)$ of conditional obligation
 sentences is problematic because $\Ob(A \to B)$ is entailed by $\Ob(\neg A)$. In
 neighbourhood semantics, this entailment fails. 
 
-Bare neighbourhood semantics determines a very weak logic called \textbf{E}. It
-is axiomatized by \pr{Dual}, \pr{CPL}, and a rule (called ``RN'') that allows
-inferring $\Box A \leftrightarrow \Box B$ from $A \leftrightarrow B$. We can get
-stronger logics, with more validities, by imposing conditions on the
-neighbourhood function $N$.
+Bare neighbourhood semantics determines a very weak logic called \textbf{E}.
+This logic is axiomatized by \pr{Dual}, \pr{CPL}, and a rule (called ``RN'')
+that allows inferring $\Box A \leftrightarrow \Box B$ from
+$A \leftrightarrow B$. We can get stronger logics, with more validities, by
+imposing conditions on the neighbourhood function $N$.
 
 For example, suppose we want to maintain that if something is logically
 guaranteed to be true then it can't be forbidden. Equivalently, any logically
@@ -1350,7 +1359,7 @@ permitted is equivalent to the assumption that (every instance of) the
 seriality of the accessibility relation. In neighbourhood semantics, we can
 distinguish between the two assumptions. While the permissibility of logical
 truths requires that $N(w)$ doesn't contain the empty set, the validity of
-$\Ob A \to \Pe A$ requires that $N(w)$ doesn't contains contradictory
+$\Ob A \to \Pe A$ requires that $N(w)$ doesn't contain contradictory
 propositions $[A]^M$ and $[\neg A]^M$.
 
 If we assume that the neighbourhood function is closed under intersection, in
