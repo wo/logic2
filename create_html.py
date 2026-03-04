@@ -391,7 +391,7 @@ def fix_toc_links():
         html = read_file(html_path + '/' + htmlfile)
         # <h3 class="sectionHead"><span class="titlemark">2.1</span><a id="x5-100002.1"></a>
         # <h3 class="sectionHead"><span class="titlemark">2.1</span><a id="x5-100002.1"></a>The possible-worlds analysis of possibility and necessity</h3>
-        m = re.findall(r'<h3 class="sectionHead"><span[^>]*>([^<]+)</span>\s*<a\s+id="([^"]+)">', html)
+        m = re.findall(r'<h3 class="sectionHead"[^>]*><span[^>]*>([^<]+)</span>\s*<a\s+id="([^"]+)">', html)
         for num, old_id in m:
             new_id = 'sec-' + num.strip().replace('.', '-')
             print("Replacing", old_id, "with", new_id)
