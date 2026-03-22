@@ -5,7 +5,7 @@
 
 \section{Predicate logic recap}
 
-In these last two chapters, we are going to add the resources of first-order
+In the next two chapters, we are going to add the resources of first-order
 predicate logic to those of propositional modal logic. Let's begin by reviewing
 the syntax and semantics of classical, non-modal predicate logic.
 
@@ -16,7 +16,7 @@ logical symbols $\neg$, $\land$, $\lor$, $\to$, $\leftrightarrow$, $\forall$,
 $\exists$, and the parentheses $($ and $)$. Individual variables and constants
 are also called \emph{(singular) terms}.
 
-Atomic sentences of $\L_{P}$ are formed by conjoining a predicate with zero or
+Atomic sentences of $\L_{P}$ are formed by combining a predicate with zero or
 more terms. Each predicate takes a fixed number of terms, as indicated by its
 numerical superscript: $F^1$ is a \emph{one-place} predicate that combines with
 one term to form a sentence, $F^2$ is \emph{two-place}, and so on. In practice,
@@ -24,7 +24,7 @@ we usually omit the superscripts, because context makes clear what kind of
 predicate is in play. $Fa \lor Gab$, for example, is well-formed only if $F$ is
 one-place and $G$ two-place.
 
-In English, a predicate is what is what you get when you remove all names from a
+In English, a predicate is what you get when you remove all names from a
 sentence. Removing `Bob' from `Bob is hungry' yields the predicate `-- is
 hungry'. From `Bob is in Rome', we get the two-place predicate `-- is in --'.
 From `Bob saw Carol's father in Jerusalem', we could get the
@@ -127,8 +127,8 @@ are in $D$. Repetitions are allowed, so if Bob is a member of $D$, then
 $\t{\text{Bob, Bob}}$ counts as a 2-tuple from $D$. (2-tuples are more commonly
 called \emph{pairs}.) We can subsume condition (c) under condition (d) by
 assuming that a 1-tuple from $D$ is a member of $D$. We can subsume (b) under
-(d) by identifying the truth-value False with the empty tuple $\emptyset$ and
-the truth-value True with $\{ \emptyset \}$. (Don't worry if you find this confusing or objectionable. We won't be using zero-ary predicates.)
+(d) by identifying the truth-value False with the empty set $\emptyset$ and
+the truth-value True with the singleton set $\{ \t{} \}$ containing the empty tuple. (Don't worry if you find this confusing or objectionable. We won't be using zero-ary predicates.)
 
 % V(p) = 1 means V(p) is true of all zero-tuples
 
@@ -169,7 +169,7 @@ assigned to $F$; that is, iff $V(a) \in V(F)$. Likewise, $Rab$ is true in a
 model iff the pair of individuals assigned to $a$ and $b$ -- the pair
 $\t{V(a),V(b)}$ -- is in the set assigned to $R$.
 
-In this way, the truth-value of every closed atomic sentences is determined. For
+In this way, the truth-value of every closed atomic sentence is determined. For
 truth-functionally complex sentences, the standard rules apply: a negated
 sentence $\neg A$ is true iff the corresponding sentence $A$ is not true;
 $A \land B$ is true iff $A$ and $B$ are both true; and so on.
@@ -179,7 +179,7 @@ truth-value of $\forall x Fx$ in terms of the truth-value of $Fx$, because an
 open sentence like $Fx$ doesn't have a truth-value. Interpretation functions
 interpret names and predicates; they say nothing about variables. Even if we
 changed this and said that $x$ should also be interpreted as picking out a
-member of the domain, we would have to ignore this interpretation if we
+member of the domain, we would have to ignore this interpretation when we
 evaluate $\forall x Fx$. We want $\forall x Fx$ to be true iff $Fx$ is true
 \emph{no matter which individual is assigned to $x$}. We therefore define truth
 not just relative to a model, but relative to a model \emph{and an assignment of
@@ -264,13 +264,11 @@ an assignment function. Let's say that an $\L_P$-sentence is \textbf{true in a
 $g$ for $M$.
 
 Finally, we say that an $\L_P$-sentence is \textbf{valid} (in classical
-first-order logic) iff it is true in all (classical, first-order)
-models. Equivalently: An $\L_P$-sentence is valid iff it is true in all models
-relative to all assignment functions.
-
-On the present definition, $Fx \to Fx$ is valid, even though it does not make a
-complete statement, due to the free variable $x$. To avoid this, some authors
-restrict the concept of validity to closed sentences.
+first-order logic) iff it is true in all (classical, first-order) models.
+Equivalently: An $\L_P$-sentence is valid iff it is true in all models relative
+to all assignment functions. On this definition, $Fx \to Fx$ is valid, even
+though it does not make a complete statement, due to the free variable $x$. Some
+authors avoid this by restricting the concept of validity to closed sentences.
 
 % We will do so below, because our tree rules don't allow proving Fx v ~Fx. But
 % we don't officially commit to it here. The problem is that if we don't define
@@ -331,8 +329,7 @@ $\forall x \exists y(Fx \to Gy)$.
 
 Following definition \ref{def:predicatemodel}, a model for $\L_P^1$ consists of
 a non-empty set $D$ and an interpretation function $V$ that assigns to each
-predicate a subset of $D$. That is, for $\L_{P}^{1}$ definition
-\ref{def:predicatemodel} can be simplified as follows:
+predicate a subset of $D$. Let's make this explicit:
 
 \begin{justabox}
   A \textbf{model of $\L_P^1$} is a pair $\t{D,V}$
@@ -564,7 +561,7 @@ on the relevant branch. If such a node has been added to every open branch below
 $\exists \chi A$ then the $\exists \chi A$ node can be ticked off.
 $\forall \chi A$ nodes can be expanded multiple times, once for each ``old''
 name. So if $\forall x A$ occurs on a branch, and the branch contains the names
-$a$ and $b$ then we can add both $A[a/x]$ and $A[b/x]$. If there is no old name
+$a$ and $b$, we can add both $A[a/x]$ and $A[b/x]$. If there is no old name
 on a branch, we are allowed to expand $\forall \chi A$ with a new name.
 $\forall \chi A$ nodes are never ticked off.
 
@@ -616,7 +613,7 @@ first name on the branch.
 If you want to read off a countermodel from an open branch, you can simply take
 the domain $D$ to consist of all names that occur on the branch. For the
 interpretation function $V$, you then stipulate that each name picks out itself
--- so that, for example, $V(a) = a$ -- and that a predicates $P$ applies to a
+-- so that, for example, $V(a) = a$ -- and that a predicate $P$ applies to a
 tuple of names $\t{a,b,\ldots}$ iff $Pab\ldots$ occurs on the branch.
 
 \begin{exercise}
@@ -644,8 +641,8 @@ the following axiom schemas:
 %
 To these we would add the following rules. As in earlier chapters, $\Gamma \models_{0} A$ means that $A$ is a truth-functional consequence of (the sentences in) $\Gamma$.
 \begin{principles}
-  \pri{CPL}{\text{If }\Gamma \models_{0} A\text{ and all members of }\Gamma\text{ are on a proof, then one may add $A$.}}\\
-  \pri{Gen}{\text{If $A$ occurs on a proof, then one may add $\forall \chi A[\chi/\eta]$.}}
+  \pri{CPL}{\text{If }\Gamma \models_{0} A\text{ and all members of }\Gamma\text{ are on a proof, one may add $A$.}}\\
+  \pri{Gen}{\text{If $A$ occurs on a proof, one may add $\forall \chi A[\chi/\eta]$.}}
 \end{principles}
 
 % These are based on Bostock, pp.220f.. Bostock doesn't have the duality rule
@@ -674,7 +671,7 @@ and complete.
   \ref{ch:proofs}) shows that if a sentence is valid then any fully expanded
   tree for that sentence will close, provided the tree rules are applied in a
   sensible order. Why doesn't this contradict the claim I made in the previous
-  section. that there is no mechanical procedure to determine, for an arbitrary
+  section, that there is no mechanical procedure to determine, for an arbitrary
   $\L_P$-sentence, whether the sentence is valid? (Tree proofs count as
   ``mechanical'', so that's not the problem.)
 \end{exercise}
@@ -906,7 +903,7 @@ placed between its two arguments: we write `$a=b$', not `$=\!ab$'. We also somet
 
 Unlike the other predicates of $\L_P$ and $\L_{M\!P}$, the identity predicate
 counts as a logical symbol. Its meaning is held fixed. In any model, $a=b$
-means that the individual picked out by $a$ is the very same thing as the
+is true iff the individual picked out by $a$ is the very same thing as the
 individual picked out by $b$. This is reflected by the following clause, which
 we add to the semantics of predicate logic:
 \[
@@ -916,16 +913,16 @@ we add to the semantics of predicate logic:
 It is easy to see that the sentence $a=a$ is now valid, because $a$ and $a$ are
 guaranteed to pick out the same individual. More interestingly, since the
 function of a name in classical predicate logic is just to pick out an
-individual, it never matters which of two names we use if they pick out the same
+individual, it never matters which of two names we use in a sentence as long as they pick out the same
 individual. That is, if $a=b$ is true, then replacing some or all occurrences of
 $a$ in a sentence with $b$ never affects whether the sentence is true. This
 principle is known as \textbf{Leibniz' Law}.
 
 To reflect these facts, the tree method for (non-modal) predicate logic must be
 extended by two new rules. First, if $\eta$ is an ``old'' name (that already
-occurs on a branch) then we can always add a node $\eta=\eta$ to the branch.
+occurs on a branch), we can always add a node $\eta=\eta$ to the branch.
 Second, if an identity statement $\eta_1=\eta_2$ occurs on a branch, and some
-sentence $A$ on the branch contains $\eta_1$, then we may add a new node with
+sentence $A$ on the branch contains $\eta_1$, we may add a new node with
 the same sentence $A$ except that one or more occurrences of $\eta_1$ in $A$ are
 replaced by $\eta_2$, or one or more occurrences of $\eta_2$ by $\eta_1$. Let
 $A[\eta_2/\!/\eta_1]$ stand for any sentence that results from $A$ by replacing
@@ -1034,9 +1031,8 @@ the following axiom schemas:
   \pri{LL}{\eta_1=\eta_2 \to (A \to A[\eta_2/\!/\eta_1])}
 \end{principles}
 
-Once we add boxes and diamonds to the language of predicate logic, the seemingly
-harmless axioms and rules for identity become problematic. Consider the
-following inference:
+All this looks simple and unproblematic. But look what happens when we add boxes
+and diamonds. Consider the following inference:
 %
 \begin{quote}
   It is analytic that Julius invented the zip.\\
@@ -1052,6 +1048,10 @@ to be licensed by Leibniz's law. Another well-known example:
   Superman = Clark Kent.\\
   Therefore: Lois Lane believes that Clark Kent can fly.
 \end{quote}
+
+We will return to these puzzles in section \ref{sec:twi}. In the remainder of the
+present section, I want to highlight some other things we can do with the
+identity predicate, apart from making claims about identity.
 
 \begin{exercise}
   (a) Give an axiomatic proof of $\Box \exists x\, x=a$, using (SI), (UI), (CPL),
@@ -1079,12 +1079,7 @@ Where does the proof go wrong? Each of steps 1, 2, and 6 might be blamed.
 \end{sollist}
 \end{solution}
 
-
-We will return to these issues in section \ref{sec:twi}. In the remainder of the
-present section, I want to highlight some other things we can do with the
-identity predicate, apart from making claims about identity.
-
-You have already encountered one other use in earlier chapters. Suppose we want
+You have already encountered some uses of identity in earlier chapters. Suppose we want
 to express that some relation $R$ is connected, meaning that for any two things,
 either the first is $R$-related to the second or the second is $R$-related to
 the first. This can't be expressed without an identity predicate. With an
@@ -1123,7 +1118,6 @@ involving definite descriptions. A definite description is a complex noun
 phrase, typically of the form `the $F$', that purports to pick out a particular
 object. `The current Prime Minister', `the highest mountain in Scotland', and
 `Carol's father' are definite descriptions.
-
 The standard language of predicate logic does not have a definite article
 (`the'). The only way to pick out an individual in $\L_P$ is by a name. But
 there are good reasons not to translate descriptions as names.
@@ -1145,8 +1139,7 @@ sentence:
 \begin{quote}
   The Pope might have been Italian.
 \end{quote}
-This has two readings. It can mean either that the actual Pope, Jorge Mario
-Bergoglio, might have been Italian (\emph{de re}). Alternatively, it can mean
+This has two readings. It can mean either that the actual Pope, Robert Francis Prevost, might have been Italian (\emph{de re}). Alternatively, it can mean
 that the following might have been the case: some Italian person is Pope
 (\emph{de dicto}). There is no way to account for these two readings in
 $\L_{M\!P}$ if we translate `the Pope' as a name. 
@@ -1154,7 +1147,7 @@ $\L_{M\!P}$ if we translate `the Pope' as a name.
 A better translation for statements involving definite descriptions was proposed
 by Bertrand Russell in 1905. Russell argued that a statement of the form `the
 $F$ is $G$' is true iff there is exactly one (relevant) $F$, and
-this one $F$ is also $G$. If we have an identity predicate, we can easily
+this one $F$ is also $G$. If we have an identity predicate, we can 
 express this in the language of predicate logic:
 \[
   \exists x(Fx \land \forall y(Fy \to x\!=\!y) \land Gx). 

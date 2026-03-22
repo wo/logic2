@@ -504,8 +504,8 @@ corresponds to the \pr{4}-schema for $\tG$. It also corresponds to the
   converse $>$ of $<$ is the relation that holds between $x$ and $y$ iff $y<x$.
 \end{exercise}
 \begin{solution}
-  Suppose < is transitive, and $x > y$ and $y > z$. Equivalently, $y < x$ and
-  $z < y$.By transitivity of <, we have $z < x$. So $x > z$.
+  Suppose $<$ is transitive, and $x > y$ and $y > z$. Equivalently, $y < x$ and
+  $z < y$. By transitivity of $<$, we have $z < x$. So $x > z$.
 \end{solution}
 
 Another plausible condition is that no time is earlier than itself. Formally,
@@ -735,11 +735,11 @@ of these rules are called `Identity'.%
   % look linear! But it's forward-linear and backward-linear.
   \item $\tF (\tG q \land \neg p) \to \tG(p \to (\tG p \to q))$ 
   % \item $(\tF p \land \tF q) \to (\tF(p \land q) \lor (\tF (p \land \tF q) \lor \tF(\tF p \land q)))$ % add?
-  \item $(\tP(q \land \tH q) \land \tP\tG q) \to \tH q$
+  % \item $(\tP(q \land \tH q) \land \tP\tG q) \to \tH q$
   \end{exlist}
 \end{exercise}
 \begin{solution}
-  (a), (d), and (e) are invalid. Here are trees for (b), (c), and (f). I can't typeset the one for (g).
+  (a), (d), and (e) are invalid. Here are trees for (b), (c), and (f).
 
   \bigskip
   \begin{sollist}
@@ -1086,7 +1086,7 @@ is \emph{some} future in which $A$ is always true.
   of \pr{Con2}, invalid.
 \end{exercise}
 \begin{solution}
-  Consider a model with three times ordered by $s<t$ and $s<r$. Assume $p$ is true at $t$ and not at $r$. Then $p \to \tH\tF p$ is false on the Peircean interpretation.
+  Consider a model with three times ordered by $s<t$ and $s<r$. Assume $p$ is true at $t$ and not at $r$. Then $p \to \tH\tF p$ is false at $t$ on the Peircean interpretation.
 \end{solution}
 
 A different line is taken by (what Prior called) the \textbf{Ockhamist}
