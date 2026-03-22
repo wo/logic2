@@ -165,6 +165,7 @@
 
 \let\polishL\L
 \renewcommand{\L}{\ensuremath{\mathfrak{L}}\xspace}
+\newcommand{\doubleleftright}{\Leftrightarrow}
 \newcommand{\Cfr}{\ensuremath{\mathfrak{C}}\xspace}
 \newcommand{\Mfr}{\ensuremath{M}\xspace}
 

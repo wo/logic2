@@ -2,58 +2,79 @@
 
 \section{Material conditionals}\label{sec:material}
 
-We are often interested not just in whether something is in fact the case, but
-also in whether it is (or would be) the case \emph{if} something else is (or
-would be) the case. We might, for example, wonder in what will happen to the
-climate if we don't reduce greenhouse gases, or whether World War 2 could have
-been avoided if certain steps had been taken in the 1930s.
+`What if?' questions play an important role in our thinking. What will happen to
+the climate if we don't reduce greenhouse gases? Will the curry taste better if
+we add lime? Could World War II have been avoided if the Treaty of Versailles
+had been less punitive?
 
 A sentence stating that something is (or would be) the case if something else is
-(or would be) the case is called a \textbf{conditional}. What exactly, do these
-statements mean? What is their logic? Philosophers have puzzled over these
-questions for more than 2000 years, with no agreement in sight.
+(or would be) the case is called a \textbf{conditional}. Philosophers have
+debated the meaning and logic of conditionals for over 2000 years, with no
+agreement in sight.
 
 One attractively simple view is that a conditional `if $A$ then $B$' is true iff
-the antecedent $A$ is false or the consequent $B$ is true. This would make `if
-$A$ then $B$' equivalent to `not $A$ or $B$'. Conditionals with these
-truth-conditions are called \textbf{material conditionals}.
+the antecedent $A$ is false or the consequent $B$ is true. This would make
+conditionals truth-functional: `if $A$ then $B$' would be equivalent to
+$\neg A \lor B$. Sentences with these truth-conditions are called
+\textbf{material conditionals}.
 
-The conditionals $A \to B$ of classical logic are material. $A \to B$ is
-equivalent to $\neg A \lor B$. The attractively simple view that English
-conditionals are material conditionals would mean that we can faithfully
-translate English conditionals into $\L_{M}$-sentences of the form $A \to B$. Is
-this correct?
+The conditionals $A \to B$ of classical logic are material. The attractively
+simple view that English conditionals are material conditionals would mean that
+we can faithfully translate English conditionals into $\L_{M}$-sentences of the
+form $A \to B$. Is this correct? There are some arguments for a positive answer.
 
-There are some arguments for a positive answer. Suppose I make the following
-promise.
-\begin{itemize}[leftmargin=10mm]
-  \item[(1)] If I don't have to work tomorrow then I will help you move.
-\end{itemize}
-I have made a false promise if the next day I don't have to work and yet I don't
-help you move. Under all other conditions, you could not fault me for breaking my
-promise. So it seems that (1) is false iff I don't have to work and I don't help
-you move. Generalizing, this suggests that `if $A$ then $B$' is true iff $A$ is
-false or $B$ is true.
+To begin, \emph{modus ponens} looks valid for English conditionals: from $A$ and `if
+$A$ then $B$' we can infer $B$. It seems incoherent to accept $A$ and `if $A$
+then $B$' while denying $B$. If this is right, `if $A$ then $B$' entails
+$\neg A \lor B$. For suppose there is a case where `if $A$ then $B$' is true
+but $\neg A \lor B$ false. The only way $\neg A \lor B$ can be false is that $A$
+is true and $B$ false. So any case where `if $A$ then $B$' is true but
+$\neg A \lor B$ false would be a case where $A$ and `if $A$ then $B$' are true
+while $B$ is false: we would have a counterexample to \emph{modus ponens}.
 
-Another argument for analysing English conditionals as material conditionals
-starts with the intuitively plausible assumption that `$A$ or $B$' entails the
-corresponding conditional `if not-$A$ then $B$'. (This is sometimes called the
-\emph{or-to-if} inference.) Suppose I tell you that Nadia is either in Rome or
-in Paris. Trusting me, you can infer that if she's not in Rome then she's in
-Paris. Now we can reason as follows.
+So `if $A$ then $B$' plausibly entails $\neg A \lor B$. To show that English
+conditionals are material conditionals, it remains to show that the converse holds as
+well: that $\neg A \lor B$ entails `if $A$ then $B$'.
 
-To begin, suppose that $A$ and `if $A$ then $B$' are both true. Plausibly, we
-can infer that $B$ is true as well: \emph{modus ponens} is valid for English
-conditionals. \label{p:mp} This means that if $A$ is true and $B$ is false, then
-`if $A$ then $B$' is false. Now suppose, alternatively, that $A$ is false or $B$
-is true. Then `not-$A$ or $B$' is true. By or-to-if, we can infer that `if $A$
-then $B$' is true as well. Thus `if $A$ then $B$' is true iff $A$ is false or
-$B$ is true.
+% Suppose I make the following
+% promise.
+% \begin{itemize}[leftmargin=10mm]
+%   \item[(1)] If I don't have to work tomorrow, I will help you move.
+% \end{itemize}
+% Under what conditions could you fault me for breaking this promise?
+% I have made a false promise if the next day I don't have to work and yet I don't
+% help you move. Under all other conditions, you could not fault me for breaking my
+% promise. So it seems that (1) is false iff I don't have to work and I don't help
+% you move. Generalizing, this suggests that `if $A$ then $B$' is true iff $A$ is
+% false or $B$ is true.
 
-Despite these arguments, most philosophers and linguists don't think that
-English conditionals are material conditionals. Consider these facts about
-logical consequence (in classical propositional logic).
-%
+One argument to this effect draws on the observation that `$A$ or $B$' seems to
+entail `if not-$A$ then $B$'. (This is sometimes called the \emph{or-to-if}
+inference.) For example, suppose I tell you that Nadia is either in Rome or in
+Paris. Trusting me, you can infer that \emph{if she's not in Rome then she's in
+  Paris}. Suppose, then, that `$A$ or $B$' entails `if not-$A$ then $B$'. Then
+`not-$A$ or $B$' entails `if not-not-$A$ then $B$': every instance of this
+schema is an instance of the or-to-if schema. Cancelling the double negation,
+and assuming that `not-$A$ or $B$' means $\neg A \lor B$, we have reached the
+desired conclusion: $\neg A \lor B$ entails `if $A$ then $B$'.
+
+Another argument starts with the judgement that `if $A$ then if $B$ then $C$' is
+equivalent to `if $A$ and $B$ then $C$'. This is known as the
+\emph{Import-Export} principle. Now take the sentence
+\begin{enumerate}[leftmargin=10mm]
+  \item[(*)] If not-$A$ or $B$ then if $A$ then $B$.
+\end{enumerate}
+By Import-Export, (*) is equivalent to `if [not-$A$ or $B$] and $A$ then $B$'.
+But `[not-$A$ or $B$] and $A$' is logically equivalent to $B$.
+So (*) is equivalent to `if $B$ then $B$'.
+So (*) is a logical truth.
+But if (*) is a logical truth and \emph{modus ponens} is valid for English conditionals,
+then `not-$A$ or $B$' entails `if $A$ then $B$'.
+
+In sum, there are good arguments to believe that English conditionals are
+material conditionals. Confusingly, there are also good arguments for the
+opposite conclusion. Consider the following facts about logical consequence (in
+classical propositional logic).%
 \label{paradoxes-mat-imp}
 \begin{principles}
 \pri{M1}{B \models A \to B}\\
@@ -65,15 +86,15 @@ logical consequence (in classical propositional logic).
 \pri{M5}{A \to B \models (A\land C) \to  B}
 \end{principles}
 
-If English conditionals were material conditionals then the following
-inferences, corresponding to (M1)--(M5), would be valid.
+If English conditionals were material conditionals, the following inferences,
+corresponding to (M1)--(M5), would be valid.
 
 \begin{enumerate}[leftmargin=12mm]
   \itemsep1mm
   \item[(E1)] There won't be a nuclear war. Therefore: If Russia attacks the US
-        with nuclear weapons then there won't be a nuclear war.
+        with nuclear weapons, there won't be a nuclear war.
   \item[(E2)] There won't be a nuclear war. Therefore: If there will be a
-        nuclear war then nobody will die.
+        nuclear war, nobody will die.
   \item[(E3)] It is not the case that if it will rain tomorrow then the Moon
         will fall onto the Earth. Therefore: It will rain tomorrow.
   \item[(E4)] If our opponents are cheating, we will never find out. Therefore:
@@ -83,77 +104,67 @@ inferences, corresponding to (M1)--(M5), would be valid.
         you add sugar and vinegar to your coffee, it will taste good.
 \end{enumerate}
 
-These inferences do not sound good. If we wanted to defend the view that English
-conditionals are material conditionals we would have to explain why they sound
-bad even though they are valid. We will not explore this option any further.
+These inferences don't seem valid. If we wanted to defend the material analysis
+of English conditionals, we would have to explain why the inferences sound bad
+even though they are actually valid. Exercise~\ref{ex:assertable} will give you
+a hint of what such an explanation might involve.
 
-\begin{exercise}
-  Can you find a different analysis of English conditionals that, like the
-  material analysis, would make conditionals truth-functional, but that would
-  render all of (E1)--(E5) invalid?
+In the meantime, let's look at an alternative idea of how conditionals in natural
+language might be understood.
+
+\begin{exercise}\label{ex:probcond}
+  Another argument against the material analysis of natural-language
+  conditionals draws on judgements about the probability of conditionals.
+  Suppose a fair die is rolled. What, intuitively, is the probability that
+  \emph{the die shows a 6 if it shows an even number}? What probability is predicted by the assumption that the conditional is material?
 \end{exercise}
 \begin{solution}
-  (E1)--(E5) are invalid assuming that `if $A$ then $B$' is true iff both $A$
-  and $B$ are true. There are, of course, strong reasons against the analysis of
-  English conditionals as conjunctions.
+  Intuitively, the probability of `the die shows a 6 if it shows an even number'
+  is $\frac{1}{3}$, because 6 is one of three even-numbered outcomes
+  (2, 4, and 6). If the conditional is material, its probability is
+  $\frac{4}{6}$, because it is true whenever the outcome is odd (1, 3, or 5) or
+  a 6.
 \end{solution}
 
-Even those who defend the material analysis of English conditionals admit that
-it does not work for all English conditionals. Consider (2).
-\begin{enumerate}[leftmargin=10mm]
-\item[(2)] If water is heated to $100^\circ$ C, it evaporates.
-\end{enumerate}
-This shouldn't be translated as $p\to q$. Intuitively, (2) states that \emph{in
-  all (normal) cases} where water is heated to $100^\circ$ C, it evaporates. It
-is a quantified, or modal claim.
+\begin{exercise}
+  Some have argued that natural-language conditionals are truth-functional, but
+  three-valued: depending on the truth-values of $A$ and $B$, `if $A$ then $B$'
+  can be true, false, or neither. For which combinations of truth-values of $A$
+  and $B$ might one think that `if $A$ then $B$' is neither true nor false?
+\end{exercise}
+\begin{solution}
+  The standard three-valued analysis assumes that `if $A$ then $B$' is false
+  whenever $A$ is true and $B$ false, true whenever $A$ and $B$ are both true,
+  and neither true nor false when $A$ is false.
+\end{solution}
 
-Another important class of conditionals that can't be analysed as material
-conditionals are so-called \textbf{subjunctive conditionals}. Compare the
-following two statements.
-
-\begin{enumerate}[leftmargin=10mm]
-  \itemsep-1mm
-\item[(3)] If Shakespeare didn't write \emph{Hamlet}, then someone else did.
-\item[(4)] If Shakespeare hadn't written \emph{Hamlet}, then someone else
-  would have.
-\end{enumerate}
-%
-(3) seems true. Someone has written \emph{Hamlet}; if it wasn't Shakespeare then
-it must have been someone else. But (4) is almost certainly false. After all, it
-is very likely that Shakespeare did write \emph{Hamlet}. And it is highly
-unlikely that if he hadn't written \emph{Hamlet} -- if he got distracted by
-other projects, say -- then someone else would have stepped in to write the
-exact same piece.
-
-Sentences like (3) are called \textbf{indicative conditionals}. Intuitively, an
-indicative conditional states that something is \emph{in fact} the case on the
-assumption that something else is the case. A subjunctive conditional like (4)
-states that something \emph{would be} the case if something else \emph{were} the
-case. Typically we know that the ``something else'' is not in fact the case. We
-know, for example, that Shakespeare wrote \emph{Hamlet} and therefore that the
-antecedent of (4) is false. For this reason, subjunctive conditionals are also
-called \emph{counterfactual conditionals} or simply \emph{counterfactuals}.
-
-It should be clear that subjunctive conditionals are not material conditionals.
-I said that (4) is almost certainly false. But it almost certainly has a false
-antecedent. So the corresponding material conditional is almost certainly true.
+% \begin{exercise}
+%   Can you find a different analysis of English conditionals that, like the
+%   material analysis, would make conditionals truth-functional, but that would
+%   render all of (E1)--(E5) invalid?
+% \end{exercise}
+% \begin{solution}
+%   (E1)--(E5) are invalid assuming that `if $A$ then $B$' is true iff both $A$
+%   and $B$ are true.
+% \end{solution}
 
 \section{Strict conditionals}\label{sec:strict-implication}
 
 % On the history see http://hume.ucdavis.edu/mattey/phi134/strict.htm
 
-One apparent difference between material conditionals $A \to B$ and conditionals
-in natural language is that $A\to B$ requires no connection between the
-antecedent $A$ and the consequent $B$. Consider (1).
+The truth of a material conditional requires no connection between the
+antecedent and the consequent. By contrast, English conditionals usually convey
+that there is some such connection. Consider (1).
 \begin{enumerate}[leftmargin=10mm]
   \item[(1)] If we leave after 5, we will miss the train.
 \end{enumerate}
-Intuitively, someone who utters (1) wants to convey that missing the train
-is a \emph{necessary consequence} of leaving after 5 -- that it is \emph{impossible} to
-leave after 5 and still make it to the train, given certain facts about the
-distance to the station, the time it takes to get there, etc. This suggests that
-(1) should be formalized not as $p \to q$ but as $\Box(p \to q)$ or,
-equivalently, $\neg \Diamond(p \land \neg q)$.
+Intuitively, an utterance of (1) claims that missing the train is a
+\emph{necessary consequence} of leaving after 5 -- that it is \emph{impossible}
+to leave after 5 and still catch the train, given certain facts about the
+distance to the station, the time it takes to get there, etc.
+
+This suggests that (1) should be formalized not as $p \to q$ but as
+$\Box(p \to q)$ or, equivalently, $\neg \Diamond(p \land \neg q)$.
 
 Sentences that are equivalent to $\Box(A \to B)$ are called \textbf{strict
   conditionals}. The label goes back to C.I.\ Lewis (1918), who also introduced
@@ -170,7 +181,7 @@ the language. $p \strictif (q \strictif p)$ is well-formed, whereas
 $p \models (q\models p)$ is gibberish. Moreover, while $p \models q$ is simply
 false -- because there are models in which $p$ is true and $q$ false -- Lewis's
 $p \strictif q$ is true on some interpretation of the sentence letters and false
-on others. If $p$ means that it raining heavily and $q$ that it is raining, then
+on others. If $p$ means that it is raining heavily and $q$ that it is raining, then
 $p \strictif q$ is true because the hypothesis that it is raining heavily
 implies that it is raining.
 
@@ -182,9 +193,9 @@ let's have a closer look at the logic of strict conditionals.
 Since $A \strictif B$ is equivalent to $\Box(A \to B)$, standard Kripke
 semantics for the box also provides a semantics for strict conditionals. In
 Kripke semantics, $\Box(A \to B)$ is true at a world $w$ iff $A \to B$ is true
-at all worlds $v$ accessible from $w$. And $A \to B$ is true at $v$ iff 
-$A$ is false at $v$ or $B$ is true at $v$. We therefore have the following
-truth-conditions for strict conditionals.
+at all worlds $v$ accessible from $w$. We also know that $A \to B$ is true at
+$v$ iff $A$ is false at $v$ or $B$ is true at $v$. We therefore have the
+following truth-conditions for strict conditionals.
 
 \begin{definition}{Kripke semantics for $\strictif$}{semstrictif}
   If $M = \t{W,R,V}$ is a Kripke model, then\\[1mm]
@@ -241,11 +252,10 @@ If we assume that the accessibility relation is reflexive, the tree closes:
 It is not hard to show that \emph{modus ponens} for $\strictif$ is valid on all
 and only the reflexive frames. Reflexivity is precisely what we need to render
 \emph{modus ponens} valid. Since \emph{modus ponens} looks plausible for English
-conditionals (as I've argued on p.~\pageref{p:mp}), we'll probably want the
-relevant Kripke models to be reflexive.
+conditionals, we'll probably want the relevant Kripke models to be reflexive.
 
 \begin{exercise}\label{ex:sda-import}
-  Using the tree method, and translating $A \strictif B$ into $\Box(A \to B)$, confirm that following claims hold, for all $A,B,C$.
+  Using the tree method, and translating $A \strictif B$ into $\Box(A \to B)$, confirm that the following claims hold, for all $A,B,C$.
   \begin{exlist}
   \item $\models_K A \strictif A$
   \item $A \strictif B \models_K \neg B \strictif \neg A$
@@ -261,13 +271,13 @@ relevant Kripke models to be reflexive.
   \medskip
 
   Which of these schemas do you think should be valid if we
-  assume that $A \strictif B$ translates indicative conditionals `if $A$ then $B$'?
+  assume that $A \strictif B$ translates `if $A$ then $B$'?
 \end{exercise}
 \begin{solution}
   Use \href{https://www.umsu.de/trees/}{umsu.de/trees/}.
 \end{solution}
 
-% Note: if epistemic, then maybe S4.2; if subjunctive, then maybe 5??
+% Note: if epistemic, then maybe S4.2; if subjunctive, maybe 5??
 
 We could now look at other conditions on the accessibility relation and decide
 whether they should be imposed, based on what they would imply for the logic of
@@ -282,17 +292,16 @@ When I say that it is impossible to leave after 5 and still make it to the
 train, I arguably mean that it is impossible \emph{given what we know about the
   departure time, our location, etc.}
 
-Generalizing, a tempting proposal is that the accessibility relation that is
-relevant for indicative conditionals like (1) is the epistemic accessibility
-relation that we studied in chapter \ref{ch:epistemic}, where a world $v$ is
-accessible from $w$ iff it is compatible with what is known at $w$. On that
-hypothesis, the logic of indicative conditionals is determined by the logic
-of epistemic necessity. We don't need to figure out the relevant accessibility
-relation from scratch.
+Generalizing, a tempting proposal is that the accessibility relation relevant
+for conditionals like (1) is the epistemic accessibility relation that we
+studied in chapter \ref{ch:epistemic}, where a world $v$ is accessible from $w$
+iff it is compatible with what is known at $w$. On that hypothesis, the logic of
+conditionals is determined by the logic of epistemic necessity. We don't need to
+figure out the relevant accessibility relation from scratch.
 
 Since knowledge varies from agent to agent, the present idea implies that the
-truth-value of indicative conditionals should be agent-relative. This seems to
-be confirmed by the following puzzle, due to Allan Gibbard.
+truth-value of conditionals should be agent-relative. This seems to be confirmed
+by the following puzzle, due to Allan Gibbard.
 \begin{quote}
   Sly Pete and Mr.\ Stone are playing poker on a Mississippi riverboat. It is
   now up to Pete to call or fold. My henchman Zack sees Stone’s hand, which is
@@ -319,11 +328,11 @@ worlds at which Pete loses. Relative to Jack's information state,
 $p \strictif \neg q$ is true.
 
 Another advantage of the ``epistemically strict'' interpretation is that it
-might explain why indicative conditionals with antecedents that are known to be
-false seem defective. For example, imagine a scenario in which Jones has gone to
-work. In that scenario, is (2) true or false?
+might explain why conditionals with antecedents that are known to be false often
+seem defective. For example, imagine a scenario in which Jones has gone to work.
+In that scenario, is (2) true or false?
 \begin{enumerate}[leftmargin=10mm]
-  \item[(2)] If Jones has not gone to work then he is helping his neighbours.
+  \item[(2)] If Jones has not gone to work, he is helping his neighbours.
 \end{enumerate}
 The question is hard to answer -- and not because we lack information about the
 scenario. Once we are told that Jones has gone to work, it is unclear how we are
@@ -332,37 +341,21 @@ gone to work. On the epistemically strict interpretation, (2) says that Jones is
 helping his neighbours at all epistemically accessible worlds at which Jones
 hasn't gone to work. Since we know that Jones has gone to work, there are no
 epistemically accessible worlds at which he hasn't gone to work. And if there
-are no $A$-worlds then we naturally balk at the question whether all $A$-worlds
+are no $A$-worlds, we naturally balk at the question whether all $A$-worlds
 are $B$-worlds. (In logic, we resolve to treat `all $A$s are $B$' as true if
 there are no $A$s. Accordingly, (2) comes out true on the epistemically strict
 analysis. But we can still explain why it seems defective.)
 
-We have found a promising alternative to the hypothesis that indicative
-conditionals are material conditionals. According to the present alternative,
-they are epistemically strict conditionals -- strict conditionals with an
-epistemic accessibility relation.
+So perhaps English conditionals should be understood not as material
+conditionals, but as ``epistemically strict'' conditionals -- strict
+conditionals with an epistemic accessibility relation.
 
-What about subjunctive conditionals? Return to the two Shakespeare conditionals
-from the previous section. When we evaluate the indicative sentence -- `If
-Shakespeare didn't write \emph{Hamlet}, then someone else did' -- we hold fixed
-our knowledge that \emph{Hamlet} exists; worlds where the play was never written
-are inaccessible. That's why the conditional is true. At all accessible worlds
-at which Shakespeare didn't write \emph{Hamlet}, someone else wrote the play.
-When we evaluate the subjunctive conditional -- `If Shakespeare hadn't written
-\emph{Hamlet}, then someone else would have' -- we do consider worlds at which
-\emph{Hamlet} was never written, even though we know that the actual world is
-not of that kind. If subjunctive conditionals are strict conditionals, then
-their accessibility relation does not track our knowledge or information.
-Unfortunately, as we are going to see in the next section, it is hard to say
-what else it could track.
-
-This is one problem for the strict analysis of natural-language conditionals.
-Another problem lies in the logic of strict conditionals. Remember (E1)--(E5)
+As you might expect, there are also problems with this proposal. Remember (E1)--(E5)
 from page \pageref{paradoxes-mat-imp}. If English conditionals are strict
 conditionals, then (E1)--(E3) are invalid. For example, while $q$ entails
-$p \to q$, it does not entail $p \strictif q$. But the strict analogs of
-\pr{M4} and \pr{M5} still hold, no matter what we say about accessibility (see
-exercise \ref{ex:sda-import}):
+$p \to q$, it does not entail $p \strictif q$. But the strict analogs of \pr{M4}
+and \pr{M5} still hold, no matter what we say about accessibility (see exercise
+\ref{ex:sda-import}):
 \begin{gather*}
   A \strictif B \models \neg B\strictif \neg A;\\
   A \strictif B \models (A\land C) \strictif  B.
@@ -377,26 +370,6 @@ So we still predict that the inferences (E4) and (E5) are valid.
   \item[(E5)] If you add sugar to your coffee, it will taste good. Therefore: If
         you add sugar and vinegar to your coffee, it will taste good.
 \end{enumerate}
-
-\begin{exercise}
-  The badness of (E4) and (E5) suggests that indicative conditionals can't be
-  analysed as strict conditionals. Can you give a similar argument suggesting
-  that \emph{subjunctive} conditionals can't be analysed as strict conditionals?
-\end{exercise}
-\begin{solution}
-  (E1)--(E5) all work equally well in the subjunctive mood. For \pr{E4} and
-  \pr{E5}:
-  \begin{itemize}
-  \item If our opponents had been cheating, we would never have found out.
-    Therefore: If we had found out that our opponents are cheating, then
-    they wouldn't have been cheating.
-  \item If you had added sugar to your coffee, it would have tasted
-    good. Therefore: If you had added sugar and vinegar to your coffee, it would
-    have tasted good.
-  \end{itemize}
-  Both of these inferences are valid if subjunctive conditionals are strict
-  conditionals. But they don't sound good.
-\end{solution}
 
 % Another problem: subjunctive mights. Might if A then B doesn't seem to mean
 % $\Diamond\Box(A \to B)$, nor $\Box(A \to \Diamond B)$.
@@ -425,6 +398,11 @@ So we still predict that the inferences (E4) and (E5) are valid.
 % logic SC is strictly stronger than VC.
 
 \begin{exercise}
+  Explain why the problem from Exercise~\ref{ex:probcond} also affects the
+  epistemically strict analysis of conditionals.
+\end{exercise}
+
+\begin{exercise}\label{ex:assertable}
   A plausible norm of pragmatics is that a sentence should only be asserted if
   it is known to be true. Let's call a sentence \emph{assertable} if it is known
   to be true. Show that if the logic of knowledge is at least S4, then an
@@ -447,8 +425,9 @@ So we still predict that the inferences (E4) and (E5) are valid.
   the previous exercise.)
 \end{exercise}
 \begin{solution}
-  The `or-to-if' inference is not valid on the assumption that the conditional
-  is epistemically strict. For example, if $p$ and $q$ are both true at the actual world and both false at some epistemically accessible world, then `$p$ or $q$' is true but `if $p$ then $q$' is false (on the strict analysis).
+  Assume $p$ and $q$ are both true at the actual world and both false at some
+  epistemically accessible world. Then `$p$ or $q$' is true and (on the strict
+  analysis) `if not $p$ then $q$' is false. So the inference is invalid.
 
   The inference might nonetheless look reasonable because it would normally be
   inappropriate to assert a disjunction `$p$ or $q$' unless the disjunction is
@@ -461,75 +440,120 @@ So we still predict that the inferences (E4) and (E5) are valid.
   any situation in which the premise is assertable.
 \end{solution}
 
-  
+
 \section{Variably strict conditionals}
 
-Let's have a closer look at subjunctive conditionals. As I am writing these
-notes, I am sitting in Coombs Building, room 2228, with my desk facing
-the wall to Al H\'ajek's office in room 2229. In light of these facts, (1) seems
-true.
-\begin{enumerate}[leftmargin=10mm]
-\item[(1)] If I were to drill a hole through the wall behind my desk,
-  the hole would come out in Al's office.
-\end{enumerate}
-% This example is meant to get around some of Al's worries.
-There is no logical connection between the antecedent of (1) and the consequent.
-There are many possible worlds at which I drill a hole through the wall behind
-my desk and don't reach Al's office -- for example, worlds at which my desk
-faces the opposite wall, worlds at which Al's office is in a different room, and
-so on. If (1) is a strict conditional then all such worlds must be inaccessible.
+So far, we've focussed on so-called \textbf{indicative conditionals}. Another
+important type of conditional are \textbf{subjunctive conditionals}.
+Compare the following two statements.
 
-Now consider (2).
 \begin{enumerate}[leftmargin=10mm]
-\item[(2)] If the office spaces had been randomly reassigned yesterday then Al's
-  office would (still) be next to mine.
+  \itemsep-1mm
+\item[(2)] If Shakespeare didn't write \emph{Hamlet}, someone else did.
+\item[(3)] If Shakespeare hadn't written \emph{Hamlet}, someone else would have.
 \end{enumerate}
-(2) seems false, or at least very unlikely. But if (2) is a strict conditional,
-and worlds at which Al is not in room 2229 or I am not in 2228 are inaccessible
--- as they seem to be for (1) -- then (2) should be true. Among worlds at which
-I am in 2228 and Al is in 2229, all worlds at which the office spaces have been
-randomly reassigned yesterday are worlds at which Al's office is next to mine.
-When we evaluate (2), it looks like we no longer hold fixed who is in which
-office. Worlds that were inaccessible for (1) are accessible for (2).
+%
+(2) seems true. Someone has written \emph{Hamlet}; if it wasn't Shakespeare,
+it must have been someone else. But (3) is almost certainly false. After all, it
+is very likely that Shakespeare did write \emph{Hamlet}. And it is highly
+unlikely that if he hadn't written \emph{Hamlet} -- if he got distracted by
+other projects, say -- then someone else would have stepped in to write the
+exact same piece.
 
-So the accessibility relation, at least for subjunctive conditionals, appears to
-vary from conditional to conditional. As David Lewis put it, subjunctive
-conditionals seem to be not strict, but ``variably strict''.
+(2) is an indicative conditional. Intuitively, an indicative conditional states
+that something is \emph{in fact} the case on the assumption that something else
+is the case. A subjunctive conditional like (3) states that something
+\emph{would be} the case if something else \emph{were} the case. Normally, we
+know that the ``something else'' is not in fact the case. We know, for example,
+that Shakespeare wrote \emph{Hamlet} and therefore that the antecedent of (3) is
+false. For this reason, subjunctive conditionals are also called
+\emph{counterfactual conditionals} or simply \emph{counterfactuals}.
+
+Since (2) is true and (3) false, subjunctive conditionals and indicative
+conditionals must have a different meaning. Indeed, it is clear that (3) is
+neither a material conditional nor an epistemically strict conditional: both of
+these readings would render (3) true.
+
+\begin{exercise}
+  The badness of (E4) and (E5) suggests that indicative conditionals can't be
+  analysed as strict conditionals. Can you construct similar examples suggesting
+  that subjunctive conditionals can't be analysed as strict conditionals?
+\end{exercise}
+\begin{solution}
+  (E1)--(E5) all work equally well in the subjunctive mood. For \pr{E4} and
+  \pr{E5}:
+  \begin{itemize}
+  \item If our opponents had been cheating, we would never have found out.
+    Therefore: If we had found out that our opponents are cheating, then
+    they wouldn't have been cheating.
+  \item If you had added sugar to your coffee, it would have tasted
+    good. Therefore: If you had added sugar and vinegar to your coffee, it would
+    have tasted good.
+  \end{itemize}
+  Both of these inferences are valid if subjunctive conditionals are strict
+  conditionals. But they don't sound good.
+\end{solution}
+
+To think about how we evaluate subjunctive conditionals, let's look at an example that's true.
+Suppose Jones has promised to hang up the laundry,
+and he does hang it up.
+The following is true:
+\begin{enumerate}[leftmargin=10mm]
+  \item[(4)] If Jones hadn't hung up the laundry, he would have broken a promise.
+\end{enumerate}
+There is no logical connection between the antecedent and the consequent of (4).
+There are possible worlds where Jones doesn't hang up the laundry without
+breaking any promise -- because he never made the promise. When we evaluate what
+would have happened if Jones hadn't hung up the laundry, we don't consider such
+worlds. We hold fixed his promise.
+
+This suggests that (4) expresses a strict conditional with an accessibility
+relation that excludes worlds at which the promise was never made. But what are
+the general rules for this accessibility relation?
+
+Consider (5).
+\begin{enumerate}[leftmargin=10mm]
+  \item[(5)] If Jones had gone on an expedition to the North Pole, he wouldn't have promised to hang up the laundry.
+\end{enumerate}
+This may also be true. When we evaluate (5), we don't hold fixed Jones's
+promise. Worlds where he doesn't make the promise are now accessible.
+
+So the accessibility relation for subjunctive conditionals appears to vary from
+conditional to conditional. As David Lewis put it, subjunctive conditionals seem
+to be not strict, but ``variably strict''.
 
 Let's try to get a better grip on how this might work. (What follows is a
 slightly simplified version of an analysis developed by Robert Stalnaker and
-David Lewis in the 1960s.)
+David Lewis in the 1960s. It is the most popular analysis of subjunctive conditionals.)
 
 Intuitively, when we ask what would have been the case if a certain event had
-occurred, we are looking at worlds that are much like the actual world up to the
-time of the event. Then these worlds deviate in some minimal way to allow the
-event to take place. Afterwards the worlds unfold in accordance with the general
-laws of the actual world.
+(or had not) occurred, we are considering worlds that are much like the actual
+world up to the time of the event. Then these worlds deviate in some minimal way
+to allow the event to occur (or not occur). Afterwards the worlds unfold in
+accordance with the general laws of the actual world.
 
-For example, if we wonder what would have happened if Shakespeare hadn't written
-\emph{Hamlet}, we are interested in worlds that are like the actual world until
-1599, at which point some mundane circumstances prevent Shakespeare from writing
-\emph{Hamlet}. We are not interested in worlds at which Shakespeare was never
-born, or in which the laws of nature are radically different from the laws at
-our world. One might reasonably judge that Shakespeare would have been a famous
-author even if he hadn't written \emph{Hamlet}, although we would hardly be
-famous in worlds in which he was never born.
+For example, when we wonder what would have happened if Shakespeare hadn't
+written \emph{Hamlet}, we are attending to worlds that are like the actual world
+until 1599, at which point some mundane circumstances prevent Shakespeare from
+writing \emph{Hamlet}. We are not interested in worlds at which Shakespeare was
+never born, or in which he was abducted by aliens. Plausibly, Shakespeare would
+have been a famous author even if he hadn't written \emph{Hamlet}, although he
+could hardly be famous in worlds in which he was never born.
 
-Likewise for (1). Here we are considering worlds that are much like the actual
-world up to now, at which point I decide to drill a hole and find a suitable
-drill. These changes do not require my office to be in a different room. Worlds
-where I'm not in room 2228 can be ignored. Figuratively speaking, such worlds
-are ``too remote'': they differ from the actual world in ways that are not
-required to make the antecedent true.
+Likewise for (4). Here we are considering worlds that are much like the actual
+world up to the point where Jones hangs up the laundry. Worlds where he never
+made the promise, perhaps because he has left for an arctic expedition, are
+ignored. Figuratively speaking, such worlds are ``too remote'': they differ from
+the actual world in ways that are not required to make the antecedent true.
 
 This suggests that a subjunctive conditional is true iff the consequent is true
 at the ``closest'' worlds at which the antecedent is true -- where ``closeness''
 is a matter of similarity in certain respects. The closest worlds (to the actual
-world) at which Shakespeare didn't write \emph{Hamlet} are worlds that almost
-perfectly match the actual world until 1599, then deviate a little so that
-Shakespeare didn't write Hamlet, and afterwards still resemble the actual world
-with respect to the general laws of nature. We will not try to spell out in full
-generality what the relevant closeness measure should look like.
+world) at which Shakespeare didn't write \emph{Hamlet} are worlds that match the
+actual world until 1599, then deviate a little so that Shakespeare didn't write
+Hamlet, and afterwards still resemble the actual world with respect to the
+general laws of nature. We will not try to spell out in full generality what the
+relevant closeness measure should look like.
 
 Let `$v \prec_w u$' mean that $v$ is closer to $w$ than $u$, in the sense that
 $v$ differs less than $u$ from $w$ in whatever respects are relevant to the
@@ -553,7 +577,7 @@ $\prec$.
 Asymmetric and quasi-connected relations are known as \textbf{weak orders}.
 Asymmetry is self-explanatory. Quasi-connectedness is more often called
 \emph{negative transitivity}, because it is equivalent to the assumption that if
-$t \not< s$ and $s\not<r$ then $t\not<r$. It ensures that the ``equidistance''
+$t \nprec s$ and $s\nprec r$ then $t\nprec r$. It ensures that the ``equidistance''
 relation that holds between $v$ and $u$ if neither $v \prec_w u$ nor
 $u \prec_w v$ is an equivalence relation. With these two assumptions, we can
 picture each world $w$ as associated with nested spheres of worlds;
@@ -587,10 +611,10 @@ $A$-worlds, with no world being maximally close.
   express the above three conditions on $\prec$ in terms of $\preceq$?
 \end{exercise}
 \begin{solution}
-  We have the following equivalences (using `$\Leftrightarrow$' to mean that the
+  We have the following equivalences (using `$\doubleleftright$' to mean that the
   expressions on either side are equivalent):
   \[
-    u \npreceq_w v \Leftrightarrow \neg (u \preceq_w v) \Leftrightarrow \neg(v \nprec_w u) \Leftrightarrow v \prec_w u.
+    u \npreceq_w v \doubleleftright \neg (u \preceq_w v) \doubleleftright \neg(v \nprec_w u) \doubleleftright v \prec_w u.
   \]
   So you can simply replace every instance of $\omega \prec_{w} \nu$ in the
   conditions by $\nu \npreceq_{w} \omega$, and every instance of
@@ -613,7 +637,7 @@ $A$-worlds, with no world being maximally close.
   and world $w$ there is a $v\in X$ such that $v \preceq_{w} u$ for all $u\in X$.
 \end{solution}
 
-We are going introduce a variably strict operator $\boxright$ so that
+We are going to introduce a variably strict operator $\boxright$ so that
 $A\boxright B$ is true at a world $w$ iff $B$ is true at the closest worlds to
 $w$ at which $A$ is true. Models for a language with the $\boxright$ operator
 must contain closeness orderings $\prec$ on the set of worlds.
@@ -633,7 +657,7 @@ must contain closeness orderings $\prec$ on the set of worlds.
 
 To formally state the semantics of $\boxright$, we can re-use a concept from
 section \ref{sec:oblig-circ}. Let $S$ be an arbitrary set of worlds, and let $w$
-be some world (that may or may nor be in $S$). It will be useful to have an
+be some world (that may or may not be in $S$). It will be useful to have an
 expression that picks out the most similar worlds to $w$, among all the worlds in
 $S$. This expression is $\mathrm{Min}^{\prec_w}(S)$, which we have defined as follows in
 section \ref{sec:oblig-circ}:
@@ -661,8 +685,8 @@ ordering model $M$,
 
 \medskip \noindent%
 The main difference is that conditional obligation is sensitive to an
-accessibility relation. If that relation is an equivalence relation then this
-makes no difference to the logic.
+accessibility relation. If that relation is an equivalence relation, this makes
+no difference to the logic.
 
 % Does quasi-connectedness make a difference to the logic? I haven't assumed it
 % for deontic ordering models!
@@ -676,10 +700,10 @@ variably strict. But again, these differences in interpretation don't affect the
 logic.
 
 Suppose we add the $\boxright$ operator to the language of standard
-propositional logic. The set of sentences in this language that are true at all
-worlds in all similarity models is known as \textbf{system V}. There are tree
-rules and axiomatic calculi for this system, but they aren't very user-friendly.
-We will only explore the system semantically.
+propositional logic. The set of sentences in the resulting language that are
+true at all worlds in all similarity models is known as \textbf{system V}. There
+are tree rules and axiomatic calculi for this system, but they aren't very
+user-friendly. We will only explore the system semantically.
 
 To begin, we can check whether \emph{modus ponens} is valid for $\boxright$. That is,
 we check whether the truth of $A$ and $A \boxright B$ at a world in a
@@ -690,7 +714,7 @@ Assume that $A$ and $A \boxright B$ are true at a world $w$. By definition
 closest $A$-worlds to $w$ (at all worlds in
 $\mathrm{Min}^{\prec_w}(\{u: M,u\models A\})$). The world $w$ itself is an
 $A$-world. If we could show that $w$ is among the closest $A$-worlds to itself
-then we could infer that $A$ is true at $w$.
+then we could infer that $B$ is true at $w$.
 
 Without further assumptions, however, we can't show this. If we want to validate
 \emph{modus ponens}, we must add a further constraint on our models: that every
@@ -722,7 +746,7 @@ The logic we get if we impose this constraint is \textbf{system VC}.
   $A$ is true at $w$, then $w$ is one of the closest $A$-worlds to $w$, by Weak
   Centring; so $B$ is true at $w$; and so $A\to B$ is true at $w$. Either way,
   then, $A\to B$ is true at $w$.
- \end{solution}
+\end{solution}
 
 \begin{exercise}
   Show that if $A$ is true at no worlds, then $A \boxright B$ is true.
@@ -736,8 +760,7 @@ The logic we get if we impose this constraint is \textbf{system VC}.
 
 None of the problematic inferences (E1)--(E5) are valid if the relevant
 conditionals are interpreted as variably strict. (E5), for example, would assume
-that $p \boxright r $ entails $(p \land q) \boxright r$. But it does not.
-We can
+that $p \boxright r $ entails $(p \land q) \boxright r$. But it does not. We can
 give a countermodel with two worlds
 \begin{wrapfigure}{r}{5cm}
   \vspace{-5mm}
@@ -745,25 +768,24 @@ give a countermodel with two worlds
   \begin{tikzpicture}[modal, world/.append style={minimum size=0.5cm}]
     \node[world] (w) [label=above:{$w$}] {$p,r$};
     \node[world] (v) [label=above:{$v$}, right=7mm of w] {$p,q$};
-    \node[circle, draw=gray, minimum size=20mm] at (w) (c) {};
-    \node[circle, draw=gray, minimum size=50mm] at (w) (c) {};
-    % \node[circle, draw=gray, minimum size=20mm] at (v) (c) {};
+    \node[circle, draw=gray, minimum size=20mm] at (w) (c1) {};
+    \node[circle, draw=gray, minimum size=50mm] at (w) (c2) {};
+    % \node[circle, draw=gray, minimum size=20mm] at (v) (c3) {};
   \end{tikzpicture}
   \vspace{-10mm}
 \end{wrapfigure}
-$w$ and $v$; $p$ is true at both worlds, $q$
-is true only at $v$, and $r$ only at $w$; if $w$ is closer
-to itself than $v$,
-then $p \boxright r$ is true at $w$ (because the closest $p$-worlds to $w$ are
-all $r$-worlds), but $(p \land q) \boxright r$ is false at $w$ (because the
-closest $(p\land q)$-worlds to $w$ aren't all $r$-worlds).
+$w$ and $v$; $p$ is true at both worlds, $q$ is true only at $v$, and $r$ only
+at $w$; if $w$ is closer to itself than $v$, then $p \boxright r$ is true at $w$
+(because the closest $p$-worlds to $w$ are all $r$-worlds), but
+$(p \land q) \boxright r$ is false at $w$ (because the closest
+$(p\land q)$-worlds to $w$ aren't all $r$-worlds).
 
 The diagram on the right represents this model. The circles around $w$ depict
 the similarity spheres. $w$ is closer to $w$ than $v$ because it is in the
 innermost sphere around $w$, while $v$ is only in the second sphere. (If $v$
 were also in the innermost sphere then the two worlds would be equally close to
 $w$. That's allowed.) In general, we can represent the assumption that a world $v$
-is closer to a world $w$ than a world $u$ ($v \prec_w u$) by putting $v$ is in a
+is closer to a world $w$ than a world $u$ ($v \prec_w u$) by putting $v$  in a
 closer sphere around $w$ than $u$. I have not drawn any spheres around $v$
 because it doesn't matter what these look like.
 
@@ -786,8 +808,8 @@ because it doesn't matter what these look like.
   \begin{tikzpicture}[modal, world/.append style={minimum size=0.5cm}]
     \node[world] (w) [label=above:{$w$}] {$q$};
     \node[world] (v) [label=above:{$v$}, right=7mm of w] {$p$};
-    \node[circle, draw=gray, minimum size=20mm] at (w) (c) {};
-    \node[circle, draw=gray, minimum size=40mm] at (w) (c) {};
+    \node[circle, draw=gray, minimum size=20mm] at (w) (c1) {};
+    \node[circle, draw=gray, minimum size=40mm] at (w) (c2) {};
   \end{tikzpicture}
   
   This model also shows that (E2) and (E3) are invalid.
@@ -802,16 +824,16 @@ because it doesn't matter what these look like.
   \begin{tikzpicture}[modal, world/.append style={minimum size=0.5cm}]
     \node[world] (w) [label=above:{$w$}] {$p,q$};
     \node[world] (v) [label=above:{$v$}, right=7mm of w] {$p$};
-    \node[circle, draw=gray, minimum size=20mm] at (w) (c) {};
-    \node[circle, draw=gray, minimum size=40mm] at (w) (c) {};
+    \node[circle, draw=gray, minimum size=20mm] at (w) (c1) {};
+    \node[circle, draw=gray, minimum size=40mm] at (w) (c2) {};
   \end{tikzpicture}
 \end{solution}
 
 The logic of variably strict conditionals is weaker than the logic of strict
-conditionals. Some have argued that it is too weak to explain our
-reasoning with conditionals. It is, for example, not hard to see that the
-following statements are all false. (The corresponding statements for
-$\strictif$ are true; see exercise \ref{ex:sda-import}.)
+conditionals. Some have argued that it is too weak to explain our reasoning with
+conditionals. For example, the following statements are all false. (The
+corresponding statements for $\strictif$ are true; see exercise
+\ref{ex:sda-import}.)
 \begin{enumerate}[leftmargin=10mm]
   \itemsep-1mm
 \item $p \boxright q, q \boxright r \models p \boxright r$
@@ -830,21 +852,21 @@ era subjunctive conditionals.
   Therefore, if Hoover had been born a Russian, he would be a traitor.
 \end{quote}
 
-\begin{exercise}
-  Can you find a case where `if $p$ or $q$ then $r$' does not appear to entail
-  `if $p$ then $r$' and `if $q$ then $r$'? You can use either indicative or
-  subjunctive conditionals. (Hint: Try to find a case in which `if $p$ or $q$
-  then $p$' sounds acceptable.)
-\end{exercise}
-\begin{solution}
-  Frances has never learnt a foreign language, although she would have loved to
-  learn French. If Frances had been given a choice between learning French and
-  learning Italian, she would have chosen French. \emph{If Frances had learned
-    French or Italian then she would have learned French.} It does not follow that
-  if Frances had learned Italian then she would have learned French.
+% \begin{exercise}
+%   Can you find a case where `if $p$ or $q$ then $r$' does not appear to entail
+%   `if $p$ then $r$' and `if $q$ then $r$'? You can use either indicative or
+%   subjunctive conditionals. (Hint: Try to find a case in which `if $p$ or $q$
+%   then $p$' sounds acceptable.)
+% \end{exercise}
+% \begin{solution}
+%   Frances has never learnt a foreign language, although she would have loved to
+%   learn French. If Frances had been given a choice between learning French and
+%   learning Italian, she would have chosen French. \emph{If Frances had learned
+%     French or Italian then she would have learned French.} It does not follow that
+%   if Frances had learned Italian then she would have learned French.
 
-  The same style of example works for indicative conditionals.
-\end{solution}
+%   The same style of example works for indicative conditionals.
+% \end{solution}
 
 % \begin{exercise}
 %   Are \emph{modus tollens} and contraposition valid for $\boxright$? That is,
@@ -891,7 +913,7 @@ about.
     $M$. So all the closest $A$-worlds to $w$ are $(B\lor C)$-worlds. If there
     are no $A$-worlds then $A \boxright B$ and $A \boxright C$ are both true. If
     there are $A$-worlds then Stalnaker's semantics implies that there is a
-    unique closest $A$-world $v$ to $w$. Since $B\lor C$ is true at $v$, either $B$ or $C$ must be true at $v$. So either $B$ is true at all closest $A$-worlds to $w$ or $C$ is true at all closest $A$-worlds to $v$.
+    unique closest $A$-world $v$ to $w$. Since $B\lor C$ is true at $v$, either $B$ or $C$ must be true at $v$. So either $B$ is true at all closest $A$-worlds to $w$ or $C$ is true at all closest $A$-worlds to $w$.
   \end{sollist}
 \end{solution}
 
@@ -904,7 +926,7 @@ Lewis therefore gives a more complicated semantics:
 \begin{quote}
   $M,w \models A \boxright B$ iff either there is no $v$ for
   which $M,v\models A$ or there is some world $v$ such that
-  $M,v\models A$ and for all $u \prec_w v$, $M,w \models A \to B$.
+  $M,v\models A$ and for all $u \prec_w v$, $M,u \models A \to B$.
 \end{quote}
 %
 It turns out that it makes no difference to the logic whether we impose the
@@ -1194,7 +1216,7 @@ true. The correct translation of (5) is plausibly $\Diamond(p \land q)$. The
 sentence is true iff there is an epistemically accessible world at which the
 lights are on and Ada is in her office.
 
-As before, we can understand what is going if we assume that the `if'-clause in
+As before, we can understand what is going on if we assume that the `if'-clause in
 (4) and (5) functions as a restrictor. The `if'-clause restricts the domain of
 worlds over which `must' and `might' quantify. (4) says that \emph{among
   epistemically possible worlds at which the lights are on}, all worlds are
@@ -1242,7 +1264,7 @@ of conditional obligation.
   \item[(6)] Jones ought to help his neighbours.
   \item[(7)] If Jones doesn't help his neighbours, he ought to not tell them that he's coming.
 \end{enumerate}
-In chapter \ref{ch:deontic}, we analyzed `ought' as a quantifier over the best
+In chapter \ref{ch:deontic}, we analysed `ought' as a quantifier over the best
 of the circumstantially accessible worlds. On this approach, (6) says that among
 the accessible worlds, all the best ones are worlds at which Jones helps his
 neighbours. Suppose the `if'-clause in (7) serves to restrict the domain of
@@ -1253,13 +1275,13 @@ his neighbours that he's coming. This can't be expressed by combining the
 monadic $\Ob$ quantifier with truth-functional connectives. Hence we had to
 introduce a primitive binary operator $\Ob(\cdot/\cdot)$.
 
-% As Richmond Thomason argued in 1981, A proper theory of conditional
+% As Richmond Thomason argued in 1981, a proper theory of conditional
 % obligation \ldots will be the product of two separate components: a
 % theory of the conditional and a theory of obligation.
 
 The upshot of all this is that we can make sense of a wide range of puzzling
 phenomena by assuming that `if'-clauses are restrictors. Their function is to
-restrict the domain or worlds or times over which modal operators quantify.
+restrict the domain of worlds or times over which modal operators quantify.
 
 What, then, is the purpose of `if'-clauses in ``bare'' conditionals like (8) and
 (9), where there are no modal operators to restrict?
@@ -1275,7 +1297,7 @@ Angelika Kratzer, is that even bare conditionals contain modal operators.
 Arguably, `would' in (9) functions as a kind of box. If this box is a simple
 quantifier over circumstantially accessible worlds, and the `if'-clause in (9)
 restricts its domain, then (9) can be formalized as $\Box(p \to q)$. If, on the
-other hand, `would' in (9) works more light `ought' -- if it quantifyies over the
+other hand, `would' in (9) works more like `ought' -- if it quantifies over the
 \emph{closest} of the accessible worlds --, and the `if'-clause restricts the
 domain of accessible worlds, then the resulting truth-conditions are those of
 $p \boxright q$. Both the strict and the variably strict analysis of (9) are
