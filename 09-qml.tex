@@ -89,20 +89,20 @@ $\L_P$-sentence a `formula'.)
 \begin{exercise}
   Translate the following sentences into $\L_P$.
   \begin{exlist}
-  \item Keren and Keziah are sisters of Jemima.
   \item All myriapods are oviparous.
   \item Fred has a new car.
   \item Not every student loves logic.
   \item Every student who loves logic loves something.
+  \item If a farmer owns a donkey, he beats it.
   \end{exlist}
 \end{exercise}
 \begin{solution}
   \begin{sollist}
-  \item $Srj \land Skj$; \qquad $r$: Keren, $k$: Keziah, $j$: Jemima, $S$: -- is a sister of --
   \item $\forall x (Mx \to Ox)$; \qquad $M$: -- is a myriapod, $O$: -- is oviparous 
   \item $\exists x (Cx \land Nx \land Hfx)$; \qquad $f$: Fred, $C$: -- is a car, $N$: -- is new, $H$: -- has --
   \item $\neg\forall x (Sx \to Lxl)$; \qquad $l$: logic; $S$: -- is a student, $L$: -- loves --
   \item $\forall x ((Sx \land Lxl) \to \exists y Lxy)$; \qquad $l$: logic; $S$: -- is a student, $L$: -- loves --
+  \item $\forall x \forall y((Fx \land Dy \land Oxy) \to Bxy)$; \qquad $F$: -- is a farmer, $D$: -- is a donkey, $O$: -- owns --, $B$: -- beats --
   \end{sollist}
 \end{solution}
 
@@ -470,12 +470,12 @@ perspective on models.
   worlds.
 
   (b) Let $M_1$ be a model with a single world that can see itself. Let $M_{2}$
-  be a model with two worlds, each of which can see the other but not itself. In
-  both models, all sentence letters are false at all worlds. The very same
-  $\L_M$-sentences are true at all worlds in these models (as a simple proof by
-  induction shows). But the first model is reflexive and the second isn't. So
-  there is no $\L_{M}$-question that is true at a world in a model iff the
-  model's accessibility relation is reflexive.
+  be a model with two worlds, each of which can see the other but not itself.
+  Let all sentence letters be false at all worlds in both models. It follows
+  that the very same $\L_M$-sentences are true at all worlds in these models (as
+  a simple proof by induction shows). But the first model is reflexive and the
+  second isn't. So there is no $\L_{M}$-question that is true at a world in a
+  model iff the model's accessibility relation is reflexive.
 \end{solution}
 
 % \begin{exercise}

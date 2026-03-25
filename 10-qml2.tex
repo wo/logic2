@@ -1,4 +1,4 @@
-\chapter{Semantics for Modal Predicate Logic}\label{ch:qml2}
+\chapter{Modal Predicate Logic}\label{ch:qml2}
 
 \section{Constant domain semantics}\label{sec:constantdomainsemantics}
 
@@ -25,13 +25,11 @@ want to know which statements are \emph{logically true} or \emph{valid}, meaning
 that they are true in any conceivable scenario, under any interpretation of the
 non-logical expressions (but holding fixed the meaning of the modal operators).
 
-We use models to represent a scenario together with an interpretation of the
-non-logical vocabulary. A model for $\L_{M\!P}$ contains just enough information
-about a scenario and an interpretation to determine, for every
-$\L_{M\!P}$-sentence and every world, whether the sentence is true at that
-world.
+This is where the concept of models comes in. A model contains just enough
+information about a scenario and an interpretation to determine, for every
+sentence and every world, whether the sentence is true at that world.
 
-The non-logical vocabulary of $\L_{M\!P}$ are the names and the predicates (with
+The non-logical vocabulary of $\L_{M\!P}$ consists of its names and predicates (with
 the exception of the identity predicate `='). Let's assume, for now, that the
 purpose of a name is simply to pick out an individual. Intuitively, a predicate
 picks out a property or relation. In non-modal predicate logic, we could
@@ -40,7 +38,7 @@ individuals (or tuples of individuals) to which they apply. In modal predicate
 logic, we typically want to allow for scenarios in which an individual
 has different properties at different worlds. In one world, Aristotle might be a
 sailor, in another he might be a shoemaker. If $F$ expresses the property of
-being a sailor, then the set of individuals to whom $F$ applies will differ from
+being a sailor, the set of individuals to whom $F$ applies will differ from
 world to world. To determine the truth-value of $Fa$ at a world, we need to know
 to which individuals $F$ applies \emph{at that world}. A model's interpretation
 function will therefore assign a set of (tuples of) individuals to each
@@ -68,7 +66,7 @@ To determine the truth-value of arbitrary $\L_{M\!P}$-sentences, we need some
 more information. As it stands, we can't tell whether (say) $\forall x Fx$ is
 true at $w$. Informally, $\forall x Fx$ says that every individual is $F$. We
 know that Aristotle and Boethius are $F$ at $w$. But we don't know if there are
-other individuals besides Aristotle and Boethius. If yes, then $\forall x Fx$ is
+other individuals besides Aristotle and Boethius. If yes, $\forall x Fx$ is
 false at $w$. If no, the sentence is true. We therefore assume that a model for
 $\L_{M\!P}$ also specifies a domain of individuals.
 
@@ -101,7 +99,7 @@ whether any given $\L_{M\!P}$-sentence is true at a world in a model.
 
 In fact, truth will be defined relative to three parameters: a model, a world,
 and an assignment function. The assignment function plays the same role as in
-non-modal predicate logic. $\forall x \Diamond Fx$, for example, is true at a
+non-modal predicate logic. $\exists x \Diamond Fx$, for example, is true at a
 world $w$ in a model iff there is some assignment of an individual to $x$ that
 renders $\Diamond Fx$ true at $w$. We continue to use $[\tau]^{M,g}$ for the
 individual picked out by a term (name or variable) $\tau$ relative to a model
@@ -261,10 +259,10 @@ after Ruth Barcan Marcus.
   true at $w$ relative to $g$.
 
   We've shown that whenever $\forall x \Box A$ is true at some world $w$ in some
-  model $M$ relative some assignment $g$, then $\Box A \forall x A$ is also true
+  model $M$ relative to some assignment $g$, then $\Box \forall x A$ is also true
   at $w$ in $M$ relative to $g$. By clause (f) of definition
   \ref{def:constantdomainsemantics}, it follows that
-  $\forall x \Box A \to\Box A \forall x A$ is true at every world in every model
+  $\forall x \Box A \to\Box \forall x A$ is true at every world in every model
   relative to every assignment. \qed
 \end{proof}
 
@@ -413,6 +411,8 @@ schemas and rules of classical predicate logic with those of K, and add two new
 schemas: the Barcan Formula \pr{BF} and the ``necessity of distinctness'',
 %
 \principle{ND}{\forall x \forall y(x\!\not=\!y \to \Box x\!\not=\!y).}
+%
+The resulting calculus is sound and complete for CK-validity.
 
 % (BF) is provable if we have the B-schema. The proof (due to Prior) is
 % surprisingly difficult.
@@ -451,7 +451,7 @@ schemas: the Barcan Formula \pr{BF} and the ``necessity of distinctness'',
 % \end{solution}
 
 As I mentioned above, stronger logics can be defined by putting constraints on
-the accessibility relation. For example, the system \textbf{CT} is the set of
+the accessibility relation. The system \textbf{CT} is the set of
 $\L_{M\!P}$-sentences that are valid in the class of constant-domain 
 models with a reflexive accessibility relation. \textbf{CS4} is the set of
 $\L_{M\!P}$-sentences that are valid in the class of constant-domain 
@@ -461,7 +461,7 @@ Properties of the accessibility relation still correspond to modal schemas, just
 as in chapter \ref{ch:accessibility}: \pr{T} corresponds to reflexivity, \pr{4}
 to transitivity, \pr{G} to convergence, etc. Recall that a schema
 \emph{corresponds} to a property of the accessibility relation if the schema is
-valid in all and only the frames in which the accessibility relation has that
+valid on all and only the frames whose accessibility relation has that
 property. A \emph{frame} is a model without an interpretation function. In the
 present context, a frame therefore consists of two non-empty sets $W$ and $D$ and a
 relation $R$ on $W$.
@@ -512,7 +512,7 @@ Earlier today I was baking bread. Let's call the loaf of bread that I made
 Loafy. Intuitively, Loafy could have failed to exist. I could have decided not
 to bake bread. Even if determinism is true, we can consider worlds at which the
 laws of nature or the origin of the universe are different. In many of these
-worlds, there are no humans, and no loafs of bread. So we should allow for
+worlds, there are no humans, and no loaves of bread. So we should allow for
 worlds at which Loafy doesn't exist.
 
 If we use $b$ as a name for Loafy, we can arguably express Loafy's existence as
@@ -534,8 +534,8 @@ A converse problem arises if we think that something could have existed that
 doesn't actually exist. For example, let's assume that there could have been
 unicorns. If we interpret the predicate $U$ as `-- is a unicorn' and the box as
 a suitable kind of circumstantial necessity, $\Box \forall x \neg Ux$ should
-then be false. But let's also assume that no individual in our world could have
-been a unicorn. So $\forall x \Box \neg Ux$ is true. We then have a
+be false. But let's also assume that no individual in our world could have
+been a unicorn. So $\forall x \Box \neg Ux$ is true. We now have a
 counterexample to the Barcan Formula $\forall x \Box A \to \Box \forall x A$.
 And all instances of the Barcan Formula are valid in constant-domain semantics.
 
@@ -742,7 +742,7 @@ individuals that exist at some world or other does not vary from world to world.
 % actual \emph{could} be a unicorn, and so $u$ is a non-actual possible.''
 % (p.72)
 
-One  downside of the possibilist interpretation is that it goes against the
+A  downside of the possibilist interpretation is that it goes against the
 ``internalist'' spirit of modal logic. As we saw in section \ref{sec:fragment},
 one of the key features of modal logic is that it looks at the structure of
 worlds from the inside, from the perspective of a particular world, with only
@@ -750,7 +750,7 @@ the modal operators providing (incomplete) access to other worlds.  Possibilist
 quantifiers would provide unrestricted access to the inhabitants of other
 worlds.
 
-Let's set aside these alternatives and see how constant-domain semantics could
+Let's set aside these alternatives and see how our semantics could
 be changed to allow for variable domains.
 
 \section{Variable-domain semantics}\label{sec:variabledomains}
@@ -770,7 +770,7 @@ Here is our revised definition of an $\L_{M\!P}$-model.
   \begin{compactenum}
   \item a non-empty set $W$ (the ``worlds''),
   \item a binary (``accessibility'') relation $R$ on $W$,
-  \item for each world $w$, a non-empty set $D_w$ (of ``individuals''), and
+  \item a function $D$ mapping each world $w$ to a non-empty set $D_w$ (of ``individuals''), and
   \item an interpretation function $V$ that assigns
     \vspace{-1mm}
     \begin{itemize}
@@ -787,12 +787,12 @@ interpreted relative to any given world in a variable-domain model. This raises
 a problem.
 
 Since Loafy could have failed to exist, we want to have models in which
-$\Diamond \neg \exists x\, {x\!=\!b}$ is true at some world $w$. It follows that
-$\neg \exists x\, x\!=\!b$ is true at some world $v$ accessible from $w$.
-Intuitively, $v$ is a world at which Loafy doesn't exist. The problem is that we
-need to explain how a sentence that contains a name (here, $b$) should be
-interpreted at a world (here, $v$) where the thing that's picked out by the name
-doesn't exist.
+$\Diamond \neg \exists x\, {x\!=\!b}$ is true at some world $w$. So
+$\neg \exists x\, x\!=\!b$ should be true at some world $v$ accessible from $w$
+-- a world $v$ where Loafy doesn't exist. The problem
+is that we need to explain how a sentence that contains a name (here, $b$)
+should be interpreted at a world (here, $v$) where the thing that's picked out
+by the name doesn't exist.
 
 In the case of $\neg \exists x\, x\!=\!b$, the sentence should come out true.
 Other cases are less clear. What about $b\!=\!b$? Is Loafy identical to Loafy at
@@ -802,7 +802,7 @@ Loafy either delicious or not delicious at $v$?
 
 These questions are discussed not just in modal logic, but also in a branch of
 non-modal logic called \textbf{free logic}. Free logic differs from classical
-predicate logic by dropping the assumption that every name has a referent. The
+predicate logic by dropping the assumption that every name has a referent. This
 assumption is, after all, not true for names in natural language.
 
 Consider the story of `Vulcan'. In the 19th century, it was observed that
@@ -821,8 +821,8 @@ The name `Vulcan' turned out to be \emph{empty}: it doesn't refer to anything.
 How should we formalize reasoning with empty names? The orthodox answer is that
 we shouldn't: the function of a name is to pick out an individual; if there is
 no individual to be picked out, we shouldn't use a name. Proponents of free
-logic disagree. They hold that we can perfectly well reason with empty names. We
-then need to answer the same questions that I posed above: if $b$ is an empty
+logic disagree. They hold that we can perfectly well reason with empty names. But we
+need to answer the questions that I posed above: if $b$ is an empty
 name, how should we interpret $b=b$, $Fb$, $\neg Fb$, and $Fb \lor \neg Fb$?
 
 Within free logic, there are broadly three approaches.
@@ -834,7 +834,7 @@ on whether the (non-existent) individual picked out by $b$ has the property
 expressed by $F$.
 
 Non-Meinongian versions of free logic usually assume that \emph{atomic}
-sentences with empty names are never true: if $b$ is empty, then $Fb$ can't be
+sentences with empty names are never true: if $b$ is empty, $Fb$ can't be
 true. The idea is that predicates express properties, and if something doesn't
 exist then it doesn't have any properties. For example, it is not true that
 Vulcan is a planet -- as you can see from the fact that Vulcan would not occur
@@ -845,18 +845,18 @@ Vulcan has any particular mass.
 % But one could argue that this should be formalized as something like
 % $\Bel(Pa \land Oas)$, not $Fa$.
 
-What shall we say about $\neg Fb$ then, if $b$ is an empty name? In some
-versions of free logic, the standard semantic rules for complex sentences are
-applied: since $Fb$ is not true, $\neg Fb$ is true, and so is $Fb \lor \neg Fb$.
-Other versions of free logic assume that if $b$ doesn't refer then neither $Fb$
-nor $\neg Fb$ is true. Since a sentence is called false iff its negation is
-true, this means that $Fb$ and $\neg Fb$ are neither true nor false. We get a
-three-valued semantics that can be spelled out in different ways, with different
-verdicts on sentences like $Fb \lor \neg Fb$.
+What shall we say about $\neg Fb$, if $b$ is an empty name? In some versions of
+free logic, the standard semantic rules for complex sentences are applied: since
+$Fb$ is not true, $\neg Fb$ is true, and so is $Fb \lor \neg Fb$. Other versions
+of free logic assume that then neither $Fb$ nor $\neg Fb$ is true. Since a
+sentence is called false iff its negation is true, this means that $Fb$ and
+$\neg Fb$ are neither true nor false. We get a three-valued semantics. This can
+be developed in different ways, with different verdicts on sentences like
+$Fb \lor \neg Fb$.
 
 Each version of free logic can be used to give a semantics for modal predicate
 logic with variable domains. I am going to use the two-valued non-Meinongian
-approach, mainly because it is the simplest. We will assume that at worlds where
+approach, mainly because it is the simplest. That is, I will assume that at worlds where
 Loafy doesn't exist, every atomic sentence involving a name for Loafy is false:
 $b=b$ is false, $Fb$ is also false, but $\neg Fb$ and $Fb \lor \neg Fb$ are
 true.
@@ -899,7 +899,7 @@ A sentence is \textbf{VK-valid} (`V' for `variable-domain') iff it is true at al
 worlds in all variable-domain models.
 
 The system VK is weaker than classical predicate logic. Not everything
-that is valid in classical predicate logic is CK-valid. For example, both $b=b$
+that is valid in classical predicate logic is VK-valid. For example, both $b=b$
 and $\exists x\, x\!=\!b$ are valid in classical predicate logic, but they are
 not true at every world in every variable-domain model. If $V(b)$ is not a
 member of $D_w$, then $b=b$ and $\exists x \, x\!=\!b$ are false at $w$.
@@ -1221,8 +1221,7 @@ The Law allows us to reason from $\Box Fa$ and $a\!=\!b$ to $\Box Fb$. On some
 interpretations of the box, this inference looks problematic. In the Superman
 stories, Lois Lane knows that Superman can fly, and Superman is identical to
 Clark Kent. Can we infer that Lois knows that Clark Kent can fly?
-
-If we can, we would have to conclude that Lois Lane has inconsistent beliefs,
+If so, we would have to conclude that Lois Lane has inconsistent beliefs,
 since she also believes that Clark Kent \emph{cannot} fly. She would believe
 that Clark Kent can't fly, but also that he can fly. Intuitively, however,
 Lois's beliefs are perfectly consistent. What she lacks is information, not
@@ -1416,7 +1415,7 @@ proof methods become available.
 \end{exercise}
 \begin{solution}
   Translation: $\exists x (Tx \land Wx \land \neg K Wx \land \neg K \neg Wx)$,
-  where $T$ translates `-- is a ticket' and `-- will win'.
+  where $T$ translates `-- is a ticket' and $W$ translates `-- will win'.
 
   If variables are directly referential, then this sentence is true in any
   scenario in which I don't know which ticket will win.
