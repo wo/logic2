@@ -13,6 +13,10 @@ from html5lib import HTMLParser, constants
 tmp_path = "tmp"
 html_path = "html"
 
+MATHJAX_VERSION = "4.1.1"
+MATHJAX_SCRIPT = "html/mathjax/tex-chtml-nofont.js"
+STIX2_CHTML = "html/mathjax-fonts/mathjax-stix2-font/chtml.js"
+
 tex4ht_config = r"""
 \Preamble{xhtml}
 \Configure{tableofcontents*}{chapter,section,subsection}
@@ -21,12 +25,39 @@ tex4ht_config = r"""
 """
 
 
+def ensure_mathjax():
+    """Download MathJax and STIX2 font files if not already present."""
+    if os.path.exists(MATHJAX_SCRIPT) and os.path.exists(STIX2_CHTML):
+        return
+    import tempfile
+    print("Installing MathJax and STIX2 font...")
+    os.makedirs("html/mathjax", exist_ok=True)
+    os.makedirs("html/mathjax-fonts/mathjax-stix2-font", exist_ok=True)
+    with tempfile.TemporaryDirectory() as tmp:
+        v = MATHJAX_VERSION
+        subprocess.run(["npm", "pack", f"mathjax@{v}"], cwd=tmp, check=True,
+                       capture_output=True)
+        subprocess.run(["tar", "-xzf", f"mathjax-{v}.tgz", "--strip-components=1",
+                        "-C", os.path.abspath("html/mathjax")], cwd=tmp, check=True,
+                       capture_output=True)
+        subprocess.run(["npm", "pack", f"@mathjax/mathjax-stix2-font@{v}"],
+                       cwd=tmp, check=True, capture_output=True)
+        subprocess.run(["tar", "-xzf", f"mathjax-mathjax-stix2-font-{v}.tgz",
+                        "--strip-components=1",
+                        "-C", os.path.abspath("html/mathjax-fonts/mathjax-stix2-font"),
+                        "--wildcards", "package/chtml*"],
+                       cwd=tmp, check=True, capture_output=True)
+    print("✓ MathJax installed.")
+
+
 def main():
     """Create HTML version of textbook."""
     argparser = argparse.ArgumentParser(description="Create HTML version")
     argparser.add_argument('-f', '--fake', action='store_true', help="Use previous make4ht output")
     argparser.add_argument('-v', '--verbose', action='store_true', help="Verbose output")
     args = argparser.parse_args()
+
+    ensure_mathjax()
 
     if not args.fake:
         prepare_paths()
@@ -127,6 +158,7 @@ def prep_chapter(texfile):
     tex = remove_noindent(tex)
     tex = fix_custom_commands(tex)
     tex = fix_gather(tex)
+    tex = fix_math_line_spacing(tex)
     tex = escape_labeled_items(tex)
     tex = escape_intext_links(tex)
     write_file(tmp_path + "/" + texfile, tex)
@@ -138,11 +170,31 @@ def remove_noindent(tex):
     return re.sub(r'\\noindent\s*%?', ' ', tex)
 
 
+_MATH_REGION = re.compile(
+    r'\\\(.*?\\\)|\\\[.*?\\\]|\$\$.*?\$\$|\$.*?\$|'
+    r'\\begin\{(equation\*?|align\*?|flalign\*?|gather\*?|multline\*?|eqnarray\*?)\}'
+    r'.*?\\end\{\1\}',
+    re.DOTALL,
+)
+
+
+def sub_outside_math(pattern, replacement, tex):
+    """Apply re.sub only to non-math segments of tex."""
+    out = []
+    last = 0
+    for m in _MATH_REGION.finditer(tex):
+        out.append(re.sub(pattern, replacement, tex[last:m.start()]))
+        out.append(m.group(0))
+        last = m.end()
+    out.append(re.sub(pattern, replacement, tex[last:]))
+    return ''.join(out)
+
+
 def fix_custom_commands(tex):
     """Fix custom commands that make4ht doesn't understand."""
-    tex = re.sub(r'\\L', r'\\mathfrak{L}', tex)
-    tex = re.sub(r'\\Cfr', r'\\mathfrak{C}', tex)
-    tex = re.sub(r'\\Mfr', r'M', tex)
+    tex = re.sub(r'\\L(?![a-zA-Z])', r'\\mathfrak{L}', tex)
+    tex = re.sub(r'\\Cfr\b', r'\\mathfrak{C}', tex)
+    tex = re.sub(r'\\Mfr\b', r'M', tex)
     # Handle \t{} tuples, including one level of nested braces like \t{[\tau]^{M,g}}
     tex = re.sub(r'\\t\{((?:[^{}]|\{[^{}]*\})*)\}', r'\\langle \1 \\rangle', tex)
     tex = re.sub(r'\\notmodels', r'\\mathrel{|}\\joinrel\\not=', tex)
@@ -175,8 +227,9 @@ def fix_custom_commands(tex):
     tex = re.sub(r'\\OK', r'\\mathsf{N}', tex)
     # tex = re.sub(r'\\strictif', r'\,\\unicode{x297D}\,', tex)  # handled in mathjax now
     tex = re.sub(r'\\boxright', r'\\mathrel{\\mathop\\Box}\\mathrel{\\mkern-2.5mu}\\rightarrow', tex)
-    # Preserve \quad and \qquad spacing (outside math mode) by using a placeholder
-    tex = re.sub(r'\\q?quad\b', r'QUADSPACE', tex)
+    tex = sub_outside_math(r'\\qed\b', r'QEDSYMBOL', tex)
+    # Preserve \quad and \qquad spacing outside math mode using a placeholder
+    tex = sub_outside_math(r'\\q?quad\b', r'QUADSPACE', tex)
     return tex
 
 
@@ -191,6 +244,24 @@ def fix_gather(tex):
         return f'\\begin{{{environ}}}\n{body}\n\\end{{{environ}}}'
 
     return pattern.sub(repl, tex)
+
+
+def fix_math_line_spacing(tex):
+    """Add extra row spacing in display math environments for HTML rendering.
+
+    Replaces \\\\ (row break) with \\\\[0.5em] so MathJax row spacing better
+    matches the surrounding text line height. Skips \\\\ that already carry
+    explicit spacing (\\\\[...]) or a star (\\\\*).
+    """
+    def add_spacing(m):
+        return re.sub(r'\\\\(?![\[*])', r'\\\\[0.5em]', m.group(0))
+    display = re.compile(
+        r'\\\[.*?\\\]|\$\$.*?\$\$|'
+        r'\\begin\{(equation\*?|align\*?|flalign\*?|gather\*?|multline\*?|eqnarray\*?)\}'
+        r'.*?\\end\{\1\}',
+        re.DOTALL,
+    )
+    return display.sub(add_spacing, tex)
 
 
 def escape_labeled_items(tex):
@@ -321,7 +392,7 @@ def make4ht(verbose=False):
     if result.returncode != 0:
         print("Command failed with exit status", result.returncode)
         if result.stderr:
-            print(result.sterr)
+            print(result.stderr)
         # exit(1)
 
 
@@ -421,6 +492,7 @@ def fix_html():
         html = remove_comments(html)
         html = embed_in_template(html, htmlfile)
         html = fix_tcolorboxes(html, htmlfile)
+        html = fix_exercise_titles(html)
         html = fix_item_labels(html)
         html = fix_layout(html)
         validate_html(html, htmlfile)
@@ -489,7 +561,9 @@ def fix_layout(html):
     html = re.sub(r'QUADSPACE', r'&emsp;', html)
     # remove anchors in lists that add a linebreak:
     html = re.sub(r'(<li class=.enumerate.[^>]*>)\s*<a\s+id=.[^\'"]+[\'"]></a>', r'\1', html)
-    # remove whitespace before section titles:
+    # strip trailing whitespace before </p> so justify does not stretch the last line:
+    html = re.sub(r'\s+</p>', '</p>', html)
+   # remove whitespace before section titles:
     html = re.sub(r'(<span class=.titlemark.>.+?</span>) *', r'\1', html)
     # widen too narrow tex, e.g. in $\Kn\!\neg\!\Kn\!\neg p$
     html = re.sub(r'\\!\s*\\', r'\\', html)
@@ -497,6 +571,8 @@ def fix_layout(html):
     html = re.sub(r'\\hspace\s*\{[^}]+\}', '', html)
     # remove empty table rows:
     html = re.sub(r'<tr>\s*<td[^>]*>\s*</td>\s*</tr>', '', html)
+    # QED symbol, right-aligned:
+    html = re.sub(r'QEDSYMBOL', r'<span class="qed">□</span>', html)
     return html
 
 
@@ -509,6 +585,13 @@ def fix_mathjax_linebreaks(html):
     there, so we wrap '\( x \);' in a no-wrap span.
     """
     html = re.sub(r'(\\\((?:[^\\)]|\\[^)])+\\\)[;.,?!\)])', r'<span class="nowrap">\1</span>', html)
+    # Also keep an opening curly quote glued to the math it introduces
+    html = re.sub(r'(‘\\\((?:[^\\)]|\\[^)])+\\\)’?)', r'<span class="nowrap">\1</span>', html)
+    # Glue standalone opening/closing bracket math elements to adjacent tokens
+    html = re.sub(r'(\\\(\\(?:\{|\[)\\\))(\s+[^\s<>]+)',
+                  r'<span class="nowrap">\1\2</span>', html)
+    html = re.sub(r'([^\s<>]+\s+)(\\\(\\(?:\}|\])\\\)[;.,?!\)]?)',
+                  r'<span class="nowrap">\1\2</span>', html)
     return html
 
 
@@ -527,6 +610,17 @@ def validate_html(html, filename):
                 except (TypeError, KeyError):
                     pass
             print(f"  Line {line}, Col {col}: {message}")
+
+
+def fix_exercise_titles(html):
+    """Move exercise headings from content to title div."""
+    html = re.sub(
+        r'(class="tcolorbox exercise"[^>]*>)\s*<div class="tcolorbox-title">\s*</div>(\s*<div class="tcolorbox-content">.*?)<strong>([^<]+)</strong>\s*',
+        r'\1<div class="tcolorbox-title">\3</div>\2',
+        html,
+        flags=re.DOTALL
+    )
+    return html
 
 
 def fix_tcolorboxes(html, htmlfile):

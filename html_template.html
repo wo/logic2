@@ -15,13 +15,14 @@
                 doubleleftright: "\\Leftrightarrow"
             }
         },
-        chtml: {
-            displayAlign: 'left',
-            displayIndent: '2em'
+        loader: {
+            paths: { fonts: 'mathjax-fonts' }
         },
-        svg: {
+        output: {
+            font: 'mathjax-stix2',
             displayAlign: 'left',
-            displayIndent: '2em'
+            displayIndent: '2em',
+            lineleading: 0.6
         }
     };
 
@@ -42,7 +43,7 @@
         });
     });
     </script>
-    <script type="text/javascript" async="async" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>  
+    <script type="text/javascript" async="async" id="MathJax-script" src="mathjax/tex-chtml-nofont.js"></script>
 </head>
 <body>
     <header>
