@@ -701,7 +701,8 @@ Let's check if $\Diamond p \to \Box p$ is valid. We do this by trying to
 construct a countermodel. A countermodel for $\Diamond p \to \Box p$ is a model
 in which there is some world $w$ at which $\Diamond p\to \Box p$ is false. We
 therefore start our construction by assuming that the \emph{negation} of
-$\Diamond p \to \Box p$ is \emph{true} at some world $w$. We write this down as follows.
+$\Diamond p \to \Box p$ is \emph{true} at some world $w$. We write this down as
+follows.
 
 \begin{center}
   \Tree{%
@@ -772,9 +773,8 @@ doesn't matter -- otherwise the tree would say. Let's assume that
 $V(p) = \{ v \}$. As you can verify, $\Diamond p\to \Box p$ is indeed false at
 world $w$ in this model.
 
-One more example, before I state the general rules. Let's try to find a
-countermodel for $\Box(p\to q) \to (p \to \Box q)$. That's another conditional,
-so we begin as before.
+Let's do another example. We'll check if $\Box(p\to q) \to (p \to \Box q)$.
+That's another conditional, so we begin as before.
 \begin{center}
   \tree[3]{%
     & \nnodeticked{32}{1.}{$\neg(\Box(p\to q) \to (p \to \Box q))$}{w}{(Ass.)} &&\\
@@ -895,11 +895,29 @@ makes $p$ true at $w$ (node 4) and false at $v$ (node 11); $q$ is also true at
 $w$ (node 9) and false at $v$ (node 6). Again, you may verify that the sentence
 on node 1 is true at world $w$ in this model.
 
-Now for the general rules.
+One more example, before I state the general rules. This one is easy: we'll
+check $\Box p \to \Diamond p$. You should be able to do the whole tree on your
+own. Here it is.
+%
+\begin{center}
+  \tree{%
+    \nnodeticked{18}{1.}{$\neg(\Box p \to \Diamond p)$}{w}{(Ass.)}\\
+    \nnode{18}{2.}{$\Box p$}{w}{(1)}\\
+    \nnode{18}{3.}{$\neg\Diamond p$}{w}{(1)}\\
+    \nnode{18}{4.}{$p$}{w}{(2)}\\
+    \nnodeclosed{18}{5.}{$\neg p$}{w}{(3)}%
+  }
+\end{center}
 
-In order to find a countermodel for a sentence $A$ with the help of the tree
-method, you always begin by assuming that the \emph{negation} of $A$ is true at
-world $w$:
+There is no open branch. What does
+this tell us? It means that our search for a countermodel failed. We've unpacked
+the assumption on node 1, that $\Box p \to \Diamond p$ is false at some world
+$w$ in some model, and ran into a contradiction. So $\Box p \to \Diamond p$ is
+true at all worlds in all models -- it is valid. In general, if all branches on
+a tree close then the target sentence is valid.
+
+Now for the general rules. To check whether a target sentence $A$ is valid, you
+begin by assuming that the \emph{negation} of the target sentence is true at world $w$:
 %
 \begin{center}
   \tree{%
@@ -907,26 +925,22 @@ world $w$:
     }
 \end{center}
 %
-You then expand this node, and you continue expanding new nodes that appear on
+You then expand this node, and you continue expanding nodes that appear on
 the tree, until no more nodes can be expanded.
 
-To expand a node with a \emph{non-negated sentence}, you consider what the truth of that
-sentence at the node's world implies for the truth-value of the sentence's
-immediate parts. The result may be added to the end of any open branch
-containing the node.
+To expand a node with a \emph{negated sentence} $\neg A$, you consider what the
+falsity of the relevant sentence $A$ at the node's world implies for the
+immediate parts of $A$. To expand a node with a \emph{non-negated sentence} $A$,
+you consider what the truth of $A$ at the node's world implies for the
+truth-value of the sentence's immediate parts. In either case, you append the
+result to an open branch containing the expanded node.
 
 (The immediate parts of a sentence of the form $A\land B$, $A \lor B$,
 $A \to B$, or $A \leftrightarrow B$ are the corresponding sentences $A$ and $B$;
 the only immediate part of $\Box A$, $\Diamond A$, and $\neg A$ is $A$.)
 
-To expand a node with a \emph{negated sentence} $\neg A$, you consider what the falsity of the
-relevant sentence $A$ at the node's world implies for the immediate parts of
-$A$. The result may again be added to the end of any open branch containing the
-node.
-
 The following diagrams summarize how the different kinds of nodes are expanded.
 I use `$\omega$' and `$\nu$' as placeholders for arbitrary world variables.
-
 
 \bigskip\noindent%
 % Perhaps I shouldn't use 'nu' and 'omega' in the schematic tree rules? students
@@ -1053,57 +1067,89 @@ I use `$\omega$' and `$\nu$' as placeholders for arbitrary world variables.
 
 \vspace{5mm}
 
-If a branch of a tree contains a sentence $A$ as well as its negation $\neg A$,
-for the same world $\omega$, then the branch is \emph{closed} with an {\sffamily
-  x} at the bottom.
+The dotted line indicates the expansion step. The first rule, for example,
+assumes that a node of the form $A \land B \;(\omega)$ occurs on a branch. This
+prerequisite is written above the dotted line. If it is satisfied, you can
+expand the node by adding what's below the dotted line to the branch containing
+the expanded node: you add two nodes $A \;(\omega)$ and $B\;(\omega)$, one after
+the other.
+
+The rule for $\Box A$ says that nodes of the form $\Box A \;(\omega)$ are
+expanded by adding $A \;(\nu)$, where $\nu$ is ``old''. By this I mean that
+$\nu$ is any world variable that \emph{already occurs on the branch} to which
+you add $A \;(\nu)$. You're not allowed to introduce a new world variable
+(`$v$', `$u$', etc.) when expanding $\Box A$ nodes. The same is true for
+$\neg \Diamond A$ nodes (which by duality means the same as $\Box \neg A$). When
+you expand a $\Diamond A$ node (or a $\neg \Box A$ node), by contrast, you must
+introduce a new world variable: a variable that does not yet occur on the
+branch.
+
+If you have expanded a node that is not of type $\Box A$ or $\neg \Diamond A$,
+and you have added the new nodes to every open branch containing the node, you
+can tick off the node. You don't need to look at it again. This is obvious for
+non-modal nodes. Expanding $A \land B \; (\omega)$ twice, for example, would
+merely add another copy of $A\;(\omega)$ and $B\;(\omega)$ to the branch, and
+repeated nodes (on the same branch) are always redundant. I have added a
+checkmark next to the rules for $\Diamond A$ and $\neg \Box A$ as a reminder
+that these nodes, too, can only be expanded once on each open branch, which is
+less obvious: if you've already introduced a new world by expanding a
+$\Diamond A$ or $\neg \Box A$ node, you're not allowed to introduce further new
+worlds on the same branch by expanding the same node again.
+
+$\Box A$ and $\neg \Diamond A$ are never ticked off. You can expand them
+multiple times, for different ``old'' worlds. Even if you've expanded them for
+every world currently on the branch, you leave them open, in case another world
+variable appears in a later stage of the tree construction.
+
+If, after expanding some node, a branch of a tree contains a sentence $A$ as
+well as its negation $\neg A$, for the same world $\omega$, the branch must be
+marked as \emph{closed} with an {\sffamily x} at the bottom. Closed
+branches can not be extended any more.
 
 % NB: By this I mean that the branch /must/ be marked as closed. You're not
 % allowed to keep expanding -- otherwise there could be a fully expanded open
 % branch that does not yield a countermodel.
 
-The rule for $\Box A$ says that from the assumption that $\Box A$ is true at a
-world $\omega$ you may infer that $A$ is true at any ``old'' world $\nu$, by
-which I mean any world \emph{that already occurs on the branch to which you want to add a node}. You're not allowed to introduce a new world variable (`$v$',
-`$u$', etc.) when expanding $\Box A$ nodes. The same is true for
-$\neg \Diamond A$ nodes (which by duality means the same as $\Box \neg A$). When
-you expand a $\Diamond A$ node (or a $\neg \Box A$ node), by contrast, you must
-introduce a new world variable.
+If no more rules can be applied, the tree is complete. If all branches on the
+completed tree are closed, the target sentence is valid. If some branch remains
+open, the target sentence is invalid; any open branch then describes a
+countermodel.
 
-Nodes of type $\Box A$ and $\neg \Diamond A$ can be expanded several times, once
-for every world variable on any branch containing the node.
-If you have expanded a node that is not of type $\Box A$ or $\neg \Diamond A$,
-and you have added the new nodes to every open branch containing the node, 
-you can tick off the node. You don't need to look at it again. Nodes of type
-$\Box A$ and $\neg \Diamond A$ are never ticked off.
+When constructing a tree, you often have a choice of which node to expand next.
+In that case, a good idea is to start with any $\Diamond A$ or $\neg \Box A$
+nodes. If there are none, choose a node of type $A \land B$, $\neg (A \lor B)$
+or $\neg(A \to B)$. Choose a node of another type only if none of these are
+available. This heuristic often helps to keep trees small, but it is not part of
+the official tree rules.
 
-I have added a checkmark next to the rules for $\Diamond A$ and $\neg \Box A$ as
-a reminder that these rules can only be applied once on each open branch. If you've
-already introduced a new world by expanding a $\Diamond A$ or $\neg \Box A$
-node, you're not allowed to introduce further new worlds on the same branch by
-expanding the same node again.
-
-If no more rules can be applied, the tree is complete. Any open branch on a
-complete tree defines a countermodel for the target sentence.
-%
 \begin{exercise}
-  Use the tree method to find countermodels for the following
-  sentences. (Spell out the countermodel, in addition to drawing the tree.)
+  Use the tree method to check which of the following sentences are valid. If a
+  sentence is invalid, spell out a countermodel, in addition to drawing the
+  tree.
   \begin{exlist}
-  \item $p\to q$ 
-  \item $p \to \Box(p \lor q)$
-  \item $\Box p \lor \Box \neg p$
-  \item $\Diamond(p \to q) \to (\Diamond p \to \Diamond q)$
-  % This is invalid, but one can only read off a counterexample once all rules
-  % have been applied. Also emphasize that countermodels must come from /one/
-  % branch only. 
-  \item $\Box \Diamond p \to p$ % infinite
+  \item $p\to q$  % a; invalid  
+  \item $p \to \Box(p \lor q)$  % b; invalid
+  \item $p \to \Box\Diamond p$  % c; valid
+  \item $\Diamond \neg p \leftrightarrow \neg \Box p$  % d; valid 
+  \item $\Diamond\Diamond p \to \Diamond p$  % e; valid
+  \item $\Box p \lor \Box \neg p$  % f; invalid
+  \item $\Diamond(p \to q) \to (\Diamond p \to \Diamond q)$  % g; invalid
+  \item $\Diamond(p \land q) \to (\Diamond p \land \Diamond q)$  % h; valid
+  \item $(\Diamond p \land \Diamond q) \to \Diamond(p \land q)$  % i; invalid 
+  \item $\Diamond(p \lor q) \leftrightarrow (\Diamond p \lor \Diamond q)$  % j; valid
+  \item $\Box \Diamond p \to p$  % k; invalid and infinite
   \end{exlist}
 \end{exercise}
 \begin{solution}
-  \medskip
-    
+  (c), (d), (e), (h) and (j) are valid. You can find the trees at
+  \href{https://www.umsu.de/trees/}{umsu.de/trees}. After entering a formula,
+  tick the checkbox for `universal (S5)'.
+
+  (a), (b), (f), (g), (i) and (k) are invalid. The trees and countermodels are as
+  follows.
+                
   \begin{sollist}
-  \item Target: $p\to q$
+  \item[(a)] Target: $p\to q$
   
     \tree{
       &\nnode{15}{1.}{$\neg(p \to q)$}{w}{(Ass.)}&\\
@@ -1114,7 +1160,8 @@ complete tree defines a countermodel for the target sentence.
     Countermodel: $W = \{ w \}, V(p) = \{ w \}, V(q) = \emptyset$.
     
     \medskip
-  \item Target: $p \to \Box(p \lor q)$
+
+  \item[(b)] Target: $p \to \Box(p \lor q)$
 
     \tree{
       \nnode{25}{1.}{$\neg (p \to \Box(p \lor q))$}{w}{(Ass.)}\\
@@ -1128,7 +1175,7 @@ complete tree defines a countermodel for the target sentence.
     Countermodel: $W = \{ w, v \}, V(p) = \{ w \}, V(q) = \emptyset$.
 
   \medskip
-  \item Target: $\Box p \lor \Box \neg p$
+  \item[(f)] Target: $\Box p \lor \Box \neg p$
     
     \tree{
       \nnode{25}{1.}{$\neg (\Box p \lor \Box \neg p)$}{w}{(Ass.)}\\
@@ -1142,7 +1189,8 @@ complete tree defines a countermodel for the target sentence.
     Countermodel: $W = \{ w,v,u \}, V(p) = \{ u \}$.
     
     \medskip
-  \item Target: $\Diamond(p \to q) \to (\Diamond p \to \Diamond q)$
+
+  \item[(g)] Target: $\Diamond(p \to q) \to (\Diamond p \to \Diamond q)$
 
     \tree[3]{
       &\nnode{35}{1.}{$\neg(\Diamond(p \to q) \to (\Diamond p \to \Diamond q))$}{w}{(Ass.)}&\\
@@ -1162,116 +1210,9 @@ complete tree defines a countermodel for the target sentence.
     Countermodel: $W = \{ w,v,u \}, V(p) = \{ u \}, V(q) = \emptyset$.
     
     \medskip
-  \item $\Box \Diamond p \to p$
-  
-    \tree{
-      &\nnode{20}{1.}{$\neg(\Box\Diamond p \to p))$}{w}{(Ass.)}&\\
-      &\nnode{20}{2.}{$\Box \Diamond p$}{w}{(1)}&\\
-      &\nnode{20}{3.}{$\neg p$}{w}{(1)}&\\
-      &\nnode{20}{4.}{$\Diamond p$}{w}{(2)}&\\
-      &\nnode{20}{5.}{$p$}{v}{(4)}&\\
-      &\nnode{20}{6.}{$\Diamond p$}{v}{(2)}&\\
-      &\nnode{20}{7.}{$p$}{u}{(6)}&\\
-      &\nnode{20}{8.}{$\Diamond p$}{u}{(2)}&\\
-      &\nnode{20}{9.}{$p$}{t}{(8)}&\\
-      &\nnode{20}{}{\vdots}{}{}&
-  }
 
-  \medskip\noindent The tree grows forever. The target sentence isn't valid, but
-  the tree method only gives us an infinite countermodel. In such a case, it may
-  be useful to read off a model from an incomplete version of the tree and
-  manually check whether it is a genuine countermodel. The model determined by
-  the first five nodes of the present tree is $W = \{ w,v \}, V(p)=\{ v \}$,
-  and you can confirm that it is a countermodel to the target sentence.
-
-  If you read off a model from an \emph{incomplete} tree, you can't be sure that
-  it is a countermodel for the target sentence. You must always double-check!
-   
-  \end{sollist}
-  
-\end{solution}
-
-What if all branches on a tree close? Then there is no countermodel for the
-target sentence. If there is no countermodel for a sentence, the sentence
-is valid. This is how the tree method is used to show that a sentence is valid.
-
-The following tree shows that
-$\Diamond \neg p \leftrightarrow \neg \Box p$ is valid. Make sure you understand
-each step. (I've omitted the check marks since these are only useful during the
-construction phase.)
-
-\begin{center}
-  \tree[3]{
-    & \bnode{22}{1.}{$\neg(\Diamond \neg p \leftrightarrow \neg \Box p)$}{w}{(Ass.)} & \\
-  && \\
-  \nnode{12}{2.}{$\Diamond \neg p$}{w}{(1)} && \nnode{12}{4.}{$\neg \Diamond\neg p$}{w}{(1)}  \\
-  \nnode{12}{3.}{$\neg \neg \Box p$}{w}{(1)} && \nnode{12}{5.}{$\neg \Box p$}{w}{(1)}  \\
-  \nnode{12}{6.}{$\Box p$}{w}{(3)} && \nnode{12}{9.}{$\neg p$}{v}{(5)}  \\
-  \nnode{12}{7.}{$\neg p$}{v}{(2)} && \nnodeclosed{12}{10.}{$\neg\neg p$}{v}{(4)}  \\
-  \nnodeclosed{12}{8.}{$p$}{v}{(6)} &&  \\
-}
-\end{center}
-
-A similar tree could obviously be drawn for
-$\Diamond \neg q \leftrightarrow \neg \Box q$, and for any other formula of the
-form $\Diamond \neg A \leftrightarrow \neg \Box A$: we would simply replace each
-occurrence of $p$ on the tree with $A$.
-
-To show that all instances of a schema are valid, we can also directly draw
-\textbf{schematic trees} in which we use schematic variables `$A$', `$B$', `$C$'
-instead of sentence letters.
-
-\begin{exercise}
-  Use the tree method to show that all instances of the following schemas are valid.
-  \par\nobreak % prevent excessive space.
-  \begin{exlist}
-   \item[\pr{K}] $\Box (A \to B) \to (\Box A \to \Box B)$
-   \item[\pr{T}] $\Box A \to A$
-   % \item[\pr{D}] $\Box A \to \Diamond A$ 
-   \item[\pr{4}] $\Box A \to \Box \Box A$
-   \item[\pr{5}] $\Diamond A \to \Box \Diamond A$
-   % \item[\pr{G}] $\Diamond\Box A \to \Box \Diamond A$ 
-  \end{exlist}
-\end{exercise}
-\begin{solution}
-  You can enter the schemas at
-  \href{https://www.umsu.de/trees/}{umsu.de/trees}.
-  After entering a formula, tick the checkbox for `universal (S5)'.
-  Alternatively, follow these links:
-  \href{https://www.umsu.de/trees/\#~8(A~5B)~5(~8A~5~8B)||universality}{\pr{K}}, \href{https://www.umsu.de/trees/\#~8A~5A||universality}{\pr{T}},
-  % \href{https://www.umsu.de/trees/\#~8A~5~9A||universality}{\pr{D}},
-  \href{https://www.umsu.de/trees/\#~8A~5~8~8A||universality}{\pr{4}},
-  \href{https://www.umsu.de/trees/\#~9A~5~8~9A||universality}{\pr{5}},
-  % \href{https://www.umsu.de/trees/\#~9~8A~5~8~9A||universality}{\pr{G}}.
-\end{solution}
-
-\begin{exercise}
-  For each of the following sentences, either show that it is valid or
-  give a countermodel to show that it is invalid, using the tree method.
-  \begin{exlist}
-  \item $p \to \Box\Diamond p$
-  \item $\Diamond\Diamond p \to \Diamond p$
-  %\item $\Box\Box p \to \Box p$
-  \item $\Diamond(p \land q) \to (\Diamond p \land \Diamond q)$
-  \item $(\Diamond p \land \Diamond q) \to \Diamond(p \land q)$
-  %\item $\Diamond p \lor \Box\neg p$
-  \item $\Diamond(p \lor q) \leftrightarrow (\Diamond p \lor \Diamond q)$
-  \item $\Box\Diamond p \to \Diamond\Box p$
-  % \item $(\Diamond p \to \Box q) \to (\Box p \to \Box q)$
-  \end{exlist}
-\end{exercise}
-\begin{solution}
-  (a), (b), (c) and (e) are valid. You can find the trees at
-  \href{https://www.umsu.de/trees/}{umsu.de/trees} (Remember to tick the checkbox for `universal (S5)') or by following these links:
-  \href{https://www.umsu.de/trees/\#p~5~8~9p||universality}{(a)},
-\href{https://www.umsu.de/trees/\#~9~9p~5~9p||universality}{(b)},
-\href{https://www.umsu.de/trees/\#~9(p~1q)~5(~9p~1~9q)||universality}{(c)},
-\href{https://www.umsu.de/trees/\#~9(p~2q)~4(~9p~2~9q)||universality}{(e)}.
-% \href{https://www.umsu.de/trees/\#(~9p~5~8q)~5(~8p~5~8q)||universality}{(g)}.
-  
-  (d) and (f) are invalid. Here is a tree for (d):
-
-  \medskip
+  \item[(i)] $\neg ((\Diamond p \land \Diamond q) \to \Diamond(p \land q))$  % j
+                
   \tree[3]{
     &\nnode{35}{1.}{$\neg ((\Diamond p \land \Diamond q) \to \Diamond(p \land q))$}{w}{(Ass.)}&&\\
     &\nnode{35}{2.}{$\Diamond p \land \Diamond q$}{w}{(1)}&&\\
@@ -1292,57 +1233,113 @@ instead of sentence letters.
   }
 
   \medskip\noindent
-  We can choose either of the open branches to read off a countermodel. In fact, here we get the same countermodel no matter which open branch we choose:
-$W = \{ w,v,u \}, V(p)=\{ v\}, V(q)=\{u\}$.
-  \medskip
+  We can choose either of the open branches to read off a countermodel. We get the same countermodel no matter which open branch we choose:
+  $W = \{ w,v,u \}, V(p)=\{ v\}, V(q)=\{u\}$.
+                
+\medskip
 
-  A tree for (e) might begin like this:
-
-  \tree[3]{
-    &\nnode{25}{1.}{$\neg (\Box\Diamond p \to \Diamond\Box p)$}{w}{(Ass.)}&&\\
-    &\nnode{25}{2.}{$\Box\Diamond p$}{w}{(1)}&&\\
-    &\nnode{25}{3.}{$\neg \Diamond\Box p$}{w}{(1)}&&\\
-    &\nnode{25}{4.}{$\Diamond p$}{w}{(2)}&&\\
-    &\nnode{25}{5.}{$p$}{v}{(4)}&&\\
-    &\nnode{25}{6.}{$\neg \Box p$}{w}{(3)}&&\\
-    &\nnode{25}{7.}{$\neg p$}{u}{(6)}&&\\
-    &\nnode{25}{8.}{$\Diamond p$}{v}{(2)}&&\\
-    &\nnode{25}{9.}{$p$}{s}{(8)}&&\\
-    &\nnode{25}{10.}{$\neg \Box p$}{v}{(3)}&&\\
-    &\nnode{25}{11.}{$\neg p$}{t}{(10)}&&\\
-    &\nnode{25}{}{\vdots}{}{}&&
+    
+  \item[(j)] $\Box \Diamond p \to p$
+  
+    \tree{
+      &\nnode{20}{1.}{$\neg(\Box\Diamond p \to p))$}{w}{(Ass.)}&\\
+      &\nnode{20}{2.}{$\Box \Diamond p$}{w}{(1)}&\\
+      &\nnode{20}{3.}{$\neg p$}{w}{(1)}&\\
+      &\nnode{20}{4.}{$\Diamond p$}{w}{(2)}&\\
+      &\nnode{20}{5.}{$p$}{v}{(4)}&\\
+      &\nnode{20}{6.}{$\Diamond p$}{v}{(2)}&\\
+      &\nnode{20}{7.}{$p$}{u}{(6)}&\\
+      &\nnode{20}{8.}{$\Diamond p$}{u}{(2)}&\\
+      &\nnode{20}{9.}{$p$}{t}{(8)}&\\
+      &\nnode{20}{}{\vdots}{}{}&
   }
 
-  \medskip\noindent The tree grows forever. The model determined by
-  the first seven nodes of the present tree is $W = \{ w,v,u \}, V(p)=\{ v \}$.
-  It is a countermodel to the target sentence.
-    
+  \medskip\noindent The tree grows forever! The target sentence is invalid, but
+  the tree method only gives us an infinite countermodel. In such a case, it may
+  be useful to read off a model from an incomplete version of the tree and
+  manually check whether it is a genuine countermodel. The model determined by
+  the first five nodes of the present tree is $W = \{ w,v \}, V(p)=\{ v \}$,
+  and you can confirm that it is a countermodel to the target sentence.
+
+  If you read off a model from an \emph{incomplete} tree, you can't be sure that
+  it is a countermodel for the target sentence. You must always double-check!
+   
+  \end{sollist}
+  
 \end{solution}
 
-When constructing a tree, you often have a choice of which node to expand next.
-In that case, a good idea is to start with any $\Diamond A$ or $\neg \Box A$
-nodes. If there are none, choose a node of type $A \land B$, $\neg (A \lor B)$
-or $\neg(A \to B)$. Choose a node of another type only if none of the above are
-available. This heuristic often helps to keep trees small, but it is not part of
-the official tree rules.
+To conclude, I want to mention two extensions of the tree method. The first
+covers schemas. Have another look at the above tree for $\Box p \to \Diamond p$.
+The tree closes. Now suppose we replace all occurrences of the sentence letter
+$p$ throughout the entire tree with any other $\L_M$-sentence -- say,
+$(p \lor \Diamond q)$. The resulting tree still conforms to our tree rules, and
+it still closes. In effect, the tree therefore shows that all instances of the
+schema $\Box A \to \Diamond A$ are valid. We could make this explicit by
+directly using a schematic variable `$A$' instead of the sentence letter `$p$'.
 
-\begin{exercise}\label{ex:trees-with-premises}
-  Can we use the tree method to show that some premises $A_1,\ldots,A_n$ entail
-  a conclusion $B$? Can we use it to show that two sentences $A$ and $B$ are
-  equivalent?
+In general, we can show that all instances of a schema are valid by drawing a
+\textbf{schematic trees} in which we use schematic variables `$A$', `$B$', `$C$'
+instead of sentence letters.
+
+\begin{exercise}
+  Use the tree method to show that all instances of the following schemas are valid.
+  \par\nobreak % prevent excessive space.
+  \begin{exlist}
+   \item[\pr{K}] $\Box (A \to B) \to (\Box A \to \Box B)$
+   \item[\pr{T}] $\Box A \to A$
+   % \item[\pr{D}] $\Box A \to \Diamond A$ 
+   \item[\pr{4}] $\Box A \to \Box \Box A$
+   \item[\pr{5}] $\Diamond A \to \Box \Diamond A$
+   % \item[\pr{G}] $\Diamond\Box A \to \Box \Diamond A$ 
+  \end{exlist}
 \end{exercise}
 \begin{solution}
-  By observation \ref{obs:semantic-deduction-theorem}, $A_{1},\ldots,A_{n}$
-  entail $B$ iff $(A_1\land\ldots\land A_n) \to B$ is valid. To show that
-  $A_{1},\ldots,A_{n}$ entail $B$ we could therefore draw a tree for
-  $(A_1\land\ldots\land A_n) \to B$. In practice, we can save a few steps by
-  starting the tree with multiple assumptions: one for each of the premises
-  $A_{1},\ldots, A_{n}$, and one for the negated conclusion $\neg B$. (All of
-  these are assumed to be true at world $w$.) If the tree closes,
-  $A_1,\ldots,A_n$ entail $B$.
+  You can enter the schemas at
+  \href{https://www.umsu.de/trees/}{umsu.de/trees}. Remember to tick the checkbox for `universal (S5)'.
+  % Alternatively, follow these links:
+  % \href{https://www.umsu.de/trees/\#~8(A~5B)~5(~8A~5~8B)||universality}{\pr{K}}, \href{https://www.umsu.de/trees/\#~8A~5A||universality}{\pr{T}},
+  % % \href{https://www.umsu.de/trees/\#~8A~5~9A||universality}{\pr{D}},
+  % \href{https://www.umsu.de/trees/\#~8A~5~8~8A||universality}{\pr{4}},
+  % \href{https://www.umsu.de/trees/\#~9A~5~8~9A||universality}{\pr{5}},
+  % % \href{https://www.umsu.de/trees/\#~9~8A~5~8~9A||universality}{\pr{G}}.
+\end{solution}
 
-  To show that $A$ and $B$ are equivalent, we can draw a tree for
-  $A \leftrightarrow B$.
+Finally, we can use the tree method to check whether some premises
+$A_{1},\ldots,A_{n}$ entail some conclusion $B$. Remember from Observation
+\ref{obs:semantic-deduction-theorem} that $A_{1},\ldots,A_{n}$ entail $B$ iff
+$(A_1\land\ldots\land A_n) \to B$ is valid. To show that $A_{1},\ldots,A_{n}$
+entail $B$ we could therefore draw a tree for $(A_1\land\ldots\land A_n) \to B$.
+But we can save a few steps by starting the tree with multiple assumptions: one
+for each of the premises $A_{1},\ldots, A_{n}$, and one for the negated
+conclusion $\neg B$, all assumed to be true at the same world $w$. If the tree
+closes, $A_1,\ldots,A_n$ entail $B$.
+
+The following tree shows that $\Box p$ and $\Diamond(p \to q)$ together entail
+$\Diamond q$.
+
+\begin{center}
+  \tree[3]{%
+    & \nnode{16}{1.}{$\Box p$}{w}{(Ass.)} &&\\
+    & \nnode{16}{2.}{$\Diamond (p \to q)$}{w}{(Ass.)} &&\\
+    & \nnode{16}{3.}{$\neg \Diamond q$}{w}{(Ass.)} &&\\
+    & \nnode{16}{4.}{$p\to q$}{v}{(2)} &&\\
+    & \nnode{16}{5.}{$\neg q$}{v}{(3)} &&\\
+    & \bnode{16}{6.}{$p$}{v}{(1)} &&\\
+    &&& \\
+    \nnodeclosed{8}{7.}{$\neg p$}{v}{(4)} && \nnodeclosed{8}{8.}{$q$}{v}{(4)} & 
+  }%
+\end{center}
+
+\begin{exercise}
+  Some have argued that the concept of God is incompatible with mere contingent
+  existence: as a matter of necessity, \emph{if} God exists, then he exists
+  necessarily. From the further premise that God \emph{could} exist, it is then
+  inferred that he \emph{does} exist. Formalise this argument and use the tree
+  method to check if it is valid.
+\end{exercise}
+\begin{solution}
+  Let $p$ translate `God exists'. The premises are $\Box(p \to \Box p)$ and
+  $\Diamond p$; the conclusion is $p$. The argument is valid.
 \end{solution}
 
 
