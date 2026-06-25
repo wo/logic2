@@ -203,6 +203,7 @@ def fix_custom_commands(tex):
     tex = re.sub(r'\\end{principles}', r'\\end{enumerate}', tex)
     tex = re.sub(r'\\pri\{([^}]+)\}\{(.+)\}', r'\\item[(\1)] $\2$', tex)
     tex = re.sub(r'\\pr\{([^}]+)\}', r'(\1)', tex)
+    tex = re.sub(r'\\apriori\b', r'\\mathbb{A}', tex)
     tex = re.sub(r'\\Kn', r'\\mathsf{K}', tex)
     tex = re.sub(r'\\Mi', r'\\mathsf{M}', tex)
     tex = re.sub(r'\\Bel', r'\\mathsf{B}', tex)
@@ -462,7 +463,12 @@ def fix_toc_links():
         html = read_file(html_path + '/' + htmlfile)
         # <h3 class="sectionHead"><span class="titlemark">2.1</span><a id="x5-100002.1"></a>
         # <h3 class="sectionHead"><span class="titlemark">2.1</span><a id="x5-100002.1"></a>The possible-worlds analysis of possibility and necessity</h3>
-        m = re.findall(r'<h3 class="sectionHead"[^>]*><span[^>]*>([^<]+)</span>\s*<a\s+id="([^"]+)">', html)
+        # make4ht is inconsistent about quoting: some chapters come out single-quoted
+        # with readable slug ids, e.g.
+        # <h3 class='sectionHead' id='epistemic-accessibility'><span class='titlemark'>5.1</span><a id='x8-280005.1'></a>
+        # so the regex must accept either quote style, otherwise those chapters keep
+        # their original anchors while the TOC links get rewritten to #sec-N-M and break.
+        m = re.findall(r'''<h3 class=['"]sectionHead['"][^>]*><span[^>]*>([^<]+)</span>\s*<a\s+id=['"]([^'"]+)['"]''', html)
         for num, old_id in m:
             new_id = 'sec-' + num.strip().replace('.', '-')
             print("Replacing", old_id, "with", new_id)
