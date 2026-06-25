@@ -1301,7 +1301,7 @@ battle scenario, but $\tF s \,\lor \neg \!\tF s$ is true.
 % three-valued language.
 
 
-\section{Extending the language}\label{sec:2d}
+\section{Extending the language}\label{sec:time2d}
 
 The expressive resources of standard modal and temporal logic are weak. There
 are many things we might want to say about the unfolding of events in time that
@@ -1442,7 +1442,7 @@ not supervaluation but ``diagonalization'':
   M,t \models A & \;\text{iff $M,t,t \models A$}.
 \end{align*}
 
-This ``two-dimensional'' semantics correctly predicts that $\tP\tN p$ entails $p$:
+The 2D semantics correctly predicts that $\tP\tN p$ entails $p$:
 \begin{enumerate}[leftmargin=10mm]
   \itemsep-1mm
 \item Assume $M,t \models \tP\tN p$.
@@ -1457,16 +1457,31 @@ $\tN p \to p$ is valid, in the sense that it is true at all times in all models.
 But $\tG(\tN p \to p)$ is invalid. If $p$ is true at $t$ and false at some time
 after $t$, then $\tG(\tN p \to p)$ is false at $t$. So we must give up the
 forward and backward Necessitation rules. The fact that something is logically
-true does not entail that it will always be true!
+true does not entail that it is always going to be true!
+
+We've met a version of all this before,
+when we discussed the connection between apriority and metaphysical necessity in section \ref{sec:2d}.
+There,
+we saw that it might be useful to defined truth relative to pairs of worlds,
+just as we've now defined truth relative to pairs of times.
+The two applications of the 2D machinery are closely related.
+In each case,
+it reflects the fact that
+when an operator shifts the point of evaluation
+(to another time or world),
+the evaluation of certain expressions that occur in the scope of that operator
+(`now', `Aristotle')
+can still depend on the point at which we started
+(the present time, or the actual world).
 
 \begin{exercise}
-  `It might have been that everyone who is actually rich is poor.' This says
+  `It could have been that everyone who is actually rich is poor.' This says
   that there is a world $w$ such that everyone who is rich \emph{at the actual
     world} is poor \emph{at $w$}. To formalize statements like these, we need a
   modal operator analogous to $\tN$ that takes us back to the actual world, even
   in the scope of other modal operators. This operator is called the
   \emph{actually} operator. Let's write it as $\tA$ and add it to $\L_{M}$. Can
-  you find a sentence $B$ in this language that is logically true but not
+  you find a sentence $B$ in the resulting language that is logically true but not
   necessarily true, in the sense that $B$ is true at all worlds in all models
   but $\Box B$ is not?
 \end{exercise}
