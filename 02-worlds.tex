@@ -1,6 +1,6 @@
 \chapter{Possible Worlds}\label{ch:worlds}
 
-\section{The possible-worlds analysis of possibility and necessity}
+\section{Modality and possible worlds}
 
 An important breakthrough in the history of modal logic was the development of
 ``possible-worlds semantics'' in the 1940s-60s.
@@ -240,16 +240,16 @@ defined as follows.
   any sentence letter, and $A,B$ are any $\L_M$-sentences, then
 
   \medskip
-  \begin{tabular}{lll}
-    (a) & $M,w \models P$ &iff $w$ is in $V(P)$.\\
-    (b) & $M,w \models \neg A$ &iff $M,w \not\models A$.\\
-    (c) & $M,w \models A \land B$ &iff $M,w \models A$ and $M,w \models B$.\\
-    (d) & $M,w \models A \lor B$ &iff $M,w \models A$ or $M,w \models B$.\\
-    (e) & $M,w \models A \to B$ &iff $M,w \not\models A$ or $M,w \models B$.\\
-    (f) & $M,w \models A \leftrightarrow B$ &iff $M,w \models A\to B$ and $M,w \models B\to A$.\\
-    (g) & $M,w \models \Box A$ &iff $M,v \models A$ for all $v$ in $W$.\\
-    (h) & $M,w \models \Diamond A$ &iff $M,v \models A$ for some $v$ in $W$.
-  \end{tabular}
+  \begin{semantics}
+    \clause{(a)}{M,w \models P}{$w$ is in $V(P)$.}
+    \clause{(b)}{M,w \models \neg A}{$M,w \not\models A$.}
+    \clause{(c)}{M,w \models A \land B}{$M,w \models A$ and $M,w \models B$.}
+    \clause{(d)}{M,w \models A \lor B}{$M,w \models A$ or $M,w \models B$.}
+    \clause{(e)}{M,w \models A \to B}{$M,w \not\models A$ or $M,w \models B$.}
+    \clause{(f)}{M,w \models A \leftrightarrow B}{$M,w \models A\to B$ and $M,w \models B\to A$.}
+    \clause{(g)}{M,w \models \Box A}{$M,v \models A$ for all $v$ in $W$.}
+    \clause{(h)}{M,w \models \Diamond A}{$M,v \models A$ for some $v$ in $W$.}
+  \end{semantics}
 \end{definition}
 
 Let's go through the clauses in this definition.

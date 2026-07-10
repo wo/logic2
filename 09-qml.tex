@@ -235,17 +235,17 @@ Now we can state the standard semantics of first-order predicate logic.
   $g$ is a variable assignment, then
   
   \medskip
-  \begin{tabular}{lll}
-    (a) & $M,g \models \phi^{n} \tau_1\ldots \tau_n$ &iff $\t{[\tau_1]^{M,g},\ldots,[\tau_n]^{M,g}} \in V(\phi)$.\\
-    % (b) & $M,g \models \tau_1=\tau_2$ &iff $[\tau_1]^{M,g} = [\tau_2]^{M,g}$.\\
-    (b) & $M,g \models \neg A$ &iff $M,g \not\models A$.\\
-    (c) & $M,g \models A \land B$ &iff $M,g \models A$ and $M,g \models B$.\\
-    (d) & $M,g \models A \lor B$ &iff $M,g \models A$ or $M,g \models B$.\\
-    (e) & $M,g \models A \to B$ &iff $M,g \not\models A$ or $M,g \models B$.\\
-    (f) & $M,g \models A \leftrightarrow B$ &iff $M,g \models A\to B$ and $M,g \models B\to A$.\\
-    (g) & $M,g \models \forall \chi A$ &iff $M,g' \models A$ for all $\chi$-variants $g'$ of $g$.\\
-    (h) & $M,g \models \exists \chi A$ &iff $M,g' \models A$ for some $\chi$-variant $g'$ of $g$.
-  \end{tabular}
+  \begin{semantics}
+    \clause{(a)}{M,g \models \phi^{n} \tau_1\ldots \tau_n}{$\t{[\tau_1]^{M,g},\ldots,[\tau_n]^{M,g}} \in V(\phi)$.}
+    % \clause{(b)}{M,g \models \tau_1=\tau_2}{$[\tau_1]^{M,g} = [\tau_2]^{M,g}$.}
+    \clause{(b)}{M,g \models \neg A}{$M,g \not\models A$.}
+    \clause{(c)}{M,g \models A \land B}{$M,g \models A$ and $M,g \models B$.}
+    \clause{(d)}{M,g \models A \lor B}{$M,g \models A$ or $M,g \models B$.}
+    \clause{(e)}{M,g \models A \to B}{$M,g \not\models A$ or $M,g \models B$.}
+    \clause{(f)}{M,g \models A \leftrightarrow B}{$M,g \models A\to B$ and $M,g \models B\to A$.}
+    \clause{(g)}{M,g \models \forall \chi A}{$M,g' \models A$ for all $\chi$-variants $g'$ of $g$.}
+    \clause{(h)}{M,g \models \exists \chi A}{$M,g' \models A$ for some $\chi$-variant $g'$ of $g$.}
+  \end{semantics}
 \end{definition}
 
 Clause (a) says that, for example, $Fa$ is true in a model $M$ relative to an
@@ -353,16 +353,16 @@ following semantics.
   is an $\L_{P}^{1}$-predicate, then
   
   \medskip
-  \begin{tabular}{lll}
-    (a) & $M,d \models \phi x$ &iff $d \in V(\phi)$.\\
-    (b) & $M,d \models \neg A$ &iff $M,d \not\models A$.\\
-    (c) & $M,d \models A \land B$ &iff $M,d \models A$ and $M,d \models B$.\\
-    (d) & $M,d \models A \lor B$ &iff $M,d \models A$ or $M,d \models B$.\\
-    (e) & $M,d \models A \to B$ &iff $M,d \not\models A$ or $M,d \models B$.\\
-    (f) & $M,d \models A \leftrightarrow B$ &iff $M,d \models A\to B$ and $M,d \models B\to A$.\\
-    (g) & $M,d \models \forall x A$ &iff $M,d' \models A$ for all $d' \in D$.\\
-    (h) & $M,d \models \exists x A$ &iff $M,d' \models A$ for some $d' \in D$.
-  \end{tabular}
+  \begin{semantics}
+    \clause{(a)}{M,d \models \phi x}{$d \in V(\phi)$.}
+    \clause{(b)}{M,d \models \neg A}{$M,d \not\models A$.}
+    \clause{(c)}{M,d \models A \land B}{$M,d \models A$ and $M,d \models B$.}
+    \clause{(d)}{M,d \models A \lor B}{$M,d \models A$ or $M,d \models B$.}
+    \clause{(e)}{M,d \models A \to B}{$M,d \not\models A$ or $M,d \models B$.}
+    \clause{(f)}{M,d \models A \leftrightarrow B}{$M,d \models A\to B$ and $M,d \models B\to A$.}
+    \clause{(g)}{M,d \models \forall x A}{$M,d' \models A$ for all $d' \in D$.}
+    \clause{(h)}{M,d \models \exists x A}{$M,d' \models A$ for some $d' \in D$.}
+  \end{semantics}
 \end{justabox}
 
 These definitions look a lot like definitions \ref{def:basicmodel} and

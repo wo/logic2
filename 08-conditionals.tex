@@ -81,7 +81,7 @@ classical propositional logic).%
 \pri{M2}{\neg A \models A \to B}\\
 \pri{M3}{\neg (A \to B) \models A}\\
 %\item (A \to B) \lor (B \to A)}\\
-%\pri (A \to B) \lor (B \to C)}\\
+%\item \pri (A \to B) \lor (B \to C)}\\
 \pri{M4}{A \to B \models \neg B\to \neg A}\\
 \pri{M5}{A \to B \models (A\land C) \to  B}
 \end{principles}
@@ -1371,16 +1371,15 @@ and the restrictor conditional.
 \begin{definition}{Restrictor semantics for $>$}{restrictorsemantics}
   If $\Mfr = \t{W,R,V}$ is a Kripke model, $w$ is a member of $W$, $A$ is a
   sentence letter, and $B,C$ are $\L_M$-sentences, then \medskip
-  \begin{tabular}{lll}
-    (a) & $M,U,w \models A$ &iff $w$ is in $V(A)$.\\
-    (b) & $M,U,w \models \neg B$ &iff $M,U,w\not\models B$.\\
-    (c) & $M,U,w \models A \to B$ &iff $M,U,w\not\models B$ or $M,U,w \models C.\\
-    % $M,U,w \models A$ iff $M,U,w \models A$ and $w \in V(A)$;\\
+  \begin{semantics}
+    \clause{(a)}{M,U,w \models A}{$w$ is in $V(A)$.}
+    \clause{(b)}{M,U,w \models \neg B}{$M,U,w\not\models B$.}
+    \clause{(c)}{M,U,w \models A \to B}{$M,U,w\not\models B$ or $M,U,w \models B$.}
     % without this, 'if p q' is equivalent to 'q'.
-    (d) & $M,U,w \models \Box B$ &iff $M,v \models B$ for all $v$ in $U$ such that $wRv$.\\
-    (e) & $M,U,w \models B > C$ &iff $M,U,w \not\models B$ or $M,\{ v \in U: M,U,v \models B \},w \models C$.
+    \clause{(d)}{M,U,w \models \Box B}{$M,v \models B$ for all $v$ in $U$ such that $wRv$.}
+    \clause{(e)}{M,U,w \models B > C}{$M,U,w \not\models B$ or $M,\{ v \in U: M,U,v \models B \},w \models C$.}
     % "At all worlds, blanking out the A worlds, B" should mean the same as "at all A-worlds, B". So "blanking out the A worlds, B" must be true at w iff w is either a not-A world or a B-world. I.e., w |= A>B iff w |= A->B ?! We say w |= A>B iff [A],w |= B. This should be vacuously true if w is not in [A]. Can we ensure in the compositional semantics that U,w occurs on the LHS of |= only if w \in U? Sure. The condition is trivially satisfied for U=W. So we only need to adjust the clause for >: instead of saying that U,w |= A>B iff U \cap [A],w |= B, we say that U,w |= A>B iff either w \not\in [A] or U \cap [A],w |= B. Equivalently, U,w |= A>B iff U \cap [A],w |= A->B. It might be better to treat w \in U as a presupposition. -- All of that is problematic if we want A > []B to be non-vacuous if A is false! "Blanking out non-A worlds, all worlds are B-worlds" should not be vacuous.
-  \end{tabular}
+  \end{semantics}
 \end{definition}
 %
 Clause (d) says that $\Box

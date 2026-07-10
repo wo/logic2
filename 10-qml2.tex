@@ -116,20 +116,20 @@ $M = \t{D,W,R,V}$ and an assignment function $g$:
   $\tau_1,\tau_{2},\ldots,\tau_{n}$ are terms, $\chi$ is a variable, and $g$ is a
   variable assignment, then
   
-  \medskip\hspace{-4mm}
-  \begin{tabular}{lll}
-    (a) & $M,w,g \models \phi \tau_1\ldots \tau_n$ &iff $\t{[\tau_1]^{M,g},\ldots,[\tau_n]^{M,g}} \in V(\phi,w)$.\\
-    (b) & $M,w,g \models \tau_1=\tau_2$ &iff $[\tau_1]^{M,g} = [\tau_2]^{M,g}$.\\
-    (c) & $M,w,g \models \neg A$ &iff $M,w,g \not\models A$.\\
-    (d) & $M,w,g \models A \land B$ &iff $M,w,g \models A$ and $M,w,g \models B$.\\
-    (e) & $M,w,g \models A \lor B$ &iff $M,w,g \models A$ or $M,w,g \models B$.\\
-    (f) & $M,w,g \models A \to B$ &iff $M,w,g \not\models A$ or $M,w,g \models B$.\\
-    (g) & $M,w,g \models A \leftrightarrow B$ &iff $M,w,g \models (A\to B)$ and $M,w,g \models (B\to A)$.\\
-    (h) & $M,w,g \models \forall \chi A$ &iff $M,w,g' \models A$ for all $\chi$-variants $g'$ of $g$.\\
-    (i) & $M,w,g \models \exists \chi A$ &iff $M,w,g' \models A$ for some $\chi$-variant $g'$ of $g$.\\
-    (j) & $M,w,g \models \Box A$ &iff $M,v,g \models A$ for all $v\in W$ such that $wRv$.\\
-    (k) & $M,w,g \models \Diamond A$ &iff $M,v,g \models A$ for some $v\in W$ such that $wRv$.
-  \end{tabular}
+  \medskip
+  \begin{semantics}
+    \clause{(a)}{M,w,g \models \phi \tau_1\ldots \tau_n}{$\t{[\tau_1]^{M,g},\ldots,[\tau_n]^{M,g}} \in V(\phi,w)$.}
+    \clause{(b)}{M,w,g \models \tau_1=\tau_2}{$[\tau_1]^{M,g} = [\tau_2]^{M,g}$.}
+    \clause{(c)}{M,w,g \models \neg A}{$M,w,g \not\models A$.}
+    \clause{(d)}{M,w,g \models A \land B}{$M,w,g \models A$ and $M,w,g \models B$.}
+    \clause{(e)}{M,w,g \models A \lor B}{$M,w,g \models A$ or $M,w,g \models B$.}
+    \clause{(f)}{M,w,g \models A \to B}{$M,w,g \not\models A$ or $M,w,g \models B$.}
+    \clause{(g)}{M,w,g \models A \leftrightarrow B}{$M,w,g \models (A\to B)$ and $M,w,g \models (B\to A)$.}
+    \clause{(h)}{M,w,g \models \forall \chi A}{$M,w,g' \models A$ for all $\chi$-variants $g'$ of $g$.}
+    \clause{(i)}{M,w,g \models \exists \chi A}{$M,w,g' \models A$ for some $\chi$-variant $g'$ of $g$.}
+    \clause{(j)}{M,w,g \models \Box A}{$M,v,g \models A$ for all $v\in W$ such that $wRv$.}
+    \clause{(k)}{M,w,g \models \Diamond A}{$M,v,g \models A$ for some $v\in W$ such that $wRv$.}
+  \end{semantics}
 
   \medskip
   $A$ is \textbf{true at $w$ in $M$} iff $M,w,g \models A$ for
@@ -873,22 +873,20 @@ true.
   % Note that [\tau]^{M,g} is never empty. We've assumed that names have a
   % referent.
   
-  \medskip\hspace{-4mm}
-  \begin{tabular}{lll}
-    (a) & $M,w,g \models \phi \tau_1\ldots \tau_n$ &iff $\t{[\tau_1]^{M,g},\ldots,[\tau_n]^{M,g}} \in V(\phi,w)$.\\
-    (b) & $M,w,g \models \tau_1=\tau_2$ &iff $[\tau_1]^{M,g} = [\tau_2]^{M,g}$ and $[\tau_1]^{M,g} \in D_w$.\\
-    (c) & $M,w,g \models \neg A$ &iff $M,w,g \not\models A$.\\
-    (d) & $M,w,g \models A \land B$ &iff $M,w,g \models A$ and $M,w,g \models B$.\\
-    (e) & $M,w,g \models A \lor B$ &iff $M,w,g \models A$ or $M,w,g \models B$.\\
-    (f) & $M,w,g \models A \to B$ &iff $M,w,g \not\models A$ or $M,w,g \models B$.\\
-    (g) & $M,w,g \models A \leftrightarrow B$ &iff $M,w,g \models (A\to B)$ and $M,w,g \models (B\to A)$.\\
-    (h) & $M,w,g \models \forall \chi A$ &iff $M,w,g' \models A$ for all $\chi$-variants $g'$ of $g$ for\\[-1mm]
-        && which $g'(\chi)\in D_w$.\\
-    (i) & $M,w,g \models \exists \chi A$ &iff $M,w,g' \models A$ for some $\chi$-variant $g'$ of $g$ for\\[-1mm]
-        && which $g'(\chi)\in D_w$.\\
-    (j) & $M,w,g \models \Box A$ &iff $M,v,g \models A$ for all $v\in W$ such that $wRv$.\\
-    (k) & $M,w,g \models \Diamond A$ &iff $M,v,g \models A$ for some $v\in W$ such that $wRv$.
-  \end{tabular}
+  \medskip
+  \begin{semantics}
+    \clause{(a)}{M,w,g \models \phi \tau_1\ldots \tau_n}{$\t{[\tau_1]^{M,g},\ldots,[\tau_n]^{M,g}} \in V(\phi,w)$.}
+    \clause{(b)}{M,w,g \models \tau_1=\tau_2}{$[\tau_1]^{M,g} = [\tau_2]^{M,g}$ and $[\tau_1]^{M,g} \in D_w$.}
+    \clause{(c)}{M,w,g \models \neg A}{$M,w,g \not\models A$.}
+    \clause{(d)}{M,w,g \models A \land B}{$M,w,g \models A$ and $M,w,g \models B$.}
+    \clause{(e)}{M,w,g \models A \lor B}{$M,w,g \models A$ or $M,w,g \models B$.}
+    \clause{(f)}{M,w,g \models A \to B}{$M,w,g \not\models A$ or $M,w,g \models B$.}
+    \clause{(g)}{M,w,g \models A \leftrightarrow B}{$M,w,g \models (A\to B)$ and $M,w,g \models (B\to A)$.}
+    \clause{(h)}{M,w,g \models \forall \chi A}{$M,w,g' \models A$ for all $\chi$-variants $g'$ of $g$ for which $g'(\chi)\in D_w$.}
+    \clause{(i)}{M,w,g \models \exists \chi A}{$M,w,g' \models A$ for some $\chi$-variant $g'$ of $g$ for which $g'(\chi)\in D_w$.}
+    \clause{(j)}{M,w,g \models \Box A}{$M,v,g \models A$ for all $v\in W$ such that $wRv$.}
+    \clause{(k)}{M,w,g \models \Diamond A}{$M,v,g \models A$ for some $v\in W$ such that $wRv$.}
+  \end{semantics}
 
   \medskip
   $A$ is \textbf{true at $w$ in $M$} iff $M,w,g \models A$ for all assignments

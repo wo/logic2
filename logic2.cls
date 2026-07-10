@@ -229,7 +229,8 @@
 \DeclareMathOperator{\Always}{\mathsf{A}}
 \DeclareMathOperator{\Sometimes}{\mathsf{S}}
 \DeclareMathOperator{\Mostly}{\mathsf{M}}
-\DeclareMathOperator{\apriori}{\mathbb{A}}
+% \DeclareMathOperator{\apriori}{\mathbb{A}}
+\DeclareMathOperator{\apriori}{\mathsf{L}}
 % \DeclareMathOperator{\apriori}{\symbfsf{A}}}
 \newcommand{\stit}{\mathop{\textsf{\smallcaps{stit}}}}
 \newcommand{\OK}{\mathop{\textsf{\smallcaps{N}}}}

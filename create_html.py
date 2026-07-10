@@ -7,6 +7,8 @@ import shutil
 import subprocess
 import argparse
 import datetime
+import hashlib
+import html as htmlmod
 from bs4 import BeautifulSoup
 from html5lib import HTMLParser, constants
 
@@ -152,9 +154,330 @@ def prep_logic2_cls():
     write_file(tmp_path + "/logic2.cls", cls)
 
 
+# ===================== Proof-tree (tableau) rendering =====================
+# Tree proofs are XY-pic pictures. tex4ht bakes them to SVG using the legacy
+# (Computer Modern) math font, since XY-pic ignores unicode-math -- which clashes
+# badly with the Noto body text and the STIX2 MathJax maths. So we don't let the
+# trees reach tex4ht at all: each \tree{...}/\Tree{...} is replaced by a
+# placeholder before make4ht, and afterwards we splice in hand-built HTML whose
+# formulas are rendered client-side by MathJax (matching the rest of the maths).
+# A tree node is laid out as a 3-column grid row [number | formula | world+just.];
+# branches put sub-stacks side by side joined by an SVG fork. See the .pt-* rules
+# in html/logic2.css and the MathJax macros in html_template.html.
+
+_TREE_FIVE = {'nnode', 'nnodeticked', 'nnodeclosed', 'dotbelownode', 'bnode',
+              'bnodeticked', 'tribnode', 'dotbelowbnode'}
+_TREE_ONE = {'barenode', 'dotbelowbarenode', 'dotbelowbarebnode',
+             'dotbelowbaretribnode'}
+_tree_html_cache = {}
+
+
+def _tree_read_braced(s, i):
+    """s[i] must be '{'. Return (content, index after the matching '}')."""
+    depth = 0
+    j = i
+    while j < len(s):
+        if s[j] == '{':
+            depth += 1
+        elif s[j] == '}':
+            depth -= 1
+            if depth == 0:
+                return s[i + 1:j], j + 1
+        j += 1
+    raise ValueError("unbalanced braces in \\tree")
+
+
+def _tree_split(s, sep):
+    """Split s on a single-char separator at brace depth 0."""
+    parts = []
+    depth = 0
+    cur = ''
+    for c in s:
+        if c == '{':
+            depth += 1
+            cur += c
+        elif c == '}':
+            depth -= 1
+            cur += c
+        elif c == sep and depth == 0:
+            parts.append(cur)
+            cur = ''
+        else:
+            cur += c
+    parts.append(cur)
+    return parts
+
+
+def _tree_split_rows(s):
+    r"""Split a tree body on \\ at brace depth 0."""
+    parts = []
+    depth = 0
+    cur = ''
+    i = 0
+    while i < len(s):
+        c = s[i]
+        if c == '{':
+            depth += 1
+            cur += c
+        elif c == '}':
+            depth -= 1
+            cur += c
+        elif c == '\\' and i + 1 < len(s) and s[i + 1] == '\\' and depth == 0:
+            parts.append(cur)
+            cur = ''
+            i += 2
+            continue
+        else:
+            cur += c
+        i += 1
+    parts.append(cur)
+    return parts
+
+
+def _tree_strip_comments(s):
+    out = []
+    for line in s.split('\n'):
+        i = 0
+        res = ''
+        while i < len(line):
+            if line[i] == '%' and (i == 0 or line[i - 1] != '\\'):
+                break
+            res += line[i]
+            i += 1
+        out.append(res)
+    return '\n'.join(out)
+
+
+def _tree_bodies(text):
+    """Yield the brace-content of every \\tree[..]{...} / \\Tree{...}."""
+    for m in re.finditer(r'\\(?:tree|Tree)(?:\[[0-9]+\])?\s*\{', text):
+        body, _ = _tree_read_braced(text, m.end() - 1)
+        yield body
+
+
+def _tree_parse_node(cell):
+    cell = cell.strip()
+    if not cell:
+        return None
+    m = re.match(r'\\([A-Za-z]+)', cell)
+    if not m:
+        return None
+    name = m.group(1)
+    i = m.end()
+    args = []
+    while i < len(cell):
+        while i < len(cell) and cell[i] in ' \t\n':
+            i += 1
+        if i < len(cell) and cell[i] == '[':       # optional arg, skip
+            i = cell.index(']', i) + 1
+            continue
+        if i < len(cell) and cell[i] == '{':
+            content, i = _tree_read_braced(cell, i)
+            args.append(content)
+        else:
+            break
+    if name in _TREE_FIVE:
+        _, num, formula, world, annot = (args + ['', '', '', '', ''])[:5]
+    elif name in _TREE_ONE:
+        formula = args[0] if args else ''
+        num = world = annot = ''
+    else:
+        return None
+    return {
+        'num': num.strip(), 'formula': formula.strip(),
+        'world': world.strip(), 'annot': annot.strip(),
+        'ticked': name in ('nnodeticked', 'bnodeticked'),
+        'closed': name == 'nnodeclosed',
+        'dotbelow': name.startswith('dotbelow'),
+        'arity': 3 if 'trib' in name else
+                 (2 if name in ('bnode', 'bnodeticked', 'dotbelowbnode',
+                                'dotbelowbarebnode') else 0),
+    }
+
+
+def _tree_parse_grid(body):
+    rows = _tree_split_rows(_tree_strip_comments(body))
+    grid = []
+    for r in rows:
+        cells = [_tree_parse_node(c) for c in _tree_split(r, '&')]
+        grid.append(cells)
+    width = max((len(r) for r in grid), default=0)
+    for r in grid:
+        r += [None] * (width - len(r))
+    return grid
+
+
+def _tree_math(s):
+    """One MathJax math group; drop inner '$' delimiters and HTML-escape so
+    operators like '<' / '>' are not parsed as HTML tags."""
+    return r'\(' + htmlmod.escape(s.strip().replace('$', '')) + r'\)'
+
+
+def _tree_annot(s):
+    # Drop \quad/\qquad spacing hacks: the annotation has its own CSS column,
+    # so this PDF-only alignment is meaningless (and would leak literally).
+    s = re.sub(r'\\q?quad\b', ' ', s)
+    s = re.sub(r'\$([^$]*)\$', r'\\(\1\\)', s.strip())
+    return htmlmod.escape(s)
+
+
+def _tree_node_html(n):
+    parts = ['<div class="pt-node">']
+    parts.append(f'<span class="pt-n">{htmlmod.escape(n["num"])}</span>')
+    parts.append(f'<span class="pt-f">{_tree_math(n["formula"])}</span>')
+    # Always emit the world slot (fixed width in CSS) so the justification stays
+    # in its own column even for nodes without a world label (e.g. 'wRv').
+    w = n['world'].replace('$', '')
+    if w:
+        meta = [f'<span class="pt-w">\\(({htmlmod.escape(w)})\\)</span>']
+    else:
+        meta = ['<span class="pt-w"></span>']
+    if n['annot']:
+        meta.append(f'<span class="pt-a">{_tree_annot(n["annot"])}</span>')
+    if n['ticked']:
+        meta.append('<span class="pt-t">✓</span>')
+    parts.append('<span class="pt-meta">' + ''.join(meta) + '</span>')
+    if n['dotbelow']:
+        parts.append('<span class="pt-dots"></span>')
+    if n['closed']:
+        parts.append('<span class="pt-x">✗</span>')
+    parts.append('</div>')
+    return ''.join(parts)
+
+
+def _tree_first(grid, r_lo, r_hi, c_lo, c_hi):
+    for r in range(r_lo, r_hi + 1):
+        for c in range(c_lo, c_hi + 1):
+            if grid[r][c] is not None:
+                return r, c
+    return None
+
+
+def _tree_fork(arity):
+    if arity == 3:
+        lines = ('<line x1="50" y1="0" x2="15" y2="100" vector-effect="non-scaling-stroke"/>'
+                 '<line x1="50" y1="0" x2="50" y2="100" vector-effect="non-scaling-stroke"/>'
+                 '<line x1="50" y1="0" x2="85" y2="100" vector-effect="non-scaling-stroke"/>')
+    else:
+        lines = ('<line x1="50" y1="0" x2="27" y2="100" vector-effect="non-scaling-stroke"/>'
+                 '<line x1="50" y1="0" x2="73" y2="100" vector-effect="non-scaling-stroke"/>')
+    return ('<svg class="pt-fork" viewBox="0 0 100 100" '
+            f'preserveAspectRatio="none">{lines}</svg>')
+
+
+def _tree_child_cols(grid, branch_row, r_hi, c_lo, c_hi):
+    """Columns of a branch node's children: the nodes in the first non-empty
+    row below the branch, within the branch's column range."""
+    for r in range(branch_row + 1, r_hi + 1):
+        cols = [c for c in range(c_lo, c_hi + 1) if grid[r][c] is not None]
+        if cols:
+            return cols
+    return []
+
+
+def _tree_render(grid, r_lo, r_hi, c_lo, c_hi):
+    pos = _tree_first(grid, r_lo, r_hi, c_lo, c_hi)
+    if not pos:
+        return ''
+    r0, cc = pos
+    seg = []
+    branch = None
+    branch_row = None
+    for r in range(r0, r_hi + 1):
+        n = grid[r][cc]
+        if n is not None:
+            seg.append(n)
+            if n['arity']:
+                branch = n
+                branch_row = r
+                break
+    stack = '<div class="pt-stack">' + ''.join(_tree_node_html(n) for n in seg) + '</div>'
+    if not branch:
+        return stack
+    # Split the remaining columns by where the children actually sit, not by the
+    # branch node's own column: a deeper branch's left child can reach back into
+    # a column to the left of this node (see the right-most branch of the
+    # Box(p->q)->(p->Box q) tree, where node 11 sits left of node 10).
+    child_cols = _tree_child_cols(grid, branch_row, r_hi, c_lo, c_hi)
+    if len(child_cols) >= 2:
+        groups = []
+        left = c_lo
+        for k in child_cols[:-1]:
+            groups.append((left, k))
+            left = k + 1
+        groups.append((left, c_hi))
+    elif branch['arity'] == 3:
+        groups = [(c_lo, cc - 1), (cc, cc), (cc + 1, c_hi)]
+    else:
+        groups = [(c_lo, cc - 1), (cc + 1, c_hi)]
+    cols = []
+    for gl, gh in groups:
+        if gl > gh:
+            continue
+        cols.append('<div class="pt-col">'
+                    + _tree_render(grid, branch_row + 1, r_hi, gl, gh)
+                    + '</div>')
+    return ('<div class="pt-split">' + stack + _tree_fork(branch['arity'])
+            + '<div class="pt-cols">' + ''.join(cols) + '</div></div>')
+
+
+def tree_to_html(body):
+    grid = _tree_parse_grid(body)
+    if not grid:
+        return '<div class="prooftree"></div>'
+    inner = _tree_render(grid, 0, len(grid) - 1, 0, len(grid[0]) - 1)
+    return f'<div class="prooftree">{inner}</div>'
+
+
+def _tree_key(body):
+    return hashlib.md5(body.encode('utf-8')).hexdigest()[:12]
+
+
+def substitute_trees(tex):
+    r"""Replace every \tree{...}/\Tree{...} with a placeholder token, caching the
+    HTML rendering keyed by a hash of the tree body."""
+    out = []
+    pos = 0
+    for m in re.finditer(r'\\(?:tree|Tree)(?:\[[0-9]+\])?\s*\{', tex):
+        if m.start() < pos:
+            continue
+        body, end = _tree_read_braced(tex, m.end() - 1)
+        key = _tree_key(body)
+        _tree_html_cache[key] = tree_to_html(body)
+        out.append(tex[pos:m.start()])
+        out.append(f'TREEMARK{key}ENDTREEMARK')
+        pos = end
+    out.append(tex[pos:])
+    return ''.join(out)
+
+
+def ensure_tree_cache():
+    """Populate the tree cache from the original sources (needed in --fake mode,
+    where prepare_tex/substitute_trees did not run this session)."""
+    if _tree_html_cache:
+        return
+    for texfile in tex_files():
+        for body in _tree_bodies(read_file(texfile)):
+            _tree_html_cache[_tree_key(body)] = tree_to_html(body)
+
+
+def replace_tree_marks(html):
+    def repl(m):
+        return _tree_html_cache.get(m.group(1),
+                                    f'<!-- missing tree {m.group(1)} -->')
+    # drop a <p> wrapper tex4ht may have put around the standalone placeholder
+    html = re.sub(r'<p[^>]*>\s*TREEMARK([0-9a-f]+)ENDTREEMARK\s*</p>', repl, html)
+    html = re.sub(r'TREEMARK([0-9a-f]+)ENDTREEMARK', repl, html)
+    return html
+
+
+# ==========================================================================
+
+
 def prep_chapter(texfile):
     """Edit LaTeX chapter for conversion to HTML."""
     tex = read_file(texfile)
+    tex = substitute_trees(tex)
     tex = remove_noindent(tex)
     tex = fix_custom_commands(tex)
     tex = fix_gather(tex)
@@ -199,9 +522,14 @@ def fix_custom_commands(tex):
     tex = re.sub(r'\\t\{((?:[^{}]|\{[^{}]*\})*)\}', r'\\langle \1 \\rangle', tex)
     tex = re.sub(r'\\notmodels', r'\\mathrel{|}\\joinrel\\not=', tex)
     tex = re.sub(r'\\principle\{([^}]+)\}\{([^}]+)\}', r'\\begin{equation}\\tag{\1}\2\\end{equation}', tex)
-    tex = re.sub(r'\\begin{principles}', r'\\begin{enumerate}', tex)
-    tex = re.sub(r'\\end{principles}', r'\\end{enumerate}', tex)
-    tex = re.sub(r'\\pri\{([^}]+)\}\{(.+)\}', r'\\item[(\1)] $\2$', tex)
+    # \principle and the principles/\pri environment are both display-math with
+    # a \tag in logic2.cls, so render them the same way here (a MathJax gather
+    # display) rather than as an indented HTML list. This keeps a block of named
+    # schemas visually consistent with a standalone \principle, and lets the
+    # labels be MathJax equation tags instead of smaller, misaligned list markers.
+    tex = re.sub(r'\\begin{principles}', r'\\begin{gather}', tex)
+    tex = re.sub(r'\\end{principles}', r'\\end{gather}', tex)
+    tex = re.sub(r'\\pri\{([^}]+)\}\{(.+)\}', r'\2 \\tag{\1}', tex)
     tex = re.sub(r'\\pr\{([^}]+)\}', r'(\1)', tex)
     tex = re.sub(r'\\apriori\b', r'\\mathbb{A}', tex)
     tex = re.sub(r'\\Kn', r'\\mathsf{K}', tex)
@@ -241,7 +569,16 @@ def fix_gather(tex):
     def repl(match):
         environ = 'flalign*' if match.group(1) else 'flalign'
         body = match.group(2).strip()
-        body = re.sub(r'^(.*?)(\\\\|$)', r'\\quad & \1 &\2', body, flags=re.MULTILINE)
+        # Wrap each row as '\quad & <content> &\\' to force left alignment, but
+        # leave full-line comments and blank lines alone: wrapping a comment line
+        # would put the appended ' &\\' after its '%', so the '%' swallows the row
+        # terminator and the stray '\quad &' folds into the next row (a big gap).
+        lines = []
+        for line in body.split('\n'):
+            if line.strip() and not line.lstrip().startswith('%'):
+                line = re.sub(r'^(.*?)(\\\\|$)', r'\\quad & \1 &\2', line)
+            lines.append(line)
+        body = '\n'.join(lines)
         return f'\\begin{{{environ}}}\n{body}\n\\end{{{environ}}}'
 
     return pattern.sub(repl, tex)
@@ -493,6 +830,7 @@ def fix_toc_links():
 def fix_html():
     """Fix HTML files after conversion."""
     restore_intext_links()
+    ensure_tree_cache()
     for htmlfile in html_files():
         html = read_file(html_path + '/' + htmlfile)
         html = remove_comments(html)
@@ -501,6 +839,7 @@ def fix_html():
         html = fix_exercise_titles(html)
         html = fix_item_labels(html)
         html = fix_layout(html)
+        html = replace_tree_marks(html)
         validate_html(html, htmlfile)
         write_file(html_path + '/' + htmlfile, html)
 
@@ -573,10 +912,24 @@ def fix_layout(html):
     html = re.sub(r'(<span class=.titlemark.>.+?</span>) *', r'\1', html)
     # widen too narrow tex, e.g. in $\Kn\!\neg\!\Kn\!\neg p$
     html = re.sub(r'\\!\s*\\', r'\\', html)
+    # \not\models -> \nmodels so the enlarged turnstile (see the models/nmodels
+    # macros in html_template.html) has a matching precomposed negated glyph:
+    html = re.sub(r'\\not\s*\\models\b', r'\\nmodels', html)
     # remove \hspace{-xxx} from math elements:
     html = re.sub(r'\\hspace\s*\{[^}]+\}', '', html)
     # remove empty table rows:
     html = re.sub(r'<tr>\s*<td[^>]*>\s*</td>\s*</tr>', '', html)
+    # drop tex4ht's fake spacer rows (empty <tr class="vspace"> with an inline
+    # font-size); inter-row spacing is done in CSS instead (td.td11 padding):
+    html = re.sub(r'<tr class="vspace"[^>]*>.*?</tr>', '', html)
+    # tex4ht wraps our block-level semantics grid in a spurious <p>...</p>; a
+    # <div> inside a <p> is invalid and adds stray vertical space, so unwrap it:
+    html = re.sub(r'<p[^>]*>\s*(<div class=["\']semantics["\'].*?</div>)\s*</p>',
+                  r'\1', html, flags=re.DOTALL)
+    # tex4ht emits hardcoded black table rules as inline styles, which override
+    # the CSS and stay black-on-dark in dark mode; swap for the themable var:
+    html = re.sub(r'(border[a-z-]*:\s*\d+px\s+solid\s+)#0{3,6}\b',
+                  r'\1var(--color-rule)', html)
     # QED symbol, right-aligned:
     html = re.sub(r'QEDSYMBOL', r'<span class="qed">□</span>', html)
     return html
@@ -590,9 +943,9 @@ def fix_mathjax_linebreaks(html):
     prevents a line break just before the semicolon. We don't want a line break
     there, so we wrap '\( x \);' in a no-wrap span.
     """
-    html = re.sub(r'(\\\((?:[^\\)]|\\[^)])+\\\)[;.,?!\)])', r'<span class="nowrap">\1</span>', html)
+    html = re.sub(r'(\\\((?:(?!\\\)).)*\\\)[;.,?!\)])', r'<span class="nowrap">\1</span>', html, flags=re.DOTALL)
     # Also keep an opening curly quote glued to the math it introduces
-    html = re.sub(r'(‘\\\((?:[^\\)]|\\[^)])+\\\)’?)', r'<span class="nowrap">\1</span>', html)
+    html = re.sub(r'(‘\\\((?:(?!\\\)).)*\\\)’?)', r'<span class="nowrap">\1</span>', html, flags=re.DOTALL)
     # Glue standalone opening/closing bracket math elements to adjacent tokens
     html = re.sub(r'(\\\(\\(?:\{|\[)\\\))(\s+[^\s<>]+)',
                   r'<span class="nowrap">\1\2</span>', html)

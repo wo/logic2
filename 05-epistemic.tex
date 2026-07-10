@@ -536,10 +536,10 @@ of a modal operator ($\Kn_i$ or $\Mi_i$) and the corresponding accessibility
 relation $R_i$:
 
 \bigskip
-\begin{tabular}{lll}
-  & $M,w \models \Kn_i A$ &iff $M,v \models A$ for all $v$ in $W$ such that $wR_iv$.\\
-  & $M,w \models \Mi_i A$ &iff $M,v \models A$ for some $v$ in $W$ such that $wR_iv$.
-\end{tabular}
+\begin{semantics}
+  \clause{}{M,w \models \Kn_i A}{$M,v \models A$ for all $v$ in $W$ such that $wR_iv$.}
+  \clause{}{M,w \models \Mi_i A}{$M,v \models A$ for some $v$ in $W$ such that $wR_iv$.}
+\end{semantics}
 \bigskip
 
 For an application of this machinery, let's look at the \emph{Muddy Children}
@@ -1187,15 +1187,15 @@ According to Kripke, he could not,
 not even in the broadest circumstantial sense of `could'.
 We can imagine a counterfactual scenario in which a robot is called `Aristotle'
 and does the things for which Aristotle is famous in our world.
-But that robot would not \emph{be} Aristotle:
+But (so Kripke) that robot would not \emph{be} Aristotle:
 he would not be the same individual as the Aristotle of our world,
 who was essentially human.
 
 According to Kripke, then, it is metaphysically necessary that Aristotle was not a robot.
 But it isn't a priori that Aristotle was not a robot.
-Suppose someone suggests that Aristotle was a robot,
-secretly planted by aliens to influence the development of human civilization.
-We couldn't refute this hypothesis by a priori reasoning.
+If someone suggests that Aristotle was a robot,
+secretly planted by aliens to influence the development of human civilization,
+we couldn't refute their claim by a priori reasoning.
 It is an empirical conjecture.
 
 For the other direction,
@@ -1235,8 +1235,8 @@ $\apriori A$ is true at $w$ if $A$ is true at all worlds that are \emph{a priori
 Both types of accessibility are plausibly equivalence relations:
 they are reflexive, symmetric, and transitive.
 At any rate,
-we certainly want the \pr{T}-schema for both boxes:
-if something is metaphysically necessary or a priori, then it is true.
+we certainly want the \pr{T}-schema for $\apriori$:
+if something is a priori, it is true.
 
 But this leads to a strange conclusion.
 Let $p$ express `Jack the Ripper was not an innocent citizen'.
@@ -1245,7 +1245,7 @@ But we don't have $\Box p$:
 there are metaphysically possible worlds at which $p$ is false.
 These are counterfactual worlds in which the person known as `Jack the Ripper' in our world chose a better life.
 Since the accessibility relation for $\apriori$ is reflexive
-(it has to be for $\apriori A \to A$ to be valid)
+(it has to be for $\apriori A \to A$ to be valid),
 $\apriori p$ is false at any world where $p$ is false.
 So $p$ is not a priori at worlds where Jack the Ripper chose a better life.
 But how could this be?
@@ -1291,8 +1291,9 @@ which is incompatible with the Kripkean judgement that the two types of necessit
 % Do we really want to say that they can be ruled out a priori?
 % Why don't we need input from the world to establish that we don't live in a world of this kind?
 
-There are further problems with the present approach.
-Return to the case of Aristotle.
+There are further problems with the idea that
+$\apriori$ and $\Box$ are associated with different accessibility relations.
+Return to Aristotle.
 Following Kripke,
 I claimed that 
 there is no world at which Aristotle was a robot:
@@ -1300,7 +1301,7 @@ since Aristotle was essentially human,
 no robot at any world could literally \emph{be} Aristotle.
 On the present approach,
 we have to reject this intuition:
-there \emph{are} worlds at which Aristotle is a robot;
+there are worlds at which Aristotle is a robot;
 it's just that these worlds are metaphysically impossible.
 
 We seem to need worlds where Aristotle was a robot because
@@ -1309,7 +1310,7 @@ Let's think about this.
 How could we discover that Aristotle was a robot?
 Well,
 we might discover that
-aliens from Alpha Centauri secretly planted a humanoid robot in ancient Greece
+aliens secretly planted a humanoid robot in ancient Greece
 -- a robot that looked and behaved like a human,
 so that nobody noticed;
 the robot called itself `Aristotle',
@@ -1324,7 +1325,7 @@ Surely aliens could have secretly planted a robot etc.,
 in the broadest circumstantial sense of `could'.
 
 All this suggests that apriority and necessity are more intimately connected than
-our bimodal approach assumed.
+our bimodal approach assumes.
 Perhaps we shouldn't distinguish metaphysically accessible worlds from a priori accessible worlds.
 Instead,
 we should distinguish between two ways of \emph{evaluating a sentence at a world}.
@@ -1341,9 +1342,9 @@ We hold fixed that Aristotle was, in fact, human.
 We think of $w$ as a counterfactual world at which a robot plays the role of Aristotle.
 That robot would be called `Aristotle' in its world,
 but it would not be the same individual as the Aristotle of our world.
-`Aristotle was a robot' is false at $w$ if $w$ is \emph{considered as counterfactual}:
+`Aristotle was a robot' is false at $w$ if $w$ is \emph{considered as counterfactual},
 as a counterfactual alternative to the actual world.
-The same sentence is true at $w$ if $w$ is \emph{considered as actual}:
+The same sentence is true at $w$ if $w$ is \emph{considered as actual},
 as a hypothesis about the world we actually inhabit.
 
 Note that what is metaphysically possible depends on what is actual.
@@ -1423,16 +1424,16 @@ Let's flesh out our two-dimensional semantics in full.
   a sentence letter, and $A,B$ are any sentences, then
 
   \medskip
-  \begin{tabular}{lll}
-    (a) & $M,w_{1},w_{2} \models P$ &iff $\t{w_{1},w_{2}}$ is in $V(P)$.\\
-    (b) & $M,w_{1},w_{2} \models \neg A$ &iff $M,w_{1},w_{2} \not\models A$.\\
-    (c) & $M,w_{1},w_{2} \models A \land B$ &iff $M,w_{1},w_{2} \models A$ and $M,w_{1},w_{2} \models B$.\\
-    (d) & $M,w_{1},w_{2} \models A \lor B$ &iff $M,w_{1},w_{2} \models A$ or $M,w_{1},w_{2} \models B$.\\
-    (e) & $M,w_{1},w_{2} \models A \to B$ &iff $M,w_{1},w_{2} \not\models A$ or $M,w_{1},w_{2} \models B$.\\
-    (f) & $M,w_{1},w_{2} \models A \leftrightarrow B$ &iff $M,w_{1},w_{2} \models A\to B$ and $M,w_{1},w_{2} \models B\to A$.\\
-    (g) & $M,w_{1},w_{2} \models \Box A$ &iff $M,w_{1},v \models A$ for all $v$ in $W$.\\
-    (h) & $M,w_{1},w_{2} \models \apriori A$ &iff $M,v,v \models A$ for all $v$ in $W$.\\
-  \end{tabular}
+  \begin{semantics}
+    \clause{(a)}{M,w_{1},w_{2} \models P}{$\t{w_{1},w_{2}}$ is in $V(P)$.}
+    \clause{(b)}{M,w_{1},w_{2} \models \neg A}{$M,w_{1},w_{2} \not\models A$.}
+    \clause{(c)}{M,w_{1},w_{2} \models A \land B}{$M,w_{1},w_{2} \models A$ and $M,w_{1},w_{2} \models B$.}
+    \clause{(d)}{M,w_{1},w_{2} \models A \lor B}{$M,w_{1},w_{2} \models A$ or $M,w_{1},w_{2} \models B$.}
+    \clause{(e)}{M,w_{1},w_{2} \models A \to B}{$M,w_{1},w_{2} \not\models A$ or $M,w_{1},w_{2} \models B$.}
+    \clause{(f)}{M,w_{1},w_{2} \models A \leftrightarrow B}{$M,w_{1},w_{2} \models A\to B$ and $M,w_{1},w_{2} \models B\to A$.}
+    \clause{(g)}{M,w_{1},w_{2} \models \Box A}{$M,w_{1},v \models A$ for all $v$ in $W$.}
+    \clause{(h)}{M,w_{1},w_{2} \models \apriori A}{$M,v,v \models A$ for all $v$ in $W$.}
+  \end{semantics}
 
 \end{definition}
 
@@ -1440,7 +1441,8 @@ We could obviously generalize this approach by adding accessibility relations.
 For the present application, we don't need accessibility relations:
 we assume that $\Box$ and $\apriori$ range unrestrictedly over all worlds.
 
-We also have to redefine validity. We'll say that a sentence $A$ is \emph{2D-valid} iff $M,w,w \models A$ for all 2D models $M$ and all worlds $w$ in $M$.
+We also have to redefine validity.
+A sentence $A$ is \emph{2D-valid} iff $M,w,w \models A$ for all 2D models $M$ and all worlds $w$ in $M$.
 This reflects the idea that validity is a subspecies of apriority: a valid
 sentence is true at all worlds considered as actual, and it is so in virtue of
 its logical form.
@@ -1454,9 +1456,8 @@ Things get interesting when they interact.
 The \pr{NA}-schema $\apriori A \to \Box \apriori A$ is now valid:
 whether something is a priori never depends on contingent facts.
 Proof:
-suppose some instance of \pr{NA} is 2D-invalid.
-By definition of 2D-validity,
-this means that $M,w,w \not\models \apriori A \to \Box \apriori A$
+Suppose some instance of \pr{NA} is 2D-invalid,
+so that $M,w,w \not\models \apriori A \to \Box \apriori A$,
 for some $M$, $w$ and $A$.
 By clause (e) of definition \ref{def:basic2dsemantics},
 it follows that $M,w,w \models \apriori A$ and $M,w,w \not\models \Box \apriori A$.
@@ -1471,8 +1472,7 @@ it follows that there is a world $v$ in $M$ such that $M,v,v \not\models A$.
 Contradiction.
 
 Earlier,
-when we tried to account for Kripke's observations by positing
-different accessibility relations for $\Box$ and $\apriori$,
+when we posited different accessibility relations for $\Box$ and $\apriori$,
 we saw that we couldn't have \pr{NA} as well as the \pr{T}-schema for $\apriori$,
 on pain of deriving $\apriori A \to \Box A$.
 The derivation could be formalized like this:
@@ -1489,8 +1489,7 @@ The derivation could be formalized like this:
 In our two-dimensional logic,
 \pr{NA} and \pr{T} are 2D-valid, 
 but $\apriori A \to \Box A$ is not.
-So this derivation isn't sound.
-It goes wrong at line 2, where Necessitation is applied to $\apriori A \to A$.
+The derivation goes wrong at line 2, where Necessitation is applied to $\apriori A \to A$.
 $\Box(\apriori A \to A)$ is not 2D-valid,
 although $\apriori A \to A$ is.
 In two-dimensional modal logic,

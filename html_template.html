@@ -4,29 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
-    <link rel="stylesheet" type="text/css" href="logic2.css" /> 
+    <link rel="stylesheet" type="text/css" href="logic2.css" />
     <script>
+    // Apply a saved theme choice before first paint, to avoid a flash. With no
+    // saved choice we leave data-theme unset, so the CSS follows the OS.
+    (function() {
+        try {
+            var t = localStorage.getItem('logic2-theme');
+            if (t === 'light' || t === 'dark') {
+                document.documentElement.setAttribute('data-theme', t);
+            }
+        } catch (e) {}
+    })();
+    </script>
+    <script>
+    // Draw each proof-tree branch fork as straight lines from the centre of the
+    // parent formula to the centre of each child formula. The formula positions
+    // are only known after MathJax has laid them out, so this runs after typeset
+    // (and on resize). Each .pt-split holds: the trunk .pt-stack (whose last node
+    // is the branching node), the .pt-fork <svg>, and .pt-cols with one .pt-col
+    // per branch (the first .pt-f in each is that branch's root formula).
+    function drawForks() {
+        document.querySelectorAll('.pt-split').forEach(function(split) {
+            var svg = split.querySelector(':scope > .pt-fork');
+            var stack = split.querySelector(':scope > .pt-stack');
+            var cols = split.querySelector(':scope > .pt-cols');
+            if (!svg || !stack || !cols) return;
+            var nodes = stack.querySelectorAll(':scope > .pt-node');
+            var parent = nodes[nodes.length - 1];
+            var pf = parent && parent.querySelector('.pt-f');
+            if (!pf) return;
+            var box = svg.getBoundingClientRect();
+            if (!box.width || !box.height) return;
+            function cx(el) { var r = el.getBoundingClientRect(); return r.left + r.width / 2 - box.left; }
+            var x0 = cx(pf), lines = '';
+            cols.querySelectorAll(':scope > .pt-col').forEach(function(col) {
+                var cf = col.querySelector('.pt-f');
+                if (cf) lines += '<line x1="' + x0 + '" y1="0" x2="' + cx(cf) + '" y2="' + box.height + '"/>';
+            });
+            svg.setAttribute('viewBox', '0 0 ' + box.width + ' ' + box.height);
+            svg.setAttribute('preserveAspectRatio', 'none');
+            svg.innerHTML = lines;
+        });
+    }
+
+    // Draw the forks now, then re-draw whenever a formula box changes size. The
+    // formula geometry settles in several steps (MathJax typesetting, then the
+    // web-font swap), each of which shifts node positions; a one-off draw would
+    // leave the lines pointing at stale positions. A ResizeObserver on every
+    // formula span catches each reflow and redraws (coalesced to one pass per
+    // frame). We deliberately do NOT hook MathJax's startup promise: under
+    // file:// its speech-rule fetch is blocked by CORS and the promise never
+    // resolves, but the ResizeObserver fires regardless once formulas typeset.
+    function setupForks() {
+        drawForks();
+        if (typeof ResizeObserver !== 'undefined') {
+            var pending = false;
+            var ro = new ResizeObserver(function() {
+                if (pending) return;
+                pending = true;
+                requestAnimationFrame(function() { pending = false; drawForks(); });
+            });
+            document.querySelectorAll('.pt-f').forEach(function(f) { ro.observe(f); });
+        } else {
+            window.addEventListener('load', drawForks);
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawForks);
+            setTimeout(drawForks, 800);
+        }
+    }
+
     MathJax = {
         tex: {
             tags: "ams",
             tagSide: "left",
             macros: {
                 strictif: "\\mathrel{\\unicode{x297D}}",
-                doubleleftright: "\\Leftrightarrow"
+                doubleleftright: "\\Leftrightarrow",
+                // The double-barred turnstile is used constantly and looks too
+                // small at the default size, so render it a touch larger (see
+                // .bigrel in logic2.css). \not\models is rewritten to \nmodels
+                // in create_html.py so the negated form scales consistently.
+                models: "\\mathrel{\\class{bigrel}{\\vDash}}",
+                nmodels: "\\mathrel{\\class{bigrel}{\\nvDash}}",
+                // Operators used in the proof trees, which are rendered straight
+                // from LaTeX by MathJax (inline maths arrives pre-expanded from
+                // tex4ht, so these are only needed for the trees).
+                boxright: "\\mathbin{\\Box\\!\\rightarrow}",
+                Kn: "\\mathsf{K}", Mi: "\\mathsf{M}", Bel: "\\mathsf{B}",
+                EKn: "\\mathsf{E}", CKn: "\\mathsf{C}",
+                tP: "\\mathsf{P}", tF: "\\mathsf{F}", tG: "\\mathsf{G}",
+                tH: "\\mathsf{H}", tX: "\\mathsf{X}", tY: "\\mathsf{Y}",
+                tS: "\\mathsf{S}", tU: "\\mathsf{U}", tN: "\\mathsf{N}",
+                Ob: "\\mathsf{O}", Pe: "\\mathsf{P}", tA: "\\mathsf{A}"
             }
         },
         loader: {
             paths: { fonts: 'mathjax-fonts' }
         },
-        output: {
+        chtml: {
             font: 'mathjax-stix2',
             displayAlign: 'left',
             displayIndent: '2em',
-            lineleading: 0.6
+            linebreaks: { inline: false }
         }
     };
 
+    // Set up fork drawing once the DOM exists, and re-draw on resize.
+    (function() {
+        var t;
+        window.addEventListener('resize', function() {
+            clearTimeout(t);
+            t = setTimeout(drawForks, 120);
+        });
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupForks);
+        } else {
+            setupForks();
+        }
+    })();
+
     document.addEventListener('DOMContentLoaded', function() {
+        // Theme toggle. data-theme unset = follow OS; clicking pins a choice.
+        const themeOpts = document.querySelectorAll('.theme-opt');
+        const darkMql = window.matchMedia('(prefers-color-scheme: dark)');
+        function effectiveTheme() {
+            return document.documentElement.getAttribute('data-theme')
+                || (darkMql.matches ? 'dark' : 'light');
+        }
+        function updateToggle() {
+            const cur = effectiveTheme();
+            themeOpts.forEach(function(b) {
+                const on = b.dataset.themeChoice === cur;
+                b.classList.toggle('active', on);
+                b.setAttribute('aria-pressed', on);
+            });
+        }
+        themeOpts.forEach(function(b) {
+            b.addEventListener('click', function() {
+                const choice = b.dataset.themeChoice;
+                document.documentElement.setAttribute('data-theme', choice);
+                try { localStorage.setItem('logic2-theme', choice); } catch (e) {}
+                updateToggle();
+            });
+        });
+        // Keep the highlight right if the OS theme changes and no choice is pinned.
+        darkMql.addEventListener('change', updateToggle);
+        updateToggle();
+
         const hamburger = document.querySelector('.hamburger');
         const dropdownContent = document.querySelector('.dropdown-content');
         hamburger.addEventListener('click', function() {
@@ -55,6 +179,10 @@
                 </div>
             </div>
             <a href="index.html">Logic 2: Modal Logic</a>
+            <div class="theme-toggle" role="group" aria-label="Colour theme">
+                <button type="button" class="theme-opt" data-theme-choice="light">Light</button>
+                <button type="button" class="theme-opt" data-theme-choice="dark">Dark</button>
+            </div>
         </div>
     </header>
     <div class="content">

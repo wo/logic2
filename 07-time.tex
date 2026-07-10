@@ -121,18 +121,18 @@ the truth-value of every $\L_T$-sentence at every time in every model.
   any sentence letter, and $A,B$ are any $\L_T$-sentences, then
 
   \medskip
-  \begin{tabular}{lll}
-    (a) & $M,t \models P$ &iff $t$ is in $V(P)$.\\
-    (b) & $M,t \models \neg A$ &iff $M,t \not\models A$.\\
-    (c) & $M,t \models A \land B$ &iff $M,t \models A$ and $M,t \models B$.\\
-    (d) & $M,t \models A \lor B$ &iff $M,t \models A$ or $M,t \models B$.\\
-    (e) & $M,t \models A \to B$ &iff $M,t \not\models A$ or $M,t \models B$.\\
-    (f) & $M,t \models A \leftrightarrow B$ &iff $M,t \models (A\to B)$ and $M,t \models (B\to A)$.\\
-    (g) & $M,t \models \tF A$ &iff $M,s \models A$ for some $s\in T$ such that $t<s$.\\
-    (h) & $M,t \models \tG A$ &iff $M,s \models A$ for all $s\in T$ such that $t<s$.\\
-    (i) & $M,t \models \tP A$ &iff $M,s \models A$ for some $s\in T$ such that $s<t$.\\
-    (j) & $M,t \models \tH A$ &iff $M,s \models A$ for all $s\in T$ such that $s<t$.
-  \end{tabular}
+  \begin{semantics}
+    \clause{(a)}{M,t \models P}{$t$ is in $V(P)$.}
+    \clause{(b)}{M,t \models \neg A}{$M,t \not\models A$.}
+    \clause{(c)}{M,t \models A \land B}{$M,t \models A$ and $M,t \models B$.}
+    \clause{(d)}{M,t \models A \lor B}{$M,t \models A$ or $M,t \models B$.}
+    \clause{(e)}{M,t \models A \to B}{$M,t \not\models A$ or $M,t \models B$.}
+    \clause{(f)}{M,t \models A \leftrightarrow B}{$M,t \models (A\to B)$ and $M,t \models (B\to A)$.}
+    \clause{(g)}{M,t \models \tF A}{$M,s \models A$ for some $s\in T$ such that $t<s$.}
+    \clause{(h)}{M,t \models \tG A}{$M,s \models A$ for all $s\in T$ such that $t<s$.}
+    \clause{(i)}{M,t \models \tP A}{$M,s \models A$ for some $s\in T$ such that $s<t$.}
+    \clause{(j)}{M,t \models \tH A}{$M,s \models A$ for all $s\in T$ such that $s<t$.}
+  \end{semantics}
 \end{definition}
 Clause (a) says that a sentence letter is true at a time in a model iff the
 model's interpretation function specifies that the sentence letter is true at
@@ -1112,20 +1112,20 @@ Here is the full Ockhamist semantics.
   sentences in the Ockhamist language, then
 
   \medskip
-  \begin{tabular}{lll}
-    (a) & $M,H,t \models P$ &iff $t$ is in $V(P)$.\\
-    (b) & $M,H,t \models \neg A$ &iff $M,H,t \not\models A$.\\
-    (c) & $M,H,t \models A \land B$ &iff $M,H,t \models A$ and $M,H,t \models B$.\\
-    (d) & $M,H,t \models A \lor B$ &iff $M,H,t \models A$ or $M,H,t \models B$.\\
-    (e) & $M,H,t \models A \to B$ &iff $M,H,t \not\models A$ or $M,H,t \models B$.\\
-    (f) & $M,H,t \models A \leftrightarrow B$ &iff $M,H,t \models (A\to B)$ and $M,H,t \models (B\to A)$.\\
-    (g) & $M,H,t \models \tF A$ &iff $M,H,s \models A$ for some $s$ in $ H$ such that $t<s$.\\
-    (h) & $M,H,t \models \tG A$ &iff $M,H,s \models A$ for all $s$ in $ H$ such that $t<s$.\\
-    (i) & $M,H,t \models \tP A$ &iff $M,H,s \models A$ for some $s$ in $ H$ such that $s<t$.\\
-    (j) & $M,H,t \models \tH A$ &iff $M,H,s \models A$ for all $s$ in $ H$ such that $s<t$.\\
-    (k) & $M,H,t \models \Box A$ &iff $M,J,t \models A$ for all histories $J$ that contain $t$.\\
-    (l) & $M,H,t \models \Diamond A$ &iff $M,J,t \models A$ for some history $J$ that contains $t$.
-  \end{tabular}
+  \begin{semantics}
+    \clause{(a)}{M,H,t \models P}{$t$ is in $V(P)$.}
+    \clause{(b)}{M,H,t \models \neg A}{$M,H,t \not\models A$.}
+    \clause{(c)}{M,H,t \models A \land B}{$M,H,t \models A$ and $M,H,t \models B$.}
+    \clause{(d)}{M,H,t \models A \lor B}{$M,H,t \models A$ or $M,H,t \models B$.}
+    \clause{(e)}{M,H,t \models A \to B}{$M,H,t \not\models A$ or $M,H,t \models B$.}
+    \clause{(f)}{M,H,t \models A \leftrightarrow B}{$M,H,t \models (A\to B)$ and $M,H,t \models (B\to A)$.}
+    \clause{(g)}{M,H,t \models \tF A}{$M,H,s \models A$ for some $s$ in $H$ such that $t<s$.}
+    \clause{(h)}{M,H,t \models \tG A}{$M,H,s \models A$ for all $s$ in $H$ such that $t<s$.}
+    \clause{(i)}{M,H,t \models \tP A}{$M,H,s \models A$ for some $s$ in $H$ such that $s<t$.}
+    \clause{(j)}{M,H,t \models \tH A}{$M,H,s \models A$ for all $s$ in $H$ such that $s<t$.}
+    \clause{(k)}{M,H,t \models \Box A}{$M,J,t \models A$ for all histories $J$ that contain $t$.}
+    \clause{(l)}{M,H,t \models \Diamond A}{$M,J,t \models A$ for some history $J$ that contains $t$.}
+  \end{semantics}
 \end{definition}
 
 % ``The Ockhamist semantics for temporal logic was intuitively conceived by Prior
@@ -1310,8 +1310,8 @@ are one way of adding expressive power to the basic language of temporal logic.
 In this section, we will look at some others.
 
 A useful operator for logics of discrete and linear time is the ``next''
-operator $\tX$ (also written `$\bigcirc$'). Informally, $\tX A$ means that $A$
-is true at the next point in time. Formally:
+operator $\tX$. Informally, $\tX A$ means that $A$ is true at the next point in
+time. Formally:
 %
 \begin{align*}
 \hspace{-17mm}
@@ -1418,19 +1418,19 @@ fixed.
   any sentence letter, and $A,B$ are any $\L_T$-sentences, then
 
   \medskip
-  \begin{tabular}{lll}
-    (a) & $M,t_0,t \models P$ &iff $t$ is in $V(P)$.\\
-    (b) & $M,t_0,t \models \neg A$ &iff $M,t_0,t \not\models A$.\\
-    (c) & $M,t_0,t \models A \land B$ &iff $M,t_0,t \models A$ and $M,t_0,t \models B$.\\
-    (d) & $M,t_0,t \models A \lor B$ &iff $M,t_0,t \models A$ or $M,t_0,t \models B$.\\
-    (e) & $M,t_0,t \models A \to B$ &iff $M,t_0,t \not\models A$ or $M,t_0,t \models B$.\\
-    (f) & $M,t_0,t \models A \leftrightarrow B$ &iff $M,t_0,t \models (A\to B)$ and $M,t_0,t \models (B\to A)$.\\
-    (g) & $M,t_0,t \models \tF A$ &iff $M,t_0,s \models A$ for some $s$ in $ T$ such that $t<s$.\\
-    (h) & $M,t_0,t \models \tG A$ &iff $M,t_0,s \models A$ for all $s$ in $ T$ such that $t<s$.\\
-    (i) & $M,t_0,t \models \tP A$ &iff $M,t_0,s \models A$ for some $s$ in $ T$ such that $s<t$.\\
-    (j) & $M,t_0,t \models \tH A$ &iff $M,t_0,s \models A$ for all $s$ in $ T$ such that $s<t$.\\
-    (k) & $M,t_0,t \models \tN A$ &iff $M,t_0,t_0 \models A$.
-  \end{tabular}
+  \begin{semantics}
+    \clause{(a)}{M,t_0,t \models P}{$t$ is in $V(P)$.}
+    \clause{(b)}{M,t_0,t \models \neg A}{$M,t_0,t \not\models A$.}
+    \clause{(c)}{M,t_0,t \models A \land B}{$M,t_0,t \models A$ and $M,t_0,t \models B$.}
+    \clause{(d)}{M,t_0,t \models A \lor B}{$M,t_0,t \models A$ or $M,t_0,t \models B$.}
+    \clause{(e)}{M,t_0,t \models A \to B}{$M,t_0,t \not\models A$ or $M,t_0,t \models B$.}
+    \clause{(f)}{M,t_0,t \models A \leftrightarrow B}{$M,t_0,t \models (A\to B)$ and $M,t_0,t \models (B\to A)$.}
+    \clause{(g)}{M,t_0,t \models \tF A}{$M,t_0,s \models A$ for some $s$ in $T$ such that $t<s$.}
+    \clause{(h)}{M,t_0,t \models \tG A}{$M,t_0,s \models A$ for all $s$ in $T$ such that $t<s$.}
+    \clause{(i)}{M,t_0,t \models \tP A}{$M,t_0,s \models A$ for some $s$ in $T$ such that $s<t$.}
+    \clause{(j)}{M,t_0,t \models \tH A}{$M,t_0,s \models A$ for all $s$ in $T$ such that $s<t$.}
+    \clause{(k)}{M,t_0,t \models \tN A}{$M,t_0,t_0 \models A$.}
+  \end{semantics}
 \end{definition}
 
 Like the Ockhamist semantics from the previous section, this semantics has an
@@ -1442,7 +1442,7 @@ not supervaluation but ``diagonalization'':
   M,t \models A & \;\text{iff $M,t,t \models A$}.
 \end{align*}
 
-The 2D semantics correctly predicts that $\tP\tN p$ entails $p$:
+This semantics correctly predicts that $\tP\tN p$ entails $p$:
 \begin{enumerate}[leftmargin=10mm]
   \itemsep-1mm
 \item Assume $M,t \models \tP\tN p$.

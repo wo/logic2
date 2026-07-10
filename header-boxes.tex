@@ -84,7 +84,77 @@
 \let\description=\eqlist
 \let\enddescription=\endeqlist
 \let\eqlistlabel\descriptionlabel
-\newenvironment{semantics}{\begin{description}}{\end{description}}
+% Formal semantics clauses. Usage:
+%   \begin{semantics}
+%     \clause{(a)}{M,w \models P}{$w$ is in $V(P)$.}
+%     ...
+%   \end{semantics}
+% Each \clause takes an explicit label, a left-hand side (given without math
+% delimiters), and a condition (the "iff" is supplied automatically). Long
+% conditions wrap by themselves -- no manual line breaks. In the PDF the label
+% and lhs columns are auto-sized so every "iff" aligns and continuation lines
+% hang under the condition; in HTML the same layout is produced by a CSS grid
+% (styled under .semantics in logic2.css).
+\makeatletter
+\newlength{\sem@labwidth}
+\newlength{\sem@lhswidth}
+\newlength{\sem@iffwidth}
+\newlength{\sem@clausesep}
+\setlength{\sem@clausesep}{0.4ex}% vertical gap between clauses
+\newif\ifsem@first
+\newcommand{\clause}[3]{}% placeholder, redefined inside the environment
+\NewDocumentEnvironment{semantics}{+b}{%
+  \settowidth{\sem@iffwidth}{iff~}%
+  \ifdefined\HCode
+    % ---- HTML: emit a CSS-grid structure ----
+    \renewcommand{\clause}[3]{%
+      \HCode{<span class="sem-lab">}##1\HCode{</span>}%
+      \HCode{<span class="sem-lhs">}$##2$\HCode{</span>}%
+      \HCode{<span class="sem-iff">iff</span>}%
+      \HCode{<span class="sem-cond">}##3\HCode{</span>}%
+    }%
+    \par\EndP\HCode{<div class="semantics">}\IgnorePar
+    #1%
+    \HCode{</div>}\ShowPar\par
+  \else
+    % ---- PDF ----
+    % No leading/trailing skip of our own: the surrounding source already puts a
+    % \medskip/\bigskip (or a box edge) around the block. We only enter vertical
+    % mode here.
+    \par
+    % pass 1: measure the widest label and the widest left-hand side
+    \setlength{\sem@labwidth}{0pt}%
+    \setlength{\sem@lhswidth}{0pt}%
+    \renewcommand{\clause}[3]{%
+      \settowidth{\dimen@}{##1}%
+      \ifdim\dimen@>\sem@labwidth \global\sem@labwidth=\dimen@ \fi
+      \settowidth{\dimen@}{\ensuremath{##2}}%
+      \ifdim\dimen@>\sem@lhswidth \global\sem@lhswidth=\dimen@ \fi
+    }%
+    \setbox\z@=\vbox{#1}%
+    \addtolength{\sem@labwidth}{0.6em}% gap between label and lhs
+    \addtolength{\sem@lhswidth}{1em}%  gap between lhs and "iff"
+    % pass 2: typeset. Each clause is a real paragraph; the first line holds the
+    % label box, the auto-sized lhs box (so every "iff" aligns), "iff", and the
+    % condition; \hangindent hangs continuation lines under the condition. A
+    % \sem@clausesep skip separates clauses (but not before the first one).
+    \setlength{\parindent}{0pt}%
+    \setlength{\parskip}{0pt}%
+    \sem@firsttrue
+    \renewcommand{\clause}[3]{%
+      \par
+      \ifsem@first \sem@firstfalse \else \vskip\sem@clausesep \fi
+      \noindent
+      \hangindent\dimexpr\sem@labwidth+\sem@lhswidth+\sem@iffwidth\relax
+      \hangafter\@ne
+      \makebox[\sem@labwidth][l]{##1}%
+      \makebox[\sem@lhswidth][l]{\ensuremath{##2}}iff~##3%
+      \par
+    }%
+    #1%
+  \fi
+}{}
+\makeatother
 
 
 % exercises and solutions:
