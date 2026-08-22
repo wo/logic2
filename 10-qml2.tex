@@ -828,7 +828,7 @@ name, how should we interpret $b=b$, $Fb$, $\neg Fb$, and $Fb \lor \neg Fb$?
 Within free logic, there are broadly three approaches.
 
 The first is Meinongian. It assumes that apparently empty names are not really
-empty after all; they merely pick out a non-existent individual. Statements with
+empty; they pick out a non-existent individual. Statements with
 such names are then interpreted as usual: $Fb$ may be true or false, depending
 on whether the (non-existent) individual picked out by $b$ has the property
 expressed by $F$.
@@ -848,7 +848,7 @@ Vulcan has any particular mass.
 What shall we say about $\neg Fb$, if $b$ is an empty name? In some versions of
 free logic, the standard semantic rules for complex sentences are applied: since
 $Fb$ is not true, $\neg Fb$ is true, and so is $Fb \lor \neg Fb$. Other versions
-of free logic assume that then neither $Fb$ nor $\neg Fb$ is true. Since a
+of free logic assume that neither $Fb$ nor $\neg Fb$ is true. Since a
 sentence is called false iff its negation is true, this means that $Fb$ and
 $\neg Fb$ are neither true nor false. We get a three-valued semantics. This can
 be developed in different ways, with different verdicts on sentences like
@@ -1391,6 +1391,24 @@ We might therefore identify a certain subset of all individual concepts as
 sensibly, $\Box \exists x A \to \exists x \Box A$ becomes invalid, and complete
 proof methods become available.
 
+% \begin{exercise}
+%   `Julius invented the zip (if anyone did)' is plausibly a priori.
+%   Explain why this implies that `Julius' is non-rigid if we read the box as `it is a priori that' (compare section \ref{sec:2d}).
+% \end{exercise}
+% \begin{solution}
+%   For all we can tell a priori, the zip might have been invented by Franklin, or by Judson, or by Aristotle (etc.).
+%   So the inventor of the zip varies between a priori accessible worlds.
+%   But `Julius' must pick out the inventor at each such world,
+%   otherwise `Julius invented the zip (if anyone did)' isn't true at all a priori accessible worlds.
+%   So `Julius' can't be rigid.
+% \end{solution}
+
+% remember 2d semantics: we associated sentence letters with 2d propositions:
+% 'Aristotle is a robot' is true at a pair of worlds. We can now revisit this.
+% 'Aristotle' picks out at (w1,w2) whoever plays the Aristotle role in w1. 'is a
+% robot' denotes at (w1,w2) the set of robots at w2. Unfortunately, it's not
+% clear what we should do with variables.
+
 \begin{exercise}
   The following line of thought may be attributed to Descartes. ``I am certain
   that I exist, but not that my body exists. [After all, it could turn out that
@@ -1436,6 +1454,7 @@ proof methods become available.
   $f(v)=g(v)$ then $f(w)=g(w)$, which would render the necessity of distinctness
   valid.)
 \end{solution}
+
 
 \iffalse
 

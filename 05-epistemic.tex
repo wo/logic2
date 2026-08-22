@@ -1158,7 +1158,7 @@ A proposition is \emph{a priori} if it can be established by reasoning alone, wi
 % To establish its truth,
 % we then need to establish that the world we inhabit is a world of the first type and not of the second,
 % and this requires input from the world.
-One can think of apriority as the broadest kind of epistemic necessity:
+One may think of apriority as the broadest kind of epistemic necessity:
 something is a priori if it is epistemically necessary
 not just in light of such-and-such empirical evidence,
 but independently of any evidence -- it just couldn't be otherwise.
@@ -1187,9 +1187,8 @@ According to Kripke, he could not,
 not even in the broadest circumstantial sense of `could'.
 We can imagine a counterfactual scenario in which a robot is called `Aristotle'
 and does the things for which Aristotle is famous in our world.
-But (so Kripke) that robot would not \emph{be} Aristotle:
-he would not be the same individual as the Aristotle of our world,
-who was essentially human.
+But (according to Kripke) that robot would not \emph{be} Aristotle:
+he would not be the same individual as the Aristotle of our world.
 
 According to Kripke, then, it is metaphysically necessary that Aristotle was not a robot.
 But it isn't a priori that Aristotle was not a robot.
@@ -1198,12 +1197,13 @@ secretly planted by aliens to influence the development of human civilization,
 we couldn't refute their claim by a priori reasoning.
 It is an empirical conjecture.
 
+This shows that a hypothesis can be metaphysically necessary but not a priori.
 For the other direction,
 consider Jack the Ripper.
 `Jack the Ripper' is a pseudonym for whoever committed a series of murders in London in 1888.
 Suppose someone suggests that
 Jack the Ripper was actually an innocent citizen
-who had nothing to do with any murders.
+who had nothing to do with these murders.
 This doesn't make sense.
 The suggestion can be rejected a priori,
 merely by reflecting on what it says.
@@ -1213,10 +1213,10 @@ Arguably not.
 Surely Jack the Ripper
 (the person who committed all these murders)
 \emph{could} have led an innocent life,
-at least in the metaphysical sense of `could'.
+in a metaphysical sense of `could'.
 (In that case,
 of course,
-he would not have been called `Jack the Ripper'.)
+this person would not have been called `Jack the Ripper'.)
 It is built into our concept of `Jack the Ripper' that he was a murderer,
 but this isn't built into the essence of the person to which our concept refers.
 
@@ -1226,42 +1226,44 @@ But let's see how we could capture them formally.
 I'll use $\Box$ for metaphysical necessity and $\apriori$ for apriority.
 If the Kripkean intuitions are correct, 
 the two concepts are independent:
-we can have $\Box A$ without $\apriori A$, and $\apriori A$ without $\Box A$.
+we can have $\Box p$ without $\apriori p$
+(as in the Aristotle example),
+and $\apriori p$ without $\Box p$
+(as in the Jack the Ripper example).
 
-A natural idea is that
-the two boxes are associated with different accessibility relations:
+A tempting idea is that
+the two operators are simply associated with different accessibility relations:
 $\Box A$ is true at $w$ if $A$ is true at all worlds that are \emph{metaphysically accessible} from $w$;
 $\apriori A$ is true at $w$ if $A$ is true at all worlds that are \emph{a priori accessible} from $w$.
+
 Both types of accessibility are plausibly equivalence relations:
 they are reflexive, symmetric, and transitive.
 At any rate,
 we certainly want the \pr{T}-schema for $\apriori$:
 if something is a priori, it is true.
-
 But this leads to a strange conclusion.
-Let $p$ express `Jack the Ripper was not an innocent citizen'.
-We assume that this is a priori; so we have $\apriori p$.
-But we don't have $\Box p$:
-there are metaphysically possible worlds at which $p$ is false.
-These are counterfactual worlds in which the person known as `Jack the Ripper' in our world chose a better life.
+Let $p$ express `Jack the Ripper was an innocent citizen'.
+We assume this can be ruled out a priori; so we have $\apriori \neg p$.
+But we don't have $\Box \neg p$:
+there are metaphysically possible worlds at which $p$ is true.
+These are counterfactual worlds in which the person who is known as `Jack the Ripper' in our world chose a better life.
 Since the accessibility relation for $\apriori$ is reflexive
 (it has to be for $\apriori A \to A$ to be valid),
-$\apriori p$ is false at any world where $p$ is false.
-So $p$ is not a priori at worlds where Jack the Ripper chose a better life.
+$\apriori \neg p$ is false at any world where $p$ is true.
+So $\neg p$ is not a priori at worlds where Jack the Ripper chose a better life.
 But how could this be?
-If $p$ can be established by pure reasoning,
+If $\neg p$ can be established by pure reasoning,
 how could it fail to be establishable in this way just because somebody in the 19th century made better life choices?
 
 In general,
 one might expect that it never depends on contingent facts whether something is a priori.
-This would be expressed by \pr{NA}.
+So the following schema should be valid:
 %
 \begin{principles}
   \pri{NA}{\apriori A \to \Box \apriori A}
 \end{principles}
 %
-If the accessibility relation for $\apriori$ is reflexive,
-we can't have \pr{NA}.
+But this schema can't be valid if the accessibility relation for $\apriori$ is reflexive.
 Reflexivity for $\apriori$ renders $\Box (\apriori A \to A)$ valid.
 With the help of the \pr{K}-schema,
 this can be expanded to $\Box \apriori A \to \Box A$.
@@ -1300,8 +1302,8 @@ there is no world at which Aristotle was a robot:
 since Aristotle was essentially human,
 no robot at any world could literally \emph{be} Aristotle.
 On the present approach,
-we have to reject this intuition:
-there are worlds at which Aristotle is a robot;
+we have to reject this intuition.
+We have to say that there are worlds at which Aristotle (he himself) is a robot;
 it's just that these worlds are metaphysically impossible.
 
 We seem to need worlds where Aristotle was a robot because
@@ -1316,8 +1318,8 @@ so that nobody noticed;
 the robot called itself `Aristotle',
 studied with Plato,
 taught Alexander the Great,
-and wrote works like the \emph{Nicomachean Ethics} and the \emph{Metaphysics}
-that dominated philosophical thought for centuries.
+wrote works that dominated philosophical thought for centuries,
+and is still widely known as `Aristotle' today.
 If we made these discoveries,
 we would conclude that Aristotle was a robot.
 But nothing I've said about this scenario suggests that it is metaphysically impossible.
@@ -1438,11 +1440,11 @@ Let's flesh out our two-dimensional semantics in full.
 \end{definition}
 
 We could obviously generalize this approach by adding accessibility relations.
-For the present application, we don't need accessibility relations:
+For the present application, we don't need them:
 we assume that $\Box$ and $\apriori$ range unrestrictedly over all worlds.
 
 We also have to redefine validity.
-A sentence $A$ is \emph{2D-valid} iff $M,w,w \models A$ for all 2D models $M$ and all worlds $w$ in $M$.
+We'll say that a sentence $A$ is \emph{2D-valid} iff $M,w,w \models A$ for all 2D models $M$ and all worlds $w$ in $M$.
 This reflects the idea that validity is a subspecies of apriority: a valid
 sentence is true at all worlds considered as actual, and it is so in virtue of
 its logical form.

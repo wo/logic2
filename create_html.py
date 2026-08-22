@@ -724,6 +724,12 @@ def make4ht(verbose=False):
         '&& cd -'  # Return to the original directory
     )
     print(command)
+    # make4ht's domfilter prints "Unbalanced Tag (/div)" warnings for every
+    # chapter that contains a 'proof' tcolorbox: tex4ht emits one stray </div>
+    # after each such box. This is harmless -- fix_tcolorboxes() strips those
+    # divs later, so the final html/ output is well-formed. See fix_tcolorboxes.
+    print("NOTE: 'domfilter ... Unbalanced Tag (/div)' warnings below are "
+          "expected and can be ignored; fix_tcolorboxes() repairs them afterward.")
     result = subprocess.run(command, shell=True, check=False, text=True)
     if result.stdout:
         print(result.stdout)
